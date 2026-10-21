@@ -5,6 +5,7 @@
 //   node exportar_video.js plantillas/llego.html "modelo=iphone-17-pro" salida/llego-17-pro.mp4
 //   node exportar_video.js plantillas/llego.html "modelo=iphone-13&formato=post" salida/post.mp4
 //   node exportar_video.js plantillas/llego.html "modelo=iphone-13" salida/cuadro.png --cuadro 3000
+//   node exportar_video.js plantillas/reel.html "reel=canje&exportar=1" salida/reel.mp4 --fondo videos/clips/x.mp4 --desde 2 --encuadre 0.6
 //
 // Opciones: --fps 30 (por defecto) · --cuadro <ms> guarda un PNG de ese instante en vez del video.
 // La plantilla tiene que exponer window.PLANTILLA = { duracion, listo(), ir(ms) }.
@@ -36,6 +37,9 @@ async function main() {
   const fps = Number(opt("--fps", 30));
   const cuadro = opt("--cuadro", null);
   const limite = opt("--cuadros", null); // solo para pruebas: graba los primeros N cuadros
+  const fondo = opt("--fondo", null);    // video de fondo: la plantilla se graba transparente y se superpone
+  const desde = Number(opt("--desde", 0)); // segundo del clip de fondo desde el que se toma
+  const encuadre = Number(opt("--encuadre", 0.5)); // 0 = recorte pegado a la izquierda, 1 = a la derecha
   const [plantilla, query = "", salida] = args;
   if (!plantilla || !salida) {
     console.error('Uso: node exportar_video.js <plantilla.html> "<parametros>" <salida.mp4|png> [--fps 30] [--cuadro ms]');
@@ -77,7 +81,7 @@ async function main() {
 
   if (cuadro !== null) {
     await ir(pagina, Number(cuadro));
-    await pagina.screenshot({ path: salida });
+    await pagina.screenshot({ path: salida, omitBackground: Boolean(fondo) });
     await navegador.close();
     servidor.close();
     console.log(`Cuadro ${cuadro} ms -> ${salida}`);
@@ -87,16 +91,21 @@ async function main() {
   const total = limite ? Number(limite) : Math.round((duracion / 1000) * fps);
   // capturas descartables: obligan al compositor a tomar el estado pausado antes del primer cuadro real
   for (const t of [duracion / 2, 0]) { await ir(pagina, t); await pagina.screenshot({ type: "png" }); }
-  const ff = spawn("ffmpeg", [
-    "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(fps), "-i", "-",
-    "-c:v", "libx264", "-preset", "slow", "-crf", "16", "-pix_fmt", "yuv420p",
-    "-profile:v", "high", "-movflags", "+faststart", salida,
-  ], { stdio: ["pipe", "inherit", "inherit"] });
+  const codificar = ["-c:v", "libx264", "-preset", "slow", "-crf", "16", "-pix_fmt", "yuv420p",
+                     "-profile:v", "high", "-movflags", "+faststart", salida];
+  const ff = spawn("ffmpeg", fondo
+    // clip recortado a 9:16 (o 4:5), mismos fps, y encima la capa de la plantilla con transparencia
+    ? ["-y", "-loglevel", "error", "-ss", String(desde), "-t", String(total / fps), "-i", fondo,
+       "-f", "image2pipe", "-framerate", String(fps), "-i", "-",
+       "-filter_complex", `[0:v]scale=${ancho}:${alto}:force_original_aspect_ratio=increase,crop=${ancho}:${alto}:(in_w-${ancho})*${encuadre}:(in_h-${alto})/2,fps=${fps},setsar=1[bg];[bg][1:v]overlay=0:0:format=auto[v]`,
+       "-map", "[v]", "-an", "-t", String(total / fps), ...codificar]
+    : ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(fps), "-i", "-", ...codificar],
+    { stdio: ["pipe", "inherit", "inherit"] });
   const terminado = new Promise((ok, mal) => ff.on("close", (c) => (c === 0 ? ok() : mal(new Error("ffmpeg salió con " + c)))));
 
   for (let i = 0; i < total; i++) {
     await ir(pagina, (i * 1000) / fps);
-    const png = await pagina.screenshot({ type: "png" });
+    const png = await pagina.screenshot({ type: "png", omitBackground: Boolean(fondo) });
     if (!ff.stdin.write(png)) await new Promise((r) => ff.stdin.once("drain", r));
     if (i % fps === 0) process.stdout.write(`\r  ${Math.round((i / total) * 100)}%`);
   }

@@ -105,7 +105,7 @@ def procesar_modelo(modelo, alto, forzar):
             im = im.resize((round(im.width * alto / im.height), alto), Image.LANCZOS)
         destino.parent.mkdir(parents=True, exist_ok=True)
         im.save(destino, "WEBP", quality=90, method=6)
-        aviso = "  (CHICA: menos de 1200 px de alto)" if im.height < 1200 else ""
+        aviso = f"  (CHICA: menos de {int(alto * 0.66)} px de alto)" if im.height < alto * 0.66 else ""
         print(f"  {destino.name}: {im.width}x{im.height} desde {f.name}"
               f"{' (fondo recortado)' if tiene_fondo else ''}{aviso}")
 
@@ -219,17 +219,22 @@ def procesar_dorsos(modelo, alto, forzar):
 
 
 def main():
+    global SALIDA
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--modelos", help="ids separados por coma; por defecto, todos los bajados")
     ap.add_argument("--alto", type=int, default=1800, help="alto máximo en px")
     ap.add_argument("--forzar", action="store_true", help="rehacer aunque el archivo exista")
+    ap.add_argument("--salida", default="plantillas/assets/telefonos", help="carpeta de salida (ej.: catalogo/img para la web)")
+    ap.add_argument("--sin-dorso", action="store_true", help="no exportar el dorso solo (textura del 3D)")
     a = ap.parse_args()
+    SALIDA = Path(a.salida)
     modelos = a.modelos.split(",") if a.modelos else sorted(p.name for p in FOTOS.iterdir()
                                                             if (p / "producto").is_dir())
     for m in modelos:
         print(f"== {m}")
         procesar_modelo(m.strip(), a.alto, a.forzar)
-        procesar_dorsos(m.strip(), a.alto, a.forzar)
+        if not a.sin_dorso:
+            procesar_dorsos(m.strip(), a.alto, a.forzar)
 
 
 if __name__ == "__main__":

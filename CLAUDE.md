@@ -82,11 +82,40 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
   módulo de cámara y lentes en relieve, botones y pantalla. Textura = `<modelo>_<color>_dorso.webp`.
   Para sumar un modelo: medidas, módulo y lentes en `datos.js` (fracciones del dorso) y en `MEDIDAS` de procesar_fotos.py.
 
+- Catálogo: `python3 verificar_specs.py && python3 procesar_fotos.py --salida catalogo/img --alto 900 --sin-dorso && python3 generar_catalogo.py`.
+  Se abre `catalogo/index.html` (con doble clic usa `stock-demo.js`; con servidor lee `stock.csv`).
+  `catalogo/config.js`: número de WhatsApp, link CSV de la Google Sheet con el stock real y `demo: true/false`.
+- Reels: `plantillas/reel.html` + guiones en `plantillas/reels.js`.
+  `node exportar_video.js plantillas/reel.html "reel=canje&exportar=1" salida/reel_canje.mp4 --fondo <clip> --desde <s> --encuadre <0..1>`.
+  Antes de usar un clip, verificar con zoom que el teléfono sea un iPhone (en Mixkit hay muchos Android).
+  Clips verificados con iPhone: Mixkit 100050, 100046, 100053 (iPhone rojo); Coverr "close-up of a man taking a selfie on iPhone 15".
+- Plan de contenido: `contenido/plan-2-semanas.md`.
+
 ## Feedback del usuario sobre "Llegó" (2026-10-21)
 - Aprobó la dirección visual.
 - El título gigante es el nombre del modelo ("iPhone" chico + "17 PRO" gigante), no "LLEGÓ".
 - Sin cintas de texto cruzadas.
 - Nada de fotos planas: el teléfono tiene que verse en 3D, con grosor.
+
+## Marca elegida (2026-10-21)
+- Logo A: logotipo "Celu&Co." en Unbounded 900 (el "&" en acento) + monograma "C&" para avatares.
+- Territorio 4 "Drop + tech": Tinta #0A0A0B, Hueso #EEEBE4, Lima #CCFF00, Voltio #8B6CFF, Acero #8E8E96.
+  Unbounded (títulos y precios) + JetBrains Mono (todo lo demás). Callouts técnicos, código de barras, "ficha" por equipo.
+  Exploración completa: https://claude.ai/artifact/FRYkppJACfMZGxUtbGxx1K
+- Las piezas ya hechas ("Llegó") usan la paleta anterior (ácido #D4FF3A); migrarlas al territorio 4.
+
+## Videos
+- NO usar videos subidos por terceros en redes ni quitar marcas de agua (copyright). El usuario lo pidió y se le explicó.
+- Fuente: Mixkit, solo clips con "Stock Video Free License" (uso comercial y en publicidad online, editable,
+  sin atribución). `buscar_videos.py` busca, filtra por licencia y arma `videos/hoja.jpg`; `--bajar ids` baja en 4K/1080.
+
+## Specs
+- `verificar_specs.py` lee las fichas técnicas oficiales de Apple Support → `datos/specs_apple.json`
+  (capacidades, colores, medidas, URL de la fuente). Usar SIEMPRE esto para specs, no cargar a mano.
+
+## Catálogo web
+- Por ahora solo archivo local (no publicar). Stock de EJEMPLO (ficticio, marcado como demo), sin precios:
+  todos los modelos del X al 18 Pro Max con sus capacidades y colores reales. Es un esqueleto para editar después.
 
 ## Tareas pendientes, en orden
 1. Script de fotos multi-fuente + revisar calidad por modelo.

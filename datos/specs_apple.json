@@ -1,0 +1,559 @@
+{
+ "iphone-x": {
+  "nombre": "iPhone X",
+  "fuente": "https://support.apple.com/en-us/111864",
+  "capacidades": [
+   "64GB",
+   "256GB"
+  ],
+  "colores_texto": "Space Gray Silver",
+  "medidas_mm": {
+   "height": 143.6,
+   "width": 70.9,
+   "depth": 7.7
+  }
+ },
+ "iphone-xr": {
+  "nombre": "iPhone XR",
+  "fuente": "https://support.apple.com/en-us/111868",
+  "capacidades": [
+   "64GB",
+   "128GB",
+   "256GB"
+  ],
+  "colores_texto": "(PRODUCT) RED ™ Yellow White Coral Black Blue",
+  "medidas_mm": {
+   "width": 75.7,
+   "height": 150.9,
+   "depth": 8.3
+  }
+ },
+ "iphone-xs": {
+  "nombre": "iPhone XS",
+  "fuente": "https://support.apple.com/en-us/111881",
+  "capacidades": [
+   "64GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Gold Space Gray Silver",
+  "medidas_mm": {
+   "width": 70.9,
+   "height": 143.6,
+   "depth": 7.7
+  }
+ },
+ "iphone-xs-max": {
+  "nombre": "iPhone XS Max",
+  "fuente": "https://support.apple.com/en-us/111880",
+  "capacidades": [
+   "64GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Gold Space Gray Silver",
+  "medidas_mm": {
+   "width": 77.4,
+   "height": 157.5,
+   "depth": 7.7
+  }
+ },
+ "iphone-11": {
+  "nombre": "iPhone 11",
+  "fuente": "https://support.apple.com/en-us/111865",
+  "capacidades": [
+   "64GB",
+   "128GB",
+   "256GB"
+  ],
+  "colores_texto": "Black Green Yellow Purple (PRODUCT) RED ™ White",
+  "medidas_mm": {
+   "width": 75.7,
+   "height": 150.9,
+   "depth": 8.3
+  }
+ },
+ "iphone-11-pro": {
+  "nombre": "iPhone 11 Pro",
+  "fuente": "https://support.apple.com/en-us/111879",
+  "capacidades": [
+   "64GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Gold Space Gray Silver Midnight Green",
+  "medidas_mm": {
+   "width": 71.4,
+   "height": 144.0,
+   "depth": 8.1
+  }
+ },
+ "iphone-11-pro-max": {
+  "nombre": "iPhone 11 Pro Max",
+  "fuente": "https://support.apple.com/en-us/111878",
+  "capacidades": [
+   "64GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Gold Space Gray Silver Midnight Green",
+  "medidas_mm": {
+   "width": 77.8,
+   "height": 158.0,
+   "depth": 8.1
+  }
+ },
+ "iphone-se-2": {
+  "nombre": "iPhone SE (2nd generation)",
+  "fuente": "https://support.apple.com/en-us/111882",
+  "capacidades": [
+   "64GB",
+   "128GB",
+   "256GB"
+  ],
+  "colores_texto": "Black White (PRODUCT) RED",
+  "medidas_mm": {
+   "width": 67.3,
+   "height": 138.4,
+   "depth": 7.3
+  }
+ },
+ "iphone-12-mini": {
+  "nombre": "iPhone 12 mini",
+  "fuente": "https://support.apple.com/en-us/111877",
+  "capacidades": [
+   "64GB",
+   "128GB",
+   "256GB"
+  ],
+  "colores_texto": "Black White (PRODUCT) RED Green Blue Purple Ceramic Shield front, Glass back and aluminum design",
+  "medidas_mm": {
+   "width": 64.2,
+   "height": 131.5,
+   "depth": 7.4
+  }
+ },
+ "iphone-12": {
+  "nombre": "iPhone 12",
+  "fuente": "https://support.apple.com/en-us/111876",
+  "capacidades": [
+   "64GB",
+   "128GB",
+   "256GB"
+  ],
+  "colores_texto": "Black White (PRODUCT) RED Green Blue Purple Ceramic Shield front, Glass back and aluminum design",
+  "medidas_mm": {
+   "width": 71.5,
+   "height": 146.7,
+   "depth": 7.4
+  }
+ },
+ "iphone-12-pro": {
+  "nombre": "iPhone 12 Pro",
+  "fuente": "https://support.apple.com/en-us/111875",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Silver Graphite Gold Pacific Blue Ceramic Shield front, textured matte glass back and stainless steel design",
+  "medidas_mm": {
+   "width": 71.5,
+   "height": 146.7,
+   "depth": 7.4
+  }
+ },
+ "iphone-12-pro-max": {
+  "nombre": "iPhone 12 Pro Max",
+  "fuente": "https://support.apple.com/en-us/111874",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Silver Graphite Gold Pacific Blue Ceramic Shield front, textured matte glass back and stainless steel design",
+  "medidas_mm": {
+   "width": 78.1,
+   "height": 160.8,
+   "depth": 7.4
+  }
+ },
+ "iphone-13-mini": {
+  "nombre": "iPhone 13 mini",
+  "fuente": "https://support.apple.com/en-us/111873",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "(PRODUCT) RED Starlight Midnight Blue Pink Green Ceramic Shield front, Glass back and aluminum design",
+  "medidas_mm": {
+   "width": 64.2,
+   "height": 131.5,
+   "depth": 7.65
+  }
+ },
+ "iphone-13": {
+  "nombre": "iPhone 13",
+  "fuente": "https://support.apple.com/en-us/111872",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "(PRODUCT) RED Starlight Midnight Blue Pink Green Ceramic Shield front, Glass back and aluminum design",
+  "medidas_mm": {
+   "width": 71.5,
+   "height": 146.7,
+   "depth": 7.65
+  }
+ },
+ "iphone-13-pro": {
+  "nombre": "iPhone 13 Pro",
+  "fuente": "https://support.apple.com/en-us/111871",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB",
+   "1TB"
+  ],
+  "colores_texto": "Graphite Gold Silver Sierra Blue Alpine Green Ceramic Shield front, Textured matte glass back and stainless steel design",
+  "medidas_mm": {
+   "width": 71.5,
+   "height": 146.7,
+   "depth": 7.65
+  }
+ },
+ "iphone-13-pro-max": {
+  "nombre": "iPhone 13 Pro Max",
+  "fuente": "https://support.apple.com/en-us/111870",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB",
+   "1TB"
+  ],
+  "colores_texto": "Graphite Gold Silver Sierra Blue Alpine Green Ceramic Shield front, Textured matte glass back and stainless steel design",
+  "medidas_mm": {
+   "width": 78.1,
+   "height": 160.8,
+   "depth": 7.65
+  }
+ },
+ "iphone-se-3": {
+  "nombre": "iPhone SE (3rd generation)",
+  "fuente": "https://support.apple.com/en-us/111866",
+  "capacidades": [
+   "64GB",
+   "128GB",
+   "256GB"
+  ],
+  "colores_texto": "(PRODUCT) RED Starlight Midnight",
+  "medidas_mm": {
+   "width": 67.3,
+   "height": 138.4,
+   "depth": 7.3
+  }
+ },
+ "iphone-14": {
+  "nombre": "iPhone 14",
+  "fuente": "https://support.apple.com/en-us/111850",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Midnight Purple Starlight (PRODUCT) RED Blue Yellow Ceramic Shield front, Glass back and aluminum design",
+  "medidas_mm": {
+   "width": 71.5,
+   "height": 146.7,
+   "depth": 7.8
+  }
+ },
+ "iphone-14-plus": {
+  "nombre": "iPhone 14 Plus",
+  "fuente": "https://support.apple.com/en-us/111854",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Midnight Purple Starlight (PRODUCT) RED Blue Yellow Ceramic Shield front, Glass back and aluminum design",
+  "medidas_mm": {}
+ },
+ "iphone-14-pro": {
+  "nombre": "iPhone 14 Pro",
+  "fuente": "https://support.apple.com/en-us/111849",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB",
+   "1TB"
+  ],
+  "colores_texto": "Space Black Silver Gold Deep Purple Ceramic Shield front, Textured matte glass back and stainless steel design",
+  "medidas_mm": {
+   "width": 71.5,
+   "height": 147.5,
+   "depth": 7.85
+  }
+ },
+ "iphone-14-pro-max": {
+  "nombre": "iPhone 14 Pro Max",
+  "fuente": "https://support.apple.com/en-us/111846",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB",
+   "1TB"
+  ],
+  "colores_texto": "Space Black Silver Gold Deep Purple Ceramic Shield front, Textured matte glass back and stainless steel design",
+  "medidas_mm": {
+   "width": 77.6,
+   "height": 160.7,
+   "depth": 7.85
+  }
+ },
+ "iphone-15": {
+  "nombre": "iPhone 15",
+  "fuente": "https://support.apple.com/en-us/111831",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Black Blue Green Yellow Pink Aluminum design, Ceramic Shield front, Color-infused glass back",
+  "medidas_mm": {
+   "width": 71.6,
+   "height": 147.6,
+   "depth": 7.8
+  }
+ },
+ "iphone-15-plus": {
+  "nombre": "iPhone 15 Plus",
+  "fuente": "https://support.apple.com/en-us/111830",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Black Blue Green Yellow Pink Aluminum design, Ceramic Shield front, Color-infused glass back",
+  "medidas_mm": {
+   "width": 77.8,
+   "height": 160.9,
+   "depth": 7.8
+  }
+ },
+ "iphone-15-pro": {
+  "nombre": "iPhone 15 Pro",
+  "fuente": "https://support.apple.com/en-us/111829",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB",
+   "1TB"
+  ],
+  "colores_texto": "Black Titanium White Titanium Blue Titanium Natural Titanium Titanium design, Ceramic Shield front, Textured matte glass back",
+  "medidas_mm": {
+   "width": 70.6,
+   "height": 146.6,
+   "depth": 8.25
+  }
+ },
+ "iphone-15-pro-max": {
+  "nombre": "iPhone 15 Pro Max",
+  "fuente": "https://support.apple.com/en-us/111828",
+  "capacidades": [
+   "256GB",
+   "512GB",
+   "1TB"
+  ],
+  "colores_texto": "Black Titanium White Titanium Blue Titanium Natural Titanium Titanium design, Ceramic Shield front, Textured matte glass back",
+  "medidas_mm": {
+   "width": 76.7,
+   "height": 159.9,
+   "depth": 8.25
+  }
+ },
+ "iphone-16": {
+  "nombre": "iPhone 16",
+  "fuente": "https://support.apple.com/en-us/121029",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Black White Pink Teal Ultramarine Aluminum design, Ceramic Shield front, Color-infused glass back (Black, Pink, Teal, Ultramarine)",
+  "medidas_mm": {
+   "width": 71.6,
+   "height": 147.6,
+   "depth": 7.8
+  }
+ },
+ "iphone-16-plus": {
+  "nombre": "iPhone 16 Plus",
+  "fuente": "https://support.apple.com/en-us/121030",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Black White Pink Teal Ultramarine Aluminum design, Ceramic Shield front, Color-infused glass back (Black, Pink, Teal, Ultramarine)",
+  "medidas_mm": {
+   "width": 77.8,
+   "height": 160.9,
+   "depth": 7.8
+  }
+ },
+ "iphone-16-pro": {
+  "nombre": "iPhone 16 Pro",
+  "fuente": "https://support.apple.com/en-us/121031",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB",
+   "1TB"
+  ],
+  "colores_texto": "Black Titanium White Titanium Natural Titanium Desert Titanium Titanium design, Latest-generation Ceramic Shield front, Textured matte glass back",
+  "medidas_mm": {
+   "width": 71.5,
+   "height": 149.6,
+   "depth": 8.25
+  }
+ },
+ "iphone-16-pro-max": {
+  "nombre": "iPhone 16 Pro Max",
+  "fuente": "https://support.apple.com/en-us/121032",
+  "capacidades": [
+   "256GB",
+   "512GB",
+   "1TB"
+  ],
+  "colores_texto": "Black Titanium White Titanium Natural Titanium Desert Titanium Titanium design, Latest-generation Ceramic Shield front, Textured matte glass back",
+  "medidas_mm": {
+   "width": 77.6,
+   "height": 163.0,
+   "depth": 8.25
+  }
+ },
+ "iphone-16e": {
+  "nombre": "iPhone 16e",
+  "fuente": "https://support.apple.com/en-us/122208",
+  "capacidades": [
+   "128GB",
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Black White Aluminum design, Ceramic Shield front, Glass back",
+  "medidas_mm": {
+   "width": 71.5,
+   "height": 146.7,
+   "depth": 7.8
+  }
+ },
+ "iphone-17": {
+  "nombre": "iPhone 17",
+  "fuente": "https://support.apple.com/en-us/125089",
+  "capacidades": [
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Black White Mist Blue Sage Lavender Aluminum design, Ceramic Shield 2 front, Color‑infused glass back (Black, Mist Blue, Sage, Lavender)",
+  "medidas_mm": {
+   "width": 71.5,
+   "height": 149.6,
+   "depth": 7.95
+  }
+ },
+ "iphone-air": {
+  "nombre": "iPhone Air",
+  "fuente": "https://support.apple.com/en-us/125092",
+  "capacidades": [
+   "256GB",
+   "512GB",
+   "1TB"
+  ],
+  "colores_texto": "Space Black Cloud White Light Gold Sky Blue Titanium design, Ceramic Shield 2 front, Ceramic Shield back",
+  "medidas_mm": {
+   "width": 74.7,
+   "height": 156.2,
+   "depth": 5.64
+  }
+ },
+ "iphone-17-pro": {
+  "nombre": "iPhone 17 Pro",
+  "fuente": "https://support.apple.com/en-us/125090",
+  "capacidades": [
+   "256GB",
+   "512GB",
+   "1TB"
+  ],
+  "colores_texto": "Silver Cosmic Orange Deep Blue Aluminum unibody design , Ceramic Shield 2 front , Ceramic Shield back",
+  "medidas_mm": {
+   "width": 71.9,
+   "height": 150.0,
+   "depth": 8.75
+  }
+ },
+ "iphone-17-pro-max": {
+  "nombre": "iPhone 17 Pro Max",
+  "fuente": "https://support.apple.com/en-us/125091",
+  "capacidades": [
+   "256GB",
+   "512GB",
+   "1TB",
+   "2TB"
+  ],
+  "colores_texto": "Silver Cosmic Orange Deep Blue Aluminum unibody design , Ceramic Shield 2 front , Ceramic Shield back",
+  "medidas_mm": {
+   "width": 78.0,
+   "height": 163.4,
+   "depth": 8.75
+  }
+ },
+ "iphone-17e": {
+  "nombre": "iPhone 17e",
+  "fuente": "https://support.apple.com/en-us/126470",
+  "capacidades": [
+   "256GB",
+   "512GB"
+  ],
+  "colores_texto": "Black White Soft Pink Aluminum design, Ceramic Shield 2 front, Glass back",
+  "medidas_mm": {
+   "width": 71.5,
+   "height": 146.7,
+   "depth": 7.8
+  }
+ },
+ "iphone-18-pro": {
+  "nombre": "iPhone 18 Pro",
+  "fuente": "https://support.apple.com/en-us/148590",
+  "capacidades": [
+   "256GB",
+   "512GB",
+   "1TB",
+   "2TB"
+  ],
+  "colores_texto": "Black, Silver, Glacier, Burgundy Aluminum unibody design Ceramic Shield 2 front Ceramic Shield back",
+  "medidas_mm": {
+   "width": 71.9,
+   "height": 150.0,
+   "depth": 8.75
+  }
+ },
+ "iphone-18-pro-max": {
+  "nombre": "iPhone 18 Pro Max",
+  "fuente": "https://support.apple.com/en-us/148591",
+  "capacidades": [
+   "256GB",
+   "512GB",
+   "1TB",
+   "2TB"
+  ],
+  "colores_texto": "Black, Silver, Glacier, Burgundy Aluminum unibody design Ceramic Shield 2 front Ceramic Shield back",
+  "medidas_mm": {
+   "width": 78.0,
+   "height": 163.4,
+   "depth": 8.75
+  }
+ }
+}
