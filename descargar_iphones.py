@@ -128,7 +128,7 @@ MODELOS = [
     {"id": "iphone-13", "nombre": "iPhone 13", "anio": 2021,
      "colores": {"pink": "Pink", "blue": "Blue", "midnight": "Midnight", "starlight": "Starlight",
                  "red": "(PRODUCT)RED", "green": "Green"},
-     "store": ["iphone-13-finish-select-202207-6-1inch-{c}", "iphone-13-{c}-select-2021", "iphone-13-{c}-select"],
+     "store": ["iphone-13-finish-select-202207-6-1inch-{c}", "iphone-13-{c}-select-2021", "iphone-13-{c}-select", "refurb-iphone-13-{c}-2023"],
      "newsroom": ["2021/09/apple-introduces-iphone-13-and-iphone-13-mini"]},
     {"id": "iphone-13-pro", "nombre": "iPhone 13 Pro", "anio": 2021,
      "colores": {"graphite": "Graphite", "gold": "Gold", "silver": "Silver", "sierrablue": "Sierra Blue",
@@ -358,6 +358,9 @@ class Descargador:
             for ym in (f"{y}09", f"{y}10", str(y), f"{y + 1}03", f"{y}03", f"{y}02"):
                 vistos += [f"{base}-finish-select-{col}-{ym}", f"{base}-{col}-select-{ym}"]
             vistos.append(f"{base}-{col}-select")
+            # tienda de reacondicionados: suele tener el dorso completo, sin la pantalla encima
+            for ym in (f"{y + 1}12", f"{y + 2}", f"{y + 2}09", f"{y + 2}12", f"{y + 3}"):
+                vistos.append(f"refurb-{base}-{col}-{ym}")
         return list(dict.fromkeys(vistos))
 
     def apple_store(self, m):

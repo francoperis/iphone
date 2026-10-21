@@ -77,6 +77,16 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 - `npm install` y después `node exportar_video.js plantillas/llego.html "modelo=iphone-17-pro" salida/llego.mp4`
   (graba cuadro a cuadro a 30 fps; `--cuadro 3000` saca un PNG de ese instante).
 - Las plantillas leen los datos de `plantillas/datos.js` y aceptan `?modelo=&color=&bateria=&estado=&formato=historia|post`.
+  Para verlas en el navegador hace falta un servidor local (`python3 -m http.server` en la raíz del repo).
+- Teléfono 3D: `plantillas/telefono3d.js` (three.js) arma el equipo con medidas reales, canto con grosor,
+  módulo de cámara y lentes en relieve, botones y pantalla. Textura = `<modelo>_<color>_dorso.webp`.
+  Para sumar un modelo: medidas, módulo y lentes en `datos.js` (fracciones del dorso) y en `MEDIDAS` de procesar_fotos.py.
+
+## Feedback del usuario sobre "Llegó" (2026-10-21)
+- Aprobó la dirección visual.
+- El título gigante es el nombre del modelo ("iPhone" chico + "17 PRO" gigante), no "LLEGÓ".
+- Sin cintas de texto cruzadas.
+- Nada de fotos planas: el teléfono tiene que verse en 3D, con grosor.
 
 ## Tareas pendientes, en orden
 1. Script de fotos multi-fuente + revisar calidad por modelo.

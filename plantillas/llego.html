@@ -7,12 +7,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=JetBrains+Mono:wght@500;700&family=Manrope:wght@500;700;800&display=block" rel="stylesheet">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
 <!--
-  Plantilla "Llegó" (equipo nuevo en stock). 1080×1920, loop de 10 s.
+  Plantilla "Llegó" (equipo nuevo en stock). 1080×1920, loop de 10 s. Teléfono en 3D (telefono3d.js).
   Parámetros por URL: ?modelo=iphone-17-pro&color=cosmicorange&formato=historia|post
                       &bateria=92&estado=Impecable   (si faltan, quedan marcadores [__])
+  Se abre desde un servidor local (los módulos no cargan con file://):
+      python3 -m http.server   →   http://localhost:8000/plantillas/llego.html?modelo=iphone-13
   La línea de tiempo es una sola (10 s) para que el loop sea limpio y para que
-  exportar_video.js pueda grabar cuadro por cuadro moviendo currentTime.
+  exportar_video.js pueda grabar cuadro por cuadro.
 -->
 <style>
   :root {
@@ -29,8 +37,8 @@
   .lienzo { position: relative; width: var(--W); height: var(--H); overflow: hidden; background: var(--tinta); }
 
   /* luz detrás del equipo, tomada del color del equipo */
-  .luz { position: absolute; left: 50%; top: 46%; width: 1100px; height: 1100px; translate: -50% -50%;
-         background: radial-gradient(closest-side, color-mix(in srgb, var(--brillo) 38%, transparent), transparent 72%);
+  .luz { position: absolute; left: 50%; top: 49%; width: 1150px; height: 1150px; translate: -50% -50%;
+         background: radial-gradient(closest-side, color-mix(in srgb, var(--brillo) 36%, transparent), transparent 72%);
          filter: blur(30px); opacity: 0; }
 
   /* grano */
@@ -47,61 +55,49 @@
   .ingreso { display: flex; gap: 14px; align-items: center; color: var(--texto); }
   .punto { width: 16px; height: 16px; border-radius: 50%; background: var(--acido); box-shadow: 0 0 18px var(--acido); }
 
-  /* LLEGÓ gigante */
-  .titulo { position: absolute; left: 0; right: 0; top: 196px; padding-top: 64px; text-align: center; white-space: nowrap;
-            font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 244px; line-height: .9;
-            letter-spacing: -.05em; }
+  /* nombre del modelo gigante */
+  .cabeza { position: absolute; left: 0; right: 0; top: 232px; text-align: center; }
+  .linea { font-family: "Unbounded", sans-serif; font-weight: 800; font-size: 58px; letter-spacing: -.02em;
+           line-height: 1; color: var(--texto); }
+  .linea span { display: inline-block; }
+  .titulos { position: relative; margin-top: 4px; }
+  .titulo { white-space: nowrap; font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 260px;
+            line-height: .92; letter-spacing: -.05em; text-transform: uppercase; padding: 0 20px; }
   .titulo span { display: inline-block; }
   .titulo.calado span { color: transparent; -webkit-text-stroke: 3px var(--texto); }
-  .titulo.lleno { color: var(--acido); clip-path: inset(0 100% 0 0); }
+  .titulo.lleno { position: absolute; inset: 0; color: var(--acido); clip-path: inset(0 100% 0 0); }
 
-  /* equipo */
-  .escena { position: absolute; left: 0; right: 0; top: 470px; height: 980px; perspective: 1600px;
-            display: grid; place-items: center; }
-  .flota { transform-style: preserve-3d; }
-  .equipo { display: block; height: 900px; width: auto; transform-style: preserve-3d;
-            filter: drop-shadow(0 50px 60px rgba(0,0,0,.65)); }
-  .sombra { position: absolute; left: 50%; top: 1400px; width: 520px; height: 60px; translate: -50% 0;
-            background: radial-gradient(closest-side, rgba(0,0,0,.85), transparent); filter: blur(8px); }
-
-  /* cintas */
-  .cinta { position: absolute; left: -80px; right: -80px; height: 96px; overflow: hidden; display: flex; align-items: center;
-           font-family: "Unbounded", sans-serif; font-weight: 800; font-size: 46px; letter-spacing: -.01em;
-           text-transform: uppercase; white-space: nowrap; }
-  .cinta .pista { display: flex; width: max-content; }
-  .cinta .pista > div { display: flex; }
-  .cinta i { font-style: normal; padding: 0 30px; }
-  .cinta .sep { color: inherit; opacity: .9; padding: 0; }
-  .cinta-a { top: 1235px; background: var(--acido); color: var(--tinta); rotate: -5deg; }
-  .cinta-b { top: 1245px; background: var(--tinta); color: var(--texto); rotate: 3.5deg;
-             border-top: 3px solid var(--texto); border-bottom: 3px solid var(--texto); font-size: 34px; height: 72px;
-             font-family: "JetBrains Mono", monospace; font-weight: 700; letter-spacing: .12em; }
+  /* equipo 3D */
+  .escena { position: absolute; left: 0; right: 0; top: 470px; height: 960px; }
+  .escena canvas { width: 100%; height: 100%; display: block; }
+  .sombra { position: absolute; left: 50%; top: 1385px; width: 560px; height: 70px; translate: -50% 0;
+            background: radial-gradient(closest-side, rgba(0,0,0,.9), transparent); filter: blur(10px); }
 
   /* sticker que gira */
-  .sticker { position: absolute; right: 70px; top: 520px; width: 250px; height: 250px; }
+  .sticker { position: absolute; right: 64px; top: 640px; width: 240px; height: 240px; }
   .sticker .disco { position: absolute; inset: 0; border-radius: 50%; background: var(--acido);
                     box-shadow: 0 16px 40px rgba(0,0,0,.45); }
   .sticker svg { position: absolute; inset: 0; width: 100%; height: 100%; }
   .sticker text { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 21.5px; letter-spacing: .18em; fill: var(--tinta); }
   .sticker .centro { position: absolute; inset: 0; display: grid; place-items: center; color: var(--tinta);
-                     font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 68px; line-height: 1; rotate: -8deg; }
+                     font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 40px; line-height: 1;
+                     letter-spacing: -.02em; rotate: -8deg; text-transform: uppercase; }
 
   /* ficha inferior */
-  .ficha { position: absolute; left: 72px; right: 72px; top: 1410px; }
-  .nombre { font-family: "Unbounded", sans-serif; font-weight: 800; font-size: 66px; letter-spacing: -.02em; line-height: 1; }
-  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .ficha { position: absolute; left: 72px; right: 72px; top: 1440px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
   .chip { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 21px; letter-spacing: .06em;
           text-transform: uppercase; padding: 10px 15px; border: 2px solid var(--texto); border-radius: 999px; }
   .chip.hueco { border-style: dashed; color: var(--gris); border-color: var(--gris); }
   .chip.color { background: var(--texto); color: var(--tinta); }
-  .fila { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 26px; }
+  .fila { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 24px; }
   .precio { font-family: "Unbounded", sans-serif; font-weight: 900; line-height: .85; letter-spacing: -.04em;
-            display: flex; align-items: flex-start; }
+            display: flex; align-items: flex-start; transform-origin: left bottom; }
   .precio .signo { font-size: 64px; color: var(--acido); margin-right: 8px; margin-top: 8px; }
-  .precio .miles { font-size: 150px; }
+  .precio .miles { font-size: 138px; }
   .precio .resto { font-size: 54px; margin-top: 10px; color: var(--gris); letter-spacing: -.02em; }
   .cta { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 25px; letter-spacing: .1em;
-         text-transform: uppercase; text-align: right; line-height: 1.5; }
+         text-transform: uppercase; text-align: right; line-height: 1.5; transform-origin: right center; }
   .cta b { display: inline-block; margin-top: 8px; background: var(--acido); color: var(--tinta);
            font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 40px; letter-spacing: 0;
            padding: 10px 22px 12px; border-radius: 14px; rotate: -3deg; }
@@ -113,17 +109,14 @@
 
   /* formato post 1080×1350 */
   body.post .barra { top: 64px; }
-  body.post .titulo { top: 92px; padding-top: 52px; font-size: 200px; }
-  body.post .escena { top: 250px; height: 760px; }
-  body.post .equipo { height: 700px; }
-  body.post .sombra { top: 980px; }
-  body.post .sticker { top: 300px; width: 210px; height: 210px; }
-  body.post .cinta-a { top: 900px; }
-  body.post .cinta-b { top: 910px; }
-  body.post .ficha { top: 1030px; }
-  body.post .nombre { font-size: 54px; }
-  body.post .chips { margin-top: 18px; }
-  body.post .fila { margin-top: 16px; }
+  body.post .cabeza { top: 120px; }
+  body.post .linea { font-size: 44px; }
+  body.post .titulo { font-size: 190px; }
+  body.post .escena { top: 330px; height: 700px; }
+  body.post .sombra { top: 990px; width: 420px; }
+  body.post .sticker { top: 420px; width: 200px; height: 200px; }
+  body.post .ficha { top: 1050px; }
+  body.post .fila { margin-top: 14px; }
   body.post .precio .miles { font-size: 118px; }
 </style>
 </head>
@@ -136,14 +129,16 @@
     <div class="ingreso"><span class="punto" id="punto"></span>Nuevo ingreso</div>
   </div>
 
-  <div class="titulo calado" id="tituloCalado"></div>
-  <div class="titulo lleno" id="tituloLleno"></div>
+  <div class="cabeza">
+    <div class="linea" id="linea"></div>
+    <div class="titulos">
+      <div class="titulo calado" id="tituloCalado"></div>
+      <div class="titulo lleno" id="tituloLleno"></div>
+    </div>
+  </div>
 
   <div class="sombra" id="sombra"></div>
-  <div class="escena"><div class="flota" id="flota"><img class="equipo" id="equipo" alt=""></div></div>
-
-  <div class="cinta cinta-b" id="cintaB"><div class="pista" id="pistaB"></div></div>
-  <div class="cinta cinta-a" id="cintaA"><div class="pista" id="pistaA"></div></div>
+  <div class="escena" id="escena"><canvas id="lienzo3d"></canvas></div>
 
   <div class="sticker" id="sticker">
     <div class="disco" id="disco">
@@ -152,11 +147,10 @@
         <text><textPath href="#circulo" id="textoSticker" textLength="612" lengthAdjust="spacing"></textPath></text>
       </svg>
     </div>
-    <div class="centro" id="centroSticker"></div>
+    <div class="centro" id="centroSticker">Llegó</div>
   </div>
 
   <div class="ficha" id="ficha">
-    <div class="nombre" id="nombre"></div>
     <div class="chips" id="chips"></div>
     <div class="fila">
       <div class="precio" id="precio"></div>
@@ -170,7 +164,9 @@
 </div>
 
 <script src="datos.js"></script>
-<script>
+<script type="module">
+import { crearTelefono } from "./telefono3d.js";
+
 const P = new URLSearchParams(location.search);
 const id = P.get("modelo") || "iphone-17-pro";
 const m = MODELOS[id];
@@ -181,14 +177,14 @@ if (formato === "post") document.body.classList.add("post");
 document.documentElement.style.setProperty("--brillo", color.brillo);
 
 const $ = (s) => document.getElementById(s);
-const letras = (txt) => [...txt].map((c) => `<span>${c}</span>`).join("");
+const letras = (txt) => [...txt].map((c) => (c === " " ? "<span>&nbsp;</span>" : `<span>${c}</span>`)).join("");
 
 $("marca").innerHTML = MARCA.nombre.replace("&", "<b>&amp;</b>");
-$("tituloCalado").innerHTML = letras("LLEGÓ");
-$("tituloLleno").innerHTML = letras("LLEGÓ");
-$("equipo").src = `assets/telefonos/${id}_${colorId}.webp`;
-$("equipo").alt = `${m.nombre} ${color.nombre}`;
-$("nombre").textContent = m.nombre;
+// "iPhone 17 Pro" -> línea chica "iPhone" + gigante "17 PRO"
+const corto = m.nombre.replace(/^iPhone\s+/, "");
+$("linea").innerHTML = letras("iPhone");
+$("tituloCalado").innerHTML = letras(corto);
+$("tituloLleno").innerHTML = letras(corto);
 
 const bateria = P.get("bateria");
 const estado = P.get("estado");
@@ -201,26 +197,24 @@ $("chips").innerHTML = [
 
 const pr = partirPrecio(m.precio);
 $("precio").innerHTML = `<span class="signo">$</span><span class="miles">${pr.miles}</span><span class="resto">${pr.resto}</span>`;
-
-// cintas: contenido repetido dos veces para que el corrimiento sea continuo
-const cintaA = ["Llegó", m.nombre, `${m.gb} GB`, color.nombre];
-const cintaB = ["Nuevo ingreso", MARCA.nombre, "Respondé QUIERO", "Stock real"];
-const bloque = (items) => "<div>" + items.map((t) => `<i>${t}</i><i class="sep">✦</i>`).join("").repeat(3) + "</div>";
-$("pistaA").innerHTML = bloque(cintaA) + bloque(cintaA);
-$("pistaB").innerHTML = bloque(cintaB) + bloque(cintaB);
-
 $("textoSticker").textContent = "NUEVO INGRESO ✦ " + MARCA.nombre.toUpperCase() + " ✦ ";
-$("centroSticker").textContent = m.nombre.replace("iPhone ", "").split(" ")[0];
+
+// el nombre gigante se ajusta al ancho disponible (13 entra mucho más grande que 17 PRO)
+function ajustarTitulo() {
+  const max = formato === "post" ? 330 : 400, ancho = 1080 - 2 * 56;
+  for (const el of [$("tituloCalado"), $("tituloLleno")]) el.style.fontSize = "";
+  const base = parseFloat(getComputedStyle($("tituloCalado")).fontSize);
+  const r = document.createRange(); r.selectNodeContents($("tituloCalado"));
+  const w = r.getBoundingClientRect().width;
+  const tam = Math.min(max, base * ancho / w);
+  for (const el of [$("tituloCalado"), $("tituloLleno")]) el.style.fontSize = tam + "px";
+}
 
 // ---------------------------------------------------------------- línea de tiempo
-// Todo dura T ms y se repite: las entradas usan offsets dentro del ciclo (sin delays)
-// para que el loop no se corra y la grabación cuadro a cuadro sea exacta.
 const T = 10000;
-const SALIDA = 8800; // empieza el telón
+const SALIDA = 8800;
 const ANIMS = [];
-
 function linea(el, puntos, opciones = {}) {
-  // puntos: [[ms, {props}, easing?], ...] — se completa con el primero en 0 y el último en T
   const fr = puntos.map(([t, props, easing]) => ({ ...props, offset: t / T, easing: easing || "linear" }));
   if (fr[0].offset > 0) fr.unshift({ ...puntos[0][1], offset: 0 });
   if (fr[fr.length - 1].offset < 1) fr.push({ ...puntos[puntos.length - 1][1], offset: 1 });
@@ -231,13 +225,15 @@ function linea(el, puntos, opciones = {}) {
 const salir = "cubic-bezier(.2,.8,.2,1)";
 const rebote = "cubic-bezier(.34,1.56,.64,1)";
 
-// letras de LLEGÓ caen escalonadas
+[...$("linea").children].forEach((s, i) => {
+  const t0 = 60 + i * 35;
+  linea(s, [[t0, { transform: "translateY(60%)", opacity: 0 }, salir], [t0 + 420, { transform: "none", opacity: 1 }]]);
+});
 [...$("tituloCalado").children].forEach((s, i) => {
-  const t0 = 120 + i * 70;
+  const t0 = 160 + i * 70;
   linea(s, [[t0, { transform: "translateY(-120%) rotate(-8deg)", opacity: 0 }, rebote],
             [t0 + 620, { transform: "translateY(0) rotate(0)", opacity: 1 }]]);
 });
-// relleno ácido que barre LLEGÓ dos veces
 linea($("tituloLleno"), [
   [900, { clipPath: "inset(0 100% 0 0)" }, salir], [1500, { clipPath: "inset(0 0% 0 0)" }],
   [3600, { clipPath: "inset(0 0% 0 0)" }, salir], [4200, { clipPath: "inset(0 0% 0 100%)" }],
@@ -245,56 +241,25 @@ linea($("tituloLleno"), [
 ]);
 
 linea($("barra"), [[0, { opacity: 0, transform: "translateY(-30px)" }, salir], [600, { opacity: 1, transform: "none" }]]);
-linea($("punto"), [[0, { opacity: 1 }], [500, { opacity: .2 }], [1000, { opacity: 1 }], [1500, { opacity: .2 }],
-                   [2000, { opacity: 1 }], [2500, { opacity: .2 }], [3000, { opacity: 1 }], [3500, { opacity: .2 }],
-                   [4000, { opacity: 1 }], [4500, { opacity: .2 }], [5000, { opacity: 1 }], [5500, { opacity: .2 }],
-                   [6000, { opacity: 1 }], [6500, { opacity: .2 }], [7000, { opacity: 1 }], [7500, { opacity: .2 }],
-                   [8000, { opacity: 1 }]]);
+linea($("punto"), Array.from({ length: 17 }, (_, i) => [i * 500, { opacity: i % 2 ? 0.2 : 1 }]));
 linea($("luz"), [[300, { opacity: 0, transform: "scale(.6)" }, salir], [1500, { opacity: 1, transform: "scale(1)" }],
                  [5000, { opacity: .75, transform: "scale(1.08)" }], [8000, { opacity: 1, transform: "scale(1)" }]]);
+linea($("escena"), [[350, { opacity: 0 }, salir], [800, { opacity: 1 }]]);
+linea($("sombra"), [[500, { opacity: 0 }, salir], [1500, { opacity: 1 }]]);
 
-// el equipo sube girando y después flota inclinándose en 3D
-linea($("equipo"), [
-  [350, { opacity: 0, transform: "translateY(900px) rotateY(-70deg) rotateZ(-14deg) scale(.8)", filter: "drop-shadow(0 50px 60px rgba(0,0,0,.65)) blur(10px)" }, salir],
-  [800, { opacity: 1 }, salir],
-  [1450, { opacity: 1, transform: "translateY(0) rotateY(0deg) rotateZ(0deg) scale(1)", filter: "drop-shadow(0 50px 60px rgba(0,0,0,.65)) blur(0px)" }],
-]);
-linea($("flota"), [
-  [1450, { transform: "translateY(0) rotateY(0deg) rotateX(0deg) rotateZ(0deg)" }, "ease-in-out"],
-  [3300, { transform: "translateY(-26px) rotateY(16deg) rotateX(4deg) rotateZ(-2deg)" }, "ease-in-out"],
-  [5200, { transform: "translateY(6px) rotateY(-12deg) rotateX(-3deg) rotateZ(1.5deg)" }, "ease-in-out"],
-  [7100, { transform: "translateY(-18px) rotateY(10deg) rotateX(3deg) rotateZ(-1deg)" }, "ease-in-out"],
-  [8800, { transform: "translateY(0) rotateY(0deg) rotateX(0deg) rotateZ(0deg)" }],
-]);
-linea($("sombra"), [[350, { opacity: 0, transform: "scaleX(.4)" }, salir], [1450, { opacity: 1, transform: "scaleX(1)" }],
-                    [3300, { opacity: .6, transform: "scaleX(.85)" }, "ease-in-out"], [5200, { opacity: 1, transform: "scaleX(1.02)" }, "ease-in-out"],
-                    [7100, { opacity: .7, transform: "scaleX(.9)" }, "ease-in-out"], [8800, { opacity: 1, transform: "scaleX(1)" }]]);
-
-// cintas entran y corren (una vuelta completa por ciclo = loop sin salto)
-linea($("cintaA"), [[1000, { transform: "translateX(110%)" }, salir], [1600, { transform: "translateX(0)" }]]);
-linea($("cintaB"), [[1150, { transform: "translateX(-110%)" }, salir], [1750, { transform: "translateX(0)" }]]);
-ANIMS.push($("pistaA").animate([{ transform: "translateX(0)" }, { transform: "translateX(-50%)" }], { duration: T, iterations: Infinity }));
-ANIMS.push($("pistaB").animate([{ transform: "translateX(-50%)" }, { transform: "translateX(0)" }], { duration: T, iterations: Infinity }));
-
-// sticker aparece de golpe y gira sin parar (una vuelta por ciclo)
 linea($("sticker"), [[2500, { transform: "scale(0) rotate(-90deg)" }, rebote], [3000, { transform: "scale(1) rotate(0deg)" }]]);
 ANIMS.push($("disco").animate([{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }], { duration: T, iterations: Infinity }));
 
-// ficha: nombre, chips escalonados, precio que golpea, CTA
-linea($("nombre"), [[1500, { opacity: 0, transform: "translateY(40px)" }, salir], [2000, { opacity: 1, transform: "none" }]]);
 [...$("chips").children].forEach((c, i) => {
   const t0 = 1750 + i * 110;
   linea(c, [[t0, { opacity: 0, transform: "translateY(24px) scale(.9)" }, salir], [t0 + 420, { opacity: 1, transform: "none" }]]);
 });
 linea($("precio"), [[2300, { opacity: 0, transform: "scale(1.6)", filter: "blur(8px)" }, rebote],
-                    [2750, { opacity: 1, transform: "scale(1)", filter: "blur(0px)" }]], { composite: "replace" });
-$("precio").style.transformOrigin = "left bottom";
+                    [2750, { opacity: 1, transform: "scale(1)", filter: "blur(0px)" }]]);
 linea($("cta"), [[2900, { opacity: 0, transform: "translateX(40px)" }, salir], [3350, { opacity: 1, transform: "none" }],
                  [6000, { opacity: 1, transform: "scale(1)" }, rebote], [6250, { opacity: 1, transform: "scale(1.08)" }, salir],
                  [6600, { opacity: 1, transform: "scale(1)" }]]);
-$("cta").style.transformOrigin = "right center";
 
-// salida: telón verde y después negro; en T todo queda negro y el ciclo vuelve a empezar
 linea($("telonVerde"), [[SALIDA, { transform: "translateY(100%)" }, "cubic-bezier(.7,0,.3,1)"],
                         [SALIDA + 520, { transform: "translateY(0)" }], [SALIDA + 760, { transform: "translateY(0)" }, "cubic-bezier(.7,0,.3,1)"],
                         [SALIDA + 1100, { transform: "translateY(-100%)" }]]);
@@ -302,17 +267,58 @@ linea($("telonNegro"), [[SALIDA + 260, { transform: "translateY(100%)" }, "cubic
                         [SALIDA + 780, { transform: "translateY(0)" }], [T - 1, { transform: "translateY(0)" }],
                         [T, { transform: "translateY(100%)" }]]);
 
+// ---------------------------------------------------------------- pose del teléfono en el tiempo
+const sal = (x) => 1 - Math.pow(1 - x, 3);
+const tramo = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+function pose(t) {
+  // entrada (350–1700 ms): sube desde abajo girando
+  const e = sal(tramo(t, 350, 1700));
+  const amp = tramo(t, 1500, 2400);
+  // 4,6–6,4 s: vuelta completa para mostrar el canto, el grosor y la pantalla
+  const v = tramo(t, 4600, 6400);
+  const vuelta = 360 * (v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2);
+  // inclinación: a la izquierda antes de la vuelta, a la derecha después
+  const lado = -34 + 58 * tramo(t, 4600, 6400);
+  const f = Math.max(0, t - 1700) / 1000;
+  return {
+    giroY: -300 * (1 - e) + amp * (lado + 6 * Math.sin(f * 1.1)) + vuelta,
+    giroX: (1 - e) * 20 + amp * (8 + 4 * Math.sin(f * 0.8)),
+    giroZ: amp * (-5 + 9 * tramo(t, 4600, 6400) + 1.5 * Math.sin(f * 0.6)),
+    subir: -260 * (1 - e) + amp * 6 * Math.sin(f * 1.3),
+    escala: 0.8 + 0.2 * e,
+  };
+}
+
+let tel = null;
+function dibujar(t) { if (tel) { tel.pose(pose(t)); tel.render(); } }
+
+const inicio = performance.now();
+let enVivo = true;
+(function bucle() {
+  if (!enVivo) return;
+  dibujar((performance.now() - inicio) % T);
+  requestAnimationFrame(bucle);
+})();
+
+const listoTel = crearTelefono($("lienzo3d"), m, colorId, { id, fotos: "assets/telefonos", distancia: formato === "post" ? 560 : 520 })
+  .then((t) => { tel = t; })
+  .catch((e) => console.error("No se pudo armar el 3D:", e));
+
 // API para exportar_video.js
 window.PLANTILLA = {
   duracion: T,
   async listo() {
     await document.fonts.ready;
-    const img = $("equipo");
-    if (!img.complete) await new Promise((r) => { img.onload = r; img.onerror = r; });
-    if (img.decode) await img.decode().catch(() => {});
+    ajustarTitulo();
+    await listoTel;
   },
-  ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
+  ir(ms) {
+    enVivo = false;
+    ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; });
+    dibujar(ms);
+  },
 };
+document.fonts.ready.then(ajustarTitulo);
 </script>
 </body>
 </html>

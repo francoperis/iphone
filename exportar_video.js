@@ -14,7 +14,15 @@ const { chromium } = require("playwright");
 const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
-const { pathToFileURL } = require("url");
+const http = require("http");
+
+// mueve la plantilla a ese instante y espera dos cuadros del navegador para que se pinte
+async function ir(pagina, ms) {
+  await pagina.evaluate(async (t) => {
+    window.PLANTILLA.ir(t);
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  }, ms);
+}
 
 async function main() {
   const args = process.argv.slice(2);
@@ -27,6 +35,7 @@ async function main() {
   };
   const fps = Number(opt("--fps", 30));
   const cuadro = opt("--cuadro", null);
+  const limite = opt("--cuadros", null); // solo para pruebas: graba los primeros N cuadros
   const [plantilla, query = "", salida] = args;
   if (!plantilla || !salida) {
     console.error('Uso: node exportar_video.js <plantilla.html> "<parametros>" <salida.mp4|png> [--fps 30] [--cuadro ms]');
@@ -34,26 +43,50 @@ async function main() {
   }
   const post = /formato=post/.test(query);
   const ancho = 1080, alto = post ? 1350 : 1920;
-  const url = pathToFileURL(path.resolve(plantilla)).href + (query ? "?" + query : "");
   fs.mkdirSync(path.dirname(path.resolve(salida)), { recursive: true });
 
-  const navegador = await chromium.launch(fs.existsSync("/opt/pw-browsers/chromium")
-    ? { executablePath: "/opt/pw-browsers/chromium" } : {});
+  // servidor local: los módulos ES y las texturas WebGL no cargan desde file://
+  const raiz = process.cwd();
+  const tipos = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".webp": "image/webp",
+                  ".png": "image/png", ".jpg": "image/jpeg", ".json": "application/json", ".svg": "image/svg+xml" };
+  const servidor = http.createServer((req, res) => {
+    const ruta = path.join(raiz, decodeURIComponent(new URL(req.url, "http://x").pathname));
+    if (!ruta.startsWith(raiz) || !fs.existsSync(ruta) || fs.statSync(ruta).isDirectory()) {
+      res.writeHead(404); res.end(); return;
+    }
+    res.writeHead(200, { "Content-Type": tipos[path.extname(ruta)] || "application/octet-stream" });
+    fs.createReadStream(ruta).pipe(res);
+  });
+  await new Promise((ok) => servidor.listen(0, "127.0.0.1", ok));
+  const relativa = path.relative(raiz, path.resolve(plantilla)).split(path.sep).join("/");
+  const url = `http://127.0.0.1:${servidor.address().port}/${relativa}` + (query ? "?" + query : "");
+
+  const navegador = await chromium.launch({
+    ...(fs.existsSync("/opt/pw-browsers/chromium") ? { executablePath: "/opt/pw-browsers/chromium" } : {}),
+    args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"],
+  });
   const pagina = await navegador.newPage({ viewport: { width: ancho, height: alto }, deviceScaleFactor: 1 });
   pagina.on("pageerror", (e) => console.error("Error en la plantilla:", e.message));
+  pagina.on("console", (msg) => { if (msg.type() === "error") console.error("Consola:", msg.text()); });
   await pagina.goto(url, { waitUntil: "networkidle" });
   await pagina.evaluate(() => window.PLANTILLA.listo());
+  // la primera vez que se pausan las animaciones, el compositor tarda en tomar el nuevo estado
+  await ir(pagina, 0);
+  await pagina.waitForTimeout(800);
   const duracion = await pagina.evaluate(() => window.PLANTILLA.duracion);
 
   if (cuadro !== null) {
-    await pagina.evaluate((ms) => window.PLANTILLA.ir(ms), Number(cuadro));
+    await ir(pagina, Number(cuadro));
     await pagina.screenshot({ path: salida });
     await navegador.close();
+    servidor.close();
     console.log(`Cuadro ${cuadro} ms -> ${salida}`);
     return;
   }
 
-  const total = Math.round((duracion / 1000) * fps);
+  const total = limite ? Number(limite) : Math.round((duracion / 1000) * fps);
+  // capturas descartables: obligan al compositor a tomar el estado pausado antes del primer cuadro real
+  for (const t of [duracion / 2, 0]) { await ir(pagina, t); await pagina.screenshot({ type: "png" }); }
   const ff = spawn("ffmpeg", [
     "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(fps), "-i", "-",
     "-c:v", "libx264", "-preset", "slow", "-crf", "16", "-pix_fmt", "yuv420p",
@@ -62,7 +95,7 @@ async function main() {
   const terminado = new Promise((ok, mal) => ff.on("close", (c) => (c === 0 ? ok() : mal(new Error("ffmpeg salió con " + c)))));
 
   for (let i = 0; i < total; i++) {
-    await pagina.evaluate((ms) => window.PLANTILLA.ir(ms), (i * 1000) / fps);
+    await ir(pagina, (i * 1000) / fps);
     const png = await pagina.screenshot({ type: "png" });
     if (!ff.stdin.write(png)) await new Promise((r) => ff.stdin.once("drain", r));
     if (i % fps === 0) process.stdout.write(`\r  ${Math.round((i / total) * 100)}%`);
@@ -70,6 +103,7 @@ async function main() {
   ff.stdin.end();
   await terminado;
   await navegador.close();
+  servidor.close();
   console.log(`\r  100% -> ${salida} (${total} cuadros, ${fps} fps, ${ancho}x${alto})`);
 }
 
