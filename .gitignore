@@ -1,0 +1,5 @@
+fotos-iphone/*
+!fotos-iphone/indice.csv
+__pycache__/
+salida/
+node_modules/

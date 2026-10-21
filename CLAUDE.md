@@ -14,6 +14,12 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
   Registrar en `indice.csv` la fuente, URL, autor y licencia de cada foto.
   Licencias: Apple = uso editorial; Wikimedia = CC (citar autor); Unsplash/Pexels = uso comercial libre;
   sitios de reviews = copyright de terceros → marcar como "solo referencia", no usar en publicidad.
+- Fotos de Apple en publicidad: el usuario fue avisado de que la licencia es editorial / no comercial
+  y decidió usarlas igual, asumiendo el riesgo (2026-10-21).
+- Estado de las fuentes (2026-10-21): tienda de Apple y Newsroom funcionan (mejor calidad).
+  Wikimedia limita mucho las consultas desde este entorno (429). Openverse ahora pide registro (401).
+  Unsplash/Pexels necesitan claves gratuitas (UNSPLASH_ACCESS_KEY / PEXELS_API_KEY).
+  GSMArena bloquea descargas automáticas (Cloudflare).
 - Precios: se definen más adelante (USD vs. pesos, cotización). Por ahora usar la tabla de abajo.
 - Primer avance: plantilla animada "Llegó" exportada a MP4 1080×1920, en 4 variantes:
   iPhone 13, 15 Pro, 16 Pro y 17 Pro.
@@ -64,6 +70,13 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 - Nunca usar imágenes con marca de agua ni fondos cuadriculados falsos.
 - No mostrar colores que el modelo no tiene (ej.: el 17 Pro es plata, naranja cósmico o azul profundo).
 - Recortar fondos con `rembg` (modelo isnet-general-use) y exportar en WebP para la web.
+
+## Cómo se usa
+- `python3 descargar_iphones.py --solo-producto --modelos iphone-13,iphone-17-pro` → `fotos-iphone/` (no se sube a git, salvo `indice.csv`).
+- `python3 procesar_fotos.py` → `plantillas/assets/telefonos/<modelo>_<color>.webp` (recorte con transparencia).
+- `npm install` y después `node exportar_video.js plantillas/llego.html "modelo=iphone-17-pro" salida/llego.mp4`
+  (graba cuadro a cuadro a 30 fps; `--cuadro 3000` saca un PNG de ese instante).
+- Las plantillas leen los datos de `plantillas/datos.js` y aceptan `?modelo=&color=&bateria=&estado=&formato=historia|post`.
 
 ## Tareas pendientes, en orden
 1. Script de fotos multi-fuente + revisar calidad por modelo.
