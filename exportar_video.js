@@ -79,6 +79,9 @@ async function main() {
   await pagina.waitForTimeout(800);
   const duracion = await pagina.evaluate(() => window.PLANTILLA.duracion);
 
+  // capturas descartables: obligan al compositor a tomar el estado pausado antes de la captura real
+  for (const t of [duracion / 2, 0]) { await ir(pagina, t); await pagina.screenshot({ type: "png" }); }
+
   if (cuadro !== null) {
     await ir(pagina, Number(cuadro));
     await pagina.screenshot({ path: salida, omitBackground: Boolean(fondo) });
@@ -89,8 +92,6 @@ async function main() {
   }
 
   const total = limite ? Number(limite) : Math.round((duracion / 1000) * fps);
-  // capturas descartables: obligan al compositor a tomar el estado pausado antes del primer cuadro real
-  for (const t of [duracion / 2, 0]) { await ir(pagina, t); await pagina.screenshot({ type: "png" }); }
   const codificar = ["-c:v", "libx264", "-preset", "slow", "-crf", "16", "-pix_fmt", "yuv420p",
                      "-profile:v", "high", "-movflags", "+faststart", salida];
   const ff = spawn("ffmpeg", fondo

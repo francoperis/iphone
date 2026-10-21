@@ -97,11 +97,12 @@ export async function crearTelefono(canvas, modelo, colorId, opciones = {}) {
   const camara = new THREE.PerspectiveCamera(20, canvas.clientWidth / canvas.clientHeight, 10, 2000);
   camara.position.set(0, 0, opciones.distancia || 520);
 
-  // luces: principal arriba a la izquierda, contraluz del color del equipo y una de relleno ácida
+  // luces: principal arriba a la izquierda, contraluz (por defecto del color del equipo) y una de relleno
+  // ácida; opciones.contraluz / opciones.relleno las cambian por los colores de la marca
   const clave = new THREE.DirectionalLight(0xffffff, 1.6); clave.position.set(-160, 220, 260); escena.add(clave);
-  const contra = new THREE.DirectionalLight(new THREE.Color(color.brillo), 3.2); contra.position.set(260, 80, -220); escena.add(contra);
-  const acido = new THREE.DirectionalLight(0xd4ff3a, 0.9); acido.position.set(-260, -120, -60); escena.add(acido);
-  escena.add(new THREE.AmbientLight(0xffffff, 0.25));
+  const contra = new THREE.DirectionalLight(new THREE.Color(opciones.contraluz || color.brillo), 3.2); contra.position.set(260, 80, -220); escena.add(contra);
+  const acido = new THREE.DirectionalLight(new THREE.Color(opciones.relleno || "#d4ff3a"), 0.9); acido.position.set(-260, -120, -60); escena.add(acido);
+  const ambiente = new THREE.AmbientLight(0xffffff, 0.25); escena.add(ambiente);
 
   const texDorso = await cargarTextura(`${fotos}/${id}_${colorId}_dorso.webp`);
   const metal = d.material === "titanio"
@@ -197,7 +198,21 @@ export async function crearTelefono(canvas, modelo, colorId, opciones = {}) {
 
   escena.add(telefono);
 
+  // valores de base para luz(): todo lo que se apaga cuando el equipo queda en silueta
+  const materiales = [matMarco, matDorso, matPantalla, matAnillo];
+  const base = new Map(materiales.map((m) => [m, { env: m.envMapIntensity ?? 1, emi: m.emissiveIntensity ?? 0 }]));
+
   return {
+    // 0 = silueta (solo el contraluz dibuja el borde), 1 = iluminado normal
+    luz(f = 1) {
+      clave.intensity = 1.6 * f;
+      ambiente.intensity = 0.25 * f;
+      for (const m of materiales) {
+        const v = base.get(m);
+        m.envMapIntensity = v.env * (0.08 + 0.92 * f);
+        m.emissiveIntensity = v.emi * f;
+      }
+    },
     pose({ giroY = 0, giroX = 0, giroZ = 0, subir = 0, escala = 1 } = {}) {
       telefono.rotation.set(THREE.MathUtils.degToRad(giroX), THREE.MathUtils.degToRad(giroY), THREE.MathUtils.degToRad(giroZ), "YXZ");
       telefono.position.y = subir;
