@@ -47,7 +47,7 @@ async function main() {
     console.error('Uso: node exportar_video.js <plantilla.html> "<parametros>" <salida.mp4|png> [--fps 30] [--cuadro ms]');
     process.exit(1);
   }
-  const post = /formato=post/.test(query) || /foto3d\.html$/.test(plantilla);
+  const post = /formato=post/.test(query) || /foto3d\.html$/.test(plantilla) || /pieza=post/.test(query);
   const ancho = 1080, alto = post ? 1350 : 1920;
   fs.mkdirSync(path.dirname(path.resolve(salida)), { recursive: true });
 
@@ -72,6 +72,17 @@ async function main() {
     args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"],
   });
   const pagina = await navegador.newPage({ viewport: { width: ancho, height: alto }, deviceScaleFactor: 1 });
+  // las animaciones nacen pausadas: si corren en vivo mientras carga la página, el compositor
+  // arrastra ese estado a los primeros cuadros grabados
+  await pagina.addInitScript(() => {
+    const original = Element.prototype.animate;
+    Element.prototype.animate = function (...args) {
+      const a = original.apply(this, args);
+      a.pause();
+      a.currentTime = 0;
+      return a;
+    };
+  });
   pagina.on("pageerror", (e) => console.error("Error en la plantilla:", e.message));
   pagina.on("console", (msg) => { if (msg.type() === "error") console.error("Consola:", msg.text()); });
   await pagina.goto(url, { waitUntil: "networkidle" });
@@ -82,7 +93,7 @@ async function main() {
   const duracion = await pagina.evaluate(() => window.PLANTILLA.duracion);
 
   // capturas descartables: obligan al compositor a tomar el estado pausado antes de la captura real
-  for (const t of [duracion / 2, 0]) { await ir(pagina, t); await pagina.screenshot({ type: "png" }); }
+  for (const t of [duracion / 2, 33]) { await ir(pagina, t); await pagina.screenshot({ type: "png" }); }
 
   if (cuadro !== null) {
     await ir(pagina, Number(cuadro));

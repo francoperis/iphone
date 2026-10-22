@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Apertura — Celu&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<!--
+  Apertura de la cuenta, estilo "Manifiesto". Una pieza por vez:
+    ?pieza=post1 … post6     carrusel 1080×1350 (imagen fija)
+    ?pieza=story1 … story6   historias 1080×1920, animadas 6 s
+  Los elementos .e entran en el ms de data-t (y salen en data-hasta si lo tienen).
+  En los posts todo se muestra en su estado final.
+-->
+<style>
+  :root { --tinta: #0A0A0B; --hueso: #EEEBE4; --lima: #CCFF00; --voltio: #8B6CFF; --acero: #8E8E96; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { overflow: hidden; background: var(--tinta); }
+  body.post { width: 1080px; height: 1350px; }
+  body.story { width: 1080px; height: 1920px; }
+  section { display: none; position: relative; width: 1080px; height: 100%; overflow: hidden; color: var(--hueso);
+            font-family: "JetBrains Mono", monospace; }
+  section.activa { display: block; }
+  body.post section { height: 1350px; }
+  body.story section { height: 1920px; }
+
+  .tinta { background: var(--tinta); } .hueso { background: var(--hueso); color: var(--tinta); }
+  .lima { background: var(--lima); color: var(--tinta); } .voltio { background: var(--voltio); color: var(--tinta); }
+  .grilla { background-image: linear-gradient(rgba(204,255,0,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(204,255,0,.06) 1px, transparent 1px);
+            background-size: 54px 54px; }
+
+  .abs { position: absolute; }
+  .titulo { font-family: "Unbounded", sans-serif; font-weight: 900; letter-spacing: -0.055em; line-height: .93; }
+  .mono { font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .marca b, .titulo b { color: var(--lima); font-weight: 900; }
+  .hueso .marca b, .lima .marca b { color: var(--voltio); }
+  .resalta { background: var(--voltio); padding: 0 14px; }
+  .resalta-lima { background: var(--lima); color: var(--tinta); padding: 0 14px; }
+  .contorno { color: var(--lima); }
+  .pie { left: 72px; right: 72px; display: flex; justify-content: space-between; align-items: center; font-size: 24px; }
+  .mono-c { width: 1em; height: 1em; }
+  .circulo { border-radius: 50%; display: grid; place-items: center; }
+  .tel { filter: drop-shadow(0 40px 50px rgba(0,0,0,.5)); }
+  .paso { display: flex; gap: 32px; align-items: flex-start; padding: 40px 0; border-top: 3px solid currentColor; }
+  .paso b { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 84px; line-height: .9; color: var(--voltio); }
+  .paso span { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 56px; letter-spacing: -0.04em; line-height: 1; }
+  .paso small { display: block; margin-top: 14px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 27px; letter-spacing: .04em; }
+  .chip { border: 3px solid currentColor; padding: 10px 18px; font-weight: 700; font-size: 26px; letter-spacing: .06em; }
+</style>
+</head>
+<body>
+
+<!-- ======================= CARRUSEL (1080×1350) ======================= -->
+
+<section id="post1" class="lima">
+  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px;">// 001 · Apertura</div>
+  <div class="abs marca titulo" style="right: 72px; top: 56px; font-size: 40px;">Celu<b>&amp;</b>Co.</div>
+  <div class="abs titulo" style="left: 64px; top: 150px; font-size: 250px;">Abri-<br>mos.</div>
+  <img class="abs tel" src="assets/fotos3d/17pro-azul-izq.webp" alt="iPhone 17 Pro azul profundo" style="right: 40px; top: 520px; height: 760px; rotate: 8deg;">
+  <div class="abs" style="left: 72px; top: 820px; display: flex; flex-direction: column; gap: 16px;">
+    <span class="chip">iPhone usados</span>
+    <span class="chip">y en caja sellada</span>
+  </div>
+  <div class="abs pie mono" style="bottom: 64px;"><span>Deslizá →</span><span></span></div>
+</section>
+
+<section id="post2" class="hueso">
+  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px;">// 02 · Qué vendemos</div>
+  <div class="abs titulo" style="left: 64px; top: 140px; font-size: 104px;">Usado no es<br><span class="resalta">segunda</span><br>opción.</div>
+  <img class="abs tel" src="assets/fotos3d/13-rosa.webp" alt="iPhone 13 rosa" style="left: 90px; top: 560px; height: 640px; rotate: -6deg;">
+  <img class="abs tel" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 520px; top: 540px; height: 680px; rotate: 6deg;">
+  <span class="abs chip" style="left: 72px; top: 1210px; background: var(--hueso);">USADOS</span>
+  <span class="abs chip" style="left: 600px; top: 1210px; background: var(--voltio); border-color: var(--voltio);">CAJA SELLADA</span>
+</section>
+
+<section id="post3" class="tinta grilla">
+  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px; color: var(--lima);">// 03 · Línea completa</div>
+  <div class="abs titulo contorno" style="left: 0; right: 0; top: 230px; text-align: center; font-size: 330px;">X→18</div>
+  <div class="abs titulo" style="left: 0; right: 0; top: 590px; text-align: center; font-size: 76px;">Del X al 18 Pro Max.</div>
+  <img class="abs tel" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 90px; top: 760px; height: 470px; rotate: -10deg;">
+  <img class="abs tel" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 300px; top: 720px; height: 520px; rotate: -3deg;">
+  <img class="abs tel" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 520px; top: 720px; height: 520px; rotate: 3deg;">
+  <img class="abs tel" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 730px; top: 750px; height: 490px; rotate: 10deg;">
+  <div class="abs mono" style="left: 0; right: 0; bottom: 56px; text-align: center; font-size: 22px; color: var(--acero);">X · XS · 11 · SE · 12 · 13 · 14 · 15 · 16 · 17 · Air · 18</div>
+</section>
+
+<section id="post4" class="lima">
+  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px;">// 04 · Nuestra regla</div>
+  <div class="abs titulo" style="left: 64px; top: 140px; font-size: 150px;">Ficha<br>a la vista.</div>
+  <img class="abs tel" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="right: 70px; top: 520px; height: 700px; rotate: 8deg;">
+  <div class="abs" style="left: 72px; top: 600px; width: 470px; display: flex; flex-direction: column; background: var(--tinta); color: var(--hueso); font-weight: 700; font-size: 30px;">
+    <div style="display: flex; justify-content: space-between; padding: 24px 26px; border-bottom: 3px solid #2A2A30;"><span>Batería</span><span style="color: var(--lima);">% real</span></div>
+    <div style="display: flex; justify-content: space-between; padding: 24px 26px; border-bottom: 3px solid #2A2A30;"><span>Capacidad</span><span style="color: var(--lima);">GB</span></div>
+    <div style="display: flex; justify-content: space-between; padding: 24px 26px; border-bottom: 3px solid #2A2A30;"><span>Estado</span><span style="color: var(--lima);">a la vista</span></div>
+    <div style="display: flex; justify-content: space-between; padding: 24px 26px;"><span>Color</span><span style="color: var(--lima);">el real</span></div>
+  </div>
+  <div class="abs mono" style="left: 72px; bottom: 64px; font-size: 24px;">Antes de que preguntes.</div>
+</section>
+
+<section id="post5" class="voltio">
+  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px;">// 05 · Plan canje</div>
+  <div class="abs titulo" style="left: 64px; top: 140px; font-size: 170px;">Tu iPhone<br>vale.</div>
+  <img class="abs tel" src="assets/fotos3d/17pro-naranja-canto.webp" alt="iPhone 17 Pro naranja de canto" style="right: 140px; top: 560px; height: 700px; rotate: 12deg;">
+  <div class="abs" style="left: 72px; top: 640px; display: flex; flex-direction: column; gap: 22px; font-weight: 700; font-size: 34px; line-height: 1.3;">
+    <span>Entregalo como<br>parte de pago</span>
+    <span class="resalta-lima" style="align-self: flex-start;">y llevate uno<br>más nuevo.</span>
+  </div>
+  <div class="abs mono" style="left: 72px; bottom: 64px; font-size: 26px;">Respondé CANJE</div>
+</section>
+
+<section id="post6" class="tinta">
+  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px; color: var(--lima);">// 06 · Cómo comprar</div>
+  <div class="abs titulo" style="left: 64px; top: 140px; font-size: 110px;">3 pasos<br>y es tuyo.</div>
+  <div class="abs" style="left: 72px; right: 72px; top: 430px; color: var(--hueso);">
+    <div class="paso"><b>1</b><div><span>Elegilo</span><small>En el catálogo o en las historias</small></div></div>
+    <div class="paso"><b>2</b><div><span>Escribinos QUIERO</span><small>Te mandamos la ficha y fotos reales</small></div></div>
+    <div class="paso"><b>3</b><div><span>Es tuyo</span><small>Retiro en [ZONA] · Envíos [__]</small></div></div>
+  </div>
+  <div class="abs" style="left: 0; right: 0; bottom: 0; height: 190px; background: var(--lima); color: var(--tinta); display: flex; align-items: center; justify-content: space-between; padding: 0 72px;">
+    <span class="titulo" style="font-size: 64px;">Respondé QUIERO</span>
+    <span class="circulo titulo" style="width: 120px; height: 120px; background: var(--tinta); color: var(--lima); font-size: 56px; letter-spacing: -0.09em;">C&amp;</span>
+  </div>
+</section>
+
+<!-- ======================= HISTORIAS (1080×1920, 6 s) ======================= -->
+
+<section id="story1" class="tinta grilla">
+  <div class="abs titulo e" data-t="0" data-hasta="900" style="left: 0; right: 0; top: 620px; text-align: center; font-size: 520px; color: var(--hueso);">3</div>
+  <div class="abs titulo e" data-t="900" data-hasta="1800" style="left: 0; right: 0; top: 620px; text-align: center; font-size: 520px; color: var(--voltio);">2</div>
+  <div class="abs titulo e" data-t="1800" data-hasta="2700" style="left: 0; right: 0; top: 620px; text-align: center; font-size: 520px; color: var(--lima);">1</div>
+  <div class="abs e lima" data-t="2700" style="inset: 0;"></div>
+  <div class="abs titulo e" data-t="2800" style="left: 64px; top: 420px; font-size: 290px; color: var(--tinta);">Abri-<br>mos.</div>
+  <img class="abs tel e" data-t="3100" src="assets/fotos3d/17pro-azul-izq.webp" alt="iPhone 17 Pro azul profundo" style="right: 60px; top: 1000px; height: 640px; rotate: 8deg;">
+  <div class="abs mono e" data-t="3400" style="left: 72px; top: 1080px; font-size: 32px; color: var(--tinta); line-height: 1.5;">Hoy arranca<br>Celu&amp;Co.</div>
+</section>
+
+<section id="story2" class="hueso">
+  <div class="abs mono e" data-t="0" style="left: 72px; top: 260px; font-size: 28px;">// Quiénes somos</div>
+  <div class="abs circulo titulo e" data-t="150" style="left: 72px; top: 330px; width: 220px; height: 220px; background: var(--lima); font-size: 100px; letter-spacing: -0.09em; box-shadow: 0 0 0 10px var(--hueso), 0 0 0 16px var(--voltio);">C&amp;</div>
+  <div class="abs titulo e" data-t="400" style="left: 64px; top: 620px; font-size: 128px;">Usado no es<br><span class="resalta">segunda</span><br>opción.</div>
+  <div class="abs e" data-t="1100" style="left: 72px; top: 1130px; display: flex; flex-direction: column; gap: 18px;">
+    <span class="chip">iPhone usados</span>
+    <span class="chip" style="background: var(--voltio); border-color: var(--voltio);">y en caja sellada</span>
+  </div>
+  <img class="abs tel e" data-t="1400" src="assets/fotos3d/13-rosa.webp" alt="iPhone 13 rosa" style="right: 60px; top: 1060px; height: 560px; rotate: 8deg;">
+</section>
+
+<section id="story3" class="lima">
+  <div class="abs mono e" data-t="0" style="left: 72px; top: 260px; font-size: 28px;">// Contanos</div>
+  <div class="abs titulo e" data-t="150" style="left: 64px; top: 330px; font-size: 150px;">¿Qué<br>buscás?</div>
+  <!-- espacio libre para el sticker de encuesta de Instagram (Usado / Sellado) -->
+  <img class="abs tel e" data-t="600" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 60px; top: 1080px; height: 560px; rotate: -10deg;">
+  <img class="abs tel e" data-t="800" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="right: 60px; top: 1060px; height: 580px; rotate: 10deg;">
+  <div class="abs mono e" data-t="1000" style="left: 72px; top: 1660px; font-size: 26px;">USADO</div>
+  <div class="abs mono e" data-t="1000" style="right: 72px; top: 1660px; font-size: 26px;">SELLADO</div>
+</section>
+
+<section id="story4" class="tinta grilla">
+  <div class="abs mono e" data-t="0" style="left: 72px; top: 260px; font-size: 28px; color: var(--lima);">// Línea completa</div>
+  <div class="abs titulo contorno e" data-t="150" style="left: 0; right: 0; top: 380px; text-align: center; font-size: 250px;">X→18</div>
+  <div class="abs titulo e" data-t="500" style="left: 0; right: 0; top: 720px; text-align: center; font-size: 80px;">Del X al<br>18 Pro Max.</div>
+  <img class="abs tel e" data-t="900" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 60px; top: 1010px; height: 520px; rotate: -10deg;">
+  <img class="abs tel e" data-t="1050" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 290px; top: 980px; height: 560px; rotate: -3deg;">
+  <img class="abs tel e" data-t="1200" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 520px; top: 980px; height: 560px; rotate: 3deg;">
+  <img class="abs tel e" data-t="1350" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 740px; top: 1010px; height: 520px; rotate: 10deg;">
+  <div class="abs mono e" data-t="1600" style="left: 0; right: 0; top: 1600px; text-align: center; font-size: 24px; color: var(--acero);">Cada uno con su ficha</div>
+</section>
+
+<section id="story5" class="voltio">
+  <div class="abs mono e" data-t="0" style="left: 72px; top: 260px; font-size: 28px;">// Plan canje</div>
+  <div class="abs titulo e" data-t="150" style="left: 64px; top: 330px; font-size: 170px;">Tu iPhone<br>vale.</div>
+  <div class="abs e" data-t="600" style="left: 72px; top: 720px; font-weight: 700; font-size: 40px; line-height: 1.35;">Entregalo como parte de pago<br><span class="resalta-lima">y llevate uno más nuevo.</span></div>
+  <!-- espacio libre para el sticker de preguntas de Instagram ("¿Qué iPhone tenés?") -->
+  <img class="abs tel e" data-t="900" src="assets/fotos3d/17pro-naranja-canto.webp" alt="iPhone 17 Pro naranja de canto" style="right: 120px; top: 1080px; height: 560px; rotate: 14deg;">
+</section>
+
+<section id="story6" class="tinta">
+  <div class="abs circulo titulo e" data-t="0" style="left: 50%; top: 360px; translate: -50% 0; width: 300px; height: 300px; background: var(--lima); color: var(--tinta); font-size: 140px; letter-spacing: -0.09em; box-shadow: 0 0 0 12px var(--tinta), 0 0 0 20px var(--voltio);">C&amp;</div>
+  <div class="abs titulo e" data-t="300" style="left: 0; right: 0; top: 760px; text-align: center; font-size: 110px;">¿Hay uno<br>para vos?</div>
+  <div class="abs e" data-t="700" style="left: 50%; top: 1060px; translate: -50% 0; background: var(--lima); color: var(--tinta); font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 64px; padding: 26px 44px; white-space: nowrap;">Respondé QUIERO</div>
+  <!-- espacio libre para el sticker de link al catálogo -->
+  <div class="abs mono e" data-t="1000" style="left: 0; right: 0; top: 1500px; text-align: center; font-size: 26px; color: var(--acero);">Celu&amp;Co. · iPhone usados y sellados</div>
+</section>
+
+<script>
+const P = new URLSearchParams(location.search);
+const id = P.get("pieza") || "post1";
+const esStory = id.startsWith("story");
+document.body.classList.add(esStory ? "story" : "post");
+const sec = document.getElementById(id);
+sec.classList.add("activa");
+
+const T = esStory ? 6000 : 1000;
+const ANIMS = [];
+if (esStory) {
+  const golpe = "cubic-bezier(.34,1.56,.64,1)";
+  sec.querySelectorAll(".e").forEach((el) => {
+    const t0 = Number(el.dataset.t || 0), hasta = el.dataset.hasta ? Number(el.dataset.hasta) : null;
+    const base = el.style.transform || "";
+    const fr = [
+      { offset: 0, opacity: 0, transform: `${base} translateY(60px) scale(.96)` },
+      { offset: t0 / T, opacity: 0, transform: `${base} translateY(60px) scale(.96)`, easing: golpe },
+      { offset: Math.min(1, (t0 + 420) / T), opacity: 1, transform: `${base} translateY(0) scale(1)` },
+    ];
+    if (hasta !== null) {
+      fr.push({ offset: (hasta - 120) / T, opacity: 1, transform: `${base} scale(1)` });
+      fr.push({ offset: hasta / T, opacity: 0, transform: `${base} scale(1.15)` });
+    }
+    if (fr[fr.length - 1].offset < 1) fr.push({ ...fr[fr.length - 1], offset: 1 });
+    ANIMS.push(el.animate(fr, { duration: T, fill: "both" }));
+  });
+}
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() {
+    await document.fonts.ready;
+    await Promise.all([...sec.querySelectorAll("img")].map((i) => (i.complete ? null : new Promise((r) => { i.onload = r; i.onerror = r; }))));
+  },
+  ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
+};
+</script>
+</body>
+</html>
