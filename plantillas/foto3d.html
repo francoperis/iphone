@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Foto 3D — Celu&amp;Co.</title>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<!--
+  El teléfono 3D solo, con fondo transparente, para usar como imagen en otras piezas.
+  ?modelo=iphone-17-pro&color=deepblue&giroY=-30&giroX=6&giroZ=-6&distancia=520
+  node exportar_video.js plantillas/foto3d.html "modelo=…" salida/x.png --cuadro 0 --transparente
+-->
+<style>
+  * { margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: transparent; }
+  canvas { width: 1080px; height: 1350px; display: block; }
+</style>
+</head>
+<body>
+<canvas id="lienzo3d"></canvas>
+<script src="datos.js"></script>
+<script type="module">
+import { crearTelefono } from "./telefono3d.js";
+const P = new URLSearchParams(location.search);
+const num = (k, d) => (P.has(k) ? Number(P.get(k)) : d);
+const id = P.get("modelo") || "iphone-17-pro";
+const colorId = P.get("color") || MODELOS[id].color;
+let tel = null;
+const listo = crearTelefono(document.getElementById("lienzo3d"), MODELOS[id], colorId, {
+  id, fotos: "assets/telefonos", distancia: num("distancia", 520),
+  contraluz: P.get("contraluz") || "#8B6CFF", relleno: P.get("relleno") || "#CCFF00",
+}).then((t) => { tel = t; dibujar(); });
+function dibujar() {
+  if (!tel) return;
+  tel.pose({ giroY: num("giroY", -28), giroX: num("giroX", 6), giroZ: num("giroZ", -6), subir: 0, escala: 1 });
+  tel.render();
+}
+window.PLANTILLA = { duracion: 1000, async listo() { await listo; }, ir() { dibujar(); } };
+</script>
+</body>
+</html>

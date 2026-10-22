@@ -38,6 +38,8 @@ async function main() {
   const cuadro = opt("--cuadro", null);
   const limite = opt("--cuadros", null); // solo para pruebas: graba los primeros N cuadros
   const fondo = opt("--fondo", null);    // video de fondo: la plantilla se graba transparente y se superpone
+  const transparente = args.includes("--transparente"); // PNG con fondo transparente (solo con --cuadro)
+  if (transparente) args.splice(args.indexOf("--transparente"), 1);
   const desde = Number(opt("--desde", 0)); // segundo del clip de fondo desde el que se toma
   const encuadre = Number(opt("--encuadre", 0.5)); // 0 = recorte pegado a la izquierda, 1 = a la derecha
   const [plantilla, query = "", salida] = args;
@@ -45,7 +47,7 @@ async function main() {
     console.error('Uso: node exportar_video.js <plantilla.html> "<parametros>" <salida.mp4|png> [--fps 30] [--cuadro ms]');
     process.exit(1);
   }
-  const post = /formato=post/.test(query);
+  const post = /formato=post/.test(query) || /foto3d\.html$/.test(plantilla);
   const ancho = 1080, alto = post ? 1350 : 1920;
   fs.mkdirSync(path.dirname(path.resolve(salida)), { recursive: true });
 
@@ -84,7 +86,7 @@ async function main() {
 
   if (cuadro !== null) {
     await ir(pagina, Number(cuadro));
-    await pagina.screenshot({ path: salida, omitBackground: Boolean(fondo) });
+    await pagina.screenshot({ path: salida, omitBackground: Boolean(fondo) || transparente });
     await navegador.close();
     servidor.close();
     console.log(`Cuadro ${cuadro} ms -> ${salida}`);
