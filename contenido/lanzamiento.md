@@ -28,7 +28,7 @@ Texto de la publicación:
 > Cada equipo tiene su ficha a la vista: batería, capacidad y estado. Sin sorpresas.
 > ¿Tenés un iPhone? Lo tomamos como parte de pago.
 >
-> Escribinos QUIERO por mensaje y te mostramos lo que hay.
+> Todo el stock está en el catálogo: link en la bio.
 > 📍 [ZONA] · Envíos [__]
 >
 > #iphone #iphoneusado #iphoneargentina #celulares

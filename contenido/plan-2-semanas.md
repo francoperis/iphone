@@ -2,7 +2,7 @@
 
 Marca: logo A + territorio "Drop + tech" (lima #CCFF00, voltio #8B6CFF, tinta #0A0A0B).
 Ritmo: historias todos los días · 3 reels por semana · 1–2 carruseles por semana.
-Llamado a la acción fijo: **"Respondé QUIERO"** (en canje: "Respondé CANJE").
+Llamado a la acción fijo: **tarjeta de link al catálogo** (historias: sticker de link "VER CATÁLOGO"; posts y reels: "catálogo en el link de la bio"). "Respondé QUIERO" quedó descartado (feedback 2026-10-22).
 Todo lo que dice `[__]` se completa con datos reales antes de publicar. Nunca inventar ventas, reseñas ni stock.
 
 ## Hooks del primer segundo (banco)
@@ -26,12 +26,12 @@ Reglas: texto grande en los primeros 0,5 s, menos de 7 palabras, una idea, una p
 
 Clips: Mixkit, licencia libre comercial (ver `videos/candidatos.csv`). Duración 10 s, 1080×1920.
 
-1. **chequea-esto** — Hook 1 → lista: salud de batería, Face ID, iCloud desvinculado, IMEI limpio → cierre "Guardalo para después" + Respondé QUIERO.
-   Copy: *Antes de pagar un usado, chequeá estas 4 cosas. Nosotros lo hacemos con cada equipo [confirmar que es así]. Respondé QUIERO y te mostramos el stock.*
-2. **canje** — Hook 2 → "Entregalo como parte de pago y llevate uno más nuevo" → cierre "Mandanos tu modelo" + Respondé CANJE.
+1. **chequea-esto** — Hook 1 → lista: salud de batería, Face ID, iCloud desvinculado, IMEI limpio → cierre "Guardalo para después" + catálogo en la bio.
+   Copy: *Antes de pagar un usado, chequeá estas 4 cosas. Nosotros lo hacemos con cada equipo [confirmar que es así]. Todo el stock está en el catálogo: link en la bio.*
+2. **canje** — Hook 2 → "Entregalo como parte de pago y llevate uno más nuevo" → cierre "¿A cuál te pasás?" + catálogo en la bio.
    Copy: *Tu iPhone de antes vale. Mandanos modelo, GB y % de batería y te decimos cuánto te tomamos.*
 3. **primera-foto** — Hook 3 → "Del X al 18 Pro Max / Usados y en caja sellada / Cada uno con su ficha" → cierre "Encontrá el tuyo".
-   Copy: *El que buscás está acá. Usados con su ficha y sellados en caja. Respondé QUIERO.*
+   Copy: *El que buscás está acá. Usados con su ficha y sellados en caja. Catálogo en el link de la bio.*
 
 ## Calendario
 
@@ -40,7 +40,7 @@ Clips: Mixkit, licencia libre comercial (ver `videos/candidatos.csv`). Duración
 | Lun 1 | Encuesta: "¿Qué iPhone tenés hoy?" · Precios del día [__] | **Reel** chequea-esto |
 | Mar 1 | "Llegó" de un equipo real [__] · Caja de preguntas "Preguntanos lo que quieras" | — |
 | Mié 1 | Respuestas a la caja · "Cómo comprar en 3 pasos" | **Carrusel** Cómo revisar un iPhone usado (6 láminas) |
-| Jue 1 | Precios del día · Sticker "Respondé QUIERO" | **Reel** canje |
+| Jue 1 | Precios del día · Sticker de link al catálogo | **Reel** canje |
 | Vie 1 | "Llegó" [__] · Sello VENDIDO cuando corresponda (solo ventas reales) | — |
 | Sáb 1 | Detrás de escena: cómo revisamos un equipo (filmado por ustedes) | **Reel** primera-foto |
 | Dom 1 | Repost del reel de la semana · Encuesta "¿15 Pro o 16?" | — |

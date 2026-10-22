@@ -140,7 +140,7 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 4. Carruseles educativos: "¿15 Pro o 16?", "Qué iPhone comprar con $X",
    "Cómo revisar un iPhone usado (batería, Face ID, iCloud, IMEI)".
 5. Calendario semanal: historias diarias, 3 reels y 1–2 carruseles por semana,
-   con textos (copy), hooks del primer segundo y llamado a la acción ("Respondé QUIERO").
+   con textos (copy), hooks del primer segundo y llamado a la acción (tarjeta de link al catálogo).
 6. Página de catálogo: modelos ordenados por generación, filtros, batería, precio,
    botón "Lo quiero" que abre WhatsApp con el mensaje armado; stock editable sin tocar código.
 
