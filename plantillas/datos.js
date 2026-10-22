@@ -18,6 +18,24 @@ window.MARCA = {
 };
 
 window.MODELOS = {
+  "iphone-12": {
+    nombre: "iPhone 12", gb: 128, precio: 510000,
+    tresd: {
+      medidas: [71.5, 146.7, 7.4], bisel: 0.7, material: "aluminio", isla: false,
+      modulo: { caja: [0.063, 0.028, 0.476, 0.238], radio: 0.1, alto: 0.9 },
+      lentes: { lista: [[0.185, 0.086, 0.082], [0.185, 0.182, 0.082]], alto: 0.7 },
+      control: false,
+    },
+    colores: {
+      blue: { nombre: "Azul", brillo: "#2f5675", marco: "#2c4c66" },
+      black: { nombre: "Negro", brillo: "#2b2d31", marco: "#1f2124" },
+      white: { nombre: "Blanco", brillo: "#ecebe6", marco: "#e2e1dc" },
+      green: { nombre: "Verde", brillo: "#cfe3cf", marco: "#b9d0bb" },
+      purple: { nombre: "Púrpura", brillo: "#c9bfdc", marco: "#b7acd0" },
+      red: { nombre: "(PRODUCT)RED", brillo: "#b1202c", marco: "#9a1b25" },
+    },
+    color: "blue",
+  },
   "iphone-13": {
     nombre: "iPhone 13", gb: 128, precio: 610000,
     tresd: {

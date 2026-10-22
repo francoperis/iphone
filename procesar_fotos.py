@@ -113,6 +113,7 @@ def procesar_modelo(modelo, alto, forzar):
 # Medidas oficiales (mm): ancho, alto, espesor. Las usa la plantilla 3D (plantillas/datos.js) y el
 # recorte del dorso, que toma el ancho del equipo de la proporción ancho/alto.
 MEDIDAS = {
+    "iphone-12": (71.5, 146.7, 7.4),
     "iphone-13": (71.5, 146.7, 7.65),
     "iphone-15-pro": (70.6, 146.6, 8.25),
     "iphone-16-pro": (71.5, 149.6, 8.25),

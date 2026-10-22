@@ -7,20 +7,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="piezas.css">
 <!--
   Apertura de la cuenta, estilo "Manifiesto". Una pieza por vez:
     ?pieza=post1 … post6     carrusel 1080×1350 (imagen fija)
     ?pieza=story1 … story6   historias 1080×1920, animadas 6 s
-  Los elementos .e entran en el ms de data-t (y salen en data-hasta si lo tienen).
-  En los posts todo se muestra en su estado final.
+  La lámina 5 y la historia 5 (plan canje) salen de canje.html (animación 3D: entregás uno viejo, te llevás uno nuevo).
+  Los teléfonos se ubican por su CENTRO (left/top). Los callouts (<i class="co">) los dibuja piezas.js.
+  En las historias, los elementos .e entran en el ms de data-t (y salen en data-hasta si lo tienen).
 -->
 <style>
-  :root { --tinta: #0A0A0B; --hueso: #EEEBE4; --lima: #CCFF00; --voltio: #8B6CFF; --acero: #8E8E96; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { overflow: hidden; background: var(--tinta); }
   body.post { width: 1080px; height: 1350px; }
   body.story { width: 1080px; height: 1920px; }
-  section { display: none; position: relative; width: 1080px; height: 100%; overflow: hidden; color: var(--hueso);
+  section { display: none; position: relative; width: 1080px; overflow: hidden; color: var(--hueso);
             font-family: "JetBrains Mono", monospace; }
   section.activa { display: block; }
   body.post section { height: 1350px; }
@@ -30,24 +30,20 @@
   .lima { background: var(--lima); color: var(--tinta); } .voltio { background: var(--voltio); color: var(--tinta); }
   .grilla { background-image: linear-gradient(rgba(204,255,0,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(204,255,0,.06) 1px, transparent 1px);
             background-size: 54px 54px; }
-
-  .abs { position: absolute; }
-  .titulo { font-family: "Unbounded", sans-serif; font-weight: 900; letter-spacing: -0.055em; line-height: .93; }
-  .mono { font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-  .marca b, .titulo b { color: var(--lima); font-weight: 900; }
-  .hueso .marca b, .lima .marca b { color: var(--voltio); }
-  .resalta { background: var(--voltio); padding: 0 14px; }
-  .resalta-lima { background: var(--lima); color: var(--tinta); padding: 0 14px; }
-  .contorno { color: var(--lima); }
-  .pie { left: 72px; right: 72px; display: flex; justify-content: space-between; align-items: center; font-size: 24px; }
-  .mono-c { width: 1em; height: 1em; }
+  .cabeza { left: 72px; right: 72px; display: flex; justify-content: space-between; align-items: baseline; font-size: 24px; }
+  .cabeza .marca { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 36px; letter-spacing: -0.05em; text-transform: none; }
   .circulo { border-radius: 50%; display: grid; place-items: center; }
-  .tel { filter: drop-shadow(0 40px 50px rgba(0,0,0,.5)); }
-  .paso { display: flex; gap: 32px; align-items: flex-start; padding: 40px 0; border-top: 3px solid currentColor; }
-  .paso b { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 84px; line-height: .9; color: var(--voltio); }
-  .paso span { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 56px; letter-spacing: -0.04em; line-height: 1; }
-  .paso small { display: block; margin-top: 14px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 27px; letter-spacing: .04em; }
-  .chip { border: 3px solid currentColor; padding: 10px 18px; font-weight: 700; font-size: 26px; letter-spacing: .06em; }
+  .chica .v { font-size: 40px; }
+
+  /* "3 pasos": línea de tiempo vertical, sin cajas */
+  .pasos { left: 72px; right: 72px; }
+  .pasos::before { content: ""; position: absolute; left: 34px; top: 40px; bottom: 40px; width: 3px; background: var(--acero); }
+  .paso { position: relative; display: flex; gap: 40px; align-items: flex-start; }
+  .paso + .paso { margin-top: 64px; }
+  .paso b { flex: none; width: 72px; height: 72px; border-radius: 50%; background: var(--lima); color: var(--tinta); display: grid; place-items: center;
+            font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 36px; }
+  .paso span { display: block; font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 56px; letter-spacing: -0.045em; line-height: 1.05; }
+  .paso small { display: block; margin-top: 14px; font-weight: 700; font-size: 27px; letter-spacing: .04em; color: var(--acero); }
 </style>
 </head>
 <body>
@@ -55,135 +51,135 @@
 <!-- ======================= CARRUSEL (1080×1350) ======================= -->
 
 <section id="post1" class="lima">
-  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px;">// 001 · Apertura</div>
-  <div class="abs marca titulo" style="right: 72px; top: 56px; font-size: 40px;">Celu<b>&amp;</b>Co.</div>
-  <div class="abs titulo" style="left: 64px; top: 150px; font-size: 250px;">Abri-<br>mos.</div>
-  <img class="abs tel" src="assets/fotos3d/17pro-azul-izq.webp" alt="iPhone 17 Pro azul profundo" style="right: 40px; top: 520px; height: 760px; rotate: 8deg;">
-  <div class="abs" style="left: 72px; top: 820px; display: flex; flex-direction: column; gap: 16px;">
-    <span class="chip">iPhone usados</span>
-    <span class="chip">y en caja sellada</span>
-  </div>
-  <div class="abs pie mono" style="bottom: 64px;"><span>Deslizá →</span><span></span></div>
+  <div class="abs cabeza mono" style="top: 64px;"><span>// 001 · Apertura</span><span class="marca">Celu<b>&amp;</b>Co.</span></div>
+  <div class="abs titulo" style="left: 64px; top: 150px; font-size: 230px;">Abri-<br>mos.</div>
+  <img class="tel" id="p1" src="assets/fotos3d/17pro-azul-izq.webp" alt="iPhone 17 Pro azul profundo" style="left: 540px; top: 930px; height: 600px; rotate: 6deg;">
+  <i class="co" data-l="@p1:0.07:0.52 h:72" data-etq="p1a" data-pos="sobre-izq"></i>
+  <div class="etq" id="p1a"><span class="v">Usados</span><span class="k">con ficha</span></div>
+  <i class="co" data-l="@p1:0.93:0.74 h:1008" data-etq="p1b" data-pos="sobre-der"></i>
+  <div class="etq" id="p1b"><span class="v">Caja<br>sellada</span><span class="k">sin abrir</span></div>
+  <div class="abs cabeza mono" style="bottom: 60px;"><span>Deslizá →</span><span>X → 18 Pro Max</span></div>
 </section>
 
 <section id="post2" class="hueso">
-  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px;">// 02 · Qué vendemos</div>
-  <div class="abs titulo" style="left: 64px; top: 140px; font-size: 104px;">Usado no es<br><span class="resalta">segunda</span><br>opción.</div>
-  <img class="abs tel" src="assets/fotos3d/13-rosa.webp" alt="iPhone 13 rosa" style="left: 90px; top: 560px; height: 640px; rotate: -6deg;">
-  <img class="abs tel" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 520px; top: 540px; height: 680px; rotate: 6deg;">
-  <span class="abs chip" style="left: 72px; top: 1210px; background: var(--hueso);">USADOS</span>
-  <span class="abs chip" style="left: 600px; top: 1210px; background: var(--voltio); border-color: var(--voltio);">CAJA SELLADA</span>
+  <div class="abs cabeza mono" style="top: 64px;"><span>// 02 · Qué vendemos</span><span class="marca">Celu<b>&amp;</b>Co.</span></div>
+  <div class="abs titulo" style="left: 64px; top: 150px; font-size: 104px;">Usado no es<br><span class="resalta">segunda</span><br>opción.</div>
+  <img class="tel" id="p2a" src="assets/fotos3d/13-rosa.webp" alt="iPhone 13 rosa" style="left: 370px; top: 830px; height: 540px; rotate: -6deg;">
+  <img class="tel" id="p2b" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 710px; top: 830px; height: 560px; rotate: 6deg;">
+  <i class="co" data-l="@p2a:0.5:0.985 v:1170" data-etq="p2c" data-pos="bajo"></i>
+  <div class="etq" id="p2c"><span class="v">Usado</span><span class="k">con su ficha</span></div>
+  <i class="co" data-l="@p2b:0.5:0.985 v:1170" data-etq="p2d" data-pos="bajo"></i>
+  <div class="etq" id="p2d"><span class="v">Sellado</span><span class="k">en su caja</span></div>
 </section>
 
 <section id="post3" class="tinta grilla">
-  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px; color: var(--lima);">// 03 · Línea completa</div>
-  <div class="abs titulo contorno" style="left: 0; right: 0; top: 230px; text-align: center; font-size: 330px;">X→18</div>
-  <div class="abs titulo" style="left: 0; right: 0; top: 590px; text-align: center; font-size: 76px;">Del X al 18 Pro Max.</div>
-  <img class="abs tel" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 90px; top: 760px; height: 470px; rotate: -10deg;">
-  <img class="abs tel" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 300px; top: 720px; height: 520px; rotate: -3deg;">
-  <img class="abs tel" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 520px; top: 720px; height: 520px; rotate: 3deg;">
-  <img class="abs tel" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 730px; top: 750px; height: 490px; rotate: 10deg;">
-  <div class="abs mono" style="left: 0; right: 0; bottom: 56px; text-align: center; font-size: 22px; color: var(--acero);">X · XS · 11 · SE · 12 · 13 · 14 · 15 · 16 · 17 · Air · 18</div>
+  <div class="abs cabeza mono" style="top: 64px; color: var(--lima);"><span>// 03 · Línea completa</span><span class="marca" style="color: var(--hueso);">Celu<b>&amp;</b>Co.</span></div>
+  <div class="abs titulo" style="left: 0; right: 0; top: 190px; text-align: center; font-size: 300px; color: var(--lima);">X→18</div>
+  <div class="abs titulo" style="left: 0; right: 0; top: 500px; text-align: center; font-size: 66px;">Del X al 18 Pro Max.</div>
+  <img class="tel" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 300px; top: 930px; height: 460px; rotate: -10deg;">
+  <img class="tel" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 460px; top: 915px; height: 490px; rotate: -3deg;">
+  <img class="tel" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 620px; top: 915px; height: 490px; rotate: 3deg;">
+  <img class="tel" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 780px; top: 930px; height: 460px; rotate: 10deg;">
+  <div class="abs mono" style="left: 0; right: 0; bottom: 64px; text-align: center; font-size: 22px; color: var(--acero);">X · XS · 11 · SE · 12 · 13 · 14 · 15 · 16 · 17 · Air · 18</div>
 </section>
 
 <section id="post4" class="lima">
-  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px;">// 04 · Nuestra regla</div>
-  <div class="abs titulo" style="left: 64px; top: 140px; font-size: 150px;">Ficha<br>a la vista.</div>
-  <img class="abs tel" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="right: 70px; top: 520px; height: 700px; rotate: 8deg;">
-  <div class="abs" style="left: 72px; top: 600px; width: 470px; display: flex; flex-direction: column; background: var(--tinta); color: var(--hueso); font-weight: 700; font-size: 30px;">
-    <div style="display: flex; justify-content: space-between; padding: 24px 26px; border-bottom: 3px solid #2A2A30;"><span>Batería</span><span style="color: var(--lima);">% real</span></div>
-    <div style="display: flex; justify-content: space-between; padding: 24px 26px; border-bottom: 3px solid #2A2A30;"><span>Capacidad</span><span style="color: var(--lima);">GB</span></div>
-    <div style="display: flex; justify-content: space-between; padding: 24px 26px; border-bottom: 3px solid #2A2A30;"><span>Estado</span><span style="color: var(--lima);">a la vista</span></div>
-    <div style="display: flex; justify-content: space-between; padding: 24px 26px;"><span>Color</span><span style="color: var(--lima);">el real</span></div>
-  </div>
-  <div class="abs mono" style="left: 72px; bottom: 64px; font-size: 24px;">Antes de que preguntes.</div>
-</section>
-
-<section id="post5" class="voltio">
-  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px;">// 05 · Plan canje</div>
-  <div class="abs titulo" style="left: 64px; top: 140px; font-size: 170px;">Tu iPhone<br>vale.</div>
-  <img class="abs tel" src="assets/fotos3d/17pro-naranja-canto.webp" alt="iPhone 17 Pro naranja de canto" style="right: 140px; top: 560px; height: 700px; rotate: 12deg;">
-  <div class="abs" style="left: 72px; top: 640px; display: flex; flex-direction: column; gap: 22px; font-weight: 700; font-size: 34px; line-height: 1.3;">
-    <span>Entregalo como<br>parte de pago</span>
-    <span class="resalta-lima" style="align-self: flex-start;">y llevate uno<br>más nuevo.</span>
-  </div>
-  <div class="abs mono" style="left: 72px; bottom: 64px; font-size: 26px;">Respondé CANJE</div>
+  <div class="abs cabeza mono" style="top: 64px;"><span>// 04 · Nuestra regla</span><span class="marca">Celu<b>&amp;</b>Co.</span></div>
+  <div class="abs titulo" style="left: 64px; top: 150px; font-size: 140px;">Ficha<br>a la vista.</div>
+  <img class="tel" id="p4" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 540px; top: 860px; height: 640px;">
+  <i class="co" data-l="@p4:0.09:0.34 h:72" data-etq="p4a" data-pos="sobre-izq"></i>
+  <div class="etq chica" id="p4a"><span class="v">Batería</span><span class="k">% real</span></div>
+  <i class="co" data-l="@p4:0.09:0.74 h:72" data-etq="p4b" data-pos="sobre-izq"></i>
+  <div class="etq chica" id="p4b"><span class="v">Capaci-<br>dad</span><span class="k">GB</span></div>
+  <i class="co" data-l="@p4:0.91:0.27 h:1008" data-etq="p4c" data-pos="sobre-der"></i>
+  <div class="etq chica" id="p4c"><span class="v">Color</span><span class="k">el real</span></div>
+  <i class="co" data-l="@p4:0.91:0.66 h:1008" data-etq="p4d" data-pos="sobre-der"></i>
+  <div class="etq chica" id="p4d"><span class="v">Estado</span><span class="k">a la vista</span></div>
+  <div class="abs cabeza mono" style="bottom: 60px;"><span>Antes de que preguntes.</span><span></span></div>
 </section>
 
 <section id="post6" class="tinta">
-  <div class="abs mono" style="left: 72px; top: 64px; font-size: 24px; color: var(--lima);">// 06 · Cómo comprar</div>
-  <div class="abs titulo" style="left: 64px; top: 140px; font-size: 110px;">3 pasos<br>y es tuyo.</div>
-  <div class="abs" style="left: 72px; right: 72px; top: 430px; color: var(--hueso);">
-    <div class="paso"><b>1</b><div><span>Elegilo</span><small>En el catálogo o en las historias</small></div></div>
-    <div class="paso"><b>2</b><div><span>Escribinos QUIERO</span><small>Te mandamos la ficha y fotos reales</small></div></div>
+  <div class="abs cabeza mono" style="top: 64px; color: var(--lima);"><span>// 06 · Cómo comprar</span><span class="marca" style="color: var(--hueso);">Celu<b>&amp;</b>Co.</span></div>
+  <div class="abs titulo" style="left: 64px; top: 150px; font-size: 110px;">3 pasos<br>y es tuyo.</div>
+  <div class="abs pasos" style="top: 470px;">
+    <div class="paso"><b>1</b><div><span>Elegilo</span><small>En el catálogo online</small></div></div>
+    <div class="paso"><b>2</b><div><span>Tocá «Lo quiero»</span><small>Se abre WhatsApp con el mensaje listo</small></div></div>
     <div class="paso"><b>3</b><div><span>Es tuyo</span><small>Retiro en [ZONA] · Envíos [__]</small></div></div>
   </div>
-  <div class="abs" style="left: 0; right: 0; bottom: 0; height: 190px; background: var(--lima); color: var(--tinta); display: flex; align-items: center; justify-content: space-between; padding: 0 72px;">
-    <span class="titulo" style="font-size: 64px;">Respondé QUIERO</span>
-    <span class="circulo titulo" style="width: 120px; height: 120px; background: var(--tinta); color: var(--lima); font-size: 56px; letter-spacing: -0.09em;">C&amp;</span>
+  <div class="tarjeta" style="bottom: 72px;">
+    <span class="flecha"><svg viewBox="0 0 24 24" width="44" height="44"><path d="M6 18 18 6M8 6h10v10" stroke="currentColor" stroke-width="3.2" fill="none"/></svg></span>
+    <div class="txt"><span class="k">Catálogo online</span><span class="v">Todo el stock, con ficha</span></div>
+    <span class="hueco">LINK EN LA BIO</span>
   </div>
 </section>
 
 <!-- ======================= HISTORIAS (1080×1920, 6 s) ======================= -->
+<!-- Zona segura de Instagram: nada importante arriba de 250 px ni debajo de 1700 px. -->
 
 <section id="story1" class="tinta grilla">
   <div class="abs titulo e" data-t="0" data-hasta="900" style="left: 0; right: 0; top: 620px; text-align: center; font-size: 520px; color: var(--hueso);">3</div>
   <div class="abs titulo e" data-t="900" data-hasta="1800" style="left: 0; right: 0; top: 620px; text-align: center; font-size: 520px; color: var(--voltio);">2</div>
   <div class="abs titulo e" data-t="1800" data-hasta="2700" style="left: 0; right: 0; top: 620px; text-align: center; font-size: 520px; color: var(--lima);">1</div>
   <div class="abs e lima" data-t="2700" style="inset: 0;"></div>
-  <div class="abs titulo e" data-t="2800" style="left: 64px; top: 420px; font-size: 290px; color: var(--tinta);">Abri-<br>mos.</div>
-  <img class="abs tel e" data-t="3100" src="assets/fotos3d/17pro-azul-izq.webp" alt="iPhone 17 Pro azul profundo" style="right: 60px; top: 1000px; height: 640px; rotate: 8deg;">
-  <div class="abs mono e" data-t="3400" style="left: 72px; top: 1080px; font-size: 32px; color: var(--tinta); line-height: 1.5;">Hoy arranca<br>Celu&amp;Co.</div>
+  <div class="abs titulo e" data-t="2800" style="left: 64px; top: 330px; font-size: 270px; color: var(--tinta);">Abri-<br>mos.</div>
+  <img class="tel e" id="s1" data-t="3100" src="assets/fotos3d/17pro-azul-izq.webp" alt="iPhone 17 Pro azul profundo" style="left: 540px; top: 1250px; height: 600px; rotate: 6deg;">
+  <i class="co" data-l="@s1:0.07:0.52 h:72" data-etq="s1a" data-pos="sobre-izq" data-t="3500" style="color: var(--tinta);"></i>
+  <div class="etq e" id="s1a" data-t="3700" style="color: var(--tinta);"><span class="v">Usados</span><span class="k">con ficha</span></div>
+  <i class="co" data-l="@s1:0.93:0.74 h:1008" data-etq="s1b" data-pos="sobre-der" data-t="3700" style="color: var(--tinta);"></i>
+  <div class="etq e" id="s1b" data-t="3900" style="color: var(--tinta);"><span class="v">Caja<br>sellada</span><span class="k">sin abrir</span></div>
+  <div class="abs mono e" data-t="4300" style="left: 0; right: 0; top: 1640px; text-align: center; font-size: 28px; color: var(--tinta);">Hoy arranca Celu&amp;Co.</div>
 </section>
 
 <section id="story2" class="hueso">
-  <div class="abs mono e" data-t="0" style="left: 72px; top: 260px; font-size: 28px;">// Quiénes somos</div>
-  <div class="abs circulo titulo e" data-t="150" style="left: 72px; top: 330px; width: 220px; height: 220px; background: var(--lima); font-size: 100px; letter-spacing: -0.09em; box-shadow: 0 0 0 10px var(--hueso), 0 0 0 16px var(--voltio);">C&amp;</div>
-  <div class="abs titulo e" data-t="400" style="left: 64px; top: 620px; font-size: 128px;">Usado no es<br><span class="resalta">segunda</span><br>opción.</div>
-  <div class="abs e" data-t="1100" style="left: 72px; top: 1130px; display: flex; flex-direction: column; gap: 18px;">
-    <span class="chip">iPhone usados</span>
-    <span class="chip" style="background: var(--voltio); border-color: var(--voltio);">y en caja sellada</span>
-  </div>
-  <img class="abs tel e" data-t="1400" src="assets/fotos3d/13-rosa.webp" alt="iPhone 13 rosa" style="right: 60px; top: 1060px; height: 560px; rotate: 8deg;">
+  <div class="abs mono e" data-t="0" style="left: 72px; top: 250px; font-size: 26px;">// Quiénes somos</div>
+  <div class="abs circulo titulo e" data-t="150" style="left: 72px; top: 320px; width: 200px; height: 200px; background: var(--lima); font-size: 90px; letter-spacing: -0.09em; box-shadow: 0 0 0 10px var(--hueso), 0 0 0 16px var(--voltio);">C&amp;</div>
+  <div class="abs titulo e" data-t="400" style="left: 64px; top: 590px; font-size: 118px;">Usado no es<br><span class="resalta">segunda</span><br>opción.</div>
+  <img class="tel e" id="s2a" data-t="1000" src="assets/fotos3d/13-rosa.webp" alt="iPhone 13 rosa" style="left: 370px; top: 1250px; height: 520px; rotate: -6deg;">
+  <img class="tel e" id="s2b" data-t="1200" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 710px; top: 1250px; height: 540px; rotate: 6deg;">
+  <i class="co" data-l="@s2a:0.5:0.985 v:1580" data-etq="s2c" data-pos="bajo" data-t="1600"></i>
+  <div class="etq e" id="s2c" data-t="1800"><span class="v">Usado</span><span class="k">con su ficha</span></div>
+  <i class="co" data-l="@s2b:0.5:0.985 v:1580" data-etq="s2d" data-pos="bajo" data-t="1800"></i>
+  <div class="etq e" id="s2d" data-t="2000"><span class="v">Sellado</span><span class="k">en su caja</span></div>
 </section>
 
 <section id="story3" class="lima">
-  <div class="abs mono e" data-t="0" style="left: 72px; top: 260px; font-size: 28px;">// Contanos</div>
-  <div class="abs titulo e" data-t="150" style="left: 64px; top: 330px; font-size: 150px;">¿Qué<br>buscás?</div>
-  <!-- espacio libre para el sticker de encuesta de Instagram (Usado / Sellado) -->
-  <img class="abs tel e" data-t="600" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 60px; top: 1080px; height: 560px; rotate: -10deg;">
-  <img class="abs tel e" data-t="800" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="right: 60px; top: 1060px; height: 580px; rotate: 10deg;">
-  <div class="abs mono e" data-t="1000" style="left: 72px; top: 1660px; font-size: 26px;">USADO</div>
-  <div class="abs mono e" data-t="1000" style="right: 72px; top: 1660px; font-size: 26px;">SELLADO</div>
+  <div class="abs mono e" data-t="0" style="left: 72px; top: 250px; font-size: 26px;">// Contanos</div>
+  <div class="abs titulo e" data-t="150" style="left: 64px; top: 320px; font-size: 150px;">¿Qué<br>buscás?</div>
+  <!-- espacio libre (650–930 px) para el sticker de encuesta de Instagram: Usado / Sellado -->
+  <img class="tel e" id="s3a" data-t="600" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 370px; top: 1250px; height: 520px; rotate: -6deg;">
+  <img class="tel e" id="s3b" data-t="800" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 710px; top: 1250px; height: 540px; rotate: 6deg;">
+  <i class="co" data-l="@s3a:0.5:0.985 v:1580" data-etq="s3c" data-pos="bajo" data-t="1100"></i>
+  <div class="etq e" id="s3c" data-t="1300"><span class="v">Usado</span></div>
+  <i class="co" data-l="@s3b:0.5:0.985 v:1580" data-etq="s3d" data-pos="bajo" data-t="1300"></i>
+  <div class="etq e" id="s3d" data-t="1500"><span class="v">Sellado</span></div>
 </section>
 
 <section id="story4" class="tinta grilla">
-  <div class="abs mono e" data-t="0" style="left: 72px; top: 260px; font-size: 28px; color: var(--lima);">// Línea completa</div>
-  <div class="abs titulo contorno e" data-t="150" style="left: 0; right: 0; top: 380px; text-align: center; font-size: 250px;">X→18</div>
-  <div class="abs titulo e" data-t="500" style="left: 0; right: 0; top: 720px; text-align: center; font-size: 80px;">Del X al<br>18 Pro Max.</div>
-  <img class="abs tel e" data-t="900" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 60px; top: 1010px; height: 520px; rotate: -10deg;">
-  <img class="abs tel e" data-t="1050" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 290px; top: 980px; height: 560px; rotate: -3deg;">
-  <img class="abs tel e" data-t="1200" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 520px; top: 980px; height: 560px; rotate: 3deg;">
-  <img class="abs tel e" data-t="1350" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 740px; top: 1010px; height: 520px; rotate: 10deg;">
-  <div class="abs mono e" data-t="1600" style="left: 0; right: 0; top: 1600px; text-align: center; font-size: 24px; color: var(--acero);">Cada uno con su ficha</div>
-</section>
-
-<section id="story5" class="voltio">
-  <div class="abs mono e" data-t="0" style="left: 72px; top: 260px; font-size: 28px;">// Plan canje</div>
-  <div class="abs titulo e" data-t="150" style="left: 64px; top: 330px; font-size: 170px;">Tu iPhone<br>vale.</div>
-  <div class="abs e" data-t="600" style="left: 72px; top: 720px; font-weight: 700; font-size: 40px; line-height: 1.35;">Entregalo como parte de pago<br><span class="resalta-lima">y llevate uno más nuevo.</span></div>
-  <!-- espacio libre para el sticker de preguntas de Instagram ("¿Qué iPhone tenés?") -->
-  <img class="abs tel e" data-t="900" src="assets/fotos3d/17pro-naranja-canto.webp" alt="iPhone 17 Pro naranja de canto" style="right: 120px; top: 1080px; height: 560px; rotate: 14deg;">
+  <div class="abs mono e" data-t="0" style="left: 72px; top: 250px; font-size: 26px; color: var(--lima);">// Línea completa</div>
+  <div class="abs titulo e" data-t="150" style="left: 0; right: 0; top: 330px; text-align: center; font-size: 250px; color: var(--lima);">X→18</div>
+  <div class="abs titulo e" data-t="500" style="left: 0; right: 0; top: 630px; text-align: center; font-size: 80px;">Del X al<br>18 Pro Max.</div>
+  <img class="tel e" data-t="900" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 300px; top: 1210px; height: 500px; rotate: -10deg;">
+  <img class="tel e" data-t="1050" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 460px; top: 1195px; height: 530px; rotate: -3deg;">
+  <img class="tel e" data-t="1200" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 620px; top: 1195px; height: 530px; rotate: 3deg;">
+  <img class="tel e" data-t="1350" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 780px; top: 1210px; height: 500px; rotate: 10deg;">
+  <div class="abs mono e" data-t="1600" style="left: 0; right: 0; top: 1580px; text-align: center; font-size: 26px; color: var(--acero);">Cada uno con su ficha</div>
 </section>
 
 <section id="story6" class="tinta">
-  <div class="abs circulo titulo e" data-t="0" style="left: 50%; top: 360px; translate: -50% 0; width: 300px; height: 300px; background: var(--lima); color: var(--tinta); font-size: 140px; letter-spacing: -0.09em; box-shadow: 0 0 0 12px var(--tinta), 0 0 0 20px var(--voltio);">C&amp;</div>
-  <div class="abs titulo e" data-t="300" style="left: 0; right: 0; top: 760px; text-align: center; font-size: 110px;">¿Hay uno<br>para vos?</div>
-  <div class="abs e" data-t="700" style="left: 50%; top: 1060px; translate: -50% 0; background: var(--lima); color: var(--tinta); font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 64px; padding: 26px 44px; white-space: nowrap;">Respondé QUIERO</div>
-  <!-- espacio libre para el sticker de link al catálogo -->
-  <div class="abs mono e" data-t="1000" style="left: 0; right: 0; top: 1500px; text-align: center; font-size: 26px; color: var(--acero);">Celu&amp;Co. · iPhone usados y sellados</div>
+  <div class="abs circulo titulo e" data-t="0" style="left: 50%; top: 290px; translate: -50% 0; width: 240px; height: 240px; background: var(--lima); color: var(--tinta); font-size: 110px; letter-spacing: -0.09em; box-shadow: 0 0 0 12px var(--tinta), 0 0 0 20px var(--voltio);">C&amp;</div>
+  <div class="abs titulo e" data-t="300" style="left: 0; right: 0; top: 610px; text-align: center; font-size: 110px;">¿Hay uno<br>para vos?</div>
+  <!-- el sticker de link de Instagram (texto: VER CATÁLOGO) va dentro del .hueco de la tarjeta -->
+  <div class="tarjeta e" data-t="700" style="top: 880px;">
+    <span class="flecha"><svg viewBox="0 0 24 24" width="44" height="44"><path d="M6 18 18 6M8 6h10v10" stroke="currentColor" stroke-width="3.2" fill="none"/></svg></span>
+    <div class="txt"><span class="k">Catálogo online</span><span class="v">Todo el stock, con ficha</span></div>
+    <span class="hueco"></span>
+  </div>
+  <img class="tel e" data-t="1100" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 340px; top: 1390px; height: 440px; rotate: -10deg;">
+  <img class="tel e" data-t="1250" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 740px; top: 1390px; height: 440px; rotate: 10deg;">
+  <img class="tel e" data-t="1400" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 540px; top: 1360px; height: 480px;">
 </section>
 
+<script src="piezas.js"></script>
 <script>
 const P = new URLSearchParams(location.search);
 const id = P.get("pieza") || "post1";
@@ -194,31 +190,46 @@ sec.classList.add("activa");
 
 const T = esStory ? 6000 : 1000;
 const ANIMS = [];
-if (esStory) {
-  const golpe = "cubic-bezier(.34,1.56,.64,1)";
+const golpe = "cubic-bezier(.34,1.56,.64,1)";
+
+function animarEntradas() {
   sec.querySelectorAll(".e").forEach((el) => {
     const t0 = Number(el.dataset.t || 0), hasta = el.dataset.hasta ? Number(el.dataset.hasta) : null;
-    const base = el.style.transform || "";
     const fr = [
-      { offset: 0, opacity: 0, transform: `${base} translateY(60px) scale(.96)` },
-      { offset: t0 / T, opacity: 0, transform: `${base} translateY(60px) scale(.96)`, easing: golpe },
-      { offset: Math.min(1, (t0 + 420) / T), opacity: 1, transform: `${base} translateY(0) scale(1)` },
+      { offset: 0, opacity: 0, transform: "translateY(60px) scale(.96)" },
+      { offset: t0 / T, opacity: 0, transform: "translateY(60px) scale(.96)", easing: golpe },
+      { offset: Math.min(1, (t0 + 420) / T), opacity: 1, transform: "translateY(0) scale(1)" },
     ];
     if (hasta !== null) {
-      fr.push({ offset: (hasta - 120) / T, opacity: 1, transform: `${base} scale(1)` });
-      fr.push({ offset: hasta / T, opacity: 0, transform: `${base} scale(1.15)` });
+      fr.push({ offset: (hasta - 120) / T, opacity: 1, transform: "scale(1)" });
+      fr.push({ offset: hasta / T, opacity: 0, transform: "scale(1.15)" });
     }
     if (fr[fr.length - 1].offset < 1) fr.push({ ...fr[fr.length - 1], offset: 1 });
     ANIMS.push(el.animate(fr, { duration: T, fill: "both" }));
   });
 }
 
+// el trazo del callout se dibuja desde el teléfono hacia la etiqueta
+function animarTrazos(trazos) {
+  const o = (ms) => Math.min(1, ms / T);
+  for (const { el, linea, t } of trazos) {
+    linea.style.strokeDasharray = "1 1";
+    ANIMS.push(el.animate([{ offset: 0, opacity: 0 }, { offset: o(t), opacity: 0 }, { offset: o(t + 120), opacity: 1 }, { offset: 1, opacity: 1 }],
+                          { duration: T, fill: "both" }));
+    ANIMS.push(linea.animate([{ offset: 0, strokeDashoffset: 1 }, { offset: o(t), strokeDashoffset: 1, easing: "cubic-bezier(.2,.8,.2,1)" },
+                              { offset: o(t + 500), strokeDashoffset: 0 }, { offset: 1, strokeDashoffset: 0 }], { duration: T, fill: "both" }));
+  }
+}
+
+const cargado = Promise.all([document.fonts.ready, ...[...sec.querySelectorAll("img")].map((i) =>
+  i.complete ? null : new Promise((r) => { i.onload = r; i.onerror = r; }))]).then(() => {
+  const trazos = armarCallouts(sec);
+  if (esStory) { animarEntradas(); animarTrazos(trazos); }
+});
+
 window.PLANTILLA = {
   duracion: T,
-  async listo() {
-    await document.fonts.ready;
-    await Promise.all([...sec.querySelectorAll("img")].map((i) => (i.complete ? null : new Promise((r) => { i.onload = r; i.onerror = r; }))));
-  },
+  async listo() { await cargado; },
   ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
 };
 </script>

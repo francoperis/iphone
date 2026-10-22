@@ -2,7 +2,7 @@
 // Uso:
 //   import { crearTelefono } from "./telefono3d.js";
 //   const tel = await crearTelefono(canvas, MODELOS[id], colorId, { fotos: "assets/telefonos" });
-//   tel.pose({ giroY, giroX, giroZ, subir, escala });  tel.render();
+//   tel.pose({ giroY, giroX, giroZ, subir, correr, escala });  tel.render();   (subir y correr en mm)
 // Las plantillas deciden la pose en función del tiempo, así la grabación cuadro a cuadro es exacta.
 
 import * as THREE from "three";
@@ -213,9 +213,9 @@ export async function crearTelefono(canvas, modelo, colorId, opciones = {}) {
         m.emissiveIntensity = v.emi * f;
       }
     },
-    pose({ giroY = 0, giroX = 0, giroZ = 0, subir = 0, escala = 1 } = {}) {
+    pose({ giroY = 0, giroX = 0, giroZ = 0, subir = 0, correr = 0, escala = 1 } = {}) {
       telefono.rotation.set(THREE.MathUtils.degToRad(giroX), THREE.MathUtils.degToRad(giroY), THREE.MathUtils.degToRad(giroZ), "YXZ");
-      telefono.position.y = subir;
+      telefono.position.set(correr, subir, 0);
       telefono.scale.setScalar(escala);
     },
     render() { renderer.render(escena, camara); },

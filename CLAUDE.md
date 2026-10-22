@@ -90,6 +90,9 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
   Antes de usar un clip, verificar con zoom que el teléfono sea un iPhone (en Mixkit hay muchos Android).
   Clips verificados con iPhone: Mixkit 100050, 100046, 100053 (iPhone rojo); Coverr "close-up of a man taking a selfie on iPhone 15".
 - Plan de contenido: `contenido/plan-2-semanas.md`.
+- Apertura: `plantillas/apertura.html?pieza=post1..6|story1..6` + `plantillas/canje.html?de=&a=&formato=historia|post`
+  (canje 3D, 9 s). Guía en `contenido/apertura.md`. Componentes compartidos: `plantillas/piezas.css` y `piezas.js`
+  (callouts técnicos con `<i class="co">`, tarjeta de link al catálogo). Los teléfonos se ubican por su centro.
 
 ## Feedback del usuario sobre "Llegó" (2026-10-21)
 - Aprobó la dirección visual.
@@ -116,6 +119,16 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 ## Catálogo web
 - Por ahora solo archivo local (no publicar). Stock de EJEMPLO (ficticio, marcado como demo), sin precios:
   todos los modelos del X al 18 Pro Max con sus capacidades y colores reales. Es un esqueleto para editar después.
+
+## Feedback del usuario sobre la apertura (2026-10-22)
+- Estilo elegido para el feed: C "Manifiesto" (frases grandes + iPhone 3D sobre lima / voltio / hueso / tinta).
+- Cuidar los detalles: teléfonos centrados y lejos de los márgenes (revisar cada pieza).
+- Sin recuadros/cajas con texto (chips, tablas): usar callouts técnicos (líneas finas del equipo al dato).
+- "Respondé QUIERO" NO va más como gancho. El CTA es una tarjeta que lleva al catálogo online:
+  en historias, con el sticker de link nativo de Instagram; en posts, "catálogo en el link de la bio".
+- Canje: mostrar que se entrega un modelo viejo/de menor valor y se lleva uno nuevo (animación 3D):
+  13 → 17 Pro y 12 → 16 Pro. Nunca un 17 Pro como "el que entregás".
+- Por ahora todo es iPhone. Más adelante se van a sumar líneas de celulares más económicos para otro mercado.
 
 ## Tareas pendientes, en orden
 1. Script de fotos multi-fuente + revisar calidad por modelo.
