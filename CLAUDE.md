@@ -92,7 +92,8 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 - Plan de contenido: `contenido/plan-2-semanas.md`.
 - Apertura: `plantillas/apertura.html?pieza=post1..6|story1..6` + `plantillas/canje.html?de=&a=&formato=historia|post`
   (canje 3D, 9 s). Guía en `contenido/apertura.md`. Componentes compartidos: `plantillas/piezas.css` y `piezas.js`
-  (callouts técnicos con `<i class="co">`, tarjeta de link al catálogo). Los teléfonos se ubican por su centro.
+  (callouts técnicos con `<i class="co">`, tarjeta de link al catálogo para posts, bloque "Saber más" para historias).
+  Los teléfonos se ubican por su centro.
 
 ## Feedback del usuario sobre "Llegó" (2026-10-21)
 - Aprobó la dirección visual.
@@ -129,6 +130,11 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 - Canje: mostrar que se entrega un modelo viejo/de menor valor y se lleva uno nuevo (animación 3D):
   13 → 17 Pro y 12 → 16 Pro. Nunca un 17 Pro como "el que entregás".
 - Por ahora todo es iPhone. Más adelante se van a sumar líneas de celulares más económicos para otro mercado.
+- (2026-10-22, 2.ª ronda) Los videos/historias no admiten links: sacar la tarjeta "Catálogo online" de los videos y
+  cerrar con "Saber más" + flecha a la casilla de respuesta de la historia. En posts queda "link en la bio".
+- Más opciones de "Abrimos" con misterio (reels + posts, marca Celu&Co. completa, sin decir qué vendemos):
+  expediente sin celular, carga 99 % que pierde la señal, pantalla que se prende y se apaga, y la continuación
+  que revela todo. Plantilla `plantillas/misterio.html`, guía `contenido/misterio.md`.
 
 ## Tareas pendientes, en orden
 1. Script de fotos multi-fuente + revisar calidad por modelo.

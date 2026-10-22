@@ -114,7 +114,8 @@
 </section>
 
 <!-- ======================= HISTORIAS (1080×1920, 6 s) ======================= -->
-<!-- Zona segura de Instagram: nada importante arriba de 250 px ni debajo de 1700 px. -->
+<!-- Zona segura de Instagram: nada importante arriba de 250 px ni debajo de 1700 px.
+     Las historias cierran con "Saber más" + flecha a la casilla de respuesta (no hay links en historias). -->
 
 <section id="story1" class="tinta grilla">
   <div class="abs titulo e" data-t="0" data-hasta="900" style="left: 0; right: 0; top: 620px; text-align: center; font-size: 520px; color: var(--hueso);">3</div>
@@ -168,15 +169,14 @@
 <section id="story6" class="tinta">
   <div class="abs circulo titulo e" data-t="0" style="left: 50%; top: 290px; translate: -50% 0; width: 240px; height: 240px; background: var(--lima); color: var(--tinta); font-size: 110px; letter-spacing: -0.09em; box-shadow: 0 0 0 12px var(--tinta), 0 0 0 20px var(--voltio);">C&amp;</div>
   <div class="abs titulo e" data-t="300" style="left: 0; right: 0; top: 610px; text-align: center; font-size: 110px;">¿Hay uno<br>para vos?</div>
-  <!-- el sticker de link de Instagram (texto: VER CATÁLOGO) va dentro del .hueco de la tarjeta -->
-  <div class="tarjeta e" data-t="700" style="top: 880px;">
-    <span class="flecha"><svg viewBox="0 0 24 24" width="44" height="44"><path d="M6 18 18 6M8 6h10v10" stroke="currentColor" stroke-width="3.2" fill="none"/></svg></span>
-    <div class="txt"><span class="k">Catálogo online</span><span class="v">Todo el stock, con ficha</span></div>
-    <span class="hueco"></span>
+  <img class="tel e" data-t="900" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 340px; top: 1180px; height: 440px; rotate: -10deg;">
+  <img class="tel e" data-t="1050" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 740px; top: 1180px; height: 440px; rotate: 10deg;">
+  <img class="tel e" data-t="1200" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 540px; top: 1150px; height: 480px;">
+  <!-- en historias no hay links: la flecha apunta a la casilla para responder -->
+  <div class="saber e" data-t="1700" style="bottom: 190px; color: var(--hueso);">
+    <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+    <div class="txt"><span class="v" style="color: var(--lima);">Saber más</span><span class="k">Escribinos acá abajo</span></div>
   </div>
-  <img class="tel e" data-t="1100" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 340px; top: 1390px; height: 440px; rotate: -10deg;">
-  <img class="tel e" data-t="1250" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 740px; top: 1390px; height: 440px; rotate: 10deg;">
-  <img class="tel e" data-t="1400" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 540px; top: 1360px; height: 480px;">
 </section>
 
 <script src="piezas.js"></script>
@@ -224,7 +224,12 @@ function animarTrazos(trazos) {
 const cargado = Promise.all([document.fonts.ready, ...[...sec.querySelectorAll("img")].map((i) =>
   i.complete ? null : new Promise((r) => { i.onload = r; i.onerror = r; }))]).then(() => {
   const trazos = armarCallouts(sec);
-  if (esStory) { animarEntradas(); animarTrazos(trazos); }
+  if (esStory) {
+    animarEntradas(); animarTrazos(trazos);
+    sec.querySelectorAll(".saber .baja").forEach((f) => ANIMS.push(f.animate(
+      [{ transform: "translateY(0)" }, { transform: "translateY(18px)", offset: 0.5 }, { transform: "translateY(0)" }],
+      { duration: 900, iterations: Infinity, easing: "ease-in-out" })));
+  }
 });
 
 window.PLANTILLA = {

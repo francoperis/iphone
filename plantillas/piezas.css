@@ -45,3 +45,11 @@ svg.trazos .aro { fill: none; stroke: currentColor; stroke-width: 3; }
     linear-gradient(var(--c), var(--c)) bottom left / var(--l) var(--g), linear-gradient(var(--c), var(--c)) bottom left / var(--g) var(--l),
     linear-gradient(var(--c), var(--c)) bottom right / var(--l) var(--g), linear-gradient(var(--c), var(--c)) bottom right / var(--g) var(--l);
   background-repeat: no-repeat; }
+
+/* "Saber más": en historias no hay links, así que la flecha apunta a la casilla para responder la historia
+   (abajo a la izquierda). Ubicarlo con bottom ≈ 190px para que la flecha termine justo arriba de la casilla. */
+.saber { position: absolute; left: 72px; display: flex; align-items: flex-end; gap: 30px; }
+.saber .baja { flex: none; width: 76px; display: flex; justify-content: center; }
+.saber .txt { display: flex; flex-direction: column; gap: 12px; padding-bottom: 8px; }
+.saber .v { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 76px; letter-spacing: -0.05em; line-height: .95; }
+.saber .k { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 24px; letter-spacing: .12em; text-transform: uppercase; opacity: .75; }

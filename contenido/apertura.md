@@ -9,15 +9,13 @@ node exportar_video.js plantillas/canje.html "de=iphone-13&a=iphone-17-pro" sali
 node exportar_video.js plantillas/canje.html "de=iphone-13&a=iphone-17-pro&formato=post" salida/apertura/post5.png --cuadro 8999
 ```
 
-## Llamado a la acción: tarjeta de link al catálogo
+## Llamado a la acción
 
-Ya no se usa "Respondé QUIERO". Todas las piezas cierran con la **tarjeta de catálogo** (flecha ↗ + "Catálogo online").
+Ya no se usa "Respondé QUIERO".
 
-- **Historias**: la tarjeta tiene a la derecha un hueco marcado con esquinas. Ahí va el **sticker de link** de Instagram
-  (el único elemento clickeable en una historia), con el texto `VER CATÁLOGO` y la URL [link del catálogo].
-- **Posts**: Instagram no permite links en publicaciones, así que la tarjeta dice "LINK EN LA BIO". El link va en la bio.
-
-Antes de publicar hace falta que el catálogo esté online (hoy es solo un archivo local).
+- **Historias (videos)**: no se les puede poner hipervínculo, así que cierran con **"Saber más"** y una flecha que
+  apunta a la casilla para responder la historia ("Escribinos acá abajo").
+- **Posts (imágenes)**: tarjeta "Catálogo online · LINK EN LA BIO". El link va en la bio cuando el catálogo esté online.
 
 ## Orden sugerido para el día de la apertura
 
@@ -57,8 +55,8 @@ Antes de publicar: completar [ZONA] y envíos en la lámina 6 y en el texto.
 | 2 | Quiénes somos: "Usado no es segunda opción." (6 s) | Mención a la cuenta |
 | 3 | **¿Qué buscás?** (6 s) | **Encuesta** "Usado" / "Sellado", en el espacio libre entre el título y los teléfonos |
 | 4 | Del X al 18 Pro Max (6 s) | — |
-| 5 | **Tu iPhone vale.** Canje animado en 3D: entregás un iPhone 13, te llevás un 17 Pro (9 s) | **Link** al catálogo, en el hueco de la tarjeta |
-| 6 | ¿Hay uno para vos? + tarjeta de catálogo (6 s) | **Link** al catálogo, en el hueco de la tarjeta |
+| 5 | **Tu iPhone vale.** Canje animado en 3D: entregás un iPhone 13, te llevás un 17 Pro (9 s) · Saber más ↓ | **Preguntas** opcional: "¿Qué iPhone tenés?" |
+| 6 | ¿Hay uno para vos? · Saber más ↓ (6 s) | — (la flecha apunta a la casilla de respuesta) |
 
 Después de la apertura, guardar las historias en una destacada "Celu&Co.".
 

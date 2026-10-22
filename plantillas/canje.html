@@ -16,7 +16,7 @@
 </script>
 <!--
   Plan canje animado (9 s): entra el equipo que entregás, se corre a un costado y entra girando el que te llevás.
-  Termina con la tarjeta de link al catálogo. Teléfonos en 3D (telefono3d.js).
+  Cierra con "Saber más" + flecha a la casilla de respuesta (historia) o la tarjeta "link en la bio" (post). Teléfonos en 3D.
     ?de=iphone-13&deColor=blue&a=iphone-17-pro&aColor=cosmicorange&formato=historia|post
   formato=post (1080×1350) se exporta como imagen fija del último cuadro (--cuadro 8999).
 -->
@@ -50,6 +50,10 @@
   <div class="etq nuevo" id="etqNuevo"><span class="k">Te llevás</span><span class="v"><span id="nombreNuevo"></span></span></div>
   <i class="co" id="coViejo"></i>
   <i class="co" id="coNuevo"></i>
+  <div class="saber" id="saber" style="bottom: 190px;">
+    <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+    <div class="txt"><span class="v">Saber más</span><span class="k">Escribinos acá abajo</span></div>
+  </div>
   <div class="tarjeta oscura" id="tarjeta">
     <span class="flecha"><svg viewBox="0 0 24 24" width="44" height="44"><path d="M6 18 18 6M8 6h10v10" stroke="currentColor" stroke-width="3.2" fill="none"/></svg></span>
     <div class="txt"><span class="k">Catálogo online</span><span class="v">Mirá el stock</span></div>
@@ -88,6 +92,9 @@ Object.assign($("titulo").style, { left: "64px", top: L.titulo[0] + "px", fontSi
 $("bajada").style.top = L.bajada + "px";
 for (const [k, v] of Object.entries(L.tarjeta)) $("tarjeta").style[k] = v + "px";
 $("hueco").textContent = L.hueco;
+// en historias no hay links: "Saber más" apunta a la casilla de respuesta; en el post va la tarjeta del catálogo
+$(post ? "saber" : "tarjeta").remove();
+const cierre = $(post ? "tarjeta" : "saber");
 $("nombreA").textContent = $("nombreViejo").textContent = mV.nombre;
 $("nombreNuevo").textContent = mN.nombre;
 
@@ -125,7 +132,10 @@ linea(disco, [[4300, { transform: "scale(0)" }, rebote], [4900, { transform: "sc
 linea($("flecha"), [[4800, { opacity: 0, transform: "translateX(-40px)" }, salir], [5200, { opacity: 1, transform: "none" }]]);
 entra($("etqViejo"), 5400, "translateY(30px)");
 entra($("etqNuevo"), 5600, "translateY(30px)");
-entra($("tarjeta"), 6300);
+entra(cierre, 6300);
+if (!post) ANIMS.push(cierre.querySelector(".baja").animate(
+  [{ transform: "translateY(0)" }, { transform: "translateY(18px)", offset: 0.5 }, { transform: "translateY(0)" }],
+  { duration: 900, iterations: Infinity, easing: "ease-in-out" }));
 
 // ---------------------------------------------------------------- pose de los teléfonos
 const tramo = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));

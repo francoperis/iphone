@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Misterio — Celu&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="piezas.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<!--
+  Teasers de apertura con misterio (no dicen qué vendemos) + sus continuaciones (la revelación).
+    ?pieza=ficha            expediente con los datos tapados, sin celular (8 s)
+    ?pieza=carga            "cargando algo nuevo" llega a 99 % y se corta la señal (8 s)
+    ?pieza=pantalla         se prende una pantalla, carga, falla y se apaga (8 s)
+    ?pieza=vuelve-carga     continuación de "carga": vuelve la señal, 100 %, Abrimos + iPhone 3D (9 s)
+    ?pieza=vuelve-pantalla  continuación de "pantalla" (9 s)
+    &formato=historia|post  1080×1920 (reel / historia) o 1080×1350 (post, se exporta un cuadro)
+  Todo lo que parpadea (porcentaje, ruido, glitch) se calcula en dibujar(t) con azar sembrado,
+  así la grabación cuadro a cuadro sale igual siempre.
+-->
+<style>
+  html, body { overflow: hidden; background: var(--tinta); }
+  body { width: 1080px; height: 1920px; color: var(--hueso); font-family: "JetBrains Mono", monospace; --arriba: 250px; }
+  body.post { height: 1350px; --arriba: 72px; }
+  section { display: none; position: absolute; inset: 0; overflow: hidden; background: var(--tinta); }
+  section.activa { display: block; }
+  .grano { position: absolute; inset: -50%; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
+           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .marca-txt { font-family: "Unbounded", sans-serif; font-weight: 900; letter-spacing: -0.05em; text-transform: none; }
+  .marca-txt b { color: var(--lima); }
+  .hud { position: absolute; left: 72px; right: 72px; top: var(--arriba); display: flex; justify-content: space-between; align-items: center; font-size: 24px; }
+  .hud .marca-txt { font-size: 40px; }
+
+  /* glitch: desgarros de color y copias recortadas (las arma el script) */
+  .desgarro { position: absolute; left: 0; right: 0; height: 0; pointer-events: none; mix-blend-mode: difference; }
+  .corte { pointer-events: none; }
+
+  /* ---------- ficha ---------- */
+  .col { position: absolute; left: 72px; right: 72px; top: var(--arriba); bottom: var(--arriba); display: flex; flex-direction: column; justify-content: space-between; }
+  body.post .col { zoom: .78; left: 92px; right: 92px; top: 92px; bottom: 92px; }
+  .filas { position: relative; display: flex; flex-direction: column; gap: 34px; }
+  .fila { display: flex; align-items: center; gap: 20px; font-weight: 700; font-size: 32px; letter-spacing: .12em; text-transform: uppercase; }
+  .fila i { flex: 1; border-bottom: 4px dotted #3a3a40; translate: 0 -8px; }
+  .fila b { height: 44px; background: var(--lima); transform-origin: left; }
+  .sello { position: absolute; right: 10px; top: 50%; translate: 0 -50%; rotate: -9deg; padding: 6px 30px 12px; border: 9px solid var(--voltio); color: var(--voltio);
+           font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 120px; letter-spacing: -0.03em; line-height: 1; background: rgba(10,10,11,.55); }
+  .codigo { display: flex; align-items: flex-end; gap: 0; height: 90px; }
+  .codigo span { display: block; height: 100%; background: var(--hueso); }
+  .pie { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; }
+
+  /* ---------- carga ---------- */
+  .bloque { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 46px; }
+  .num { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 330px; letter-spacing: -0.06em; line-height: .85; color: var(--hueso); }
+  .num small { font-size: .38em; color: var(--lima); letter-spacing: 0; margin-left: 10px; }
+  .barra { width: 800px; height: 14px; background: #222227; }
+  .barra b { display: block; height: 100%; width: 0; background: var(--lima); }
+  .leyenda { font-size: 30px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acero); width: 800px; }
+  .senal { display: flex; align-items: flex-end; gap: 7px; }
+  .senal i { display: block; width: 12px; background: var(--hueso); }
+  .senal i.off { background: #2c2c32; }
+  canvas.ruido { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+  .banda { position: absolute; left: 0; right: 0; height: 220px; display: none; background: linear-gradient(transparent, rgba(0,0,0,.45), transparent); }
+  .aviso { position: absolute; left: 50%; top: 50%; translate: -50% -50%; display: none; padding: 22px 40px; background: var(--tinta); color: var(--hueso);
+           font-weight: 700; font-size: 46px; letter-spacing: .2em; white-space: nowrap; }
+  .aviso.ok { background: var(--lima); color: var(--tinta); }
+  .ola { position: absolute; left: 0; right: 0; top: 50%; height: 14px; background: var(--lima); display: none; }
+
+  /* ---------- pantalla ---------- */
+  .equipo { position: absolute; left: 70px; right: 70px; top: 300px; height: 2000px; border-radius: 118px; background: #0b0b0c; padding: 16px;
+            box-shadow: 0 0 0 3px #4a4a50, 0 0 0 5px #1a1a1d, 0 30px 120px rgba(0,0,0,.6); transform-origin: 50% 840px; }
+  body.post .equipo { top: 120px; }
+  .vidrio { position: relative; width: 100%; height: 100%; border-radius: 102px; overflow: hidden; background: #040405; }
+  .encendido { position: absolute; inset: 0; opacity: 0; }
+  .fondoP { position: absolute; inset: 0; background:
+            radial-gradient(60% 40% at 20% 85%, rgba(139,108,255,.55), transparent 70%),
+            radial-gradient(55% 35% at 90% 20%, rgba(204,255,0,.28), transparent 70%), #08080a; }
+  .fondoLima { position: absolute; inset: 0; background: var(--lima); opacity: 0; }
+  .marcaP { position: absolute; left: 0; right: 0; top: 560px; text-align: center; font-size: 104px; }
+  .anillo { position: absolute; left: 50%; top: 750px; translate: -50% 0; width: 220px; height: 220px; }
+  .anillo circle { fill: none; stroke-width: 12; }
+  .anillo .pista { stroke: rgba(238,235,228,.12); }
+  .anillo .prog { stroke: var(--lima); stroke-linecap: round; }
+  .leyendaP { position: absolute; left: 0; right: 0; top: 1030px; text-align: center; font-size: 30px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--hueso); opacity: .8; }
+  .isla { position: absolute; left: 50%; top: 26px; translate: -50% 0; width: 250px; height: 72px; border-radius: 40px; background: #000; }
+  .reflejo { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.07) 42%, transparent 55%); }
+  .crt { position: absolute; left: 0; right: 0; top: 840px; height: 6px; background: #fff; opacity: 0; box-shadow: 0 0 30px 6px rgba(255,255,255,.7); }
+  .sinP { position: absolute; left: 0; right: 0; text-align: center; font-size: 34px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--acero); opacity: 0; top: 1140px; }
+  body.post .sinP { top: 960px; }
+  body.post .equipo { transform-origin: 50% 700px; }
+  body.post .marcaP { top: 420px; } body.post .anillo { top: 610px; } body.post .leyendaP { top: 890px; } body.post .crt { top: 700px; }
+
+  /* ---------- revelación (continuaciones) ---------- */
+  .revelar { position: absolute; inset: 0; background: var(--lima); color: var(--tinta); opacity: 0; }
+  .revelar canvas { position: absolute; inset: 0; width: 1080px; height: 100%; }
+  .revelar .titulo { position: absolute; left: 64px; top: 300px; font-size: 260px; }
+  body.post .revelar .titulo { top: 110px; font-size: 200px; }
+  .revelar .bajo { position: absolute; left: 72px; right: 72px; bottom: 250px; display: flex; justify-content: space-between; align-items: baseline; }
+  body.post .revelar .bajo { bottom: 64px; }
+  .revelar .bajo .marca-txt { font-size: 48px; }
+  .revelar .bajo .marca-txt b { color: var(--voltio); }
+  .revelar .bajo .mono { font-size: 24px; }
+</style>
+</head>
+<body>
+
+<!-- ======================= FICHA (sin celular) ======================= -->
+<section id="ficha">
+  <div class="col">
+    <div>
+      <div class="mono e" data-t="0" style="font-size: 26px; color: var(--acero); display: flex; justify-content: space-between; align-items: baseline;">
+        <span>// Expediente 001</span><span class="marca-txt" style="font-size: 40px; color: var(--hueso); text-transform: none; letter-spacing: -0.05em;">Celu<b>&amp;</b>Co.</span>
+      </div>
+      <div class="titulo e" data-t="250" style="font-size: 124px; margin-top: 70px;">Todavía<br>no podemos<br><span style="color: var(--lima);">mostrarlo.</span></div>
+    </div>
+    <div class="filas">
+      <div class="fila e" data-t="1300"><span>Modelo</span><i></i><b class="tapa" data-t="1500" style="width: 340px;"></b></div>
+      <div class="fila e" data-t="1650"><span>Batería</span><i></i><b class="tapa" data-t="1850" style="width: 170px;"></b></div>
+      <div class="fila e" data-t="2000"><span>Capacidad</span><i></i><b class="tapa" data-t="2200" style="width: 210px;"></b></div>
+      <div class="fila e" data-t="2350"><span>Estado</span><i></i><b class="tapa" data-t="2550" style="width: 290px;"></b></div>
+      <div class="fila e" data-t="2700"><span>Color</span><i></i><b class="tapa" data-t="2900" style="width: 240px;"></b></div>
+      <div class="sello" id="sello">PRONTO</div>
+    </div>
+    <div class="pie e" data-t="4400">
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="codigo" id="codigo"></div>
+        <span class="mono" style="font-size: 22px; color: var(--acero);">CELU&amp;CO · 001 · ████</span>
+      </div>
+      <div class="mono" style="font-size: 28px; text-align: right; line-height: 1.5;">Muy pronto,<br><span style="color: var(--lima);">todo a la vista.</span></div>
+    </div>
+  </div>
+  <div class="grano"></div>
+</section>
+
+<!-- ======================= CARGA 99 % ======================= -->
+<section id="carga">
+  <div class="hud mono" id="hudCarga"><span class="marca-txt">Celu<b>&amp;</b>Co.</span><span class="senal"><i style="height: 14px"></i><i style="height: 24px"></i><i style="height: 34px"></i><i style="height: 44px"></i></span></div>
+  <div class="bloque" id="bloqueCarga">
+    <div class="num"><span class="n">0</span><small>%</small></div>
+    <div class="barra"><b></b></div>
+    <div class="leyenda">Cargando algo nuevo<span class="puntos"></span></div>
+  </div>
+  <div class="ola" id="ola"></div>
+  <canvas class="ruido" id="ruidoCarga" width="216" height="384"></canvas>
+  <div class="banda" id="bandaCarga"></div>
+  <div class="aviso mono" id="avisoCarga">SIN SEÑAL</div>
+  <div class="grano"></div>
+</section>
+
+<!-- ======================= PANTALLA ======================= -->
+<section id="pantalla">
+  <div class="equipo" id="equipo">
+    <div class="vidrio">
+      <div class="encendido" id="encendido">
+        <div class="fondoP"></div>
+        <div class="fondoLima" id="fondoLima"></div>
+        <div class="marcaP marca-txt">Celu<b>&amp;</b>Co.</div>
+        <svg class="anillo" viewBox="0 0 220 220"><circle class="pista" cx="110" cy="110" r="96"/><g class="giro" style="transform-origin: 110px 110px;"><circle class="prog" cx="110" cy="110" r="96" pathLength="1" stroke-dasharray="0 1" transform="rotate(-90 110 110)"/></g></svg>
+        <div class="leyendaP">Preparando algo nuevo</div>
+      </div>
+      <div class="isla"></div>
+      <div class="crt" id="crt"></div>
+      <div class="reflejo"></div>
+    </div>
+  </div>
+  <div class="sinP" id="sinP">Sin señal.</div>
+  <div class="grano"></div>
+</section>
+
+<!-- ======================= REVELACIÓN (continuaciones) ======================= -->
+<div class="revelar" id="revelar" style="display: none;">
+  <canvas id="lienzo3d"></canvas>
+  <div class="titulo e" data-t="0">Abri-<br>mos.</div>
+  <div class="bajo e" data-t="1300"><span class="marca-txt">Celu<b>&amp;</b>Co.</span><span class="mono" style="text-transform: none;">iPhone usados y en caja sellada</span></div>
+</div>
+
+<script src="datos.js"></script>
+<script type="module">
+const P = new URLSearchParams(location.search);
+const pieza = P.get("pieza") || "ficha";
+const post = P.get("formato") === "post";
+if (post) document.body.classList.add("post");
+const H = post ? 1350 : 1920;
+const $ = (s) => document.getElementById(s);
+const base = pieza.replace("vuelve-", "");
+const vuelta = pieza.startsWith("vuelve-");
+const sec = $(base);
+sec.classList.add("activa");
+const T = vuelta ? 9000 : 8000;
+const TR = 3100;   // en las continuaciones, cuándo arranca la revelación
+
+// ---------------------------------------------------------------- utilidades
+function azar(semilla) {
+  let a = semilla >>> 0;
+  return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+}
+const tramo = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+const sal = (x) => 1 - Math.pow(1 - x, 3);
+const ANIMS = [];
+const salir = "cubic-bezier(.2,.8,.2,1)", golpe = "cubic-bezier(.34,1.56,.64,1)";
+function entrada(el, t0, desde = "translateY(50px)") {
+  ANIMS.push(el.animate([{ offset: 0, opacity: 0, transform: desde }, { offset: t0 / T, opacity: 0, transform: desde, easing: salir },
+                         { offset: Math.min(1, (t0 + 450) / T), opacity: 1, transform: "none" }, { offset: 1, opacity: 1, transform: "none" }],
+                        { duration: T, fill: "both" }));
+}
+
+// glitch: copias del elemento recortadas en franjas y corridas + desgarros de color + separación RGB
+function prepararGlitch(el, copias = 3) {
+  const cs = [];
+  for (let i = 0; i < copias; i++) {
+    const c = el.cloneNode(true);
+    c.removeAttribute("id"); c.querySelectorAll("[id]").forEach((n) => n.removeAttribute("id"));
+    c.classList.add("corte"); c.style.visibility = "hidden";
+    el.after(c); cs.push(c);
+  }
+  const ds = [];
+  for (let i = 0; i < 6; i++) { const d = document.createElement("div"); d.className = "desgarro"; sec.appendChild(d); ds.push(d); }
+  return { el, cs, ds };
+}
+function glitch(g, t, fuerza) {
+  if (fuerza <= 0) {
+    g.el.style.translate = ""; g.el.style.filter = "";
+    g.cs.forEach((c) => { c.style.visibility = "hidden"; });
+    g.ds.forEach((d) => { d.style.height = "0"; });
+    return;
+  }
+  const r = azar(Math.floor(t / 50) * 7919 + 17);
+  const s = (4 + 18 * r()) * fuerza;
+  g.el.style.translate = `${(r() - 0.5) * 50 * fuerza}px ${(r() - 0.5) * 14 * fuerza}px`;
+  g.el.style.filter = `drop-shadow(${s}px 0 0 rgba(204,255,0,.85)) drop-shadow(${-s}px 0 0 rgba(139,108,255,.9))`;
+  for (const c of g.cs) {
+    const ve = r() < 0.35 + 0.6 * fuerza;
+    c.style.visibility = ve ? "visible" : "hidden";
+    if (!ve) continue;
+    const top = r() * 92, alto = 2 + r() * 12;
+    c.style.clipPath = `inset(${top}% 0 ${Math.max(0, 100 - top - alto)}% 0)`;
+    c.style.translate = `${(r() - 0.5) * 220 * fuerza}px 0`;
+    c.style.filter = r() < 0.5 ? "invert(1)" : `drop-shadow(${s * 2}px 0 0 rgba(204,255,0,.9))`;
+  }
+  const colores = ["#CCFF00", "#8B6CFF", "#EEEBE4", "#0A0A0B"];
+  for (const d of g.ds) {
+    if (r() > 0.25 + 0.6 * fuerza) { d.style.height = "0"; continue; }
+    d.style.top = r() * H + "px"; d.style.height = 3 + r() * 46 * fuerza + "px";
+    d.style.background = colores[Math.floor(r() * colores.length)];
+  }
+}
+function ruido(cv, t) {
+  const g = cv.getContext("2d"), w = cv.width, h = cv.height;
+  const img = g.createImageData(w, h), r = azar(Math.floor(t / 33) + 99);
+  for (let i = 0; i < w * h; i++) { const v = (r() * 255) | 0; img.data[i * 4] = img.data[i * 4 + 1] = img.data[i * 4 + 2] = v; img.data[i * 4 + 3] = 255; }
+  g.putImageData(img, 0, 0);
+}
+
+// ---------------------------------------------------------------- FICHA
+function armarFicha() {
+  // código de barras fijo (sembrado)
+  const r = azar(2026), cod = $("codigo");
+  for (let i = 0; i < 46; i++) { const s = document.createElement("span"); s.style.width = 2 + Math.floor(r() * 4) * 2 + "px"; s.style.marginRight = 2 + Math.floor(r() * 3) * 3 + "px"; s.style.height = (i % 9 === 0 ? 100 : 82) + "%"; cod.appendChild(s); }
+  sec.querySelectorAll(".e").forEach((el) => entrada(el, Number(el.dataset.t)));
+  sec.querySelectorAll(".tapa").forEach((b) => {
+    const t0 = Number(b.dataset.t);
+    ANIMS.push(b.animate([{ offset: 0, transform: "scaleX(0)" }, { offset: t0 / T, transform: "scaleX(0)", easing: salir }, { offset: (t0 + 380) / T, transform: "scaleX(1)" }, { offset: 1, transform: "scaleX(1)" }], { duration: T, fill: "both" }));
+  });
+  ANIMS.push($("sello").animate([{ offset: 0, opacity: 0, transform: "scale(2.4)" }, { offset: 3600 / T, opacity: 0, transform: "scale(2.4)", easing: "cubic-bezier(.5,0,.75,0)" },
+                                  { offset: 3850 / T, opacity: 1, transform: "scale(1)", easing: golpe }, { offset: 4000 / T, opacity: 1, transform: "scale(1.04)" }, { offset: 4150 / T, opacity: 1, transform: "scale(1)" }, { offset: 1, opacity: 1, transform: "scale(1)" }],
+                                 { duration: T, fill: "both" }));
+  return () => {};
+}
+
+// ---------------------------------------------------------------- CARGA
+function armarCarga() {
+  const g = prepararGlitch($("bloqueCarga"), 3);
+  const cv = $("ruidoCarga"); if (post) cv.height = 270;
+  const barras = [...sec.querySelectorAll(".senal i")];
+  return (t) => {
+    let pct, senal, fuerza = 0, estatica = false, aviso = null, ola = 0;
+    if (!vuelta) {
+      pct = t < 300 ? 0 : t < 5000 ? 99 * sal(tramo(t, 300, 5000)) : 99;
+      senal = t < 3600 ? 4 : t < 4300 ? 3 : t < 4900 ? 2 : t < 5600 ? 1 : 0;
+      if ((t > 5200 && t < 5280) || (t > 5550 && t < 5640)) fuerza = 0.5;
+      if (t >= 5900 && t < 6600) fuerza = 0.4 + 0.6 * tramo(t, 5900, 6500);
+      if (t >= 6600) { estatica = true; aviso = "SIN SEÑAL"; }
+    } else {
+      pct = t < 2200 ? 99 : 99 + tramo(t, 2200, 2500);
+      senal = Math.min(4, Math.floor(tramo(t, 1700, 2500) * 5));
+      if (t < 1700) { estatica = true; aviso = t < 1100 ? "SIN SEÑAL" : "SEÑAL RECUPERADA"; }
+      if (t >= 1500 && t < 1900) fuerza = 1 - tramo(t, 1500, 1900);
+      ola = sal(tramo(t, 2750, 3150));
+    }
+    sec.querySelectorAll(".n").forEach((n) => { n.textContent = Math.floor(pct); });
+    sec.querySelectorAll(".barra b").forEach((b) => { b.style.width = pct + "%"; });
+    sec.querySelectorAll(".puntos").forEach((p) => { p.textContent = ".".repeat(Math.floor(t / 400) % 4); });
+    barras.forEach((b, i) => b.classList.toggle("off", i >= senal));
+    // la parte "viva" entra al principio de la ida
+    const vivo = vuelta ? 1 : tramo(t, 0, 300);
+    $("bloqueCarga").style.opacity = vivo; $("hudCarga").style.opacity = vivo;
+    glitch(g, t, fuerza);
+    cv.style.display = estatica ? "block" : "none";
+    $("bandaCarga").style.display = estatica ? "block" : "none";
+    if (estatica) { ruido(cv, t); $("bandaCarga").style.top = ((t * 0.5) % (H + 220)) - 220 + "px"; }
+    const av = $("avisoCarga");
+    av.style.display = aviso ? "block" : "none";
+    if (aviso) { av.textContent = aviso; av.classList.toggle("ok", aviso !== "SIN SEÑAL"); av.style.opacity = Math.floor(t / 500) % 4 === 3 && aviso === "SIN SEÑAL" ? 0.75 : 1; }
+    // la barra lima crece hasta llenar la pantalla
+    const o = $("ola");
+    o.style.display = ola > 0 ? "block" : "none";
+    if (ola > 0) { const alto = 14 + (H - 14) * ola; o.style.height = alto + "px"; o.style.top = (H / 2 + 75) * (1 - ola) + "px"; o.style.left = 140 * (1 - ola) + "px"; o.style.right = 140 * (1 - ola) + "px"; }
+  };
+}
+
+// ---------------------------------------------------------------- PANTALLA
+function armarPantalla() {
+  const g = prepararGlitch($("equipo"), 3);
+  return (t) => {
+    let luz = 0, prog = 0, fuerza = 0, sY = 1, sX = 1, crt = 0, sin = 0, zoom = 0, lima = 0;
+    if (!vuelta) {
+      luz = sal(tramo(t, 800, 1400));
+      prog = 0.94 * tramo(t, 1300, 5400);
+      if (t > 3900 && t < 3980) fuerza = 0.35;
+      if (t >= 5400 && t < 6200) fuerza = 0.3 + 0.7 * tramo(t, 5400, 6100);
+      if (t >= 5400 && t < 6200) luz = Math.floor(t / 60) % 3 === 0 ? 0.25 : 1;
+      if (t >= 6200) { const a = tramo(t, 6200, 6350), b = tramo(t, 6350, 6520); sY = 1 - 0.995 * a; sX = 1 - b; crt = t < 6520 ? a : 0; luz = t < 6520 ? 1 : 0; }
+      sin = tramo(t, 6800, 7200);
+    } else {
+      sin = 1 - tramo(t, 700, 950);
+      luz = t < 1000 ? 0 : Math.floor(t / 70) % 3 === 0 && t < 1500 ? 0.3 : 1;
+      if (t >= 1000 && t < 1500) fuerza = 1 - tramo(t, 1000, 1500);
+      prog = 0.94 + 0.06 * tramo(t, 1500, 2300);
+      lima = tramo(t, 2400, 2800);
+      zoom = Math.pow(tramo(t, 2500, 3200), 2);
+    }
+    sec.querySelectorAll(".encendido").forEach((enc) => {
+      enc.style.opacity = luz;
+      enc.style.transform = `scale(${sX}, ${sY})`;
+      enc.style.filter = crt > 0 ? `brightness(${1 + 3 * crt})` : "";
+    });
+    sec.querySelectorAll(".prog").forEach((c) => c.setAttribute("stroke-dasharray", `${prog} 1`));
+    sec.querySelectorAll(".giro").forEach((c) => { c.style.transform = `rotate(${prog < 1 ? (t * 0.12) % 360 : 0}deg)`; });
+    sec.querySelectorAll(".fondoLima").forEach((c) => { c.style.opacity = lima; });
+    sec.querySelectorAll(".marcaP, .anillo, .leyendaP").forEach((c) => { c.style.opacity = 1 - lima; });
+    $("crt").style.opacity = crt > 0 && t >= 6350 ? 1 : 0;
+    $("crt").style.transform = `scaleX(${sX})`;
+    $("equipo").style.transform = zoom > 0 ? `scale(${1 + 5 * zoom})` : "";
+    $("sinP").style.opacity = sin;
+    glitch(g, t, fuerza);
+  };
+}
+
+// ---------------------------------------------------------------- REVELACIÓN (3D)
+let dibujar3d = () => {};
+async function armarRevelar() {
+  const rv = $("revelar");
+  rv.style.display = "block";
+  ANIMS.push(rv.animate([{ offset: 0, opacity: 0 }, { offset: (TR - 150) / T, opacity: 0 }, { offset: TR / T, opacity: 1 }, { offset: 1, opacity: 1 }], { duration: T, fill: "both" }));
+  rv.querySelectorAll(".e").forEach((el) => entrada(el, TR + Number(el.dataset.t), "translateY(70px)"));
+  const { crearTelefono } = await import("./telefono3d.js");
+  const id = "iphone-17-pro", m = MODELOS[id], K = 10;
+  const tel = await crearTelefono($("lienzo3d"), m, "deepblue", { id, fotos: "assets/telefonos", relleno: "#8B6CFF",
+                                                                   distancia: H / (K * 2 * Math.tan(10 * Math.PI / 180)) });
+  const L = post ? { x: 600, y: 860, h: 600 } : { x: 560, y: 1200, h: 820 };
+  dibujar3d = (t) => {
+    const e = sal(tramo(t, TR + 150, TR + 1700));
+    const f = Math.max(0, t - TR) / 1000;
+    tel.pose({ correr: (L.x - 540) / K, subir: (H / 2 - L.y) / K - 90 * (1 - e) + 1.2 * Math.sin(f * 1.3) * e,
+               escala: L.h / (m.tresd.medidas[1] * K) * (0.85 + 0.15 * e),
+               giroY: -340 * (1 - e) - 22 + 5 * Math.sin(f * 1.1), giroX: 10 + 3 * Math.sin(f * 0.8), giroZ: 8 * (1 - e) + 5 });
+    tel.render();
+  };
+}
+
+// ---------------------------------------------------------------- arranque
+const armar = { ficha: armarFicha, carga: armarCarga, pantalla: armarPantalla }[base];
+let dibujar = () => {};
+const listo = document.fonts.ready.then(async () => {
+  dibujar = armar();
+  if (vuelta) await armarRevelar();
+});
+
+const inicio = performance.now();
+let enVivo = true;
+(function bucle() {
+  if (!enVivo) return;
+  const t = (performance.now() - inicio) % T;
+  dibujar(t); dibujar3d(t);
+  requestAnimationFrame(bucle);
+})();
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await listo; },
+  ir(ms) {
+    enVivo = false;
+    ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; });
+    dibujar(ms); dibujar3d(ms);
+  },
+};
+</script>
+</body>
+</html>
