@@ -56,7 +56,7 @@ FAMILIAS = [
     ("17", "iPhone 17 · Air", ["iphone-17e", "iphone-17", "iphone-air", "iphone-17-pro", "iphone-17-pro-max"]),
     ("18", "iPhone 18", ["iphone-18-pro", "iphone-18-pro-max"]),
 ]
-# modelos que hoy se consiguen en caja sellada (el resto, usados)
+# modelos que hoy se consiguen en caja sellada (el resto, Swap)
 SELLADOS = {"iphone-17", "iphone-17e", "iphone-air", "iphone-17-pro", "iphone-17-pro-max",
             "iphone-18-pro", "iphone-18-pro-max", "iphone-16e", "iphone-16"}
 
@@ -131,7 +131,7 @@ def main():
                 filas.append({
                     "id": f"{m['id']}-{cap.lower()}",
                     "modelo": m["id"], "capacidad": cap, "color": color["id"],
-                    "condicion": "sellado" if sellado else "usado",
+                    "condicion": "sellado" if sellado else "swap",
                     "bateria": "" if sellado else str(rnd.randint(78, 100)),
                     "estado": "" if sellado else rnd.choice(estados),
                     "precio": "", "disponible": rnd.choice(["si", "si", "si", "reservado"]),

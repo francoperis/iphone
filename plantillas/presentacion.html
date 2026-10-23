@@ -55,10 +55,9 @@
             background-image: repeating-linear-gradient(90deg, var(--hueso) 0 3px, transparent 3px 6px, var(--hueso) 6px 8px, transparent 8px 13px, var(--hueso) 13px 18px, transparent 18px 21px); }
   .codigo { position: absolute; left: 252px; top: 1046px; font-size: 18px; letter-spacing: .12em; color: var(--acero); }
 
-  .cta { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: var(--lima); color: var(--tinta);
-         display: flex; justify-content: space-between; align-items: center; padding: 0 64px; }
-  .cta .grande { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 50px; letter-spacing: -0.04em; }
-  .cta .chico { font-weight: 700; font-size: 20px; letter-spacing: .1em; text-transform: uppercase; text-align: right; line-height: 1.45; }
+  /* pie sin caja: una línea de texto, como el resto de los posts */
+  .cta { position: absolute; left: 64px; right: 64px; bottom: 60px; display: flex; justify-content: space-between;
+         font-weight: 700; font-size: 24px; letter-spacing: .1em; text-transform: uppercase; color: var(--hueso); }
 </style>
 </head>
 <body>
@@ -76,7 +75,7 @@
   <div class="escena"><canvas id="lienzo3d"></canvas></div>
 
   <div class="ficha">
-    <div><b>01</b><span>iPhone usados y en caja sellada</span></div>
+    <div><b>01</b><span>iPhone Swap y en caja sellada</span></div>
     <div><b>02</b><span>Del iPhone X al 18 Pro Max</span></div>
     <div><b>03</b><span>Cada equipo con su ficha: batería, GB y estado</span></div>
     <div class="voltio"><b>04</b><span>Plan canje: tu iPhone como parte de pago</span></div>
@@ -86,8 +85,7 @@
   <div class="codigo">TECH&amp;CO · 001</div>
 
   <div class="cta">
-    <span class="grande">Catálogo en la bio</span>
-    <span class="chico">todo el stock,<br>con su ficha</span>
+    <span>Catálogo online</span><span>Link en la bio →</span>
   </div>
   <div class="grano"></div>
 </div>

@@ -7,7 +7,7 @@
 .mono { font-family: "JetBrains Mono", monospace; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 .marca b { color: var(--voltio); font-weight: 900; }
 .tinta .marca b, .voltio .marca b { color: var(--lima); }
-.resalta { background: var(--voltio); padding: 0 14px; }
+.resalta { background: var(--voltio); padding: 0 14px; position: relative; z-index: 0; }
 .resalta-lima { background: var(--lima); color: var(--tinta); padding: 0 14px; }
 
 /* teléfono: left/top marcan el CENTRO del equipo, así las composiciones quedan centradas de verdad */

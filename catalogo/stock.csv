@@ -1,118 +1,118 @@
 id,modelo,capacidad,color,condicion,bateria,estado,precio,disponible,notas,demo
-iphone-x-64gb,iphone-x,64GB,silver,usado,88,Impecable,,reservado,,si
-iphone-x-256gb,iphone-x,256GB,spacegray,usado,98,Impecable,,si,,si
-iphone-xr-64gb,iphone-xr,64GB,black,usado,95,Impecable,,si,,si
-iphone-xr-128gb,iphone-xr,128GB,white,usado,96,Impecable,,si,,si
-iphone-xr-256gb,iphone-xr,256GB,blue,usado,79,Impecable,,reservado,,si
-iphone-xs-64gb,iphone-xs,64GB,silver,usado,91,Impecable,,si,,si
-iphone-xs-256gb,iphone-xs,256GB,spacegray,usado,80,Bueno,,reservado,,si
-iphone-xs-512gb,iphone-xs,512GB,gold,usado,79,Bueno,,si,,si
-iphone-xs-max-64gb,iphone-xs-max,64GB,silver,usado,85,Bueno,,si,,si
-iphone-xs-max-256gb,iphone-xs-max,256GB,spacegray,usado,96,Bueno,,reservado,,si
-iphone-xs-max-512gb,iphone-xs-max,512GB,gold,usado,79,Impecable,,si,,si
-iphone-11-64gb,iphone-11,64GB,black,usado,95,Impecable,,si,,si
-iphone-11-128gb,iphone-11,128GB,white,usado,91,Impecable,,si,,si
-iphone-11-256gb,iphone-11,256GB,green,usado,96,Muy bueno,,si,,si
-iphone-11-pro-64gb,iphone-11-pro,64GB,midnightgreen,usado,81,Bueno,,si,,si
-iphone-11-pro-256gb,iphone-11-pro,256GB,spacegray,usado,89,Impecable,,si,,si
-iphone-11-pro-512gb,iphone-11-pro,512GB,silver,usado,96,Impecable,,si,,si
-iphone-11-pro-max-64gb,iphone-11-pro-max,64GB,midnightgreen,usado,93,Bueno,,reservado,,si
-iphone-11-pro-max-256gb,iphone-11-pro-max,256GB,spacegray,usado,88,Muy bueno,,reservado,,si
-iphone-11-pro-max-512gb,iphone-11-pro-max,512GB,silver,usado,89,Muy bueno,,si,,si
-iphone-se-2-64gb,iphone-se-2,64GB,black,usado,83,Bueno,,si,,si
-iphone-se-2-128gb,iphone-se-2,128GB,white,usado,80,Bueno,,si,,si
-iphone-se-2-256gb,iphone-se-2,256GB,red,usado,94,Muy bueno,,si,,si
-iphone-se-3-64gb,iphone-se-3,64GB,midnight,usado,92,Muy bueno,,si,,si
-iphone-se-3-128gb,iphone-se-3,128GB,starlight,usado,81,Bueno,,reservado,,si
-iphone-se-3-256gb,iphone-se-3,256GB,red,usado,83,Muy bueno,,si,,si
-iphone-12-mini-64gb,iphone-12-mini,64GB,black,usado,93,Muy bueno,,si,,si
-iphone-12-mini-128gb,iphone-12-mini,128GB,white,usado,99,Impecable,,si,,si
-iphone-12-mini-256gb,iphone-12-mini,256GB,red,usado,88,Bueno,,si,,si
-iphone-12-64gb,iphone-12,64GB,black,usado,97,Muy bueno,,reservado,,si
-iphone-12-128gb,iphone-12,128GB,white,usado,80,Impecable,,si,,si
-iphone-12-256gb,iphone-12,256GB,red,usado,93,Bueno,,si,,si
-iphone-12-pro-128gb,iphone-12-pro,128GB,silver,usado,79,Bueno,,si,,si
-iphone-12-pro-256gb,iphone-12-pro,256GB,graphite,usado,98,Bueno,,reservado,,si
-iphone-12-pro-512gb,iphone-12-pro,512GB,gold,usado,87,Bueno,,reservado,,si
-iphone-12-pro-max-128gb,iphone-12-pro-max,128GB,silver,usado,99,Muy bueno,,si,,si
-iphone-12-pro-max-256gb,iphone-12-pro-max,256GB,graphite,usado,92,Muy bueno,,si,,si
-iphone-12-pro-max-512gb,iphone-12-pro-max,512GB,gold,usado,97,Impecable,,reservado,,si
-iphone-13-mini-128gb,iphone-13-mini,128GB,pink,usado,79,Impecable,,si,,si
-iphone-13-mini-256gb,iphone-13-mini,256GB,blue,usado,82,Bueno,,si,,si
-iphone-13-mini-512gb,iphone-13-mini,512GB,midnight,usado,90,Muy bueno,,reservado,,si
-iphone-13-128gb,iphone-13,128GB,pink,usado,80,Impecable,,reservado,,si
-iphone-13-256gb,iphone-13,256GB,blue,usado,90,Bueno,,si,,si
-iphone-13-512gb,iphone-13,512GB,midnight,usado,82,Muy bueno,,si,,si
-iphone-13-pro-128gb,iphone-13-pro,128GB,graphite,usado,100,Muy bueno,,si,,si
-iphone-13-pro-256gb,iphone-13-pro,256GB,gold,usado,99,Muy bueno,,si,,si
-iphone-13-pro-512gb,iphone-13-pro,512GB,silver,usado,82,Impecable,,si,,si
-iphone-13-pro-1tb,iphone-13-pro,1TB,sierrablue,usado,82,Impecable,,si,,si
-iphone-13-pro-max-128gb,iphone-13-pro-max,128GB,graphite,usado,78,Muy bueno,,si,,si
-iphone-13-pro-max-256gb,iphone-13-pro-max,256GB,gold,usado,86,Muy bueno,,si,,si
-iphone-13-pro-max-512gb,iphone-13-pro-max,512GB,silver,usado,82,Muy bueno,,si,,si
-iphone-13-pro-max-1tb,iphone-13-pro-max,1TB,sierrablue,usado,97,Bueno,,si,,si
-iphone-14-128gb,iphone-14,128GB,midnight,usado,82,Bueno,,si,,si
-iphone-14-256gb,iphone-14,256GB,purple,usado,92,Bueno,,reservado,,si
-iphone-14-512gb,iphone-14,512GB,starlight,usado,90,Muy bueno,,reservado,,si
-iphone-14-plus-128gb,iphone-14-plus,128GB,midnight,usado,81,Muy bueno,,reservado,,si
-iphone-14-plus-256gb,iphone-14-plus,256GB,purple,usado,79,Impecable,,si,,si
-iphone-14-plus-512gb,iphone-14-plus,512GB,starlight,usado,84,Muy bueno,,si,,si
-iphone-14-pro-128gb,iphone-14-pro,128GB,spaceblack,usado,81,Muy bueno,,si,,si
-iphone-14-pro-256gb,iphone-14-pro,256GB,silver,usado,81,Impecable,,si,,si
-iphone-14-pro-512gb,iphone-14-pro,512GB,gold,usado,95,Impecable,,si,,si
-iphone-14-pro-1tb,iphone-14-pro,1TB,deeppurple,usado,97,Impecable,,si,,si
-iphone-14-pro-max-128gb,iphone-14-pro-max,128GB,spaceblack,usado,84,Bueno,,reservado,,si
-iphone-14-pro-max-256gb,iphone-14-pro-max,256GB,silver,usado,82,Bueno,,si,,si
-iphone-14-pro-max-512gb,iphone-14-pro-max,512GB,gold,usado,89,Bueno,,si,,si
-iphone-14-pro-max-1tb,iphone-14-pro-max,1TB,deeppurple,usado,93,Impecable,,si,,si
-iphone-15-128gb,iphone-15,128GB,black,usado,93,Muy bueno,,reservado,,si
-iphone-15-256gb,iphone-15,256GB,blue,usado,93,Muy bueno,,si,,si
-iphone-15-512gb,iphone-15,512GB,green,usado,82,Impecable,,si,,si
-iphone-15-plus-128gb,iphone-15-plus,128GB,black,usado,86,Muy bueno,,si,,si
-iphone-15-plus-256gb,iphone-15-plus,256GB,blue,usado,94,Impecable,,si,,si
-iphone-15-plus-512gb,iphone-15-plus,512GB,green,usado,94,Muy bueno,,si,,si
-iphone-15-pro-128gb,iphone-15-pro,128GB,naturaltitanium,usado,100,Bueno,,si,,si
-iphone-15-pro-256gb,iphone-15-pro,256GB,bluetitanium,usado,94,Muy bueno,,si,,si
-iphone-15-pro-512gb,iphone-15-pro,512GB,whitetitanium,usado,100,Muy bueno,,si,,si
-iphone-15-pro-1tb,iphone-15-pro,1TB,blacktitanium,usado,83,Muy bueno,,si,,si
-iphone-15-pro-max-256gb,iphone-15-pro-max,256GB,naturaltitanium,usado,95,Bueno,,si,,si
-iphone-15-pro-max-512gb,iphone-15-pro-max,512GB,bluetitanium,usado,98,Impecable,,si,,si
-iphone-15-pro-max-1tb,iphone-15-pro-max,1TB,whitetitanium,usado,85,Muy bueno,,si,,si
+iphone-x-64gb,iphone-x,64GB,silver,swap,88,Impecable,,reservado,,si
+iphone-x-256gb,iphone-x,256GB,spacegray,swap,98,Impecable,,si,,si
+iphone-xr-64gb,iphone-xr,64GB,black,swap,95,Impecable,,si,,si
+iphone-xr-128gb,iphone-xr,128GB,white,swap,96,Impecable,,si,,si
+iphone-xr-256gb,iphone-xr,256GB,blue,swap,79,Impecable,,reservado,,si
+iphone-xs-64gb,iphone-xs,64GB,silver,swap,91,Impecable,,si,,si
+iphone-xs-256gb,iphone-xs,256GB,spacegray,swap,80,Bueno,,reservado,,si
+iphone-xs-512gb,iphone-xs,512GB,gold,swap,79,Bueno,,si,,si
+iphone-xs-max-64gb,iphone-xs-max,64GB,silver,swap,85,Bueno,,si,,si
+iphone-xs-max-256gb,iphone-xs-max,256GB,spacegray,swap,96,Bueno,,reservado,,si
+iphone-xs-max-512gb,iphone-xs-max,512GB,gold,swap,79,Impecable,,si,,si
+iphone-11-64gb,iphone-11,64GB,black,swap,95,Impecable,,si,,si
+iphone-11-128gb,iphone-11,128GB,white,swap,91,Impecable,,si,,si
+iphone-11-256gb,iphone-11,256GB,green,swap,96,Muy bueno,,si,,si
+iphone-11-pro-64gb,iphone-11-pro,64GB,midnightgreen,swap,81,Bueno,,si,,si
+iphone-11-pro-256gb,iphone-11-pro,256GB,spacegray,swap,89,Impecable,,si,,si
+iphone-11-pro-512gb,iphone-11-pro,512GB,silver,swap,96,Impecable,,si,,si
+iphone-11-pro-max-64gb,iphone-11-pro-max,64GB,midnightgreen,swap,93,Bueno,,reservado,,si
+iphone-11-pro-max-256gb,iphone-11-pro-max,256GB,spacegray,swap,88,Muy bueno,,reservado,,si
+iphone-11-pro-max-512gb,iphone-11-pro-max,512GB,silver,swap,89,Muy bueno,,si,,si
+iphone-se-2-64gb,iphone-se-2,64GB,black,swap,83,Bueno,,si,,si
+iphone-se-2-128gb,iphone-se-2,128GB,white,swap,80,Bueno,,si,,si
+iphone-se-2-256gb,iphone-se-2,256GB,red,swap,94,Muy bueno,,si,,si
+iphone-se-3-64gb,iphone-se-3,64GB,midnight,swap,92,Muy bueno,,si,,si
+iphone-se-3-128gb,iphone-se-3,128GB,starlight,swap,81,Bueno,,reservado,,si
+iphone-se-3-256gb,iphone-se-3,256GB,red,swap,83,Muy bueno,,si,,si
+iphone-12-mini-64gb,iphone-12-mini,64GB,black,swap,93,Muy bueno,,si,,si
+iphone-12-mini-128gb,iphone-12-mini,128GB,white,swap,99,Impecable,,si,,si
+iphone-12-mini-256gb,iphone-12-mini,256GB,red,swap,88,Bueno,,si,,si
+iphone-12-64gb,iphone-12,64GB,black,swap,97,Muy bueno,,reservado,,si
+iphone-12-128gb,iphone-12,128GB,white,swap,80,Impecable,,si,,si
+iphone-12-256gb,iphone-12,256GB,red,swap,93,Bueno,,si,,si
+iphone-12-pro-128gb,iphone-12-pro,128GB,silver,swap,79,Bueno,,si,,si
+iphone-12-pro-256gb,iphone-12-pro,256GB,graphite,swap,98,Bueno,,reservado,,si
+iphone-12-pro-512gb,iphone-12-pro,512GB,gold,swap,87,Bueno,,reservado,,si
+iphone-12-pro-max-128gb,iphone-12-pro-max,128GB,silver,swap,99,Muy bueno,,si,,si
+iphone-12-pro-max-256gb,iphone-12-pro-max,256GB,graphite,swap,92,Muy bueno,,si,,si
+iphone-12-pro-max-512gb,iphone-12-pro-max,512GB,gold,swap,97,Impecable,,reservado,,si
+iphone-13-mini-128gb,iphone-13-mini,128GB,pink,swap,79,Impecable,,si,,si
+iphone-13-mini-256gb,iphone-13-mini,256GB,blue,swap,82,Bueno,,si,,si
+iphone-13-mini-512gb,iphone-13-mini,512GB,midnight,swap,90,Muy bueno,,reservado,,si
+iphone-13-128gb,iphone-13,128GB,pink,swap,80,Impecable,,reservado,,si
+iphone-13-256gb,iphone-13,256GB,blue,swap,90,Bueno,,si,,si
+iphone-13-512gb,iphone-13,512GB,midnight,swap,82,Muy bueno,,si,,si
+iphone-13-pro-128gb,iphone-13-pro,128GB,graphite,swap,100,Muy bueno,,si,,si
+iphone-13-pro-256gb,iphone-13-pro,256GB,gold,swap,99,Muy bueno,,si,,si
+iphone-13-pro-512gb,iphone-13-pro,512GB,silver,swap,82,Impecable,,si,,si
+iphone-13-pro-1tb,iphone-13-pro,1TB,sierrablue,swap,82,Impecable,,si,,si
+iphone-13-pro-max-128gb,iphone-13-pro-max,128GB,graphite,swap,78,Muy bueno,,si,,si
+iphone-13-pro-max-256gb,iphone-13-pro-max,256GB,gold,swap,86,Muy bueno,,si,,si
+iphone-13-pro-max-512gb,iphone-13-pro-max,512GB,silver,swap,82,Muy bueno,,si,,si
+iphone-13-pro-max-1tb,iphone-13-pro-max,1TB,sierrablue,swap,97,Bueno,,si,,si
+iphone-14-128gb,iphone-14,128GB,midnight,swap,82,Bueno,,si,,si
+iphone-14-256gb,iphone-14,256GB,purple,swap,92,Bueno,,reservado,,si
+iphone-14-512gb,iphone-14,512GB,starlight,swap,90,Muy bueno,,reservado,,si
+iphone-14-plus-128gb,iphone-14-plus,128GB,midnight,swap,81,Muy bueno,,reservado,,si
+iphone-14-plus-256gb,iphone-14-plus,256GB,purple,swap,79,Impecable,,si,,si
+iphone-14-plus-512gb,iphone-14-plus,512GB,starlight,swap,84,Muy bueno,,si,,si
+iphone-14-pro-128gb,iphone-14-pro,128GB,spaceblack,swap,81,Muy bueno,,si,,si
+iphone-14-pro-256gb,iphone-14-pro,256GB,silver,swap,81,Impecable,,si,,si
+iphone-14-pro-512gb,iphone-14-pro,512GB,gold,swap,95,Impecable,,si,,si
+iphone-14-pro-1tb,iphone-14-pro,1TB,deeppurple,swap,97,Impecable,,si,,si
+iphone-14-pro-max-128gb,iphone-14-pro-max,128GB,spaceblack,swap,84,Bueno,,reservado,,si
+iphone-14-pro-max-256gb,iphone-14-pro-max,256GB,silver,swap,82,Bueno,,si,,si
+iphone-14-pro-max-512gb,iphone-14-pro-max,512GB,gold,swap,89,Bueno,,si,,si
+iphone-14-pro-max-1tb,iphone-14-pro-max,1TB,deeppurple,swap,93,Impecable,,si,,si
+iphone-15-128gb,iphone-15,128GB,black,swap,93,Muy bueno,,reservado,,si
+iphone-15-256gb,iphone-15,256GB,blue,swap,93,Muy bueno,,si,,si
+iphone-15-512gb,iphone-15,512GB,green,swap,82,Impecable,,si,,si
+iphone-15-plus-128gb,iphone-15-plus,128GB,black,swap,86,Muy bueno,,si,,si
+iphone-15-plus-256gb,iphone-15-plus,256GB,blue,swap,94,Impecable,,si,,si
+iphone-15-plus-512gb,iphone-15-plus,512GB,green,swap,94,Muy bueno,,si,,si
+iphone-15-pro-128gb,iphone-15-pro,128GB,naturaltitanium,swap,100,Bueno,,si,,si
+iphone-15-pro-256gb,iphone-15-pro,256GB,bluetitanium,swap,94,Muy bueno,,si,,si
+iphone-15-pro-512gb,iphone-15-pro,512GB,whitetitanium,swap,100,Muy bueno,,si,,si
+iphone-15-pro-1tb,iphone-15-pro,1TB,blacktitanium,swap,83,Muy bueno,,si,,si
+iphone-15-pro-max-256gb,iphone-15-pro-max,256GB,naturaltitanium,swap,95,Bueno,,si,,si
+iphone-15-pro-max-512gb,iphone-15-pro-max,512GB,bluetitanium,swap,98,Impecable,,si,,si
+iphone-15-pro-max-1tb,iphone-15-pro-max,1TB,whitetitanium,swap,85,Muy bueno,,si,,si
 iphone-16e-128gb,iphone-16e,128GB,black,sellado,,,,si,,si
-iphone-16e-256gb,iphone-16e,256GB,white,usado,94,Muy bueno,,si,,si
-iphone-16e-512gb,iphone-16e,512GB,black,usado,78,Impecable,,si,,si
+iphone-16e-256gb,iphone-16e,256GB,white,swap,94,Muy bueno,,si,,si
+iphone-16e-512gb,iphone-16e,512GB,black,swap,78,Impecable,,si,,si
 iphone-16-128gb,iphone-16,128GB,black,sellado,,,,reservado,,si
-iphone-16-256gb,iphone-16,256GB,white,usado,86,Impecable,,si,,si
-iphone-16-512gb,iphone-16,512GB,pink,usado,92,Bueno,,si,,si
-iphone-16-plus-128gb,iphone-16-plus,128GB,black,usado,89,Impecable,,si,,si
-iphone-16-plus-256gb,iphone-16-plus,256GB,white,usado,81,Impecable,,reservado,,si
-iphone-16-plus-512gb,iphone-16-plus,512GB,pink,usado,84,Muy bueno,,si,,si
-iphone-16-pro-128gb,iphone-16-pro,128GB,blacktitanium,usado,93,Bueno,,si,,si
-iphone-16-pro-256gb,iphone-16-pro,256GB,whitetitanium,usado,93,Bueno,,si,,si
-iphone-16-pro-512gb,iphone-16-pro,512GB,naturaltitanium,usado,98,Impecable,,si,,si
-iphone-16-pro-1tb,iphone-16-pro,1TB,deserttitanium,usado,90,Bueno,,si,,si
-iphone-16-pro-max-256gb,iphone-16-pro-max,256GB,blacktitanium,usado,93,Impecable,,reservado,,si
-iphone-16-pro-max-512gb,iphone-16-pro-max,512GB,whitetitanium,usado,98,Muy bueno,,si,,si
-iphone-16-pro-max-1tb,iphone-16-pro-max,1TB,naturaltitanium,usado,90,Muy bueno,,reservado,,si
+iphone-16-256gb,iphone-16,256GB,white,swap,86,Impecable,,si,,si
+iphone-16-512gb,iphone-16,512GB,pink,swap,92,Bueno,,si,,si
+iphone-16-plus-128gb,iphone-16-plus,128GB,black,swap,89,Impecable,,si,,si
+iphone-16-plus-256gb,iphone-16-plus,256GB,white,swap,81,Impecable,,reservado,,si
+iphone-16-plus-512gb,iphone-16-plus,512GB,pink,swap,84,Muy bueno,,si,,si
+iphone-16-pro-128gb,iphone-16-pro,128GB,blacktitanium,swap,93,Bueno,,si,,si
+iphone-16-pro-256gb,iphone-16-pro,256GB,whitetitanium,swap,93,Bueno,,si,,si
+iphone-16-pro-512gb,iphone-16-pro,512GB,naturaltitanium,swap,98,Impecable,,si,,si
+iphone-16-pro-1tb,iphone-16-pro,1TB,deserttitanium,swap,90,Bueno,,si,,si
+iphone-16-pro-max-256gb,iphone-16-pro-max,256GB,blacktitanium,swap,93,Impecable,,reservado,,si
+iphone-16-pro-max-512gb,iphone-16-pro-max,512GB,whitetitanium,swap,98,Muy bueno,,si,,si
+iphone-16-pro-max-1tb,iphone-16-pro-max,1TB,naturaltitanium,swap,90,Muy bueno,,reservado,,si
 iphone-17e-256gb,iphone-17e,256GB,black,sellado,,,,si,,si
-iphone-17e-512gb,iphone-17e,512GB,white,usado,83,Impecable,,si,,si
+iphone-17e-512gb,iphone-17e,512GB,white,swap,83,Impecable,,si,,si
 iphone-17-256gb,iphone-17,256GB,black,sellado,,,,si,,si
-iphone-17-512gb,iphone-17,512GB,white,usado,82,Bueno,,reservado,,si
+iphone-17-512gb,iphone-17,512GB,white,swap,82,Bueno,,reservado,,si
 iphone-air-256gb,iphone-air,256GB,spaceblack,sellado,,,,si,,si
-iphone-air-512gb,iphone-air,512GB,cloudwhite,usado,97,Bueno,,reservado,,si
-iphone-air-1tb,iphone-air,1TB,lightgold,usado,99,Muy bueno,,si,,si
+iphone-air-512gb,iphone-air,512GB,cloudwhite,swap,97,Bueno,,reservado,,si
+iphone-air-1tb,iphone-air,1TB,lightgold,swap,99,Muy bueno,,si,,si
 iphone-17-pro-256gb,iphone-17-pro,256GB,silver,sellado,,,,si,,si
-iphone-17-pro-512gb,iphone-17-pro,512GB,cosmicorange,usado,78,Impecable,,si,,si
-iphone-17-pro-1tb,iphone-17-pro,1TB,deepblue,usado,94,Bueno,,si,,si
+iphone-17-pro-512gb,iphone-17-pro,512GB,cosmicorange,swap,78,Impecable,,si,,si
+iphone-17-pro-1tb,iphone-17-pro,1TB,deepblue,swap,94,Bueno,,si,,si
 iphone-17-pro-max-256gb,iphone-17-pro-max,256GB,silver,sellado,,,,reservado,,si
-iphone-17-pro-max-512gb,iphone-17-pro-max,512GB,cosmicorange,usado,84,Impecable,,si,,si
-iphone-17-pro-max-1tb,iphone-17-pro-max,1TB,deepblue,usado,86,Impecable,,si,,si
-iphone-17-pro-max-2tb,iphone-17-pro-max,2TB,silver,usado,94,Impecable,,si,,si
+iphone-17-pro-max-512gb,iphone-17-pro-max,512GB,cosmicorange,swap,84,Impecable,,si,,si
+iphone-17-pro-max-1tb,iphone-17-pro-max,1TB,deepblue,swap,86,Impecable,,si,,si
+iphone-17-pro-max-2tb,iphone-17-pro-max,2TB,silver,swap,94,Impecable,,si,,si
 iphone-18-pro-256gb,iphone-18-pro,256GB,black,sellado,,,,si,,si
-iphone-18-pro-512gb,iphone-18-pro,512GB,silver,usado,95,Muy bueno,,si,,si
-iphone-18-pro-1tb,iphone-18-pro,1TB,glacier,usado,79,Bueno,,si,,si
-iphone-18-pro-2tb,iphone-18-pro,2TB,burgundy,usado,92,Bueno,,reservado,,si
+iphone-18-pro-512gb,iphone-18-pro,512GB,silver,swap,95,Muy bueno,,si,,si
+iphone-18-pro-1tb,iphone-18-pro,1TB,glacier,swap,79,Bueno,,si,,si
+iphone-18-pro-2tb,iphone-18-pro,2TB,burgundy,swap,92,Bueno,,reservado,,si
 iphone-18-pro-max-256gb,iphone-18-pro-max,256GB,black,sellado,,,,si,,si
-iphone-18-pro-max-512gb,iphone-18-pro-max,512GB,silver,usado,95,Impecable,,si,,si
-iphone-18-pro-max-1tb,iphone-18-pro-max,1TB,glacier,usado,92,Impecable,,si,,si
-iphone-18-pro-max-2tb,iphone-18-pro-max,2TB,burgundy,usado,82,Impecable,,si,,si
+iphone-18-pro-max-512gb,iphone-18-pro-max,512GB,silver,swap,95,Impecable,,si,,si
+iphone-18-pro-max-1tb,iphone-18-pro-max,1TB,glacier,swap,92,Impecable,,si,,si
+iphone-18-pro-max-2tb,iphone-18-pro-max,2TB,burgundy,swap,82,Impecable,,si,,si

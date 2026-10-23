@@ -51,10 +51,12 @@
     if (!m) return null;
     const color = m.colores.find((c) => c.id === fila.color) || { id: fila.color, nombre: fila.color, muestra: "#8E8E96", img: "" };
     const bateria = fila.bateria === "" ? null : Number(fila.bateria);
+    // los equipos no nuevos se llaman Swap ("usado" en planillas viejas también cuenta como swap)
+    const condicion = String(fila.condicion || "").trim().toLowerCase() === "sellado" ? "sellado" : "swap";
     return {
-      ...fila, m, colorInfo: color, bateria,
+      ...fila, condicion, m, colorInfo: color, bateria,
       precioNum: fila.precio ? Number(String(fila.precio).replace(/[^\d]/g, "")) : null,
-      busqueda: `${m.nombre} ${fila.capacidad} ${color.nombre} ${fila.condicion}`.toLowerCase(),
+      busqueda: `${m.nombre} ${fila.capacidad} ${color.nombre} ${condicion}`.toLowerCase(),
     };
   }
 
@@ -69,7 +71,7 @@
 
   function linkWhatsApp(u) {
     const partes = [`${u.m.nombre} de ${u.capacidad}`, u.colorInfo.nombre];
-    if (u.condicion === "sellado") partes.push("en caja sellada");
+    partes.push(u.condicion === "sellado" ? "en caja sellada" : "Swap");
     else if (u.bateria !== null) partes.push(`batería ${u.bateria} %`);
     const msg = `¡Hola Tech&Co.! Quiero el ${partes.join(", ")}. ¿Sigue disponible?`;
     const num = String(CFG.whatsapp || "").replace(/\D/g, "");
@@ -92,7 +94,7 @@
     return `<article class="tarjeta" style="--muestra:${esc(u.colorInfo.muestra)}">
       <div class="foto">${foto}
         <span class="estado-tag ${esc(disp)}">${textoDisp}</span>
-        ${u.condicion === "sellado" ? `<span class="sellado-tag">SELLADO</span>` : ""}
+        <span class="sellado-tag">${u.condicion === "sellado" ? "SELLADO" : "SWAP"}</span>
         ${u.demo === "si" ? `<span class="demo-tag">EJEMPLO</span>` : ""}
       </div>
       <div class="ficha">

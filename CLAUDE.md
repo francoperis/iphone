@@ -1,6 +1,7 @@
 # Proyecto: tienda de iPhone — marca: Tech&Co.
 
-Negocio familiar de venta de iPhone usados y en caja sellada, en Argentina.
+Negocio familiar de venta de iPhone **Swap** y en caja sellada, en Argentina.
+**Los equipos NO se llaman "usados": son "Swap"** (en piezas, catálogo, textos y hashtags: #iphoneswap).
 Objetivo: contenido orgánico DE CALIDAD para Instagram (historias, reels, carruseles)
 y una página de catálogo con botón de WhatsApp.
 
@@ -92,7 +93,7 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 - Plan de contenido: `contenido/plan-2-semanas.md`.
 - Apertura: `plantillas/apertura.html?pieza=post1..6|story1..6` + `plantillas/canje.html?de=&a=&formato=historia|post`
   (canje 3D, 9 s). Guía en `contenido/apertura.md`. Componentes compartidos: `plantillas/piezas.css` y `piezas.js`
-  (callouts técnicos con `<i class="co">`, tarjeta de link al catálogo para posts, bloque "Saber más" para historias).
+  (callouts técnicos con `<i class="co">`, bloque "Saber más" para historias; los posts cierran con una línea "Link en la bio", sin caja).
   Los teléfonos se ubican por su centro.
 
 ## Feedback del usuario sobre "Llegó" (2026-10-21)
@@ -138,6 +139,9 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 - Por ahora todo es iPhone. Más adelante se van a sumar líneas de celulares más económicos para otro mercado.
 - (2026-10-22, 2.ª ronda) Los videos/historias no admiten links: sacar la tarjeta "Catálogo online" de los videos y
   cerrar con "Saber más" + flecha a la casilla de respuesta de la historia. En posts queda "link en la bio".
+- (2026-10-23) Nada de "pies" de color: sin tarjetas ni franjas lima/oscuras al pie de los posts. El CTA de los posts es
+  una línea de texto mono al pie ("Catálogo online · Link en la bio →"), como el "Deslizá →" de la portada. En los cierres
+  de reels el CTA va como texto lima, sin caja.
 - Más opciones de "Abrimos" con misterio (reels + posts, marca completa, sin decir qué vendemos):
   expediente sin celular, carga 99 % que pierde la señal, pantalla que se prende y se apaga, y la continuación
   que revela todo. Plantilla `plantillas/misterio.html`, guía `contenido/misterio.md`.
@@ -150,7 +154,7 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 3. Exportar cada pieza a MP4: 1080×1920 (historias/reels) y 1080×1350 (posts),
    grabando la página con Playwright + ffmpeg. Loop limpio, 8–12 s.
 4. Carruseles educativos: "¿15 Pro o 16?", "Qué iPhone comprar con $X",
-   "Cómo revisar un iPhone usado (batería, Face ID, iCloud, IMEI)".
+   "Cómo revisar un iPhone Swap (batería, Face ID, iCloud, IMEI)".
 5. Calendario semanal: historias diarias, 3 reels y 1–2 carruseles por semana,
    con textos (copy), hooks del primer segundo y llamado a la acción (tarjeta de link al catálogo).
 6. Página de catálogo: modelos ordenados por generación, filtros, batería, precio,

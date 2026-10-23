@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&family=Manrope:wght@500;700;800&display=block" rel="stylesheet">
+<link rel="stylesheet" href="logo.css">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -49,9 +50,7 @@
   .barra { position: absolute; left: 72px; right: 72px; top: 150px; display: flex; justify-content: space-between;
            align-items: center; font-family: "JetBrains Mono", monospace; font-size: 26px; letter-spacing: .14em;
            text-transform: uppercase; }
-  .marca { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 38px; letter-spacing: -.01em;
-           text-transform: none; }
-  .marca b { color: var(--acido); font-weight: 900; }
+  .marca .logo-tc { font-size: 52px; }
   .ingreso { display: flex; gap: 14px; align-items: center; color: var(--texto); }
   .punto { width: 16px; height: 16px; border-radius: 50%; background: var(--acido); box-shadow: 0 0 18px var(--acido); }
 
@@ -179,7 +178,7 @@ document.documentElement.style.setProperty("--brillo", color.brillo);
 const $ = (s) => document.getElementById(s);
 const letras = (txt) => [...txt].map((c) => (c === " " ? "<span>&nbsp;</span>" : `<span>${c}</span>`)).join("");
 
-$("marca").innerHTML = MARCA.nombre.replace("&", "<b>&amp;</b>");
+$("marca").innerHTML = '<span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span>';
 // "iPhone 17 Pro" -> línea chica "iPhone" + gigante "17 PRO"
 const corto = m.nombre.replace(/^iPhone\s+/, "");
 $("linea").innerHTML = letras("iPhone");
