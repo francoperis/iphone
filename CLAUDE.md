@@ -21,7 +21,7 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
   Wikimedia limita mucho las consultas desde este entorno (429). Openverse ahora pide registro (401).
   Unsplash/Pexels necesitan claves gratuitas (UNSPLASH_ACCESS_KEY / PEXELS_API_KEY).
   GSMArena bloquea descargas automáticas (Cloudflare).
-- Precios: se definen más adelante (USD vs. pesos, cotización). Por ahora usar la tabla de abajo.
+- Precios: se definen más adelante (ver «Precios»).
 - Primer avance: plantilla animada "Llegó" exportada a MP4 1080×1920, en 4 variantes:
   iPhone 13, 15 Pro, 16 Pro y 17 Pro.
 
@@ -32,32 +32,20 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
 - (2026-10-23) Sistema **a pedido**: no hay stock fijo; el proveedor consigue y se consulta en el momento
   (también otros modelos que no están en la lista). Modelos que comercializa el proveedor: `catalogo/a-pedido.csv`
   (sin nombre ni precios del proveedor). El catálogo se organiza por secciones: iPhone (Base / Pro / Pro Max / caja sellada),
-  Samsung, Xiaomi, otras marcas. Pendiente: condición de los Android (¿nuevos?), si entran ya al catálogo, precios.
+  Samsung y Xiaomi (nuevos en caja sellada, entran ya; itel queda afuera). Sin precios.
+  Formatos del catálogo: web propia (link en la bio), carrusel para el feed, catálogo de WhatsApp Business e imagen única para historias.
+  **Plan completo y pendientes: `catalogo/PLAN.md`** (la web se hace el lunes, en Vercel o Netlify). Sin colores en el catálogo.
+  Fotos de Samsung/Xiaomi: `python3 descargar_otros.py` (oficiales, recortadas) → `catalogo/img/`.
 - Reglas del plan canje.
 - Stock real: modelo, GB, color, % batería, precio, estado. Nunca inventar estos datos:
   usar marcadores como [__]% o [ZONA] hasta tenerlos.
 
-## Precios actuales (del flyer original, en pesos)
-| Modelo | GB | Precio |
-|---|---|---|
-| iPhone 12 | 128 | $510.000 |
-| iPhone 12 Pro | 128 | $600.000 |
-| iPhone 12 Pro Max | 128 | $640.000 |
-| iPhone 13 mini | 128 | $530.000 |
-| iPhone 13 | 128 | $610.000 |
-| iPhone 13 Pro | 128 | $750.000 |
-| iPhone 13 Pro Max | 128 | $830.000 |
-| iPhone 14 | 128 | $670.000 |
-| iPhone 14 Pro | 128 | $850.000 |
-| iPhone 14 Pro Max | 128 | $980.000 |
-| iPhone 15 | 128 | $920.000 |
-| iPhone 15 Pro | 128 | $1.120.000 |
-| iPhone 15 Pro Max | 256 | $1.315.000 |
-| iPhone 16 | 128 | $1.290.000 |
-| iPhone 16 Pro | 128 | $1.435.000 |
-| iPhone 16 Pro Max | 256 | $1.655.000 |
-| iPhone 17 Pro | 256 | $1.900.000 |
-
+## Precios
+- (2026-10-23) **Todavía no hay precios: no publicar precios en ninguna pieza ni en el catálogo.** Los precios del
+  proveedor NO se guardan ni se usan (el negocio va a definir los suyos). Las plantillas muestran «Precio a consultar»
+  salvo que se les pase `?precio=` con el precio que defina el negocio.
+- Lo que manda el proveedor: la lista de iPhone con precio = equipos **Swap**; la lista de Samsung/Xiaomi = equipos
+  **nuevos en caja sellada**. Los **sellados siempre van con «Consultar»**.
 Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las piezas.
 
 ## Identidad visual

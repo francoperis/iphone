@@ -97,6 +97,7 @@
   .precio .signo { font-size: 64px; color: var(--acido); margin-right: 8px; margin-top: 8px; }
   .precio .miles { font-size: var(--t-l); }
   .precio .resto { font-size: var(--t-xs); margin-top: 10px; color: var(--gris); }
+  .precio .consultar { font-size: var(--t-s); line-height: var(--ih-titulo); }
   .cta { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 25px; letter-spacing: .1em;
          text-transform: uppercase; text-align: right; line-height: 1.5; transform-origin: right center; }
   .cta b { display: inline-block; margin-top: 8px; color: var(--acido);
@@ -197,8 +198,14 @@ $("chips").innerHTML = [
   `<span class="chip${estado ? "" : " hueco"}">${estado ? estado : "Estado [__]"}</span>`,
 ].join("");
 
-const pr = partirPrecio(m.precio);
-$("precio").innerHTML = `<span class="signo">$</span><span class="miles">${pr.miles}</span><span class="resto">${pr.resto}</span>`;
+// el precio lo define el negocio por equipo (?precio=); sin precio, "consultar" (no se guardan precios de proveedores)
+const precio = Number(P.get("precio")) || 0;
+if (precio) {
+  const pr = partirPrecio(precio);
+  $("precio").innerHTML = `<span class="signo">$</span><span class="miles">${pr.miles}</span><span class="resto">${pr.resto}</span>`;
+} else {
+  $("precio").innerHTML = `<span class="consultar">Precio<br>a consultar</span>`;
+}
 $("textoSticker").textContent = "NUEVO INGRESO ✦ " + MARCA.nombre.toUpperCase() + " ✦ ";
 
 // el nombre gigante se ajusta al ancho disponible (13 entra mucho más grande que 17 PRO)
