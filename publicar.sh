@@ -22,6 +22,10 @@ png plantillas/marca.html "pieza=avatar-hueso&formato=cuadrado" $P/00-marca/avat
 png plantillas/marca.html "pieza=avatar-tinta&formato=cuadrado" $P/00-marca/avatar-negro.png 0
 png plantillas/marca.html "pieza=logotipo&formato=cuadrado" $P/00-marca/logotipo.png 0
 png plantillas/marca.html "pieza=hoja&formato=cuadrado" $P/00-marca/hoja-de-marca.png 0
+mkdir -p $P/00-marca/destacadas
+for t in Nosotros Swap Sellados Canje Comprar; do
+  png plantillas/marca.html "pieza=destacada&texto=$t" $P/00-marca/destacadas/$(echo $t | tr "A-Z" "a-z").png 0
+done
 
 # 01 · teasers (antes de abrir: no dicen qué vendemos). Idea elegida: Carga 99 % (Pantalla quedó descartada)
 png plantillas/misterio.html "pieza=ficha&formato=post" $P/01-teasers/expediente_post.png 7999

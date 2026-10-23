@@ -17,6 +17,7 @@
     ?pieza=avatar-tinta    foto de perfil: tinta, logotipo apilado en hueso con "&" y punto lima
     ?pieza=logotipo        logotipo horizontal sobre tinta
     ?pieza=hoja            hoja de marca (logotipo, avatares y banda)
+    ?pieza=destacada&texto=SWAP   portada de historia destacada, 1080×1920 (Instagram muestra el círculo del centro)
   node exportar_video.js plantillas/marca.html "pieza=avatar&formato=cuadrado" salida/marca/avatar.png --cuadro 0
 -->
 <style>
@@ -36,6 +37,7 @@
 <section id="avatar" class="lima"><div class="centro"><span class="logo-tc apilado" style="font-size: 360px;"><span>Tech</span><span>&amp;Co<i></i></span></span></div></section>
 <section id="avatar-hueso" class="hueso"><div class="centro"><span class="logo-tc apilado" style="font-size: 360px;"><span>Tech</span><span>&amp;Co<i></i></span></span></div></section>
 <section id="avatar-tinta" class="tinta"><div class="centro"><span class="logo-tc apilado" style="font-size: 360px;"><span>Tech</span><span><b>&amp;</b>Co<i></i></span></span></div></section>
+<section id="destacada" class="tinta"><div class="centro"><span class="logo-tc" id="textoDestacada">Swap<i></i></span></div></section>
 <section id="logotipo" class="tinta"><div class="centro"><span class="logo-tc" style="font-size: 270px;">Tech<b>&amp;</b>Co<i></i></span></div></section>
 
 <section id="hoja" class="tinta" style="display: none; flex-direction: column;">
@@ -65,6 +67,13 @@ const pieza = new URLSearchParams(location.search).get("pieza") || "hoja";
 const sec = document.getElementById(pieza) || document.getElementById("hoja");
 sec.classList.add("activa");
 if (sec.id === "hoja") sec.style.display = "flex";
+if (sec.id === "destacada") {
+  // historia 1080×1920; la palabra entra en el círculo que muestra Instagram (≈ 620 px de ancho)
+  document.documentElement.style.height = document.body.style.height = sec.style.height = "1920px";
+  const t = document.getElementById("textoDestacada");
+  t.firstChild.textContent = new URLSearchParams(location.search).get("texto") || "Swap";
+  document.fonts.ready.then(() => { t.style.fontSize = "100px"; t.style.fontSize = Math.min(300, 100 * 620 / t.getBoundingClientRect().width) + "px"; });
+}
 window.PLANTILLA = { duracion: 1000, async listo() { await document.fonts.ready; }, ir() {} };
 </script>
 </body>

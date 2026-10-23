@@ -99,9 +99,9 @@
   /* ---------- revelación (continuaciones) ---------- */
   .revelar { position: absolute; inset: 0; background: var(--lima); color: var(--tinta); opacity: 0; }
   .revelar canvas { position: absolute; inset: 0; width: 1080px; height: 100%; }
-  /* ABRIMOS en un renglón, el equipo flotando adelante (como la prueba "a" de apertura.html) */
-  .revelar .titulo { position: absolute; left: 0; right: 0; top: 790px; text-align: center; white-space: nowrap; font-size: var(--t-xl); }
-  body.post .revelar .titulo { top: 560px; }
+  /* ABRIMOS en un renglón, encima del equipo que flota detrás (la versión "b" elegida, como apertura.html) */
+  .revelar .titulo { position: absolute; left: 0; right: 0; top: 1130px; text-align: center; white-space: nowrap; font-size: var(--t-xl); z-index: 2; }
+  body.post .revelar .titulo { top: 800px; }
   .revelar .bajo { position: absolute; left: 72px; right: 72px; bottom: 250px; display: flex; justify-content: space-between; align-items: baseline; }
   body.post .revelar .bajo { bottom: 64px; }
   .revelar .bajo .logo-tc { font-size: 72px; }
@@ -175,8 +175,8 @@
 
 <!-- ======================= REVELACIÓN (continuaciones) ======================= -->
 <div class="revelar" id="revelar" style="display: none;">
-  <div class="titulo e" data-t="0">Abrimos.</div>
   <canvas id="lienzo3d"></canvas>
+  <div class="titulo e" data-t="0">Abrimos.</div>
   <div class="bajo e" data-t="1300"><span class="logo-tc plano">Tech<b>&amp;</b>Co<i></i></span><span class="mono">Equipos Swap y en caja sellada</span></div>
 </div>
 
@@ -361,9 +361,9 @@ async function armarRevelar() {
   rv.querySelectorAll(".e").forEach((el) => entrada(el, TR + Number(el.dataset.t), "translateY(70px)"));
   const { crearTelefono } = await import("./telefono3d.js");
   const id = "iphone-17-pro", m = MODELOS[id], K = 10;
-  const tel = await crearTelefono($("lienzo3d"), m, "deepblue", { id, fotos: "assets/telefonos", relleno: "#8B6CFF",
+  const tel = await crearTelefono($("lienzo3d"), m, "silver", { id, fotos: "assets/telefonos", relleno: "#8B6CFF",
                                                                    distancia: H / (K * 2 * Math.tan(10 * Math.PI / 180)) });
-  const L = post ? { x: 540, y: 760, h: 720 } : { x: 540, y: 1010, h: 860 };
+  const L = post ? { x: 540, y: 640, h: 780 } : { x: 540, y: 900, h: 940 };
   dibujar3d = (t) => {
     const e = sal(tramo(t, TR + 150, TR + 1700));
     const f = Math.max(0, t - TR) / 1000;

@@ -1,5 +1,7 @@
 # Tech&Co. — contenido listo para subir
 
+**Para empezar la cuenta: leer `ARRANCAR.md`** (perfil, archivos, calendario de teasers y apertura).
+
 Cada carpeta es una sección. Las imágenes (`_post.png`) son de 1080×1350 para el feed; los videos `_historia.mp4`
 y `_reel.mp4` son de 1080×1920. Todo se regenera con `./publicar.sh` (o `./publicar.sh imagenes` para solo los PNG).
 
@@ -11,7 +13,7 @@ Reglas que ya están aplicadas en todas las piezas (manual completo en `IDENTIDA
 
 | Carpeta | Qué hay | Cuándo se usa |
 |---|---|---|
-| `00-marca/` | Foto de perfil (lima, hueso, negro), logotipo y hoja de marca | Al armar la cuenta |
+| `00-marca/` | Foto de perfil (lima, hueso, negro), logotipo, hoja de marca y portadas de destacadas | Al armar la cuenta |
 | `01-teasers/` | Expediente, Carga 99 % y "En camino": no dicen qué vendemos | Los días antes de abrir |
 | `02-apertura/` | Abrimos, revelación (continuación de Carga 99 %), presentación, "¿Hay uno para vos?" | El día que abrimos |
 | `03-que-vendemos/` | "Lo mejor, a tu alcance." (Swap y sellado), "Todo a la vista.", encuesta "¿Qué buscás?" | Primera semana, y cada tanto |

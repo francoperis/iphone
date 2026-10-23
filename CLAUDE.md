@@ -26,7 +26,8 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
   iPhone 13, 15 Pro, 16 Pro y 17 Pro.
 
 ## Datos que faltan (pedírselos al usuario antes de publicar nada)
-- Logo, @ de Instagram, número de WhatsApp.
+- Número de WhatsApp. (Instagram: **@techco.ctes**, 2026-10-23; «ctes» = Corrientes → confirmar [ZONA].)
+- (2026-10-23) Todavía NO hay equipos en la mano: fase 0 = teasers sin prometer stock (ver `publicar/ARRANCAR.md`).
 - Zona de retiro / envíos, medios de pago, cuotas, meses de garantía.
 - Reglas del plan canje.
 - Stock real: modelo, GB, color, % batería, precio, estado. Nunca inventar estos datos:
@@ -154,7 +155,8 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
     Se regenera con `./publicar.sh`; guía y textos en `publicar/README.md`.
 - (2026-10-23, 4.ª ronda) Títulos: **Archivo condensada** (elegida entre Unbounded, Space Grotesk y Bricolage).
   Nada de «0 KM» (no es un vehículo): el sello dice «NUEVO · CAJA SELLADA». Sin líneas/flechas que salgan de los teléfonos.
-  «ABRIMOS» en una sola línea, grande, superpuesto al equipo flotando (dos pruebas: palabra detrás o encima, `?abrimos=a|b`).
+  «ABRIMOS» en una sola línea, grande, superpuesto al equipo flotando. **Elegida la B: la palabra encima del equipo** (plata),
+  también en el reel de revelación (`?abrimos=a` deja la otra prueba).
   La animación de la caja 3D se descartó (fea): el flyer de nuevos usa un video real de unboxing con licencia libre.
   Teaser elegido: Carga 99 % (Pantalla descartada); sin «Expediente 001».
 - Más opciones de "Abrimos" con misterio (reels + posts, marca completa, sin decir qué vendemos):

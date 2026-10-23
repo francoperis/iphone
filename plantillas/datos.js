@@ -13,7 +13,7 @@
 
 window.MARCA = {
   nombre: "Tech&Co.",
-  instagram: "@[INSTAGRAM]",
+  instagram: "@techco.ctes",
   whatsapp: "[WHATSAPP]",
 };
 
