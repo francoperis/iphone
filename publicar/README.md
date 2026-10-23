@@ -1,6 +1,6 @@
 # Tech&Co. — contenido listo para subir
 
-**Para empezar la cuenta: leer `ARRANCAR.md`** (perfil, archivos, calendario de teasers y apertura).
+**Para empezar la cuenta: `ARRANCAR.md`** (perfil y consejos) y **`ORDEN.md`** (qué publicar, en qué orden y con qué texto).
 
 Cada carpeta es una sección. Las imágenes (`_post.png`) son de 1080×1350 para el feed; los videos `_historia.mp4`
 y `_reel.mp4` son de 1080×1920. Todo se regenera con `./publicar.sh` (o `./publicar.sh imagenes` para solo los PNG).
