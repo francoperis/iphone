@@ -12,8 +12,8 @@ Reglas que ya están aplicadas en todas las piezas:
 | Carpeta | Qué hay | Cuándo se usa |
 |---|---|---|
 | `00-marca/` | Foto de perfil (lima, hueso, negro), logotipo y hoja de marca | Al armar la cuenta |
-| `01-teasers/` | Expediente, Carga, Pantalla y "En camino": no dicen qué vendemos | Los días antes de abrir |
-| `02-apertura/` | Abrimos, revelación (continuación de Carga o Pantalla), presentación, "¿Hay uno para vos?" | El día que abrimos |
+| `01-teasers/` | Expediente, Carga 99 % y "En camino": no dicen qué vendemos | Los días antes de abrir |
+| `02-apertura/` | Abrimos, revelación (continuación de Carga 99 %), presentación, "¿Hay uno para vos?" | El día que abrimos |
 | `03-que-vendemos/` | "Lo mejor, a tu alcance." (Swap y sellado), "Todo a la vista.", encuesta "¿Qué buscás?" | Primera semana, y cada tanto |
 | `04-como-comprar/` | 3 pasos: elegilo, tocá «Lo quiero», es tuyo | Primera semana, y fijar en el perfil |
 | `05-plan-canje/` | Canje en 3D (13 → 17 Pro, 12 → 16 Pro) y reel "¿Cuánto vale tu equipo viejo?" | Una vez por semana |
@@ -25,7 +25,7 @@ Reglas que ya están aplicadas en todas las piezas:
 
 **01 · Teasers**
 - Expediente: *Todavía no podemos mostrarlo. Muy pronto, todo a la vista.*
-- Carga / Pantalla: *Estábamos por mostrarles algo… y se cortó.* 🔌 (se sube una de las dos, no ambas)
+- Carga 99 %: *Estábamos por mostrarles algo… y se cortó.* 🔌
 
 **02 · Apertura**
 > Abrimos. 🟢
@@ -35,7 +35,7 @@ Reglas que ya están aplicadas en todas las piezas:
 > Todo el stock está en el catálogo: link en la bio.
 > 📍 [ZONA] · Envíos [__]
 
-Revelación: subir la continuación de la idea elegida (Carga → `revelacion-carga_reel.mp4`, Pantalla → `revelacion-pantalla_reel.mp4`).
+Revelación: `revelacion_reel.mp4` (continuación de Carga 99 %: vuelve la señal, llega a 100 % y se revela Tech&Co.).
 
 **03 · Qué vendemos**
 > Lo mejor, a tu alcance.
@@ -51,7 +51,7 @@ En la historia "¿Qué buscás?" agregar el sticker de **encuesta** (Swap / Sell
 > Nuevo. [Modelo] [GB] en caja sellada, 0 km. Precio: consultanos por DM.
 
 Para hacer un flyer de otro modelo:
-`node exportar_video.js plantillas/sellado.html "modelo=iphone-17-pro&color=deepblue&gb=512&formato=post" publicar/equipos/iphone/nuevos-caja-sellada/iphone-17-pro-azul_post.png --cuadro 7999`
+`node exportar_video.js plantillas/sellado.html "modelo=iphone-17-pro&color=deepblue&gb=512&formato=post" publicar/equipos/iphone/nuevos-caja-sellada/iphone-17-pro-azul_post.png --cuadro 8999`
 (sin `&formato=post` y sin `--cuadro` sale la historia en video).
 
 Hashtags base: #tecnologia #celulares #swap #cajasellada #argentina (+ #iphone #iphoneswap cuando la pieza muestra un iPhone).

@@ -16,10 +16,11 @@
 } }
 </script>
 <!--
-  Flyer "Nuevo · caja sellada" (8 s): el equipo entra girando en 3D, sello "0 KM" y callouts con capacidad y color.
+  Flyer "Nuevo · caja sellada" (9 s): entra la caja en 3D, se abre, sale el equipo y queda al lado de la caja;
+  sello "0 KM" y callouts con capacidad y color.
   Precio: "consultar" (caja sellada). Historia: cierra con "Saber más" + flecha; post: línea "Link en la bio".
     ?modelo=iphone-17-pro&color=silver&gb=256&formato=historia|post
-  formato=post (1080×1350) se exporta como imagen fija del último cuadro (--cuadro 7999).
+  formato=post (1080×1350) se exporta como imagen fija del último cuadro (--cuadro 8999).
 -->
 <style>
   html, body { overflow: hidden; background: var(--tinta); }
@@ -41,18 +42,17 @@
 </head>
 <body>
 <div class="lienzo tinta" id="lienzo">
+  <div class="disco" id="disco"></div>
+  <canvas class="tres" id="tel"></canvas>
   <div class="abs cabeza mono" id="cabeza"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
   <div class="abs titulo" id="titulo">Nuevo<b>.</b></div>
   <div class="abs modelo" id="modelo"></div>
-  <div class="disco" id="disco"></div>
-  <canvas class="tres" id="tel"></canvas>
   <div class="sello" id="sello">
     <svg viewBox="0 0 230 230" aria-hidden="true"><defs><path id="aro" d="M115,115 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs>
       <g id="giro" style="transform-origin: 115px 115px;"><text font-family="JetBrains Mono" font-weight="700" font-size="17" letter-spacing="4.6" fill="currentColor">
         <textPath href="#aro">CAJA SELLADA · NUEVO · CAJA SELLADA · NUEVO ·</textPath></text></g></svg>
     <span class="km">0<br>KM</span>
   </div>
-  <i class="co" id="coA"></i><div class="etq" id="etqA"><span class="v">Caja<br>sellada</span><span class="k">sin abrir</span></div>
   <i class="co" id="coB"></i><div class="etq der" id="etqB"><span class="v" id="gb"></span><span class="k">capacidad</span></div>
   <i class="co" id="coC"></i><div class="etq der" id="etqC"><span class="v" id="color"></span><span class="k">color</span></div>
   <div class="saber" id="saber" style="bottom: 190px;">
@@ -65,7 +65,7 @@
 <script src="datos.js"></script>
 <script src="piezas.js"></script>
 <script type="module">
-import { crearTelefono } from "./telefono3d.js";
+import { crearTelefono, crearCaja } from "./telefono3d.js";
 
 const P = new URLSearchParams(location.search);
 const id = P.get("modelo") || "iphone-17-pro";
@@ -77,15 +77,18 @@ if (post) document.body.classList.add("post");
 const $ = (s) => document.getElementById(s);
 const H = post ? 1350 : 1920;
 const K = 10; // 10 px por mm
+const [Wmm, Hmm] = m.tresd.medidas;
 
-// medidas en px del lienzo; tel = centro y alto del equipo
+// medidas en px del lienzo. caja = centro final de la caja; tel = alto del teléfono y cuánto se corre
+// a la derecha de la caja (queda adelante, apoyado al costado)
 const L = post ? {
   cabeza: 64, titulo: [140, 210], modelo: [380, 62],
-  tel: { x: 540, y: 860, h: 640 }, sello: { x: 850, y: 470 }, izq: 72, der: 1008,
+  caja: { x: 380, y: 840 }, tel: { h: 520, dx: 270, dy: 18 }, sello: { x: 220, y: 560 }, izq: 72, der: 1008,
 } : {
   cabeza: 250, titulo: [330, 220], modelo: [590, 74],
-  tel: { x: 540, y: 1150, h: 760 }, sello: { x: 850, y: 800 }, izq: 72, der: 1008,
+  caja: { x: 370, y: 1110 }, tel: { h: 690, dx: 340, dy: 26 }, sello: { x: 200, y: 800 }, izq: 72, der: 1008,
 };
+const esc = L.tel.h / (Hmm * K);            // escala de la escena (caja y teléfono comparten escala)
 
 $("cabeza").style.top = L.cabeza + "px";
 Object.assign($("titulo").style, { left: "60px", top: L.titulo[0] + "px", fontSize: L.titulo[1] + "px" });
@@ -102,19 +105,19 @@ if (nombreColor.length > 12) {
 $(post ? "saber" : "pie").remove();
 const cierre = $(post ? "pie" : "saber");
 
-const dd = L.tel.h * 0.78;
-Object.assign($("disco").style, { left: L.tel.x + "px", top: L.tel.y + "px", width: dd + "px", height: dd + "px" });
+const centroX = L.caja.x + L.tel.dx / 2, centroY = L.caja.y;
+const dd = L.tel.h * 0.95;
+Object.assign($("disco").style, { left: centroX + "px", top: centroY + "px", width: dd + "px", height: dd + "px" });
 Object.assign($("sello").style, { left: L.sello.x + "px", top: L.sello.y + "px" });
 
-// callouts: puntos sobre el canto del equipo (ancho visible ≈ 0,44 del alto) hasta los márgenes
-const { x, y, h } = L.tel, mitad = h * 0.21;
+// callouts: capacidad y color desde el canto derecho del teléfono (la caja la nombra el sello "0 KM · caja sellada")
+const telX = L.caja.x + L.tel.dx, telY = L.caja.y + L.tel.dy, bordeTel = telX + L.tel.h * 0.2;
 const co = (el, d, etq, pos) => Object.assign($(el).dataset, { l: d, etq, pos });
-co("coA", `${x - mitad},${y - h * 0.12} h:${L.izq}`, "etqA", "sobre-izq");
-co("coB", `${x + mitad},${y + h * 0.08} h:${L.der}`, "etqB", "sobre-der");
-co("coC", `${x + mitad},${y + h * 0.3} h:${L.der}`, "etqC", "sobre-der");
+co("coB", `${bordeTel},${telY - L.tel.h * 0.02} h:${L.der}`, "etqB", "sobre-der");
+co("coC", `${bordeTel - 6},${telY + L.tel.h * 0.32} h:${L.der}`, "etqC", "sobre-der");
 
 // ---------------------------------------------------------------- línea de tiempo
-const T = 8000;
+const T = 9000;
 const ANIMS = [];
 function linea(el, puntos) {
   const fr = puntos.map(([t, props, easing]) => ({ ...props, offset: t / T, easing: easing || "linear" }));
@@ -129,31 +132,51 @@ const entra = (el, t, desde = "translateY(50px)") =>
 entra($("cabeza"), 0, "translateY(-30px)");
 entra($("titulo"), 100);
 entra($("modelo"), 350);
-linea($("disco"), [[700, { transform: "scale(0)" }, rebote], [1300, { transform: "scale(1)" }]]);
-linea($("sello"), [[2000, { transform: "scale(0) rotate(-40deg)" }, rebote], [2500, { transform: "scale(1) rotate(-8deg)" }]]);
+linea($("disco"), [[600, { transform: "scale(0)" }, rebote], [1200, { transform: "scale(1)" }]]);
+linea($("sello"), [[4300, { transform: "scale(0) rotate(-40deg)" }, rebote], [4800, { transform: "scale(1) rotate(-8deg)" }]]);
 ANIMS.push($("giro").animate([{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }], { duration: T, fill: "both" }));
-entra($("etqA"), 2700, "translateY(24px)");
-entra($("etqB"), 2900, "translateY(24px)");
-entra($("etqC"), 3100, "translateY(24px)");
-entra(cierre, 3700);
+entra($("etqB"), 4800, "translateY(24px)");
+entra($("etqC"), 5000, "translateY(24px)");
+entra(cierre, 5500);
 if (!post) ANIMS.push(cierre.querySelector(".baja").animate(
   [{ transform: "translateY(0)" }, { transform: "translateY(18px)", offset: 0.5 }, { transform: "translateY(0)" }],
   { duration: 900, iterations: Infinity, easing: "ease-in-out" }));
 
-// ---------------------------------------------------------------- pose del equipo
+// ---------------------------------------------------------------- caja y teléfono en 3D
+// 1) entra la caja cerrada girando · 2) se levanta la tapa · 3) sale el teléfono y se apoya al costado
+// 4) la tapa vuelve a cerrar la caja · 5) quedan flotando
 const tramo = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
 const sal = (v) => 1 - Math.pow(1 - v, 3);
+const suave = (v) => (v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2);
 const mezcla = (a, b, f) => a + (b - a) * f;
-function pose(t) {
-  const e = sal(tramo(t, 500, 2100));
-  const flota = Math.sin(t / 700);
-  const yy = mezcla(y + 260, y, e) + 6 * flota * e;
-  return { correr: (x - 540) / K, subir: (H / 2 - yy) / K, escala: h / (m.tresd.medidas[1] * K),
-           giroY: mezcla(380, 18, e) + 5 * flota * e, giroX: 8 + 2 * flota, giroZ: mezcla(-14, -4, e) };
-}
+const rad = (g) => g * Math.PI / 180;
 
-let tel = null;
-function dibujar(t) { if (tel) { tel.pose(pose(t)); tel.luz(sal(tramo(t, 400, 1400))); tel.render(); } }
+let tel = null, caja = null;
+function dibujar(t) {
+  if (!tel || !caja) return;
+  const e = sal(tramo(t, 200, 1600)), flota = Math.sin(t / 750);
+  // la caja: entra desde abajo girando y termina un poco de costado
+  caja.pose({
+    correr: (L.caja.x - 540) / K, subir: (H / 2 - (mezcla(L.caja.y + 420, L.caja.y, e) + 5 * flota * e)) / K, escala: esc,
+    giroY: mezcla(300, -16, e) + 2 * flota * e, giroX: 7 + 1.5 * flota, giroZ: mezcla(10, -3, e),
+  });
+  const [bw, bh, bd] = caja.medidas;
+  // la tapa: se acerca, sube y sale de cuadro; después vuelve y cierra
+  const abre = suave(tramo(t, 1800, 2700)), cierra = suave(tramo(t, 3700, 4500));
+  const fuera = abre * (1 - cierra);
+  caja.tapa.position.set(fuera * bw * 1.3, fuera * bh * 1.5, fuera * bd * 2.4);
+  caja.tapa.rotation.set(rad(-20 * fuera), rad(16 * fuera), rad(-18 * fuera));
+  // el teléfono: acostado adentro de la caja; sube hacia la cámara y se corre a la derecha
+  const sube = suave(tramo(t, 2500, 3300)), corre = suave(tramo(t, 3000, 4100));
+  const dx = (L.tel.dx / (esc * K)), dy = -(L.tel.dy / (esc * K));
+  const o = tel.objeto;
+  o.position.set(mezcla(0, dx, corre), mezcla(0, dy, corre) + 3 * flota * corre, mezcla(caja.zAdentro, bd * 1.2, sube) + mezcla(0, bd * 0.9, corre));
+  o.rotation.set(rad(mezcla(0, -4, corre)), rad(mezcla(0, 34, corre) + 3 * flota * corre), rad(mezcla(0, 6, corre)), "YXZ");
+  o.scale.setScalar(1);
+  const luz = sal(tramo(t, 200, 1200));
+  tel.luz(luz);
+  tel.render();
+}
 
 const inicio = performance.now();
 let enVivo = true;
@@ -165,13 +188,14 @@ let enVivo = true;
 
 const distancia = H / (K * 2 * Math.tan(10 * Math.PI / 180));
 const listo3d = crearTelefono($("tel"), m, colorId, { fotos: "assets/telefonos", id, distancia, relleno: "#8B6CFF" })
-  .then((t) => { tel = t; }).catch((e) => console.error("No se pudo armar el 3D:", e));
+  .then((t) => { tel = t; caja = crearCaja(t, { alto: 24, margen: 7 }); caja.grupo.add(t.objeto); })
+  .catch((e) => console.error("No se pudo armar el 3D:", e));
 
 const cargado = document.fonts.ready.then(() => {
   const o = (ms) => ms / T;
   armarCallouts($("lienzo")).forEach(({ el, linea: pl }, i) => {
     pl.style.strokeDasharray = "1 1";
-    const t0 = 2500 + i * 200;
+    const t0 = 4400 + i * 200;
     ANIMS.push(el.animate([{ offset: 0, opacity: 0 }, { offset: o(t0), opacity: 0 }, { offset: o(t0 + 120), opacity: 1 }, { offset: 1, opacity: 1 }], { duration: T, fill: "both" }));
     ANIMS.push(pl.animate([{ offset: 0, strokeDashoffset: 1 }, { offset: o(t0), strokeDashoffset: 1, easing: salir },
                            { offset: o(t0 + 500), strokeDashoffset: 0 }, { offset: 1, strokeDashoffset: 0 }], { duration: T, fill: "both" }));

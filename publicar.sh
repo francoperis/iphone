@@ -23,13 +23,11 @@ png plantillas/marca.html "pieza=avatar-tinta&formato=cuadrado" $P/00-marca/avat
 png plantillas/marca.html "pieza=logotipo&formato=cuadrado" $P/00-marca/logotipo.png 0
 png plantillas/marca.html "pieza=hoja&formato=cuadrado" $P/00-marca/hoja-de-marca.png 0
 
-# 01 · teasers (antes de abrir: no dicen qué vendemos)
+# 01 · teasers (antes de abrir: no dicen qué vendemos). Idea elegida: Carga 99 % (Pantalla quedó descartada)
 png plantillas/misterio.html "pieza=ficha&formato=post" $P/01-teasers/expediente_post.png 7999
 png plantillas/misterio.html "pieza=carga&formato=post" $P/01-teasers/carga_post.png 6250
-png plantillas/misterio.html "pieza=pantalla&formato=post" $P/01-teasers/pantalla_post.png 3500
 mp4 plantillas/misterio.html "pieza=ficha" $P/01-teasers/expediente_reel.mp4
 mp4 plantillas/misterio.html "pieza=carga" $P/01-teasers/carga_reel.mp4
-mp4 plantillas/misterio.html "pieza=pantalla" $P/01-teasers/pantalla_reel.mp4
 mp4 plantillas/lanzamiento.html "" $P/01-teasers/en-camino_reel.mp4
 
 # 02 · apertura (el día que abrimos)
@@ -38,8 +36,7 @@ png plantillas/misterio.html "pieza=vuelve-carga&formato=post" $P/02-apertura/re
 png plantillas/presentacion.html "formato=post" $P/02-apertura/presentacion_post.png 0
 mp4 plantillas/apertura.html "pieza=story1" $P/02-apertura/abrimos_historia.mp4
 mp4 plantillas/apertura.html "pieza=story6" $P/02-apertura/hay-uno-para-vos_historia.mp4
-mp4 plantillas/misterio.html "pieza=vuelve-carga" $P/02-apertura/revelacion-carga_reel.mp4
-mp4 plantillas/misterio.html "pieza=vuelve-pantalla" $P/02-apertura/revelacion-pantalla_reel.mp4
+mp4 plantillas/misterio.html "pieza=vuelve-carga" $P/02-apertura/revelacion_reel.mp4
 
 # 03 · qué vendemos (Swap y caja sellada)
 png plantillas/apertura.html "pieza=post2" $P/03-que-vendemos/lo-mejor-a-tu-alcance_post.png 2900
@@ -66,7 +63,7 @@ png plantillas/apertura.html "pieza=post3" $I/linea-completa/x-a-18_post.png 290
 mp4 plantillas/apertura.html "pieza=story4" $I/linea-completa/x-a-18_historia.mp4
 for par in "iphone-17-pro silver 256" "iphone-16-pro deserttitanium 128"; do
   set -- $par
-  png plantillas/sellado.html "modelo=$1&color=$2&gb=$3&formato=post" $I/nuevos-caja-sellada/$1_post.png 7999
+  png plantillas/sellado.html "modelo=$1&color=$2&gb=$3&formato=post" $I/nuevos-caja-sellada/$1_post.png 8999
   mp4 plantillas/sellado.html "modelo=$1&color=$2&gb=$3" $I/nuevos-caja-sellada/$1_historia.mp4
 done
 for m in iphone-13 iphone-15-pro iphone-16-pro iphone-17-pro; do
