@@ -28,7 +28,7 @@ prometer stock. **Fase 1 (el día que haya equipos):** «Abrimos», con stock re
 7. **Link en la bio:** mientras no esté el catálogo, el link de WhatsApp: `https://wa.me/549XXXXXXXXXX`
    (código de país 54 + 9 + característica sin 0 + número sin 15). Cuando el catálogo esté online, se cambia por el catálogo.
 8. **Historias destacadas:** crear 5 con las portadas de `00-marca/destacadas/`:
-   NOSOTROS · SWAP · SELLADOS · CANJE · COMPRAR. Para crearlas hace falta haber subido una historia; se puede subir
+   NOSOTROS · SWAP · SELLADOS · CANJE · CATÁLOGO. Para crearlas hace falta haber subido una historia; se puede subir
    la portada como historia, guardarla en la destacada y después borrarla de las historias.
 9. **WhatsApp Business** (app aparte, gratis) con el mismo número: foto = avatar, descripción = la bio,
    mensaje de bienvenida y respuestas rápidas (ver punto 5).
@@ -114,6 +114,6 @@ Texto del carrusel: está en `README.md` (sección 02 · Apertura).
 
 - Confirmar **[ZONA]** (¿Corrientes capital?) y **envíos** → se completan en «3 pasos» y en los textos.
 - **Número de WhatsApp** → para el link de la bio y el botón «Lo quiero» del catálogo.
-- **Medios de pago, cuotas y garantía** → para las respuestas rápidas y la destacada COMPRAR.
+- **Medios de pago, cuotas y garantía** → para las respuestas rápidas y la destacada CATÁLOGO.
 - **Reglas del plan canje** → para publicar `05-plan-canje/`.
 - **Stock real** (modelo, GB, color, batería, estado, precio) → flyers «Llegó» y «Nuevo», y el catálogo.

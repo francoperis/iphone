@@ -60,7 +60,7 @@ Destacadas: guardar las historias 1 y 4 en **NOSOTROS**, la 2 y la 3 en **SWAP**
 | A+2 | Feed · imagen | `03-que-vendemos/lo-mejor-a-tu-alcance_post.png` | Lo mejor, a tu alcance. Swap o en caja sellada. Mirá el stock en el link de la bio. |
 | A+2 | Historia | compartir el post del día | Encuesta «¿Swap o sellado?» |
 | A+3 | Feed · imagen | `03-que-vendemos/todo-a-la-vista_post.png` | Antes de que preguntes: batería, capacidad, color y estado de cada equipo, a la vista. Sin sorpresas. |
-| A+4 | Feed · imagen | `04-como-comprar/3-pasos_post.png` (**con [ZONA] y envíos completos**) | Comprar es así: elegís, nos escribís y es tuyo. Retiro en [ZONA] · Envíos [__]. — **fijarla** · guardar en destacada **COMPRAR** |
+| A+4 | Feed · imagen | `04-como-comprar/3-pasos_post.png` (**con [ZONA] y envíos completos**) | Comprar es así: elegís, nos escribís y es tuyo. Retiro en [ZONA] · Envíos [__]. — **fijarla** · guardar en destacada **CATÁLOGO** |
 | A+5 | Feed · reel | `06-tips/chequea-esto_reel.mp4` | Antes de pagar un iPhone Swap, chequeá estas 4 cosas. Guardalo para después 📌 |
 | A+6 | Feed · imagen | `equipos/iphone/linea-completa/x-a-18_post.png` | Del iPhone X al 18 Pro Max. Swap o en caja sellada. ¿Cuál buscás? Contanos en los comentarios. |
 | A+6 | Historia | `equipos/iphone/linea-completa/x-a-18_historia.mp4` | Caja de preguntas «¿Qué modelo buscás?» |
