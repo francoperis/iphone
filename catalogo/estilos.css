@@ -2,7 +2,7 @@
 :root {
   --tinta: #0A0A0B; --tinta-2: #131316; --linea: #2A2A30;
   --hueso: #EEEBE4; --lima: #CCFF00; --voltio: #8B6CFF; --voltio-claro: #B7A6FF; --acero: #8E8E96;
-  --titulo: "Unbounded", system-ui, sans-serif;
+  --titulo: "Archivo", "Arial Narrow", system-ui, sans-serif; /* 900 condensada, mayúsculas (ver IDENTIDAD.md) */
   --mono: "JetBrains Mono", ui-monospace, monospace;
 }
 * { box-sizing: border-box; }
@@ -31,8 +31,8 @@ main { max-width: 1320px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); }
 /* portada */
 .portada { padding: clamp(40px, 8vw, 96px) 0 clamp(24px, 4vw, 40px); }
 .etiqueta { margin: 0 0 14px; color: var(--lima); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
-.portada h1 { margin: 0; font-family: var(--titulo); font-weight: 900; font-size: clamp(48px, 11vw, 140px);
-              letter-spacing: -0.05em; line-height: .92; }
+.portada h1 { margin: 0; font-family: var(--titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; font-size: clamp(48px, 11vw, 140px);
+              letter-spacing: -0.01em; line-height: .92; }
 .portada h1 span { color: var(--lima); }
 .bajada { max-width: 560px; margin: 22px 0 0; font-size: 16px; color: var(--hueso); }
 .resumen { margin: 14px 0 0; color: var(--acero); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
@@ -60,7 +60,7 @@ main { max-width: 1320px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); }
 .familia { padding: clamp(32px, 6vw, 64px) 0 8px; }
 .familia-cabeza { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1.5px solid var(--hueso);
                   padding-bottom: 12px; margin-bottom: 20px; }
-.familia h2 { margin: 0; font-family: var(--titulo); font-weight: 900; font-size: clamp(32px, 6vw, 64px); letter-spacing: -0.05em; line-height: 1; }
+.familia h2 { margin: 0; font-family: var(--titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; font-size: clamp(32px, 6vw, 64px); letter-spacing: -0.01em; line-height: 1; }
 .familia-cuenta { color: var(--acero); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
 
 .grilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
@@ -83,7 +83,7 @@ main { max-width: 1320px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); }
 
 .ficha { padding: 16px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1; border-top: 1.5px solid var(--linea); }
 .ficha-cabeza { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-.ficha h3 { margin: 0; font-family: var(--titulo); font-weight: 800; font-size: 20px; letter-spacing: -0.03em; line-height: 1.1; }
+.ficha h3 { margin: 0; font-family: var(--titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; font-size: 26px; letter-spacing: -0.01em; line-height: 1; }
 .barras { width: 54px; height: 22px; flex-shrink: 0;
           background-image: repeating-linear-gradient(90deg, var(--hueso) 0 2px, transparent 2px 4px, var(--hueso) 4px 5px, transparent 5px 8px, var(--hueso) 8px 11px, transparent 11px 13px); }
 .datos { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -92,12 +92,12 @@ main { max-width: 1320px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); }
 .dato .punto { width: 10px; height: 10px; border-radius: 50%; background: var(--muestra); box-shadow: 0 0 0 1px rgba(255,255,255,.25); }
 .dato.bat-alta { border-color: var(--lima); color: var(--lima); }
 .pie-ficha { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; }
-.precio { font-family: var(--titulo); font-weight: 900; letter-spacing: -0.04em; line-height: .9; display: flex; align-items: flex-start; }
+.precio { font-family: var(--titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: -0.01em; line-height: .9; display: flex; align-items: flex-start; }
 .precio .signo { font-size: 14px; color: var(--lima); margin-right: 2px; }
 .precio .miles { font-size: 30px; }
 .precio .resto { font-size: 13px; color: var(--acero); }
 .precio.consultar { font-family: var(--mono); font-weight: 700; font-size: 12px; letter-spacing: .1em; color: var(--acero); text-transform: uppercase; }
-.lo-quiero { font-family: var(--titulo); font-weight: 900; font-size: 14px; text-decoration: none; background: var(--lima); color: var(--tinta);
+.lo-quiero { font-family: var(--titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; font-size: 18px; text-decoration: none; background: var(--lima); color: var(--tinta);
              padding: 12px 14px; min-height: 44px; display: inline-flex; align-items: center; white-space: nowrap; }
 .lo-quiero:hover { background: var(--hueso); }
 .lo-quiero[aria-disabled="true"] { background: var(--linea); color: var(--acero); pointer-events: none; }

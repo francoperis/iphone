@@ -6,7 +6,8 @@
 <title>Misterio — Tech&amp;Co.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
 <link rel="stylesheet" href="logo.css">
 <link rel="stylesheet" href="piezas.css">
 <script type="importmap">
@@ -35,7 +36,7 @@
   .grano { position: absolute; inset: -50%; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
   .hud { position: absolute; left: 72px; right: 72px; top: var(--arriba); display: flex; justify-content: space-between; align-items: center; font-size: 24px; }
-  .hud .logo-tc { font-size: 54px; }
+  .hud .logo-tc { font-size: var(--logo); }
 
   /* glitch: desgarros de color y copias recortadas (las arma el script) */
   .desgarro { position: absolute; left: 0; right: 0; height: 0; pointer-events: none; mix-blend-mode: difference; }
@@ -49,14 +50,14 @@
   .fila i { flex: 1; border-bottom: 4px dotted #3a3a40; translate: 0 -8px; }
   .fila b { height: 44px; background: var(--lima); transform-origin: left; }
   .sello { position: absolute; right: 10px; top: 50%; translate: 0 -50%; rotate: -9deg; padding: 6px 30px 12px; border: 9px solid var(--voltio); color: var(--voltio);
-           font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 120px; letter-spacing: -0.03em; line-height: 1; background: rgba(10,10,11,.55); }
+           font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-m); line-height: 1; background: rgba(10,10,11,.55); }
   .codigo { display: flex; align-items: flex-end; gap: 0; height: 90px; }
   .codigo span { display: block; height: 100%; background: var(--hueso); }
   .pie { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; }
 
   /* ---------- carga ---------- */
   .bloque { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 46px; }
-  .num { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 330px; letter-spacing: -0.06em; line-height: .85; color: var(--hueso); }
+  .num { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-xxl); line-height: .85; color: var(--hueso); }
   .num small { font-size: .38em; color: var(--lima); letter-spacing: 0; margin-left: 10px; }
   .barra { width: 800px; height: 14px; background: #222227; }
   .barra b { display: block; height: 100%; width: 0; background: var(--lima); }
@@ -98,12 +99,13 @@
   /* ---------- revelación (continuaciones) ---------- */
   .revelar { position: absolute; inset: 0; background: var(--lima); color: var(--tinta); opacity: 0; }
   .revelar canvas { position: absolute; inset: 0; width: 1080px; height: 100%; }
-  .revelar .titulo { position: absolute; left: 64px; top: 300px; font-size: 260px; }
-  body.post .revelar .titulo { top: 110px; font-size: 200px; }
+  /* ABRIMOS en un renglón, el equipo flotando adelante (como la prueba "a" de apertura.html) */
+  .revelar .titulo { position: absolute; left: 0; right: 0; top: 790px; text-align: center; white-space: nowrap; font-size: var(--t-xl); }
+  body.post .revelar .titulo { top: 560px; }
   .revelar .bajo { position: absolute; left: 72px; right: 72px; bottom: 250px; display: flex; justify-content: space-between; align-items: baseline; }
   body.post .revelar .bajo { bottom: 64px; }
   .revelar .bajo .logo-tc { font-size: 72px; }
-  .revelar .bajo .mono { font-size: 24px; }
+  .revelar .bajo .mono { font-size: var(--m-m); }
 </style>
 </head>
 <body>
@@ -113,9 +115,9 @@
   <div class="col">
     <div>
       <div class="mono e" data-t="0" style="font-size: 26px; color: var(--acero); display: flex; justify-content: space-between; align-items: baseline;">
-        <span></span><span class="logo-tc" style="font-size: 54px; color: var(--hueso);">Tech<b>&amp;</b>Co<i></i></span>
+        <span></span><span class="logo-tc" style="font-size: var(--logo); color: var(--hueso);">Tech<b>&amp;</b>Co<i></i></span>
       </div>
-      <div class="titulo e" data-t="250" style="font-size: 124px; margin-top: 70px;">Todavía<br>no podemos<br><span style="color: var(--lima);">mostrarlo.</span></div>
+      <div class="titulo e" data-t="250" style="font-size: var(--t-l); margin-top: 60px;">Todavía<br>no podemos<br><span style="color: var(--lima);">mostrarlo.</span></div>
     </div>
     <div class="filas">
       <div class="fila e" data-t="1300"><span>Modelo</span><i></i><b class="tapa" data-t="1500" style="width: 340px;"></b></div>
@@ -173,9 +175,9 @@
 
 <!-- ======================= REVELACIÓN (continuaciones) ======================= -->
 <div class="revelar" id="revelar" style="display: none;">
+  <div class="titulo e" data-t="0">Abrimos.</div>
   <canvas id="lienzo3d"></canvas>
-  <div class="titulo e" data-t="0">Abri-<br>mos.</div>
-  <div class="bajo e" data-t="1300"><span class="logo-tc plano">Tech<b>&amp;</b>Co<i></i></span><span class="mono" style="text-transform: none;">Equipos Swap y en caja sellada</span></div>
+  <div class="bajo e" data-t="1300"><span class="logo-tc plano">Tech<b>&amp;</b>Co<i></i></span><span class="mono">Equipos Swap y en caja sellada</span></div>
 </div>
 
 <script src="datos.js"></script>
@@ -361,7 +363,7 @@ async function armarRevelar() {
   const id = "iphone-17-pro", m = MODELOS[id], K = 10;
   const tel = await crearTelefono($("lienzo3d"), m, "deepblue", { id, fotos: "assets/telefonos", relleno: "#8B6CFF",
                                                                    distancia: H / (K * 2 * Math.tan(10 * Math.PI / 180)) });
-  const L = post ? { x: 600, y: 860, h: 600 } : { x: 560, y: 1200, h: 820 };
+  const L = post ? { x: 540, y: 760, h: 720 } : { x: 540, y: 1010, h: 860 };
   dibujar3d = (t) => {
     const e = sal(tramo(t, TR + 150, TR + 1700));
     const f = Math.max(0, t - TR) / 1000;

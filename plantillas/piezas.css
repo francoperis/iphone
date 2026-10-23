@@ -1,55 +1,33 @@
-/* Piezas de marca Tech&Co. (territorio 4 "Drop + tech"): tokens, tipografía, callouts y tarjeta de link. */
-:root { --tinta: #0A0A0B; --hueso: #EEEBE4; --lima: #CCFF00; --voltio: #8B6CFF; --acero: #8E8E96; }
+/* Componentes de las piezas de Tech&Co. Los colores, tipografías y tamaños salen de identidad.css (cargarlo antes). */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 .abs { position: absolute; }
-.titulo { font-family: "Unbounded", sans-serif; font-weight: 900; letter-spacing: -0.055em; line-height: .93; }
-.mono { font-family: "JetBrains Mono", monospace; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.titulo { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); line-height: var(--ih-titulo); }
+.mono { font-family: var(--f-texto); font-weight: 700; letter-spacing: var(--ls-texto); text-transform: uppercase; }
 .marca b { color: var(--voltio); font-weight: 900; }
 .tinta .marca b, .voltio .marca b { color: var(--lima); }
-.resalta { background: var(--voltio); padding: 0 14px; position: relative; z-index: 0; }
-.resalta-lima { background: var(--lima); color: var(--tinta); padding: 0 14px; }
+.resalta { background: var(--voltio); padding: 0 .08em; position: relative; z-index: 0; }
+.resalta-lima { background: var(--lima); color: var(--tinta); padding: 0 .08em; }
 
 /* teléfono: left/top marcan el CENTRO del equipo, así las composiciones quedan centradas de verdad */
 .tel { position: absolute; translate: -50% -50%; filter: drop-shadow(0 40px 50px rgba(0, 0, 0, .45)); }
 
-/* callout técnico: punto en el equipo + línea fina + etiqueta (las líneas las dibuja piezas.js) */
-svg.trazos { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
+/* etiquetas junto al equipo (callouts). Sin líneas ni flechas desde el teléfono (feedback 2026-10-23):
+   piezas.js las sigue calculando para ubicar la etiqueta, pero no se dibujan. */
+svg.trazos { display: none; }
 svg.trazos polyline { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: square; stroke-linejoin: miter; }
 svg.trazos .punto { fill: currentColor; }
 svg.trazos .aro { fill: none; stroke: currentColor; stroke-width: 3; }
 .etq { position: absolute; display: flex; flex-direction: column; gap: 8px; line-height: 1; }
-.etq .k { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 22px; letter-spacing: .12em; text-transform: uppercase; opacity: .75; }
-.etq .v { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 44px; letter-spacing: -0.045em; }
+.etq .k { font-family: var(--f-texto); font-weight: 700; font-size: var(--m-m); letter-spacing: var(--ls-texto); text-transform: uppercase; opacity: .75; }
+.etq .v { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-xs); line-height: var(--ih-titulo); }
 .etq.der { align-items: flex-end; text-align: right; }
 .etq.centro { align-items: center; text-align: center; translate: -50% 0; }
-
-/* tarjeta de link al catálogo. En historias, el sticker de link de Instagram va en .hueco (marcas de esquina);
-   en posts no hay links clickeables, así que .hueco dice "link en la bio". */
-.tarjeta { position: absolute; left: 72px; right: 72px; display: flex; align-items: center; gap: 28px;
-           padding: 26px 26px 26px 30px; background: var(--lima); color: var(--tinta); }
-.tarjeta.oscura { background: var(--tinta); color: var(--hueso); }
-.tarjeta .flecha { flex: none; width: 92px; height: 92px; border-radius: 50%; background: var(--tinta); color: var(--lima);
-                   display: grid; place-items: center; font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 50px; }
-.tarjeta.oscura .flecha { background: var(--lima); color: var(--tinta); }
-.tarjeta .txt { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.tarjeta .k { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 22px; letter-spacing: .12em; text-transform: uppercase; }
-.tarjeta .v { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 46px; letter-spacing: -0.045em; line-height: 1; }
-.tarjeta .hueco { flex: none; position: relative; width: 330px; height: 112px; display: grid; place-items: center;
-                  font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 24px; letter-spacing: .1em; }
-.tarjeta .hueco::before { content: ""; position: absolute; inset: 0; pointer-events: none;
-  --l: 26px; --g: 3px; --c: currentColor;
-  background:
-    linear-gradient(var(--c), var(--c)) top left / var(--l) var(--g), linear-gradient(var(--c), var(--c)) top left / var(--g) var(--l),
-    linear-gradient(var(--c), var(--c)) top right / var(--l) var(--g), linear-gradient(var(--c), var(--c)) top right / var(--g) var(--l),
-    linear-gradient(var(--c), var(--c)) bottom left / var(--l) var(--g), linear-gradient(var(--c), var(--c)) bottom left / var(--g) var(--l),
-    linear-gradient(var(--c), var(--c)) bottom right / var(--l) var(--g), linear-gradient(var(--c), var(--c)) bottom right / var(--g) var(--l);
-  background-repeat: no-repeat; }
 
 /* "Saber más": en historias no hay links, así que la flecha apunta a la casilla para responder la historia
    (abajo a la izquierda). Ubicarlo con bottom ≈ 190px para que la flecha termine justo arriba de la casilla. */
 .saber { position: absolute; left: 72px; display: flex; align-items: flex-end; gap: 30px; }
 .saber .baja { flex: none; width: 76px; display: flex; justify-content: center; }
 .saber .txt { display: flex; flex-direction: column; gap: 12px; padding-bottom: 8px; }
-.saber .v { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 76px; letter-spacing: -0.05em; line-height: .95; }
-.saber .k { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 24px; letter-spacing: .12em; text-transform: uppercase; opacity: .75; }
+.saber .v { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-s); line-height: var(--ih-titulo); }
+.saber .k { font-family: var(--f-texto); font-weight: 700; font-size: var(--m-m); letter-spacing: var(--ls-texto); text-transform: uppercase; opacity: .75; }

@@ -58,13 +58,14 @@ mp4 plantillas/reel.html "reel=canje&exportar=1" $P/05-plan-canje/cuanto-vale-tu
 mp4 plantillas/reel.html "reel=chequea-esto&exportar=1" $P/06-tips/chequea-esto_reel.mp4 --fondo videos/clips/mixkit_100050_2160.mp4 --desde 0 --encuadre 0.22
 
 # equipos · iPhone
+[ -f videos/clips/unboxing_vertical.mp4 ] || ./armar_unboxing.sh
 I=$P/equipos/iphone
 png plantillas/apertura.html "pieza=post3" $I/linea-completa/x-a-18_post.png 2900
 mp4 plantillas/apertura.html "pieza=story4" $I/linea-completa/x-a-18_historia.mp4
 for par in "iphone-17-pro silver 256" "iphone-16-pro deserttitanium 128"; do
   set -- $par
-  png plantillas/sellado.html "modelo=$1&color=$2&gb=$3&formato=post" $I/nuevos-caja-sellada/$1_post.png 8999
-  mp4 plantillas/sellado.html "modelo=$1&color=$2&gb=$3" $I/nuevos-caja-sellada/$1_historia.mp4
+  png plantillas/sellado.html "modelo=$1&color=$2&gb=$3&formato=post" $I/nuevos-caja-sellada/$1_post.png 5999
+  mp4 plantillas/sellado.html "modelo=$1&color=$2&gb=$3" $I/nuevos-caja-sellada/$1_historia.mp4 --fondo videos/clips/unboxing_vertical.mp4
 done
 for m in iphone-13 iphone-15-pro iphone-16-pro iphone-17-pro; do
   mp4 plantillas/llego.html "modelo=$m" $I/ingresos/llego_${m}_historia.mp4

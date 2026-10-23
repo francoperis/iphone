@@ -3,7 +3,6 @@
 //   import { crearTelefono } from "./telefono3d.js";
 //   const tel = await crearTelefono(canvas, MODELOS[id], colorId, { fotos: "assets/telefonos" });
 //   tel.pose({ giroY, giroX, giroZ, subir, correr, escala, acercar });  tel.render();   (subir, correr y acercar en mm)
-//   crearCaja(tel) suma la caja del equipo a la misma escena (flyer de caja sellada).
 // Las plantillas deciden la pose en función del tiempo, así la grabación cuadro a cuadro es exacta.
 
 import * as THREE from "three";
@@ -220,53 +219,6 @@ export async function crearTelefono(canvas, modelo, colorId, opciones = {}) {
       telefono.scale.setScalar(escala);
     },
     render() { renderer.render(escena, camara); },
-    // para sumar otros objetos a la misma escena (por ejemplo la caja)
-    objeto: telefono, escena, texDorso, medidas: d.medidas,
   };
 }
 
-// Caja del equipo: blanca, con la foto del dorso impresa en la tapa (sin logos). Se suma a la escena del teléfono.
-// El frente de la caja (la tapa) mira a +z, igual que el dorso del teléfono.
-//   const caja = crearCaja(tel);  caja.pose({...}) como el teléfono;  caja.tapa.position / rotation para abrirla;
-//   caja.grupo.add(tel.objeto) para que el teléfono se mueva con la caja (salir de adentro).
-export function crearCaja(tel, { color = "#F4F3EF", alto = 16, margen = 6 } = {}) {
-  const [W, H] = tel.medidas;
-  const bw = W + 2 * margen, bh = H + 2 * margen, bd = alto;
-  const blanco = new THREE.MeshPhysicalMaterial({ color, roughness: 0.5, metalness: 0, clearcoat: 0.35, clearcoatRoughness: 0.45, envMapIntensity: 0.6 });
-  const nada = new THREE.MeshBasicMaterial({ visible: false });
-  const adentro = new THREE.MeshStandardMaterial({ color: "#d8d7d2", roughness: 0.95, side: THREE.BackSide });
-
-  // tapa impresa: fondo blanco y el dorso a tamaño real, centrado
-  const lienzo = document.createElement("canvas");
-  lienzo.width = 1024; lienzo.height = Math.round(1024 * bh / bw);
-  const c = lienzo.getContext("2d");
-  c.fillStyle = color; c.fillRect(0, 0, lienzo.width, lienzo.height);
-  const img = tel.texDorso.image, k = lienzo.width / bw;
-  c.drawImage(img, margen * k, margen * k, W * k, H * k);
-  const texTapa = new THREE.CanvasTexture(lienzo);
-  texTapa.colorSpace = THREE.SRGBColorSpace; texTapa.anisotropy = 8;
-  const impresa = new THREE.MeshPhysicalMaterial({ map: texTapa, color: 0x333333, emissive: 0xffffff, emissiveMap: texTapa,
-    emissiveIntensity: 0.82, roughness: 0.35, clearcoat: 0.5, clearcoatRoughness: 0.3 });
-
-  // caras de BoxGeometry: +x, -x, +y, -y, +z, -z
-  const base = new THREE.Mesh(new THREE.BoxGeometry(bw, bh, bd), [blanco, blanco, blanco, blanco, nada, blanco]);
-  const hueco = new THREE.Mesh(new THREE.BoxGeometry(bw - 1.2, bh - 1.2, bd - 0.6), [adentro, adentro, adentro, adentro, nada, adentro]);
-  hueco.position.z = 0.3;
-  const tapa = new THREE.Group();
-  const tapaCaja = new THREE.Mesh(new THREE.BoxGeometry(bw + 0.8, bh + 0.8, bd + 0.6), [blanco, blanco, blanco, blanco, impresa, nada]);
-  tapa.add(tapaCaja);
-  const grupo = new THREE.Group();
-  grupo.add(base, hueco, tapa);
-  tel.escena.add(grupo);
-
-  return {
-    grupo, tapa, medidas: [bw, bh, bd],
-    // z del teléfono acostado adentro de la caja (coordenadas de la caja)
-    zAdentro: -bd / 2 + tel.medidas[2] / 2 + 1.2,
-    pose({ giroY = 0, giroX = 0, giroZ = 0, subir = 0, correr = 0, escala = 1, acercar = 0 } = {}) {
-      grupo.rotation.set(THREE.MathUtils.degToRad(giroX), THREE.MathUtils.degToRad(giroY), THREE.MathUtils.degToRad(giroZ), "YXZ");
-      grupo.position.set(correr, subir, acercar);
-      grupo.scale.setScalar(escala);
-    },
-  };
-}

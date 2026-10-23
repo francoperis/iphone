@@ -6,7 +6,8 @@
 <title>Plan canje — Tech&amp;Co.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
 <link rel="stylesheet" href="logo.css">
 <link rel="stylesheet" href="piezas.css">
 <script type="importmap">
@@ -27,19 +28,18 @@
   body.post { height: 1350px; }
   .lienzo { position: relative; width: 1080px; height: 100%; overflow: hidden; background: var(--voltio); }
   canvas.tres { position: absolute; inset: 0; width: 1080px; height: 100%; }
-  .cabeza { left: 72px; right: 72px; display: flex; justify-content: space-between; align-items: baseline; font-size: 24px; }
-  .cabeza .logo-tc { font-size: 50px; }
+  .cabeza { left: var(--margen); right: var(--margen); display: flex; justify-content: space-between; align-items: baseline; font-size: var(--m-m); }
+  .cabeza .logo-tc { font-size: var(--logo); }
   .disco { position: absolute; border-radius: 50%; background: var(--lima); translate: -50% -50%; }
   .flechaCanje { position: absolute; translate: -50% -50%; line-height: 0; }
-  .etq .v { font-size: 40px; }
-  .etq.nuevo .v span { background: var(--lima); padding: 0 10px; }
+  .etq.nuevo .v span { background: var(--lima); padding: 0 .08em; }
 </style>
 </head>
 <body>
 <div class="lienzo voltio" id="lienzo">
   <div class="abs cabeza mono" id="cabeza"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
-  <div class="abs titulo" id="titulo">Tu equipo<br>vale.</div>
-  <div class="abs mono" id="bajada" style="left: 72px; font-size: 26px;">Entregalo como parte de pago</div>
+  <div class="abs titulo t-l" id="titulo">Tu equipo<br>vale.</div>
+  <div class="abs mono" id="bajada" style="left: var(--margen); font-size: var(--m-l);">Entregalo como parte de pago</div>
   <div class="disco" id="disco"></div>
   <canvas class="tres" id="telViejo"></canvas>
   <canvas class="tres" id="telNuevo"></canvas>
@@ -73,17 +73,17 @@ const H = post ? 1350 : 1920;
 // todas las medidas en px del lienzo; el 3D usa 10 px por mm
 const K = 10;
 const L = post ? {
-  cabeza: 64, titulo: [130, 100], bajada: 335,
-  A: { x: 540, y: 720, h: 580 }, viejo: { x: 290, y: 740, h: 400 }, nuevo: { x: 740, y: 700, h: 540 },
-  lineas: 1040, tarjeta: { bottom: 60 },
+  cabeza: 64, titulo: 140, bajada: 465,
+  A: { x: 540, y: 800, h: 560 }, viejo: { x: 290, y: 790, h: 400 }, nuevo: { x: 740, y: 760, h: 520 },
+  lineas: 1090, tarjeta: { bottom: 60 },
 } : {
-  cabeza: 230, titulo: [280, 130], bajada: 548,
-  A: { x: 540, y: 1040, h: 780 }, viejo: { x: 285, y: 990, h: 540 }, nuevo: { x: 740, y: 965, h: 760 },
-  lineas: 1440, tarjeta: { top: 1550 },
+  cabeza: 250, titulo: 330, bajada: 650,
+  A: { x: 540, y: 1110, h: 700 }, viejo: { x: 285, y: 1100, h: 500 }, nuevo: { x: 740, y: 1070, h: 680 },
+  lineas: 1450, tarjeta: { top: 1550 },
 };
 
 $("cabeza").style.top = L.cabeza + "px";
-Object.assign($("titulo").style, { left: "64px", top: L.titulo[0] + "px", fontSize: L.titulo[1] + "px" });
+Object.assign($("titulo").style, { left: "64px", top: L.titulo + "px" });
 $("bajada").style.top = L.bajada + "px";
 for (const [k, v] of Object.entries(L.tarjeta)) $("tarjeta").style[k] = v + "px";
 // en historias no hay links: "Saber más" apunta a la casilla de respuesta; en el post, la línea del catálogo

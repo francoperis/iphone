@@ -56,14 +56,10 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
 Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las piezas.
 
 ## Identidad visual
-- Fondo negro tinta #0C0C0D, texto #EDEAE3, acento verde ácido #D4FF3A,
-  urgencia naranja #FF5B2E, gris secundario #9A9AA2.
-- Tipografías (Google Fonts): Unbounded 800/900 para títulos y precios,
-  JetBrains Mono para specs/etiquetas, Manrope para texto.
-- Precios con miles grandes y ".000" chico: $1.120.000 → "$" + "1.120" + ".000".
-- Estilo "drop" de streetwear: tipografía gigante calada, cintas de texto que corren,
-  stickers que giran, sellos (VENDIDO / APROBADO). Nada de dorado ni plantillas genéricas.
-- Movimiento: entradas escalonadas, teléfonos que flotan / se inclinan en 3D.
+**Fijada en `IDENTIDAD.md` (leerlo antes de generar cualquier pieza).** Valores en código: `plantillas/identidad.css`.
+Resumen: tinta #0A0A0B · hueso #EEEBE4 · lima #CCFF00 · voltio #8B6CFF · acero #8E8E96. Títulos en Archivo 900
+condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 700. Escala fija de tamaños
+(--t-xxl 380 … --t-xs 56, --m-l 28 … --m-s 20). Márgenes 72 px. Sin cajas, sin líneas desde los teléfonos, sin «0 KM».
 
 ## Fotos
 - `descargar_iphones.py` (a escribir) baja fotos del iPhone X al 18 Pro Max
@@ -111,9 +107,9 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
   Archivos para Instagram (avatar, logotipo): `plantillas/marca.html` → `salida/marca/`.
 - (Antes: Logo A "Celu&Co." en Unbounded 900 + monograma "C&", descartado.)
 - Territorio 4 "Drop + tech": Tinta #0A0A0B, Hueso #EEEBE4, Lima #CCFF00, Voltio #8B6CFF, Acero #8E8E96.
-  Unbounded (títulos y precios) + JetBrains Mono (todo lo demás). Callouts técnicos, código de barras, "ficha" por equipo.
+  (2026-10-23) Títulos en Archivo condensada (reemplaza a Unbounded) + JetBrains Mono. Ver IDENTIDAD.md.
   Exploración completa: https://claude.ai/artifact/FRYkppJACfMZGxUtbGxx1K
-- Las piezas ya hechas ("Llegó") usan la paleta anterior (ácido #D4FF3A); migrarlas al territorio 4.
+- "Llegó" ya está migrada a la paleta y la tipografía nuevas (2026-10-23).
 
 ## Videos
 - NO usar videos subidos por terceros en redes ni quitar marcas de agua (copyright). El usuario lo pidió y se le explicó.
@@ -152,10 +148,15 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
     algún día, otras cosas tech (PlayStation, etc.). Por eso, cuando se habla de la cuenta, NO anclar la marca a
     "solo iPhone": decir "equipos". iPhone se nombra solo cuando la pieza muestra un iPhone.
   - Flyer de equipos nuevos en caja sellada: `plantillas/sellado.html?modelo=&color=&gb=&formato=historia|post`
-    (precio "consultar", sello "0 KM").
+    (precio "consultar", sello "NUEVO · CAJA SELLADA"; la historia arranca con un video real de unboxing de Coverr).
   - Todo lo listo para subir va en **`publicar/`** (sí se sube a git), por sección (00-marca, 01-teasers, 02-apertura,
     03-que-vendemos, 04-como-comprar, 05-plan-canje, 06-tips) y por marca (`equipos/iphone|samsung|xiaomi`).
     Se regenera con `./publicar.sh`; guía y textos en `publicar/README.md`.
+- (2026-10-23, 4.ª ronda) Títulos: **Archivo condensada** (elegida entre Unbounded, Space Grotesk y Bricolage).
+  Nada de «0 KM» (no es un vehículo): el sello dice «NUEVO · CAJA SELLADA». Sin líneas/flechas que salgan de los teléfonos.
+  «ABRIMOS» en una sola línea, grande, superpuesto al equipo flotando (dos pruebas: palabra detrás o encima, `?abrimos=a|b`).
+  La animación de la caja 3D se descartó (fea): el flyer de nuevos usa un video real de unboxing con licencia libre.
+  Teaser elegido: Carga 99 % (Pantalla descartada); sin «Expediente 001».
 - Más opciones de "Abrimos" con misterio (reels + posts, marca completa, sin decir qué vendemos):
   expediente sin celular, carga 99 % que pierde la señal, pantalla que se prende y se apaga, y la continuación
   que revela todo. Plantilla `plantillas/misterio.html`, guía `contenido/misterio.md`.

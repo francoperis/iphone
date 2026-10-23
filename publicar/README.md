@@ -3,7 +3,7 @@
 Cada carpeta es una sección. Las imágenes (`_post.png`) son de 1080×1350 para el feed; los videos `_historia.mp4`
 y `_reel.mp4` son de 1080×1920. Todo se regenera con `./publicar.sh` (o `./publicar.sh imagenes` para solo los PNG).
 
-Reglas que ya están aplicadas en todas las piezas:
+Reglas que ya están aplicadas en todas las piezas (manual completo en `IDENTIDAD.md`):
 - Los equipos son **Swap** o **en caja sellada** (nunca "usados").
 - La cuenta no se presenta como "solo iPhone": se habla de *equipos*. iPhone aparece solo cuando se muestra un iPhone.
 - Posts: el CTA va como texto al pie ("Link en la bio"). Historias: "Saber más" con flecha a la casilla de respuesta.
@@ -48,10 +48,10 @@ En la historia "¿Qué buscás?" agregar el sticker de **encuesta** (Swap / Sell
 > Escribinos por DM con modelo, capacidad y batería. [condiciones del canje]
 
 **Equipos · nuevos en caja sellada**
-> Nuevo. [Modelo] [GB] en caja sellada, 0 km. Precio: consultanos por DM.
+> Nuevo. [Modelo] [GB] en caja sellada. Precio: consultanos por DM.
 
 Para hacer un flyer de otro modelo:
-`node exportar_video.js plantillas/sellado.html "modelo=iphone-17-pro&color=deepblue&gb=512&formato=post" publicar/equipos/iphone/nuevos-caja-sellada/iphone-17-pro-azul_post.png --cuadro 8999`
-(sin `&formato=post` y sin `--cuadro` sale la historia en video).
+`node exportar_video.js plantillas/sellado.html "modelo=iphone-17-pro&color=deepblue&gb=512&formato=post" publicar/equipos/iphone/nuevos-caja-sellada/iphone-17-pro-azul_post.png --cuadro 5999`
+Historia en video (arranca con el unboxing real): sin `&formato=post`, sin `--cuadro` y con `--fondo videos/clips/unboxing_vertical.mp4`.
 
 Hashtags base: #tecnologia #celulares #swap #cajasellada #argentina (+ #iphone #iphoneswap cuando la pieza muestra un iPhone).
