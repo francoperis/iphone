@@ -48,7 +48,8 @@ async function main() {
     process.exit(1);
   }
   const post = /formato=post/.test(query) || /foto3d\.html$/.test(plantilla) || /pieza=post/.test(query);
-  const ancho = 1080, alto = post ? 1350 : 1920;
+  const cuadrado = /formato=cuadrado/.test(query);
+  const ancho = 1080, alto = cuadrado ? 1080 : post ? 1350 : 1920;
   fs.mkdirSync(path.dirname(path.resolve(salida)), { recursive: true });
 
   // servidor local: los módulos ES y las texturas WebGL no cargan desde file://

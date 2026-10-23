@@ -1,4 +1,4 @@
-// Callouts técnicos para las piezas de Celu&Co.
+// Callouts técnicos para las piezas de Tech&Co.
 //   <i class="co" data-l="@tel:0.1:0.55 h:72" data-etq="id" data-pos="sobre-izq" data-t="ms"></i>
 // Puntos de la línea, separados por espacios:
 //   @id:u:v   punto del <img class="tel" id="id"> en fracciones de la imagen (0..1), con su rotación

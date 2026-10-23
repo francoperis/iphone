@@ -51,7 +51,7 @@ except ImportError:  # Pillow es opcional: sin él no hay medidas ni hojas de co
     Image = None
 
 UA_NAVEGADOR = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"
-UA_BOT = "CeluCoFotos/1.0 (fotos de catalogo; contacto: repo francoperis/iphone)"
+UA_BOT = "TechCoFotos/1.0 (fotos de catalogo; contacto: repo francoperis/iphone)"
 STORE = "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/"
 NEWSROOM = "https://www.apple.com/newsroom/"
 LADO_MINIMO = 1500  # px del lado mayor para aceptar fotos de fuentes libres

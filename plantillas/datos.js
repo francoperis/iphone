@@ -12,7 +12,7 @@
 //   colores  nombre en castellano, "brillo" (luz de fondo) y "marco" (color del canto metálico)
 
 window.MARCA = {
-  nombre: "Celu&Co.",
+  nombre: "Tech&Co.",
   instagram: "@[INSTAGRAM]",
   whatsapp: "[WHATSAPP]",
 };

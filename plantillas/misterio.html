@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=1080">
-<title>Misterio — Celu&amp;Co.</title>
+<title>Misterio — Tech&amp;Co.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="logo.css">
 <link rel="stylesheet" href="piezas.css">
 <script type="importmap">
 { "imports": {
@@ -33,10 +34,8 @@
   section.activa { display: block; }
   .grano { position: absolute; inset: -50%; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-  .marca-txt { font-family: "Unbounded", sans-serif; font-weight: 900; letter-spacing: -0.05em; text-transform: none; }
-  .marca-txt b { color: var(--lima); }
   .hud { position: absolute; left: 72px; right: 72px; top: var(--arriba); display: flex; justify-content: space-between; align-items: center; font-size: 24px; }
-  .hud .marca-txt { font-size: 40px; }
+  .hud .logo-tc { font-size: 54px; }
 
   /* glitch: desgarros de color y copias recortadas (las arma el script) */
   .desgarro { position: absolute; left: 0; right: 0; height: 0; pointer-events: none; mix-blend-mode: difference; }
@@ -103,8 +102,7 @@
   body.post .revelar .titulo { top: 110px; font-size: 200px; }
   .revelar .bajo { position: absolute; left: 72px; right: 72px; bottom: 250px; display: flex; justify-content: space-between; align-items: baseline; }
   body.post .revelar .bajo { bottom: 64px; }
-  .revelar .bajo .marca-txt { font-size: 48px; }
-  .revelar .bajo .marca-txt b { color: var(--voltio); }
+  .revelar .bajo .logo-tc { font-size: 72px; }
   .revelar .bajo .mono { font-size: 24px; }
 </style>
 </head>
@@ -115,7 +113,7 @@
   <div class="col">
     <div>
       <div class="mono e" data-t="0" style="font-size: 26px; color: var(--acero); display: flex; justify-content: space-between; align-items: baseline;">
-        <span>// Expediente 001</span><span class="marca-txt" style="font-size: 40px; color: var(--hueso); text-transform: none; letter-spacing: -0.05em;">Celu<b>&amp;</b>Co.</span>
+        <span>// Expediente 001</span><span class="logo-tc" style="font-size: 54px; color: var(--hueso);">Tech<b>&amp;</b>Co<i></i></span>
       </div>
       <div class="titulo e" data-t="250" style="font-size: 124px; margin-top: 70px;">Todavía<br>no podemos<br><span style="color: var(--lima);">mostrarlo.</span></div>
     </div>
@@ -130,7 +128,7 @@
     <div class="pie e" data-t="4400">
       <div style="display: flex; flex-direction: column; gap: 16px;">
         <div class="codigo" id="codigo"></div>
-        <span class="mono" style="font-size: 22px; color: var(--acero);">CELU&amp;CO · 001 · ████</span>
+        <span class="mono" style="font-size: 22px; color: var(--acero);">TECH&amp;CO · 001 · ████</span>
       </div>
       <div class="mono" style="font-size: 28px; text-align: right; line-height: 1.5;">Muy pronto,<br><span style="color: var(--lima);">todo a la vista.</span></div>
     </div>
@@ -140,7 +138,7 @@
 
 <!-- ======================= CARGA 99 % ======================= -->
 <section id="carga">
-  <div class="hud mono" id="hudCarga"><span class="marca-txt">Celu<b>&amp;</b>Co.</span><span class="senal"><i style="height: 14px"></i><i style="height: 24px"></i><i style="height: 34px"></i><i style="height: 44px"></i></span></div>
+  <div class="hud mono" id="hudCarga"><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span><span class="senal"><i style="height: 14px"></i><i style="height: 24px"></i><i style="height: 34px"></i><i style="height: 44px"></i></span></div>
   <div class="bloque" id="bloqueCarga">
     <div class="num"><span class="n">0</span><small>%</small></div>
     <div class="barra"><b></b></div>
@@ -160,7 +158,7 @@
       <div class="encendido" id="encendido">
         <div class="fondoP"></div>
         <div class="fondoLima" id="fondoLima"></div>
-        <div class="marcaP marca-txt">Celu<b>&amp;</b>Co.</div>
+        <div class="marcaP"><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
         <svg class="anillo" viewBox="0 0 220 220"><circle class="pista" cx="110" cy="110" r="96"/><g class="giro" style="transform-origin: 110px 110px;"><circle class="prog" cx="110" cy="110" r="96" pathLength="1" stroke-dasharray="0 1" transform="rotate(-90 110 110)"/></g></svg>
         <div class="leyendaP">Preparando algo nuevo</div>
       </div>
@@ -177,7 +175,7 @@
 <div class="revelar" id="revelar" style="display: none;">
   <canvas id="lienzo3d"></canvas>
   <div class="titulo e" data-t="0">Abri-<br>mos.</div>
-  <div class="bajo e" data-t="1300"><span class="marca-txt">Celu<b>&amp;</b>Co.</span><span class="mono" style="text-transform: none;">iPhone usados y en caja sellada</span></div>
+  <div class="bajo e" data-t="1300"><span class="logo-tc plano">Tech<b>&amp;</b>Co<i></i></span><span class="mono" style="text-transform: none;">iPhone usados y en caja sellada</span></div>
 </div>
 
 <script src="datos.js"></script>

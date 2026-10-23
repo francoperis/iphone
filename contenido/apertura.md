@@ -1,4 +1,4 @@
-# Celu&Co. — Apertura de la cuenta (estilo Manifiesto)
+# Tech&Co. — Apertura de la cuenta (estilo Manifiesto)
 
 Archivos en `salida/apertura/`. Se regeneran con `plantillas/apertura.html` y `plantillas/canje.html`:
 
@@ -37,7 +37,7 @@ Ya no se usa "Respondé QUIERO".
 Texto de la publicación:
 
 > Abrimos. 🟢
-> Somos Celu&Co.: iPhone usados y en caja sellada, del X al 18 Pro Max.
+> Somos Tech&Co.: iPhone usados y en caja sellada, del X al 18 Pro Max.
 > Cada equipo con su ficha a la vista. Y si tenés un iPhone, lo tomamos como parte de pago.
 >
 > Todo el stock está en el catálogo: link en la bio.
@@ -58,7 +58,7 @@ Antes de publicar: completar [ZONA] y envíos en la lámina 6 y en el texto.
 | 5 | **Tu iPhone vale.** Canje animado en 3D: entregás un iPhone 13, te llevás un 17 Pro (9 s) · Saber más ↓ | **Preguntas** opcional: "¿Qué iPhone tenés?" |
 | 6 | ¿Hay uno para vos? · Saber más ↓ (6 s) | — (la flecha apunta a la casilla de respuesta) |
 
-Después de la apertura, guardar las historias en una destacada "Celu&Co.".
+Después de la apertura, guardar las historias en una destacada "Tech&Co.".
 
 ## Plan canje — dos animaciones
 

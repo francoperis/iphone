@@ -1,4 +1,4 @@
-/* Celu&Co. — catálogo. Territorio "Drop + tech": tinta, hueso, lima, voltio. */
+/* Tech&Co. — catálogo. Territorio "Drop + tech": tinta, hueso, lima, voltio. */
 :root {
   --tinta: #0A0A0B; --tinta-2: #131316; --linea: #2A2A30;
   --hueso: #EEEBE4; --lima: #CCFF00; --voltio: #8B6CFF; --voltio-claro: #B7A6FF; --acero: #8E8E96;
@@ -16,8 +16,11 @@ a { color: inherit; }
 .barra { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center;
          padding: 14px clamp(16px, 4vw, 48px); background: rgba(10,10,11,.88); backdrop-filter: blur(10px);
          border-bottom: 1px solid var(--linea); }
-.logo { font-family: var(--titulo); font-weight: 900; font-size: 22px; letter-spacing: -0.04em; text-decoration: none; }
-.logo span { color: var(--lima); }
+/* logotipo Ruta B: Archivo 900 condensada, "&" en lima y punto cuadrado */
+.logo { font-family: "Archivo", system-ui, sans-serif; font-weight: 900; font-stretch: 62%; font-size: 34px; line-height: .8;
+        letter-spacing: -0.02em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: flex-end; }
+.logo b { color: var(--lima); font-weight: 900; }
+.logo i { width: .184em; height: .184em; margin: 0 0 .016em .04em; background: var(--lima); }
 .barra-wa { font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
             background: var(--lima); color: var(--tinta); padding: 10px 14px; }
 
@@ -102,7 +105,7 @@ main { max-width: 1320px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); }
 .vacio { padding: 60px 0; text-align: center; color: var(--acero); }
 
 .pie { margin-top: 80px; padding: 40px clamp(16px, 4vw, 48px); border-top: 1px solid var(--linea); color: var(--acero); font-size: 13px; }
-.pie .logo { color: var(--hueso); font-size: 32px; margin-bottom: 10px; }
+.pie .logo { color: var(--hueso); font-size: 56px; margin-bottom: 10px; }
 .pie p { margin: 4px 0; }
 .pie-chico { font-size: 11px; }
 

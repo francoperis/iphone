@@ -1,7 +1,7 @@
 {
-  "name": "celu-co-contenido",
+  "name": "tech-co-contenido",
   "private": true,
-  "description": "Plantillas animadas y exportación a MP4 para Celu&Co.",
+  "description": "Plantillas animadas y exportación a MP4 para Tech&Co.",
   "scripts": {
     "video": "node exportar_video.js"
   },

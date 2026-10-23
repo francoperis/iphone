@@ -1,4 +1,4 @@
-# Proyecto: tienda de iPhone — marca: Celu&Co.
+# Proyecto: tienda de iPhone — marca: Tech&Co.
 
 Negocio familiar de venta de iPhone usados y en caja sellada, en Argentina.
 Objetivo: contenido orgánico DE CALIDAD para Instagram (historias, reels, carruseles)
@@ -7,7 +7,7 @@ y una página de catálogo con botón de WhatsApp.
 Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
 
 ## Decisiones tomadas (2026-10-21)
-- Nombre de marca: **Celu&Co.** (reemplaza el nombre de trabajo "LOTE").
+- Nombre de marca: **Celu&Co.** (reemplaza el nombre de trabajo "LOTE"). → Desde 2026-10-23 la marca es **Tech&Co.** (ver "Marca elegida").
 - El repo arrancó vacío: el script de fotos y los prototipos se rehacen de cero según este brief.
 - Fotos: no hay fotos propias. Armar una base de fotos en máxima calidad desde varias fuentes:
   Apple oficial (Newsroom + apple.com), Wikimedia Commons, Unsplash / Pexels y sitios de reviews.
@@ -102,7 +102,13 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 - Nada de fotos planas: el teléfono tiene que verse en 3D, con grosor.
 
 ## Marca elegida (2026-10-21)
-- Logo A: logotipo "Celu&Co." en Unbounded 900 (el "&" en acento) + monograma "C&" para avatares.
+- (2026-10-23) **Cambio de nombre: Tech&Co.** (reemplaza a Celu&Co. en todas las piezas, el catálogo y los textos).
+- Logo elegido: **Ruta B "solo logotipo"**: TECH&CO. en Archivo 900 condensada (wdth 62), mayúsculas, el "&" en lima
+  y un punto cuadrado lima. Avatar = el logotipo apilado "TECH / &CO." dentro de un círculo hueso o lima (un solo color).
+  Sobre fondos claros (lima / hueso) el logotipo va en un solo color (tinta). Ya no se usa el monograma "C&".
+  En código: `plantillas/logo.css` (`<span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span>`, variantes `apilado` y `plano`).
+  Archivos para Instagram (avatar, logotipo): `plantillas/marca.html` → `salida/marca/`.
+- (Antes: Logo A "Celu&Co." en Unbounded 900 + monograma "C&", descartado.)
 - Territorio 4 "Drop + tech": Tinta #0A0A0B, Hueso #EEEBE4, Lima #CCFF00, Voltio #8B6CFF, Acero #8E8E96.
   Unbounded (títulos y precios) + JetBrains Mono (todo lo demás). Callouts técnicos, código de barras, "ficha" por equipo.
   Exploración completa: https://claude.ai/artifact/FRYkppJACfMZGxUtbGxx1K
@@ -132,7 +138,7 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 - Por ahora todo es iPhone. Más adelante se van a sumar líneas de celulares más económicos para otro mercado.
 - (2026-10-22, 2.ª ronda) Los videos/historias no admiten links: sacar la tarjeta "Catálogo online" de los videos y
   cerrar con "Saber más" + flecha a la casilla de respuesta de la historia. En posts queda "link en la bio".
-- Más opciones de "Abrimos" con misterio (reels + posts, marca Celu&Co. completa, sin decir qué vendemos):
+- Más opciones de "Abrimos" con misterio (reels + posts, marca completa, sin decir qué vendemos):
   expediente sin celular, carga 99 % que pierde la señal, pantalla que se prende y se apaga, y la continuación
   que revela todo. Plantilla `plantillas/misterio.html`, guía `contenido/misterio.md`.
 

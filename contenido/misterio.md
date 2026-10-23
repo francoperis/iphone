@@ -1,4 +1,4 @@
-# Celu&Co. — "Abrimos" con misterio (teasers + continuación)
+# Tech&Co. — "Abrimos" con misterio (teasers + continuación)
 
 Archivos en `salida/misterio/`. Plantilla: `plantillas/misterio.html?pieza=…&formato=historia|post`.
 Los teasers muestran la marca completa pero **no dicen qué vendemos**. La continuación revela todo.
@@ -9,7 +9,7 @@ Los teasers muestran la marca completa pero **no dicen qué vendemos**. La conti
 |---|---|---|---|
 | Expediente (sin celular) | `reel_ficha.mp4` (8 s) | `post_ficha.png` | Ficha técnica con los datos tapados en lima y sello "PRONTO". "Todavía no podemos mostrarlo." |
 | Carga 99 % | `reel_carga.mp4` (8 s) | `post_carga.png` | "Cargando algo nuevo" sube a 99 %, se va la señal (las rayitas bajan), glitch y estática "SIN SEÑAL". |
-| Pantalla | `reel_pantalla.mp4` (8 s) | `post_pantalla.png` | En la oscuridad se prende una pantalla: Celu&Co. + anillo de carga. Falla y se apaga como un tele viejo. "Sin señal." |
+| Pantalla | `reel_pantalla.mp4` (8 s) | `post_pantalla.png` | En la oscuridad se prende una pantalla: Tech&Co. + anillo de carga. Falla y se apaga como un tele viejo. "Sin señal." |
 | Continuación de Carga | `reel_vuelve-carga.mp4` (9 s) | `post_revelacion.png` | Vuelve la señal, 99 → 100 %, la barra llena la pantalla de lima: **Abrimos.** + iPhone 3D. |
 | Continuación de Pantalla | `reel_vuelve-pantalla.mp4` (9 s) | `post_revelacion.png` | La pantalla se vuelve a prender, completa la carga y entramos en ella: **Abrimos.** + iPhone 3D. |
 

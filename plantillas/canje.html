@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=1080">
-<title>Plan canje — Celu&amp;Co.</title>
+<title>Plan canje — Tech&amp;Co.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="logo.css">
 <link rel="stylesheet" href="piezas.css">
 <script type="importmap">
 { "imports": {
@@ -27,7 +28,7 @@
   .lienzo { position: relative; width: 1080px; height: 100%; overflow: hidden; background: var(--voltio); }
   canvas.tres { position: absolute; inset: 0; width: 1080px; height: 100%; }
   .cabeza { left: 72px; right: 72px; display: flex; justify-content: space-between; align-items: baseline; font-size: 24px; }
-  .cabeza .marca { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 36px; letter-spacing: -0.05em; text-transform: none; }
+  .cabeza .logo-tc { font-size: 50px; }
   .disco { position: absolute; border-radius: 50%; background: var(--lima); translate: -50% -50%; }
   .flechaCanje { position: absolute; translate: -50% -50%; line-height: 0; }
   .tarjeta .v { font-size: 38px; }
@@ -38,7 +39,7 @@
 </head>
 <body>
 <div class="lienzo voltio" id="lienzo">
-  <div class="abs cabeza mono" id="cabeza"><span>// Plan canje</span><span class="marca">Celu<b>&amp;</b>Co.</span></div>
+  <div class="abs cabeza mono" id="cabeza"><span>// Plan canje</span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
   <div class="abs titulo" id="titulo">Tu iPhone<br>vale.</div>
   <div class="abs mono" id="bajada" style="left: 72px; font-size: 26px;">Entregalo como parte de pago</div>
   <div class="disco" id="disco"></div>

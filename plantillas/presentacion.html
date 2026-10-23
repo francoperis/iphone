@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=1080">
-<title>Presentación — Celu&amp;Co.</title>
+<title>Presentación — Tech&amp;Co.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="logo.css">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -38,7 +39,7 @@
   .titulo { position: absolute; left: 64px; top: 130px; font-family: "Unbounded", sans-serif; font-weight: 900; letter-spacing: -0.055em; line-height: .95; }
   .titulo .hola { font-size: 84px; color: var(--lima); }
   .titulo .somos { font-size: 84px; }
-  .titulo .marca { font-size: 132px; margin-top: 6px; }
+  .titulo .marca { font-size: 186px; margin-top: 10px; }
   .titulo .marca b { color: var(--lima); }
 
   .escena { position: absolute; right: -40px; top: 470px; width: 560px; height: 820px; }
@@ -69,7 +70,7 @@
   <div class="titulo">
     <div class="hola">Hola.</div>
     <div class="somos">Somos</div>
-    <div class="marca">Celu<b>&amp;</b>Co.</div>
+    <div class="marca"><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
   </div>
 
   <div class="escena"><canvas id="lienzo3d"></canvas></div>
@@ -82,7 +83,7 @@
   </div>
 
   <div class="barras" aria-hidden="true"></div>
-  <div class="codigo">CELU&amp;CO · 001</div>
+  <div class="codigo">TECH&amp;CO · 001</div>
 
   <div class="cta">
     <span class="grande">Catálogo en la bio</span>

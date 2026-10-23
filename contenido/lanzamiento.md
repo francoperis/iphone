@@ -1,4 +1,4 @@
-# Celu&Co. — Lanzamiento de la cuenta
+# Tech&Co. — Lanzamiento de la cuenta
 
 Orden sugerido: primero el **reel teaser** (intriga), 1–2 días después el **post de presentación** (lo fijan arriba del perfil).
 Mientras no haya fecha, el teaser dice "Abrimos muy pronto". Con fecha: `lanzamiento.html?fecha=15/11` y se vuelve a exportar.
@@ -7,7 +7,7 @@ Mientras no haya fecha, el teaser dice "Abrimos muy pronto". Con fecha: `lanzami
 
 Hook (primer segundo): **"Tu próximo iPhone ya está en camino."**
 Secuencia: silueta en oscuridad → "cargando stock" con los datos (del X al 18 Pro Max, usados y caja sellada,
-ficha de cada equipo) → destello lima → revelación de **Celu&Co.** → "Abrimos muy pronto. Seguinos."
+ficha de cada equipo) → destello lima → revelación de **Tech&Co.** → "Abrimos muy pronto. Seguinos."
 
 Texto de la publicación:
 
@@ -23,7 +23,7 @@ Portada del reel: el cuadro de la revelación (logo + teléfono), segundo 7 apro
 
 Texto de la publicación:
 
-> Hola. Somos Celu&Co. 👋
+> Hola. Somos Tech&Co. 👋
 > Vendemos iPhone usados y en caja sellada, del X al 18 Pro Max.
 > Cada equipo tiene su ficha a la vista: batería, capacidad y estado. Sin sorpresas.
 > ¿Tenés un iPhone? Lo tomamos como parte de pago.

@@ -1,4 +1,4 @@
-// Catálogo Celu&Co.: carga el stock (planilla publicada, stock.csv o la copia de ejemplo),
+// Catálogo Tech&Co.: carga el stock (planilla publicada, stock.csv o la copia de ejemplo),
 // lo cruza con los modelos verificados y arma la grilla con filtros y el botón de WhatsApp.
 (function () {
   const CFG = window.CONFIG || {};
@@ -71,7 +71,7 @@
     const partes = [`${u.m.nombre} de ${u.capacidad}`, u.colorInfo.nombre];
     if (u.condicion === "sellado") partes.push("en caja sellada");
     else if (u.bateria !== null) partes.push(`batería ${u.bateria} %`);
-    const msg = `¡Hola Celu&Co.! Quiero el ${partes.join(", ")}. ¿Sigue disponible?`;
+    const msg = `¡Hola Tech&Co.! Quiero el ${partes.join(", ")}. ¿Sigue disponible?`;
     const num = String(CFG.whatsapp || "").replace(/\D/g, "");
     return `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
   }
@@ -165,7 +165,7 @@
     $("disponibles").addEventListener("change", (e) => { filtros.disponibles = e.target.checked; render(); });
 
     const num = String(CFG.whatsapp || "").replace(/\D/g, "");
-    $("barraWa").href = `https://wa.me/${num}?text=${encodeURIComponent("¡Hola Celu&Co.! Quiero consultar por un iPhone.")}`;
+    $("barraWa").href = `https://wa.me/${num}?text=${encodeURIComponent("¡Hola Tech&Co.! Quiero consultar por un iPhone.")}`;
     $("avisoDemo").hidden = !CFG.demo;
   }
 

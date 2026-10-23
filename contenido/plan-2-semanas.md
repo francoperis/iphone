@@ -1,4 +1,4 @@
-# Celu&Co. — Plan de contenido (2 semanas)
+# Tech&Co. — Plan de contenido (2 semanas)
 
 Marca: logo A + territorio "Drop + tech" (lima #CCFF00, voltio #8B6CFF, tinta #0A0A0B).
 Ritmo: historias todos los días · 3 reels por semana · 1–2 carruseles por semana.
