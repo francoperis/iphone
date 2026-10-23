@@ -29,6 +29,10 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
 - Número de WhatsApp. (Instagram: **@techco.ctes**, 2026-10-23; «ctes» = Corrientes → confirmar [ZONA].)
 - (2026-10-23) Todavía NO hay equipos en la mano: fase 0 = teasers sin prometer stock (ver `publicar/ARRANCAR.md`).
 - Zona de retiro / envíos, medios de pago, cuotas, meses de garantía.
+- (2026-10-23) Sistema **a pedido**: no hay stock fijo; el proveedor consigue y se consulta en el momento
+  (también otros modelos que no están en la lista). Modelos que comercializa el proveedor: `catalogo/a-pedido.csv`
+  (sin nombre ni precios del proveedor). El catálogo se organiza por secciones: iPhone (Base / Pro / Pro Max / caja sellada),
+  Samsung, Xiaomi, otras marcas. Pendiente: condición de los Android (¿nuevos?), si entran ya al catálogo, precios.
 - Reglas del plan canje.
 - Stock real: modelo, GB, color, % batería, precio, estado. Nunca inventar estos datos:
   usar marcadores como [__]% o [ZONA] hasta tenerlos.
