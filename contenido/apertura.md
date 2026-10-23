@@ -1,5 +1,7 @@
 # Tech&Co. — Apertura de la cuenta (estilo Manifiesto)
 
+> Las piezas listas para subir, ordenadas por sección, están en `publicar/` (ver `publicar/README.md`).
+
 Archivos en `salida/apertura/`. Se regeneran con `plantillas/apertura.html` y `plantillas/canje.html`:
 
 ```
@@ -28,18 +30,18 @@ Ya no se usa "Respondé QUIERO".
 
 | # | Lámina | Qué dice |
 |---|---|---|
-| 1 | Portada (lima) | **Abrimos.** · callouts "Swap / con ficha" y "Caja sellada / sin abrir" · Deslizá → |
-| 2 | Qué vendemos (hueso) | Swap no es *segunda* opción. · callouts Swap / Sellado |
+| 1 | Portada (lima) | **Abrimos.** · callouts "Swap" y "Caja sellada / sin abrir" · Deslizá → |
+| 2 | Qué vendemos (hueso) | Lo mejor, a tu alcance. · callouts Swap / Sellado |
 | 3 | Línea completa (tinta) | X→18 · Del X al 18 Pro Max. |
-| 4 | Nuestra regla (lima) | Ficha a la vista: callouts Batería, Capacidad, Color, Estado |
-| 5 | Plan canje (voltio) | Tu iPhone vale. · Entregás iPhone 13 → Te llevás iPhone 17 Pro · pie "Link en la bio" |
+| 4 | Nuestra regla (lima) | Todo a la vista: callouts Batería, Capacidad, Color, Estado |
+| 5 | Plan canje (voltio) | Tu equipo vale. · Entregás iPhone 13 → Te llevás iPhone 17 Pro · pie "Link en la bio" |
 | 6 | Cómo comprar (tinta) | 3 pasos: Elegilo · Tocá «Lo quiero» · Es tuyo · pie "Link en la bio" |
 
 Texto de la publicación:
 
 > Abrimos. 🟢
-> Somos Tech&Co.: iPhone Swap y en caja sellada, del X al 18 Pro Max.
-> Cada equipo con su ficha a la vista. Y si tenés un iPhone, lo tomamos como parte de pago.
+> Somos Tech&Co.: equipos Swap y en caja sellada.
+> Cada equipo con su batería, capacidad y estado a la vista. Y si tenés un equipo, lo tomamos como parte de pago.
 >
 > Todo el stock está en el catálogo: link en la bio.
 > 📍 [ZONA] · Envíos [__]
@@ -53,10 +55,10 @@ Antes de publicar: completar [ZONA] y envíos en la lámina 6 y en el texto.
 | # | Historia | Sticker de Instagram a agregar |
 |---|---|---|
 | 1 | Cuenta regresiva 3 · 2 · 1 → **Abrimos.** (6 s) | — (o música) |
-| 2 | Quiénes somos: "Swap no es segunda opción." (6 s) | Mención a la cuenta |
+| 2 | Quiénes somos: "Lo mejor, a tu alcance." (6 s) | Mención a la cuenta |
 | 3 | **¿Qué buscás?** (6 s) | **Encuesta** "Swap" / "Sellado", en el espacio libre entre el título y los teléfonos |
 | 4 | Del X al 18 Pro Max (6 s) | — |
-| 5 | **Tu iPhone vale.** Canje animado en 3D: entregás un iPhone 13, te llevás un 17 Pro (9 s) · Saber más ↓ | **Preguntas** opcional: "¿Qué iPhone tenés?" |
+| 5 | **Tu equipo vale.** Canje animado en 3D: entregás un iPhone 13, te llevás un 17 Pro (9 s) · Saber más ↓ | **Preguntas** opcional: "¿Qué iPhone tenés?" |
 | 6 | ¿Hay uno para vos? · Saber más ↓ (6 s) | — (la flecha apunta a la casilla de respuesta) |
 
 Después de la apertura, guardar las historias en una destacada "Tech&Co.".

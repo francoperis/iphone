@@ -167,7 +167,7 @@
     $("disponibles").addEventListener("change", (e) => { filtros.disponibles = e.target.checked; render(); });
 
     const num = String(CFG.whatsapp || "").replace(/\D/g, "");
-    $("barraWa").href = `https://wa.me/${num}?text=${encodeURIComponent("¡Hola Tech&Co.! Quiero consultar por un iPhone.")}`;
+    $("barraWa").href = `https://wa.me/${num}?text=${encodeURIComponent("¡Hola Tech&Co.! Quiero consultar por un equipo.")}`;
     $("avisoDemo").hidden = !CFG.demo;
   }
 

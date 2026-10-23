@@ -7,12 +7,12 @@ Mientras no haya fecha, el teaser dice "Abrimos muy pronto". Con fecha: `lanzami
 
 Hook (primer segundo): **"Tu próximo iPhone ya está en camino."**
 Secuencia: silueta en oscuridad → "cargando stock" con los datos (del X al 18 Pro Max, Swap y caja sellada,
-ficha de cada equipo) → destello lima → revelación de **Tech&Co.** → "Abrimos muy pronto. Seguinos."
+todo a la vista) → destello lima → revelación de **Tech&Co.** → "Abrimos muy pronto. Seguinos."
 
 Texto de la publicación:
 
 > Algo se está cargando. 📦
-> iPhone Swap y en caja sellada, del X al 18 Pro Max, cada uno con su ficha: batería, GB y estado.
+> Equipos Swap y en caja sellada, con batería, capacidad y estado a la vista.
 > Activá las notificaciones para enterarte primero cuando abramos.
 >
 > #iphone #iphoneswap #iphoneargentina #celulares #applear
@@ -24,8 +24,8 @@ Portada del reel: el cuadro de la revelación (logo + teléfono), segundo 7 apro
 Texto de la publicación:
 
 > Hola. Somos Tech&Co. 👋
-> Vendemos iPhone Swap y en caja sellada, del X al 18 Pro Max.
-> Cada equipo tiene su ficha a la vista: batería, capacidad y estado. Sin sorpresas.
+> Vendemos equipos Swap y en caja sellada.
+> De cada equipo ves la batería, la capacidad y el estado. Sin sorpresas.
 > ¿Tenés un iPhone? Lo tomamos como parte de pago.
 >
 > Todo el stock está en el catálogo: link en la bio.
@@ -33,7 +33,7 @@ Texto de la publicación:
 >
 > #iphone #iphoneswap #iphoneargentina #celulares
 
-Antes de publicar: completar [ZONA] y envíos, y confirmar que el plan canje y la ficha por equipo son así.
+Antes de publicar: completar [ZONA] y envíos, y confirmar que el plan canje y los datos por equipo son así.
 
 ## Historias de apoyo (opcional, mismo día del teaser)
 1. Compartir el reel con el sticker de cuenta regresiva de Instagram (sin fecha: "Muy pronto").

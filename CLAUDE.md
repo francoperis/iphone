@@ -1,6 +1,6 @@
 # Proyecto: tienda de iPhone — marca: Tech&Co.
 
-Negocio familiar de venta de iPhone **Swap** y en caja sellada, en Argentina.
+Negocio familiar de venta de equipos **Swap** y en caja sellada, en Argentina. Hoy iPhone; después Samsung y Xiaomi.
 **Los equipos NO se llaman "usados": son "Swap"** (en piezas, catálogo, textos y hashtags: #iphoneswap).
 Objetivo: contenido orgánico DE CALIDAD para Instagram (historias, reels, carruseles)
 y una página de catálogo con botón de WhatsApp.
@@ -142,6 +142,20 @@ Caja sellada: "consultar". NO mostrar nunca la cotización del dólar en las pie
 - (2026-10-23) Nada de "pies" de color: sin tarjetas ni franjas lima/oscuras al pie de los posts. El CTA de los posts es
   una línea de texto mono al pie ("Catálogo online · Link en la bio →"), como el "Deslizá →" de la portada. En los cierres
   de reels el CTA va como texto lima, sin caja.
+- (2026-10-23, 3.ª ronda)
+  - Sin encabezados de sección en las piezas ("// 001 · Apertura", "// 02 · Qué vendemos", "// Quiénes somos"…): solo el logo.
+  - "Ficha" / "con ficha" no se entiende: no usarlo. Se dice "batería, capacidad y estado a la vista" / "Todo a la vista."
+  - Swap = equipos reacondicionados (refurbished). No hace falta explicarlo más en las piezas.
+  - Gancho de "qué vendemos": **"Lo mejor, a tu alcance."** Descartados: "Usado/Swap no es segunda opción",
+    cualquier frase con "estrenar", "Sellado o Swap. Vos elegís", "Como nuevo. A otro precio.".
+  - El nombre Tech&Co. es para abarcar más mercado: **Samsung y Xiaomi más adelante** (con su propio lanzamiento) y,
+    algún día, otras cosas tech (PlayStation, etc.). Por eso, cuando se habla de la cuenta, NO anclar la marca a
+    "solo iPhone": decir "equipos". iPhone se nombra solo cuando la pieza muestra un iPhone.
+  - Flyer de equipos nuevos en caja sellada: `plantillas/sellado.html?modelo=&color=&gb=&formato=historia|post`
+    (precio "consultar", sello "0 KM").
+  - Todo lo listo para subir va en **`publicar/`** (sí se sube a git), por sección (00-marca, 01-teasers, 02-apertura,
+    03-que-vendemos, 04-como-comprar, 05-plan-canje, 06-tips) y por marca (`equipos/iphone|samsung|xiaomi`).
+    Se regenera con `./publicar.sh`; guía y textos en `publicar/README.md`.
 - Más opciones de "Abrimos" con misterio (reels + posts, marca completa, sin decir qué vendemos):
   expediente sin celular, carga 99 % que pierde la señal, pantalla que se prende y se apaga, y la continuación
   que revela todo. Plantilla `plantillas/misterio.html`, guía `contenido/misterio.md`.

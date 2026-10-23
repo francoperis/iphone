@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Nuevo en caja sellada — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800;900&family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<!--
+  Flyer "Nuevo · caja sellada" (8 s): el equipo entra girando en 3D, sello "0 KM" y callouts con capacidad y color.
+  Precio: "consultar" (caja sellada). Historia: cierra con "Saber más" + flecha; post: línea "Link en la bio".
+    ?modelo=iphone-17-pro&color=silver&gb=256&formato=historia|post
+  formato=post (1080×1350) se exporta como imagen fija del último cuadro (--cuadro 7999).
+-->
+<style>
+  html, body { overflow: hidden; background: var(--tinta); }
+  body { width: 1080px; height: 1920px; color: var(--hueso); font-family: "JetBrains Mono", monospace; }
+  body.post { height: 1350px; }
+  .lienzo { position: relative; width: 1080px; height: 100%; overflow: hidden; }
+  canvas.tres { position: absolute; inset: 0; width: 1080px; height: 100%; }
+  .cabeza { left: 72px; right: 72px; display: flex; justify-content: space-between; align-items: center; font-size: 24px; }
+  .cabeza .logo-tc { font-size: 50px; }
+  .titulo b { color: var(--lima); }
+  .modelo { font-family: "Unbounded", sans-serif; font-weight: 900; letter-spacing: -0.045em; color: var(--lima); }
+  .disco { position: absolute; border-radius: 50%; background: var(--voltio); translate: -50% -50%; }
+  .sello { position: absolute; width: 230px; height: 230px; translate: -50% -50%; border-radius: 50%; background: var(--lima);
+           color: var(--tinta); display: grid; place-items: center; }
+  .sello svg { position: absolute; inset: 0; }
+  .sello .km { font-family: "Unbounded", sans-serif; font-weight: 900; font-size: 56px; letter-spacing: -0.05em; line-height: .9; text-align: center; }
+  .etq .v { font-size: 42px; }
+</style>
+</head>
+<body>
+<div class="lienzo tinta" id="lienzo">
+  <div class="abs cabeza mono" id="cabeza"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+  <div class="abs titulo" id="titulo">Nuevo<b>.</b></div>
+  <div class="abs modelo" id="modelo"></div>
+  <div class="disco" id="disco"></div>
+  <canvas class="tres" id="tel"></canvas>
+  <div class="sello" id="sello">
+    <svg viewBox="0 0 230 230" aria-hidden="true"><defs><path id="aro" d="M115,115 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs>
+      <g id="giro" style="transform-origin: 115px 115px;"><text font-family="JetBrains Mono" font-weight="700" font-size="17" letter-spacing="4.6" fill="currentColor">
+        <textPath href="#aro">CAJA SELLADA · NUEVO · CAJA SELLADA · NUEVO ·</textPath></text></g></svg>
+    <span class="km">0<br>KM</span>
+  </div>
+  <i class="co" id="coA"></i><div class="etq" id="etqA"><span class="v">Caja<br>sellada</span><span class="k">sin abrir</span></div>
+  <i class="co" id="coB"></i><div class="etq der" id="etqB"><span class="v" id="gb"></span><span class="k">capacidad</span></div>
+  <i class="co" id="coC"></i><div class="etq der" id="etqC"><span class="v" id="color"></span><span class="k">color</span></div>
+  <div class="saber" id="saber" style="bottom: 190px;">
+    <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+    <div class="txt"><span class="v" style="color: var(--lima); font-size: 62px;">Consultá el precio</span><span class="k">Escribinos acá abajo</span></div>
+  </div>
+  <div class="abs cabeza mono" id="pie" style="bottom: 60px;"><span>Precio: consultar</span><span>Link en la bio →</span></div>
+</div>
+
+<script src="datos.js"></script>
+<script src="piezas.js"></script>
+<script type="module">
+import { crearTelefono } from "./telefono3d.js";
+
+const P = new URLSearchParams(location.search);
+const id = P.get("modelo") || "iphone-17-pro";
+const m = MODELOS[id];
+const colorId = P.get("color") || m.color;
+const gb = Number(P.get("gb") || m.gb);
+const post = (P.get("formato") || "historia") === "post";
+if (post) document.body.classList.add("post");
+const $ = (s) => document.getElementById(s);
+const H = post ? 1350 : 1920;
+const K = 10; // 10 px por mm
+
+// medidas en px del lienzo; tel = centro y alto del equipo
+const L = post ? {
+  cabeza: 64, titulo: [140, 210], modelo: [380, 62],
+  tel: { x: 540, y: 860, h: 640 }, sello: { x: 850, y: 470 }, izq: 72, der: 1008,
+} : {
+  cabeza: 250, titulo: [330, 220], modelo: [590, 74],
+  tel: { x: 540, y: 1150, h: 760 }, sello: { x: 850, y: 800 }, izq: 72, der: 1008,
+};
+
+$("cabeza").style.top = L.cabeza + "px";
+Object.assign($("titulo").style, { left: "60px", top: L.titulo[0] + "px", fontSize: L.titulo[1] + "px" });
+Object.assign($("modelo").style, { left: "68px", top: L.modelo[0] + "px", fontSize: L.modelo[1] + "px" });
+$("modelo").textContent = m.nombre;
+$("gb").textContent = gb >= 1024 ? gb / 1024 + " TB" : gb + " GB";
+const nombreColor = m.colores[colorId].nombre;
+if (nombreColor.length > 12) {
+  // nombres largos ("Titanio del desierto") en dos líneas y más chicos, para no pisar el equipo
+  const pal = nombreColor.split(" "), corte = Math.ceil(pal.length / 2);
+  $("color").innerHTML = pal.slice(0, corte).join(" ") + "<br>" + pal.slice(corte).join(" ");
+  $("color").style.fontSize = "36px";
+} else $("color").textContent = nombreColor;
+$(post ? "saber" : "pie").remove();
+const cierre = $(post ? "pie" : "saber");
+
+const dd = L.tel.h * 0.78;
+Object.assign($("disco").style, { left: L.tel.x + "px", top: L.tel.y + "px", width: dd + "px", height: dd + "px" });
+Object.assign($("sello").style, { left: L.sello.x + "px", top: L.sello.y + "px" });
+
+// callouts: puntos sobre el canto del equipo (ancho visible ≈ 0,44 del alto) hasta los márgenes
+const { x, y, h } = L.tel, mitad = h * 0.21;
+const co = (el, d, etq, pos) => Object.assign($(el).dataset, { l: d, etq, pos });
+co("coA", `${x - mitad},${y - h * 0.12} h:${L.izq}`, "etqA", "sobre-izq");
+co("coB", `${x + mitad},${y + h * 0.08} h:${L.der}`, "etqB", "sobre-der");
+co("coC", `${x + mitad},${y + h * 0.3} h:${L.der}`, "etqC", "sobre-der");
+
+// ---------------------------------------------------------------- línea de tiempo
+const T = 8000;
+const ANIMS = [];
+function linea(el, puntos) {
+  const fr = puntos.map(([t, props, easing]) => ({ ...props, offset: t / T, easing: easing || "linear" }));
+  if (fr[0].offset > 0) fr.unshift({ ...puntos[0][1], offset: 0 });
+  if (fr[fr.length - 1].offset < 1) fr.push({ ...puntos[puntos.length - 1][1], offset: 1 });
+  ANIMS.push(el.animate(fr, { duration: T, fill: "both" }));
+}
+const salir = "cubic-bezier(.2,.8,.2,1)", rebote = "cubic-bezier(.34,1.56,.64,1)";
+const entra = (el, t, desde = "translateY(50px)") =>
+  linea(el, [[t, { opacity: 0, transform: desde }, salir], [t + 450, { opacity: 1, transform: "none" }]]);
+
+entra($("cabeza"), 0, "translateY(-30px)");
+entra($("titulo"), 100);
+entra($("modelo"), 350);
+linea($("disco"), [[700, { transform: "scale(0)" }, rebote], [1300, { transform: "scale(1)" }]]);
+linea($("sello"), [[2000, { transform: "scale(0) rotate(-40deg)" }, rebote], [2500, { transform: "scale(1) rotate(-8deg)" }]]);
+ANIMS.push($("giro").animate([{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }], { duration: T, fill: "both" }));
+entra($("etqA"), 2700, "translateY(24px)");
+entra($("etqB"), 2900, "translateY(24px)");
+entra($("etqC"), 3100, "translateY(24px)");
+entra(cierre, 3700);
+if (!post) ANIMS.push(cierre.querySelector(".baja").animate(
+  [{ transform: "translateY(0)" }, { transform: "translateY(18px)", offset: 0.5 }, { transform: "translateY(0)" }],
+  { duration: 900, iterations: Infinity, easing: "ease-in-out" }));
+
+// ---------------------------------------------------------------- pose del equipo
+const tramo = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+const sal = (v) => 1 - Math.pow(1 - v, 3);
+const mezcla = (a, b, f) => a + (b - a) * f;
+function pose(t) {
+  const e = sal(tramo(t, 500, 2100));
+  const flota = Math.sin(t / 700);
+  const yy = mezcla(y + 260, y, e) + 6 * flota * e;
+  return { correr: (x - 540) / K, subir: (H / 2 - yy) / K, escala: h / (m.tresd.medidas[1] * K),
+           giroY: mezcla(380, 18, e) + 5 * flota * e, giroX: 8 + 2 * flota, giroZ: mezcla(-14, -4, e) };
+}
+
+let tel = null;
+function dibujar(t) { if (tel) { tel.pose(pose(t)); tel.luz(sal(tramo(t, 400, 1400))); tel.render(); } }
+
+const inicio = performance.now();
+let enVivo = true;
+(function bucle() {
+  if (!enVivo) return;
+  dibujar((performance.now() - inicio) % T);
+  requestAnimationFrame(bucle);
+})();
+
+const distancia = H / (K * 2 * Math.tan(10 * Math.PI / 180));
+const listo3d = crearTelefono($("tel"), m, colorId, { fotos: "assets/telefonos", id, distancia, relleno: "#8B6CFF" })
+  .then((t) => { tel = t; }).catch((e) => console.error("No se pudo armar el 3D:", e));
+
+const cargado = document.fonts.ready.then(() => {
+  const o = (ms) => ms / T;
+  armarCallouts($("lienzo")).forEach(({ el, linea: pl }, i) => {
+    pl.style.strokeDasharray = "1 1";
+    const t0 = 2500 + i * 200;
+    ANIMS.push(el.animate([{ offset: 0, opacity: 0 }, { offset: o(t0), opacity: 0 }, { offset: o(t0 + 120), opacity: 1 }, { offset: 1, opacity: 1 }], { duration: T, fill: "both" }));
+    ANIMS.push(pl.animate([{ offset: 0, strokeDashoffset: 1 }, { offset: o(t0), strokeDashoffset: 1, easing: salir },
+                           { offset: o(t0 + 500), strokeDashoffset: 0 }, { offset: 1, strokeDashoffset: 0 }], { duration: T, fill: "both" }));
+  });
+});
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await cargado; await listo3d; },
+  ir(ms) {
+    enVivo = false;
+    ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; });
+    dibujar(ms);
+  },
+};
+</script>
+</body>
+</html>

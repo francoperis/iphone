@@ -30,8 +30,8 @@ Clips: Mixkit, licencia libre comercial (ver `videos/candidatos.csv`). Duración
    Copy: *Antes de pagar un Swap, chequeá estas 4 cosas. Nosotros lo hacemos con cada equipo [confirmar que es así]. Todo el stock está en el catálogo: link en la bio.*
 2. **canje** — Hook 2 → "Entregalo como parte de pago y llevate uno más nuevo" → cierre "¿A cuál te pasás?" + catálogo en la bio.
    Copy: *Tu iPhone de antes vale. Mandanos modelo, GB y % de batería y te decimos cuánto te tomamos.*
-3. **primera-foto** — Hook 3 → "Del X al 18 Pro Max / Swap y en caja sellada / Cada uno con su ficha" → cierre "Encontrá el tuyo".
-   Copy: *El que buscás está acá. Swap con su ficha y sellados en caja. Catálogo en el link de la bio.*
+3. **primera-foto** — Hook 3 → "Del X al 18 Pro Max / Swap y en caja sellada / Todo a la vista" → cierre "Encontrá el tuyo".
+   Copy: *El que buscás está acá. Swap y sellados en caja, todo a la vista. Catálogo en el link de la bio.*
 
 ## Calendario
 
