@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Reel — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<!--
+  Capa de marca para reels (1080×1920, 10 s) sobre un clip de video. Territorio "Drop + tech".
+  ?reel=chequea-esto            guion de plantillas/reels.js
+  &clip=../videos/clips/x.mp4   (solo para previsualizar en el navegador; al exportar el video lo pone ffmpeg)
+  &exportar=1                   fondo transparente: exportar_video.js --fondo <clip> la superpone al video
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #111; }
+  body.exportar, html.exportar { background: transparent; }
+  .lienzo { position: relative; width: 1080px; height: 1920px; overflow: hidden; color: var(--hueso);
+            font-family: "JetBrains Mono", monospace; }
+  video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  body.exportar video { display: none; }
+
+  /* degradé para que el texto se lea sobre cualquier toma */
+  .sombra-arriba { position: absolute; left: 0; right: 0; top: 0; height: 900px;
+                   background: linear-gradient(rgba(10,10,11,.72), rgba(10,10,11,0)); }
+  .sombra-abajo { position: absolute; left: 0; right: 0; bottom: 0; height: 900px;
+                  background: linear-gradient(rgba(10,10,11,0), rgba(10,10,11,.8)); }
+
+  .barra { position: absolute; left: 64px; right: 64px; top: 150px; display: flex; justify-content: space-between; align-items: center;
+           font-size: 26px; letter-spacing: .1em; text-transform: uppercase; }
+  .barra .logo-tc { font-size: 54px; }
+  .etiqueta { color: var(--lima); font-weight: 700; }
+
+  .hook { position: absolute; left: 64px; right: 64px; top: 300px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .hook .renglon { white-space: nowrap; font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-m); line-height: var(--ih-titulo);
+                   text-shadow: 0 6px 30px rgba(0,0,0,.45); }
+  .hook mark { background: var(--lima); color: var(--tinta); padding: 0 .08em; text-shadow: none; }
+
+  .lineas { position: absolute; left: 64px; right: 64px; bottom: 420px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+  .lineas span { font-weight: 700; font-size: 36px; text-shadow: 0 2px 18px rgba(0,0,0,.6); }
+  .lista { position: absolute; left: 64px; right: 64px; bottom: 380px; display: flex; flex-direction: column; }
+  .lista div { display: flex; gap: 28px; align-items: center; padding: 20px 0; border-bottom: 2px solid rgba(238,235,228,.35); font-weight: 700; font-size: 40px; text-shadow: 0 2px 18px rgba(0,0,0,.7); }
+  .lista div:last-child { border-bottom: 0; }
+  .lista b { color: var(--lima); font-size: 32px; }
+
+  .cierre { position: absolute; inset: 0; background: rgba(10,10,11,.86); display: flex; flex-direction: column; justify-content: center;
+            align-items: center; gap: 44px; text-align: center; }
+  .cierre .mono { width: 240px; height: 240px; border-radius: 50%; background: var(--lima); color: var(--tinta); display: grid; place-items: center;
+                  font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: 116px;
+                  box-shadow: 0 0 0 10px var(--tinta), 0 0 0 14px var(--voltio); }
+  .cierre h2 { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-m); line-height: var(--ih-titulo); padding: 0 64px; }
+  .cierre .cta { color: var(--lima); font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-xs); }
+  .cierre .chico { font-size: 28px; letter-spacing: .1em; text-transform: uppercase; color: var(--acero); }
+</style>
+</head>
+<body>
+<div class="lienzo">
+  <video id="video" muted playsinline loop></video>
+  <div class="sombra-arriba"></div>
+  <div class="sombra-abajo"></div>
+  <div class="barra" id="barra"><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span><span class="etiqueta" id="etiqueta"></span></div>
+  <div class="hook" id="hook"></div>
+  <div id="medio"></div>
+  <div class="cierre" id="cierre">
+    <div class="mono"><span class="logo-tc apilado plano" style="font-size: 89px;"><span>Tech</span><span>&amp;Co<i></i></span></span></div>
+    <h2 id="cierreTitulo"></h2>
+    <div class="cta" id="cierreCta"></div>
+    <div class="chico">Equipos Swap y sellados</div>
+  </div>
+</div>
+
+<script src="reels.js"></script>
+<script>
+const P = new URLSearchParams(location.search);
+const R = REELS[P.get("reel") || "chequea-esto"];
+const exportar = P.has("exportar");
+if (exportar) { document.body.classList.add("exportar"); document.documentElement.classList.add("exportar"); }
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+
+$("etiqueta").textContent = R.etiqueta;
+// la palabra de "resaltar" va sobre bloque lima, dentro de su renglón
+$("hook").innerHTML = R.hook.map((t) => `<span class="renglon">${esc(t).replace(esc(R.resaltar), (w) => `<mark>${w}</mark>`)}</span>`).join("");
+if (R.lista) {
+  $("medio").innerHTML = `<div class="lista">${R.lista.map((t, i) => `<div><b>0${i + 1}</b><span>${esc(t)}</span></div>`).join("")}</div>`;
+} else {
+  $("medio").innerHTML = `<div class="lineas">${(R.lineas || []).map((t) => `<span>${esc(t)}</span>`).join("")}</div>`;
+}
+$("cierreTitulo").textContent = R.cierre.titulo;
+$("cierreCta").textContent = R.cierre.cta;
+
+const clip = P.get("clip") || R.clip;
+if (clip && !exportar) { $("video").src = clip; $("video").currentTime = R.desde || 0; $("video").play().catch(() => {}); }
+
+// ---------------------------------------------------------------- línea de tiempo (10 s)
+const T = 10000, ANIMS = [];
+function linea(el, puntos) {
+  const fr = puntos.map(([t, p, e]) => ({ ...p, offset: t / T, easing: e || "linear" }));
+  if (fr[0].offset > 0) fr.unshift({ ...puntos[0][1], offset: 0 });
+  if (fr[fr.length - 1].offset < 1) fr.push({ ...puntos[puntos.length - 1][1], offset: 1 });
+  ANIMS.push(el.animate(fr, { duration: T, iterations: Infinity, fill: "both" }));
+}
+const salir = "cubic-bezier(.2,.8,.2,1)", golpe = "cubic-bezier(.34,1.56,.64,1)";
+
+linea($("barra"), [[0, { opacity: 0 }], [300, { opacity: 1 }], [7400, { opacity: 1 }], [7700, { opacity: 0 }]]);
+// el hook entra en el primer segundo, renglón por renglón
+[...$("hook").children].forEach((el, i) => {
+  const t0 = 60 + i * 180;
+  linea(el, [[t0, { opacity: 0, transform: "translateY(60px) scale(.96)" }, golpe], [t0 + 380, { opacity: 1, transform: "none" }],
+             [4200, { opacity: 1, transform: "none" }, salir], [4600, { opacity: 0, transform: "translateY(-40px)" }]]);
+});
+// contenido del medio
+const medio = $("medio").firstElementChild;
+[...medio.children].forEach((el, i) => {
+  const t0 = 4400 + i * 420;
+  linea(el, [[t0, { opacity: 0, transform: "translateX(-60px)" }, salir], [t0 + 360, { opacity: 1, transform: "none" }],
+             [7300, { opacity: 1, transform: "none" }], [7600, { opacity: 0, transform: "none" }]]);
+});
+if (R.lista) linea(medio, [[4300, { opacity: 0 }], [4500, { opacity: 1 }], [7300, { opacity: 1 }], [7600, { opacity: 0 }]]);
+// cierre con marca y llamado a la acción
+linea($("cierre"), [[7500, { opacity: 0 }, salir], [7900, { opacity: 1 }], [T, { opacity: 1 }]]);
+[...$("cierre").children].forEach((el, i) => {
+  const t0 = 7650 + i * 120;
+  linea(el, [[t0, { opacity: 0, transform: "translateY(40px) scale(.9)" }, golpe], [t0 + 420, { opacity: 1, transform: "none" }]]);
+});
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await document.fonts.ready; },
+  ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
+};
+</script>
+</body>
+</html>

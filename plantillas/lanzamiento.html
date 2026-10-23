@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Lanzamiento — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<!--
+  Reel teaser de lanzamiento (1080×1920, 10 s). Intriga → carga → destello → revelación de la marca.
+  ?modelo=iphone-17-pro&color=deepblue    equipo 3D (por defecto 17 Pro azul profundo)
+  &fecha=15/11                            si hay fecha, el cierre dice "Abrimos el 15/11"; si no, "Abrimos muy pronto"
+  Se abre desde un servidor local; exportar_video.js lo graba cuadro a cuadro.
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--tinta); }
+  .lienzo { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--tinta); color: var(--hueso);
+            font-family: "JetBrains Mono", monospace; }
+  .grilla { position: absolute; inset: 0; opacity: .5;
+            background-image: linear-gradient(rgba(204,255,0,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(204,255,0,.05) 1px, transparent 1px);
+            background-size: 54px 54px; }
+  .grano { position: absolute; inset: -50%; pointer-events: none; opacity: .1; mix-blend-mode: overlay;
+           background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .halo { position: absolute; left: 50%; top: 52%; width: 1100px; height: 1100px; translate: -50% -50%;
+          background: radial-gradient(closest-side, rgba(139,108,255,.32), transparent 70%); filter: blur(30px); }
+
+  .barra { position: absolute; left: 64px; right: 64px; top: 150px; display: flex; justify-content: space-between; align-items: center;
+           font-size: 24px; letter-spacing: .12em; text-transform: uppercase; }
+  .rec { display: flex; align-items: center; gap: 12px; color: var(--hueso); }
+  .rec i { width: 16px; height: 16px; border-radius: 50%; background: var(--voltio); box-shadow: 0 0 16px var(--voltio); }
+    .marca-chica b { color: var(--lima); }
+
+  .hook { position: absolute; left: 64px; right: 64px; top: 250px; display: flex; flex-direction: column; gap: 4px; }
+  .hook span { display: block; white-space: nowrap; font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-m);
+               line-height: var(--ih-titulo); }
+  .hook mark { background: var(--lima); color: var(--tinta); padding: 0 .08em; }
+
+  .escena { position: absolute; left: 0; right: 0; top: 560px; height: 900px; }
+  .escena canvas { width: 100%; height: 100%; display: block; }
+
+  .dato { position: absolute; display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 26px; letter-spacing: .04em; white-space: nowrap; }
+  .dato span { border: 2px solid var(--hueso); background: var(--tinta); padding: 8px 14px; }
+  .dato .raya { width: 90px; height: 2px; background: var(--hueso); }
+  .dato.lima span { border-color: var(--lima); color: var(--lima); }
+  .dato.lima .raya { background: var(--lima); }
+  .dato.voltio span { border-color: var(--voltio); color: #B7A6FF; }
+  .dato.voltio .raya { background: var(--voltio); }
+
+  .carga { position: absolute; left: 64px; right: 64px; top: 1500px; display: flex; flex-direction: column; gap: 16px; }
+  .carga-fila { display: flex; justify-content: space-between; font-weight: 700; font-size: 28px; letter-spacing: .12em; }
+  .carga-fila b { color: var(--lima); font-variant-numeric: tabular-nums; }
+  .pista { height: 14px; border: 2px solid var(--hueso); padding: 2px; }
+  .pista div { height: 100%; background: var(--lima); transform-origin: left center; transform: scaleX(0); }
+
+  .destello { position: absolute; inset: 0; background: var(--lima); opacity: 0; }
+
+  .revela { position: absolute; left: 0; right: 0; top: 250px; text-align: center; }
+  .revela .logo { font-size: 236px; line-height: 1; }
+  .revela p { margin-top: 18px; font-weight: 700; font-size: 30px; letter-spacing: .1em; text-transform: uppercase; color: var(--hueso); }
+  .cierre { position: absolute; left: 64px; right: 64px; top: 1470px; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
+  .cierre .titulo { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-s); line-height: var(--ih-titulo); }
+  .cierre .cta { color: var(--lima); font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-xs); }
+  .cierre .chico { font-size: 24px; letter-spacing: .12em; text-transform: uppercase; color: var(--acero); }
+
+  .telon { position: absolute; inset: 0; background: var(--tinta); opacity: 0; }
+</style>
+</head>
+<body>
+<div class="lienzo">
+  <div class="grilla"></div>
+  <div class="halo" id="halo"></div>
+
+  <div class="barra" id="barra"><span class="rec"><i id="rec"></i>Transmisión 001</span><span id="reloj">00:00</span></div>
+  <div class="hook" id="hook">
+    <span>Tu <mark>próximo</mark></span>
+    <span>equipo ya está</span>
+    <span>en camino.</span>
+  </div>
+
+  <div class="escena" id="escena"><canvas id="lienzo3d"></canvas></div>
+
+  <div class="dato lima" id="d1" style="left: 64px; top: 720px;"><span>SWAP Y SELLADOS</span><i class="raya"></i></div>
+  <div class="dato" id="d2" style="right: 64px; top: 900px;"><i class="raya"></i><span>PLAN CANJE</span></div>
+  <div class="dato voltio" id="d3" style="left: 64px; top: 1110px;"><span>TODO A LA VISTA</span><i class="raya"></i></div>
+  <div class="dato" id="d4" style="right: 64px; top: 1280px;"><i class="raya"></i><span>BAT · GB · ESTADO</span></div>
+
+  <div class="carga" id="carga">
+    <div class="carga-fila"><span>CARGANDO STOCK</span><b id="pct">000%</b></div>
+    <div class="pista"><div id="barraCarga"></div></div>
+  </div>
+
+  <div class="revela" id="revela">
+    <div class="logo"><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+    <p>Equipos Swap y en caja sellada</p>
+  </div>
+  <div class="cierre" id="cierre">
+    <div class="titulo" id="cierreTitulo">Abrimos muy pronto.</div>
+    <div class="cta">Seguinos</div>
+    <div class="chico">Activá las notificaciones</div>
+  </div>
+
+  <div class="grano"></div>
+  <div class="destello" id="destello"></div>
+  <div class="telon" id="telon"></div>
+</div>
+
+<script src="datos.js"></script>
+<script type="module">
+import { crearTelefono } from "./telefono3d.js";
+
+const P = new URLSearchParams(location.search);
+const id = P.get("modelo") || "iphone-17-pro";
+const m = MODELOS[id];
+const colorId = P.get("color") || (id === "iphone-17-pro" ? "deepblue" : m.color);
+const $ = (s) => document.getElementById(s);
+if (P.get("fecha")) $("cierreTitulo").textContent = `Abrimos el ${P.get("fecha")}.`;
+
+// ---------------------------------------------------------------- línea de tiempo (10 s)
+const T = 10000, ANIMS = [];
+function linea(el, puntos) {
+  const fr = puntos.map(([t, p, e]) => ({ ...p, offset: t / T, easing: e || "linear" }));
+  if (fr[0].offset > 0) fr.unshift({ ...puntos[0][1], offset: 0 });
+  if (fr[fr.length - 1].offset < 1) fr.push({ ...puntos[puntos.length - 1][1], offset: 1 });
+  ANIMS.push(el.animate(fr, { duration: T, iterations: Infinity, fill: "both" }));
+}
+const salir = "cubic-bezier(.2,.8,.2,1)", golpe = "cubic-bezier(.34,1.56,.64,1)";
+const FLASH = 5600; // el destello que revela la marca
+
+// intriga
+linea($("barra"), [[0, { opacity: 0 }], [250, { opacity: 1 }], [FLASH, { opacity: 1 }], [FLASH + 1, { opacity: 0 }]]);
+linea($("rec"), Array.from({ length: 12 }, (_, i) => [i * 450, { opacity: i % 2 ? 0.15 : 1 }]));
+[...$("hook").children].forEach((el, i) => {
+  const t0 = 80 + i * 160;
+  linea(el, [[t0, { opacity: 0, transform: "translateY(50px)" }, golpe], [t0 + 360, { opacity: 1, transform: "none" }],
+             [2700, { opacity: 1, transform: "none" }, salir], [3000, { opacity: 0, transform: "translateY(-30px)" }]]);
+});
+// datos que aparecen mientras "carga"
+["d1", "d2", "d3", "d4"].forEach((d, i) => {
+  const t0 = 2900 + i * 550;
+  const lado = $(d).style.left ? -1 : 1;
+  linea($(d), [[t0, { opacity: 0, transform: `translateX(${lado * 60}px)` }, salir], [t0 + 320, { opacity: 1, transform: "none" }],
+               [FLASH, { opacity: 1, transform: "none" }], [FLASH + 1, { opacity: 0, transform: "none" }]]);
+});
+linea($("carga"), [[2700, { opacity: 0 }], [2950, { opacity: 1 }], [FLASH, { opacity: 1 }], [FLASH + 1, { opacity: 0 }]]);
+linea($("halo"), [[0, { opacity: 0.35 }], [FLASH, { opacity: 0.6 }], [FLASH + 200, { opacity: 1 }]]);
+
+// destello y revelación
+linea($("destello"), [[FLASH - 120, { opacity: 0 }], [FLASH, { opacity: 1 }], [FLASH + 260, { opacity: 0 }, salir]]);
+linea($("revela"), [[FLASH + 100, { opacity: 0, transform: "scale(1.15)" }, golpe], [FLASH + 500, { opacity: 1, transform: "none" }]]);
+[...$("cierre").children].forEach((el, i) => {
+  const t0 = FLASH + 700 + i * 220;
+  linea(el, [[t0, { opacity: 0, transform: "translateY(40px)" }, golpe], [t0 + 400, { opacity: 1, transform: "none" }]]);
+});
+// telón al final para que el loop vuelva a la oscuridad del comienzo
+linea($("telon"), [[9450, { opacity: 0 }], [9950, { opacity: 1 }], [T, { opacity: 1 }]]);
+
+// ---------------------------------------------------------------- equipo 3D, contador y reloj
+const tramo = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+const sal = (x) => 1 - Math.pow(1 - x, 3);
+function pose(t) {
+  if (t < FLASH) {
+    // en silueta: gira despacio, solo se ve el borde con el contraluz
+    const e = sal(tramo(t, 0, 1400));
+    return { giroY: -60 + 70 * (t / FLASH), giroX: 8, giroZ: -4, subir: -80 * (1 - e), escala: 0.9 + 0.05 * e };
+  }
+  // revelado: gira a 3/4 y queda flotando
+  const r = sal(tramo(t, FLASH, FLASH + 900));
+  const f = (t - FLASH) / 1000;
+  return { giroY: 10 - 32 * r + 5 * Math.sin(f * 1.4), giroX: 8 - 2 * r, giroZ: -4 + 2 * r, subir: 4 * Math.sin(f * 1.8), escala: 0.95 + 0.07 * r };
+}
+let tel = null;
+function dibujar(t) {
+  const pct = Math.round(100 * sal(tramo(t, 2800, 5450)));
+  $("pct").textContent = String(pct).padStart(3, "0") + "%";
+  $("barraCarga").style.transform = `scaleX(${pct / 100})`;
+  $("reloj").textContent = "00:0" + Math.min(9, Math.floor(t / 1000));
+  if (!tel) return;
+  tel.luz(tramo(t, FLASH - 40, FLASH + 300));
+  tel.pose(pose(t));
+  tel.render();
+}
+
+const inicio = performance.now();
+let enVivo = true;
+(function bucle() { if (!enVivo) return; dibujar((performance.now() - inicio) % T); requestAnimationFrame(bucle); })();
+
+const listoTel = crearTelefono($("lienzo3d"), m, colorId, { id, fotos: "assets/telefonos", distancia: 540, contraluz: "#8B6CFF", relleno: "#CCFF00" })
+  .then((t) => { tel = t; })
+  .catch((e) => console.error("No se pudo armar el 3D:", e));
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await document.fonts.ready; await listoTel; },
+  ir(ms) { enVivo = false; ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); dibujar(ms); },
+};
+</script>
+</body>
+</html>

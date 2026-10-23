@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Marca — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<!--
+  Archivos de marca Tech&Co. (Ruta B), 1080×1080:
+    ?pieza=avatar          foto de perfil: lima, logotipo apilado en tinta (Instagram la recorta en círculo)
+    ?pieza=avatar-hueso    foto de perfil: hueso, logotipo apilado en tinta
+    ?pieza=avatar-tinta    foto de perfil: tinta, logotipo apilado en hueso con "&" y punto lima
+    ?pieza=logotipo        logotipo horizontal sobre tinta
+    ?pieza=hoja            hoja de marca (logotipo, avatares y banda)
+  node exportar_video.js plantillas/marca.html "pieza=avatar&formato=cuadrado" salida/marca/avatar.png --cuadro 0
+-->
+<style>
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--tinta); }
+  section { display: none; position: relative; width: 1080px; height: 1080px; overflow: hidden; }
+  section.activa { display: block; }
+  .lima { background: var(--lima); color: var(--tinta); }
+  .hueso { background: var(--hueso); color: var(--tinta); }
+  .tinta { background: var(--tinta); color: var(--hueso); }
+  .centro { position: absolute; inset: 0; display: grid; place-items: center; }
+  .circ { border-radius: 50%; display: grid; place-items: center; flex: none; }
+  .rotulo { font-size: 18px; letter-spacing: .16em; color: var(--acero); }
+</style>
+</head>
+<body>
+
+<section id="avatar" class="lima"><div class="centro"><span class="logo-tc apilado" style="font-size: 360px;"><span>Tech</span><span>&amp;Co<i></i></span></span></div></section>
+<section id="avatar-hueso" class="hueso"><div class="centro"><span class="logo-tc apilado" style="font-size: 360px;"><span>Tech</span><span>&amp;Co<i></i></span></span></div></section>
+<section id="avatar-tinta" class="tinta"><div class="centro"><span class="logo-tc apilado" style="font-size: 360px;"><span>Tech</span><span><b>&amp;</b>Co<i></i></span></span></div></section>
+<section id="logotipo" class="tinta"><div class="centro"><span class="logo-tc" style="font-size: 270px;">Tech<b>&amp;</b>Co<i></i></span></div></section>
+
+<section id="hoja" class="tinta" style="display: none; flex-direction: column;">
+  <div class="mono rotulo" style="display: flex; justify-content: space-between; padding: 56px 64px 0;"><span>Ruta B</span><span>Solo logotipo</span></div>
+  <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 72px;">
+    <span class="logo-tc" style="font-size: 250px;">Tech<b>&amp;</b>Co<i></i></span>
+    <div style="display: flex; align-items: center; gap: 48px;">
+      <div class="circ" style="width: 260px; height: 260px; background: var(--hueso); color: var(--tinta);"><span class="logo-tc apilado plano" style="font-size: 96px;"><span>Tech</span><span>&amp;Co<i></i></span></span></div>
+      <div class="circ" style="width: 260px; height: 260px; background: var(--lima); color: var(--tinta);"><span class="logo-tc apilado plano" style="font-size: 96px;"><span>Tech</span><span>&amp;Co<i></i></span></span></div>
+      <div style="display: flex; flex-direction: column; gap: 18px; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 18px;">
+          <div class="circ" style="width: 80px; height: 80px; background: var(--hueso); color: var(--tinta);"><span class="logo-tc apilado plano" style="font-size: 29px;"><span>Tech</span><span>&amp;Co<i></i></span></span></div>
+          <div class="circ" style="width: 40px; height: 40px; background: var(--hueso); color: var(--tinta);"><span class="logo-tc apilado plano" style="font-size: 14.5px;"><span>Tech</span><span>&amp;Co<i></i></span></span></div>
+        </div>
+        <span class="mono rotulo" style="font-size: 15px; letter-spacing: .12em;">80 px · 40 px</span>
+      </div>
+    </div>
+  </div>
+  <div class="lima" style="height: 220px; display: flex; align-items: center; justify-content: space-between; padding: 0 64px;">
+    <span class="logo-tc" style="font-size: 120px;">Tech&amp;Co<i></i></span>
+    <div class="mono" style="font-size: 20px; letter-spacing: .14em; text-align: right; line-height: 1.5;">Equipos Swap<br>y sellados</div>
+  </div>
+</section>
+
+<script>
+const pieza = new URLSearchParams(location.search).get("pieza") || "hoja";
+const sec = document.getElementById(pieza) || document.getElementById("hoja");
+sec.classList.add("activa");
+if (sec.id === "hoja") sec.style.display = "flex";
+window.PLANTILLA = { duracion: 1000, async listo() { await document.fonts.ready; }, ir() {} };
+</script>
+</body>
+</html>

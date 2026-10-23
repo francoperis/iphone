@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Nuevo en caja sellada — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<!--
+  Flyer "Nuevo · caja sellada".
+  Historia (11 s): arranca con un video real de unboxing (clip libre de Coverr, armado en videos/clips/unboxing_vertical.mp4)
+  y "NUEVO." encima; una cortina tinta lo tapa y queda el equipo en 3D con el modelo, la capacidad, el color,
+  el sello "Nuevo · caja sellada" y "Saber más". El video va de fondo al exportar:
+    node exportar_video.js plantillas/sellado.html "modelo=iphone-17-pro&color=silver&gb=256" salida.mp4 --fondo videos/clips/unboxing_vertical.mp4
+  Post (1080×1350, imagen fija del último cuadro): solo la parte del equipo en 3D.
+    ?modelo=iphone-17-pro&color=silver&gb=256&formato=historia|post     (post: --cuadro 5999)
+  Precio: "consultar" (caja sellada).
+-->
+<style>
+  html, body { overflow: hidden; background: transparent; }
+  body { width: 1080px; height: 1920px; color: var(--hueso); font-family: var(--f-texto); }
+  body.post { height: 1350px; background: var(--tinta); }
+  .lienzo { position: relative; width: 1080px; height: 100%; overflow: hidden; }
+  canvas.tres { position: absolute; inset: 0; width: 1080px; height: 100%; }
+  .cabeza { left: var(--margen); right: var(--margen); display: flex; justify-content: space-between; align-items: center; font-size: var(--m-m); z-index: 3; }
+  .cabeza .logo-tc { font-size: var(--logo); }
+  /* parte 1: el video */
+  .sombra { position: absolute; left: 0; right: 0; top: 0; height: 560px; background: linear-gradient(rgba(10,10,11,.6), rgba(10,10,11,0)); }
+  .sombra.abajo { top: auto; bottom: 0; height: 900px; background: linear-gradient(rgba(10,10,11,0), rgba(10,10,11,.75)); }
+  .tituloVideo { left: 60px; bottom: 300px; font-size: var(--t-xl); text-shadow: 0 8px 40px rgba(0,0,0,.45); }
+  .tituloVideo b, .titular b { color: var(--lima); }
+  .bajadaVideo { left: var(--margen); bottom: 560px; font-size: var(--m-l); text-shadow: 0 2px 16px rgba(0,0,0,.6); }
+  /* parte 2: el equipo */
+  .cortina { position: absolute; inset: 0; background: var(--tinta); }
+  .modelo { color: var(--lima); font-size: var(--t-s); }
+  .disco { position: absolute; border-radius: 50%; background: var(--voltio); translate: -50% -50%; }
+  .sello { position: absolute; width: 250px; height: 250px; translate: -50% -50%; border-radius: 50%; background: var(--lima);
+           color: var(--tinta); display: grid; place-items: center; }
+  .sello svg { position: absolute; inset: 0; }
+  .sello .centro { font-size: 60px; line-height: .9; text-align: center; }
+  .dato { position: absolute; right: var(--margen); display: flex; flex-direction: column; align-items: flex-end; gap: 8px; text-align: right; }
+  .dato .v { font-size: var(--t-xs); line-height: var(--ih-titulo); }
+  .dato .k { font-size: var(--m-m); opacity: .75; }
+</style>
+</head>
+<body>
+<div class="lienzo" id="lienzo">
+  <div class="sombra" id="sombra"></div>
+  <div class="sombra abajo" id="sombraAbajo"></div>
+  <div class="abs texto bajadaVideo" id="bajadaVideo">En caja sellada</div>
+  <div class="abs titular tituloVideo" id="tituloVideo">Nuevo<b>.</b></div>
+
+  <div class="cortina" id="cortina"></div>
+  <div class="disco" id="disco"></div>
+  <canvas class="tres" id="tel"></canvas>
+  <div class="abs titular" id="titulo" style="font-size: var(--t-xl);">Nuevo<b>.</b></div>
+  <div class="abs titular modelo" id="modelo"></div>
+  <div class="sello" id="sello">
+    <svg viewBox="0 0 250 250" aria-hidden="true"><defs><path id="aro" d="M125,125 m-96,0 a96,96 0 1,1 192,0 a96,96 0 1,1 -192,0"/></defs>
+      <g id="giro" style="transform-origin: 125px 125px;"><text font-family="JetBrains Mono" font-weight="700" font-size="19" letter-spacing="5.2" fill="currentColor">
+        <textPath href="#aro">CAJA SELLADA · CAJA SELLADA · CAJA SELLADA ·</textPath></text></g></svg>
+    <span class="titular centro">Nuevo</span>
+  </div>
+  <div class="dato" id="datoGb"><span class="titular v" id="gb"></span><span class="texto k">Capacidad</span></div>
+  <div class="dato" id="datoColor"><span class="titular v" id="color"></span><span class="texto k">Color</span></div>
+  <div class="saber" id="saber" style="bottom: 190px;">
+    <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+    <div class="txt"><span class="v" style="color: var(--lima);">Consultá el precio</span><span class="k">Escribinos acá abajo</span></div>
+  </div>
+  <div class="abs cabeza mono" id="pie" style="bottom: var(--post-abajo);"><span>Precio: consultar</span><span>Link en la bio →</span></div>
+  <div class="abs cabeza mono" id="cabeza"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+</div>
+
+<script src="datos.js"></script>
+<script type="module">
+import { crearTelefono } from "./telefono3d.js";
+
+const P = new URLSearchParams(location.search);
+const id = P.get("modelo") || "iphone-17-pro";
+const m = MODELOS[id];
+const colorId = P.get("color") || m.color;
+const gb = Number(P.get("gb") || m.gb);
+const post = (P.get("formato") || "historia") === "post";
+if (post) document.body.classList.add("post");
+const $ = (s) => document.getElementById(s);
+const H = post ? 1350 : 1920;
+const K = 10; // 10 px por mm
+
+// TV = cuándo termina el video y empieza la parte del equipo (en el post no hay video)
+const TV = post ? 0 : 5300;
+const T = post ? 6000 : 11000;
+
+// medidas en px del lienzo; tel = centro y alto del equipo
+const L = post ? {
+  cabeza: 64, titulo: 130, modelo: 370, tel: { x: 470, y: 860, h: 640 }, sello: { x: 860, y: 520 }, gb: 760, color: 960,
+} : {
+  cabeza: 250, titulo: 330, modelo: 570, tel: { x: 470, y: 1130, h: 780 }, sello: { x: 860, y: 820 }, gb: 1030, color: 1250,
+};
+$("cabeza").style.top = L.cabeza + "px";
+Object.assign($("titulo").style, { left: "60px", top: L.titulo + "px" });
+Object.assign($("modelo").style, { left: "68px", top: L.modelo + "px" });
+$("modelo").textContent = m.nombre;
+$("gb").textContent = gb >= 1024 ? gb / 1024 + " TB" : gb + " GB";
+const nombreColor = m.colores[colorId].nombre;
+const pal = nombreColor.split(" ");
+// nombres largos ("Titanio del desierto") en dos renglones para no pisar el equipo
+$("color").innerHTML = pal.length > 2 ? pal.slice(0, Math.ceil(pal.length / 2)).join(" ") + "<br>" + pal.slice(Math.ceil(pal.length / 2)).join(" ") : nombreColor;
+$("datoGb").style.top = L.gb + "px";
+$("datoColor").style.top = L.color + "px";
+const dd = L.tel.h * 0.8;
+Object.assign($("disco").style, { left: L.tel.x + "px", top: L.tel.y + "px", width: dd + "px", height: dd + "px" });
+Object.assign($("sello").style, { left: L.sello.x + "px", top: L.sello.y + "px" });
+if (post) ["sombra", "sombraAbajo", "bajadaVideo", "tituloVideo", "saber"].forEach((x) => $(x).remove());
+else $("pie").remove();
+const cierre = $(post ? "pie" : "saber");
+
+// ---------------------------------------------------------------- línea de tiempo
+const ANIMS = [];
+function linea(el, puntos) {
+  const fr = puntos.map(([t, props, easing]) => ({ ...props, offset: t / T, easing: easing || "linear" }));
+  if (fr[0].offset > 0) fr.unshift({ ...puntos[0][1], offset: 0 });
+  if (fr[fr.length - 1].offset < 1) fr.push({ ...puntos[puntos.length - 1][1], offset: 1 });
+  ANIMS.push(el.animate(fr, { duration: T, fill: "both" }));
+}
+const salir = "cubic-bezier(.2,.8,.2,1)", rebote = "cubic-bezier(.34,1.56,.64,1)", cortar = "cubic-bezier(.7,0,.2,1)";
+const entra = (el, t, desde = "translateY(50px)") =>
+  linea(el, [[t, { opacity: 0, transform: desde }, salir], [t + 450, { opacity: 1, transform: "none" }]]);
+
+if (!post) {
+  // parte 1: sobre el video, cuando se levanta la tapa aparece "NUEVO."
+  entra($("bajadaVideo"), 1900, "translateY(30px)");
+  linea($("tituloVideo"), [[2100, { opacity: 0, transform: "translateY(80px)" }, salir], [2700, { opacity: 1, transform: "none" }],
+                           [TV - 300, { opacity: 1, transform: "none" }, cortar], [TV + 100, { opacity: 0, transform: "translateY(-60px)" }]]);
+  // la cortina tinta sube y tapa el video
+  linea($("cortina"), [[TV - 500, { clipPath: "inset(100% 0 0 0)" }, cortar], [TV + 100, { clipPath: "inset(0% 0 0 0)" }]]);
+}
+entra($("cabeza"), 0, "translateY(-30px)");
+entra($("titulo"), TV + 150);
+entra($("modelo"), TV + 350);
+linea($("disco"), [[TV + 300, { transform: "scale(0)" }, rebote], [TV + 900, { transform: "scale(1)" }]]);
+linea($("sello"), [[TV + 1700, { transform: "scale(0) rotate(-40deg)" }, rebote], [TV + 2200, { transform: "scale(1) rotate(-8deg)" }]]);
+ANIMS.push($("giro").animate([{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }], { duration: T, fill: "both" }));
+entra($("datoGb"), TV + 1900, "translateX(40px)");
+entra($("datoColor"), TV + 2100, "translateX(40px)");
+entra(cierre, TV + 2600);
+if (!post) ANIMS.push(cierre.querySelector(".baja").animate(
+  [{ transform: "translateY(0)" }, { transform: "translateY(18px)", offset: 0.5 }, { transform: "translateY(0)" }],
+  { duration: 900, iterations: Infinity, easing: "ease-in-out" }));
+
+// ---------------------------------------------------------------- equipo en 3D
+const tramo = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+const sal = (v) => 1 - Math.pow(1 - v, 3);
+const mezcla = (a, b, f) => a + (b - a) * f;
+let tel = null;
+function dibujar(t) {
+  if (!tel) return;
+  // durante el video el equipo 3D no se ve
+  $("tel").style.visibility = t < TV ? "hidden" : "visible";
+  const e = sal(tramo(t, TV + 200, TV + 1800)), flota = Math.sin(t / 700);
+  const { x, y, h } = L.tel;
+  const yy = mezcla(y + 300, y, e) + 6 * flota * e;
+  tel.pose({ correr: (x - 540) / K, subir: (H / 2 - yy) / K, escala: h / (m.tresd.medidas[1] * K),
+             giroY: mezcla(380, 18, e) + 5 * flota * e, giroX: 8 + 2 * flota, giroZ: mezcla(-14, -5, e) });
+  tel.luz(sal(tramo(t, TV + 100, TV + 1000)));
+  tel.render();
+}
+
+const inicio = performance.now();
+let enVivo = true;
+(function bucle() {
+  if (!enVivo) return;
+  dibujar((performance.now() - inicio) % T);
+  requestAnimationFrame(bucle);
+})();
+
+const distancia = H / (K * 2 * Math.tan(10 * Math.PI / 180));
+const listo3d = crearTelefono($("tel"), m, colorId, { fotos: "assets/telefonos", id, distancia, relleno: "#8B6CFF" })
+  .then((t) => { tel = t; }).catch((e) => console.error("No se pudo armar el 3D:", e));
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await document.fonts.ready; await listo3d; },
+  ir(ms) {
+    enVivo = false;
+    ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; });
+    dibujar(ms);
+  },
+};
+</script>
+</body>
+</html>

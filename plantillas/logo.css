@@ -1,0 +1,13 @@
+/* Logotipo Tech&Co. (Ruta B): Archivo 900 condensada, mayúsculas, "&" en lima y punto cuadrado.
+   Uso: <span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span>  ·  apilado (avatar):
+        <span class="logo-tc apilado"><span>Tech</span><span>&amp;Co<i></i></span></span>
+   Sobre fondos claros (lima / hueso) va en un solo color: clase "plano" (o automático dentro de .lima / .hueso). */
+.logo-tc { font-family: "Archivo", sans-serif; font-weight: 900; font-stretch: 62%; text-transform: uppercase;
+           letter-spacing: -0.02em; line-height: .8; display: inline-flex; align-items: flex-end; white-space: nowrap; }
+.logo-tc b { font-weight: 900; color: var(--lima, #CCFF00); }
+.logo-tc i { display: inline-block; flex: none; width: .184em; height: .184em; margin: 0 0 .016em .04em;
+             background: var(--lima, #CCFF00); font-style: normal; }
+.logo-tc.plano b, .lima .logo-tc b, .hueso .logo-tc b { color: inherit; }
+.logo-tc.plano i, .lima .logo-tc i, .hueso .logo-tc i { background: currentColor; }
+.logo-tc.apilado { flex-direction: column; align-items: center; line-height: .82; letter-spacing: -0.01em; }
+.logo-tc.apilado > span { display: flex; align-items: flex-end; }

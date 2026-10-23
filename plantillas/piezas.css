@@ -1,0 +1,33 @@
+/* Componentes de las piezas de Tech&Co. Los colores, tipografías y tamaños salen de identidad.css (cargarlo antes). */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.abs { position: absolute; }
+.titulo { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); line-height: var(--ih-titulo); }
+.mono { font-family: var(--f-texto); font-weight: 700; letter-spacing: var(--ls-texto); text-transform: uppercase; }
+.marca b { color: var(--voltio); font-weight: 900; }
+.tinta .marca b, .voltio .marca b { color: var(--lima); }
+.resalta { background: var(--voltio); padding: 0 .08em; position: relative; z-index: 0; }
+.resalta-lima { background: var(--lima); color: var(--tinta); padding: 0 .08em; }
+
+/* teléfono: left/top marcan el CENTRO del equipo, así las composiciones quedan centradas de verdad */
+.tel { position: absolute; translate: -50% -50%; filter: drop-shadow(0 40px 50px rgba(0, 0, 0, .45)); }
+
+/* etiquetas junto al equipo (callouts). Sin líneas ni flechas desde el teléfono (feedback 2026-10-23):
+   piezas.js las sigue calculando para ubicar la etiqueta, pero no se dibujan. */
+svg.trazos { display: none; }
+svg.trazos polyline { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: square; stroke-linejoin: miter; }
+svg.trazos .punto { fill: currentColor; }
+svg.trazos .aro { fill: none; stroke: currentColor; stroke-width: 3; }
+.etq { position: absolute; display: flex; flex-direction: column; gap: 8px; line-height: 1; }
+.etq .k { font-family: var(--f-texto); font-weight: 700; font-size: var(--m-m); letter-spacing: var(--ls-texto); text-transform: uppercase; opacity: .75; }
+.etq .v { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-xs); line-height: var(--ih-titulo); }
+.etq.der { align-items: flex-end; text-align: right; }
+.etq.centro { align-items: center; text-align: center; translate: -50% 0; }
+
+/* "Saber más": en historias no hay links, así que la flecha apunta a la casilla para responder la historia
+   (abajo a la izquierda). Ubicarlo con bottom ≈ 190px para que la flecha termine justo arriba de la casilla. */
+.saber { position: absolute; left: 72px; display: flex; align-items: flex-end; gap: 30px; }
+.saber .baja { flex: none; width: 76px; display: flex; justify-content: center; }
+.saber .txt { display: flex; flex-direction: column; gap: 12px; padding-bottom: 8px; }
+.saber .v { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-s); line-height: var(--ih-titulo); }
+.saber .k { font-family: var(--f-texto); font-weight: 700; font-size: var(--m-m); letter-spacing: var(--ls-texto); text-transform: uppercase; opacity: .75; }

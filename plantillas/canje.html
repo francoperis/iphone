@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Plan canje — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<!--
+  Plan canje animado (9 s): entra el equipo que entregás, se corre a un costado y entra girando el que te llevás.
+  Cierra con "Saber más" + flecha a la casilla de respuesta (historia) o una línea "Catálogo online · Link en la bio" (post). Teléfonos en 3D.
+    ?de=iphone-13&deColor=blue&a=iphone-17-pro&aColor=cosmicorange&formato=historia|post
+  formato=post (1080×1350) se exporta como imagen fija del último cuadro (--cuadro 8999).
+-->
+<style>
+  html, body { overflow: hidden; background: var(--voltio); }
+  body { width: 1080px; height: 1920px; color: var(--tinta); font-family: "JetBrains Mono", monospace; }
+  body.post { height: 1350px; }
+  .lienzo { position: relative; width: 1080px; height: 100%; overflow: hidden; background: var(--voltio); }
+  canvas.tres { position: absolute; inset: 0; width: 1080px; height: 100%; }
+  .cabeza { left: var(--margen); right: var(--margen); display: flex; justify-content: space-between; align-items: baseline; font-size: var(--m-m); }
+  .cabeza .logo-tc { font-size: var(--logo); }
+  .disco { position: absolute; border-radius: 50%; background: var(--lima); translate: -50% -50%; }
+  .flechaCanje { position: absolute; translate: -50% -50%; line-height: 0; }
+  .etq.nuevo .v span { background: var(--lima); padding: 0 .08em; }
+</style>
+</head>
+<body>
+<div class="lienzo voltio" id="lienzo">
+  <div class="abs cabeza mono" id="cabeza"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+  <div class="abs titulo t-l" id="titulo">Tu equipo<br>vale.</div>
+  <div class="abs mono" id="bajada" style="left: var(--margen); font-size: var(--m-l);">Entregalo como parte de pago</div>
+  <div class="disco" id="disco"></div>
+  <canvas class="tres" id="telViejo"></canvas>
+  <canvas class="tres" id="telNuevo"></canvas>
+  <div class="flechaCanje" id="flecha"><svg viewBox="0 0 90 48" width="90" height="48"><path d="M0 24h80M58 4l22 20-22 20" stroke="currentColor" stroke-width="9" fill="none"/></svg></div>
+  <div class="etq centro abs" id="etqA"><span class="k">Entregás</span><span class="v" id="nombreA"></span></div>
+  <div class="etq" id="etqViejo"><span class="k">Entregás</span><span class="v" id="nombreViejo"></span></div>
+  <div class="etq nuevo" id="etqNuevo"><span class="k">Te llevás</span><span class="v"><span id="nombreNuevo"></span></span></div>
+  <i class="co" id="coViejo"></i>
+  <i class="co" id="coNuevo"></i>
+  <div class="saber" id="saber" style="bottom: 190px;">
+    <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+    <div class="txt"><span class="v">Saber más</span><span class="k">Escribinos acá abajo</span></div>
+  </div>
+  <div class="abs cabeza mono" id="tarjeta"><span>Catálogo online</span><span>Link en la bio →</span></div>
+</div>
+
+<script src="datos.js"></script>
+<script src="piezas.js"></script>
+<script type="module">
+import { crearTelefono } from "./telefono3d.js";
+
+const P = new URLSearchParams(location.search);
+const idViejo = P.get("de") || "iphone-13", idNuevo = P.get("a") || "iphone-17-pro";
+const mV = MODELOS[idViejo], mN = MODELOS[idNuevo];
+const colorV = P.get("deColor") || mV.color, colorN = P.get("aColor") || mN.color;
+const post = (P.get("formato") || "historia") === "post";
+if (post) document.body.classList.add("post");
+const $ = (s) => document.getElementById(s);
+const H = post ? 1350 : 1920;
+
+// todas las medidas en px del lienzo; el 3D usa 10 px por mm
+const K = 10;
+const L = post ? {
+  cabeza: 64, titulo: 140, bajada: 465,
+  A: { x: 540, y: 800, h: 560 }, viejo: { x: 290, y: 790, h: 400 }, nuevo: { x: 740, y: 760, h: 520 },
+  lineas: 1090, tarjeta: { bottom: 60 },
+} : {
+  cabeza: 250, titulo: 330, bajada: 650,
+  A: { x: 540, y: 1110, h: 700 }, viejo: { x: 285, y: 1100, h: 500 }, nuevo: { x: 740, y: 1070, h: 680 },
+  lineas: 1450, tarjeta: { top: 1550 },
+};
+
+$("cabeza").style.top = L.cabeza + "px";
+Object.assign($("titulo").style, { left: "64px", top: L.titulo + "px" });
+$("bajada").style.top = L.bajada + "px";
+for (const [k, v] of Object.entries(L.tarjeta)) $("tarjeta").style[k] = v + "px";
+// en historias no hay links: "Saber más" apunta a la casilla de respuesta; en el post, la línea del catálogo
+$(post ? "saber" : "tarjeta").remove();
+const cierre = $(post ? "tarjeta" : "saber");
+$("nombreA").textContent = $("nombreViejo").textContent = mV.nombre;
+$("nombreNuevo").textContent = mN.nombre;
+
+const disco = $("disco"), dd = L.nuevo.h * 0.62;
+Object.assign(disco.style, { left: L.nuevo.x + "px", top: L.nuevo.y + "px", width: dd + "px", height: dd + "px" });
+Object.assign($("flecha").style, { left: (L.viejo.x + L.nuevo.x) / 2 + 2 + "px", top: (L.viejo.y + L.nuevo.y) / 2 + "px" });
+Object.assign($("etqA").style, { left: L.A.x + "px", top: L.A.y + L.A.h / 2 + 30 + "px" });
+
+// callouts del cierre: del pie de cada equipo hasta la etiqueta
+const pie = (p) => p.y + p.h / 2 + 34;
+$("coViejo").dataset.l = `${L.viejo.x},${pie(L.viejo)} v:${L.lineas}`;
+$("coNuevo").dataset.l = `${L.nuevo.x},${pie(L.nuevo)} v:${L.lineas}`;
+Object.assign($("coViejo").dataset, { etq: "etqViejo", pos: "bajo" });
+Object.assign($("coNuevo").dataset, { etq: "etqNuevo", pos: "bajo" });
+
+// ---------------------------------------------------------------- línea de tiempo
+const T = 9000;
+const ANIMS = [];
+function linea(el, puntos) {
+  const fr = puntos.map(([t, props, easing]) => ({ ...props, offset: t / T, easing: easing || "linear" }));
+  if (fr[0].offset > 0) fr.unshift({ ...puntos[0][1], offset: 0 });
+  if (fr[fr.length - 1].offset < 1) fr.push({ ...puntos[puntos.length - 1][1], offset: 1 });
+  ANIMS.push(el.animate(fr, { duration: T, fill: "both" }));
+}
+const salir = "cubic-bezier(.2,.8,.2,1)", rebote = "cubic-bezier(.34,1.56,.64,1)";
+const entra = (el, t, desde = "translateY(50px)") =>
+  linea(el, [[t, { opacity: 0, transform: desde }, salir], [t + 450, { opacity: 1, transform: "none" }]]);
+
+entra($("cabeza"), 0, "translateY(-30px)");
+entra($("titulo"), 120);
+entra($("bajada"), 400);
+linea($("etqA"), [[1300, { opacity: 0, transform: "translateY(30px)" }, salir], [1700, { opacity: 1, transform: "none" }],
+                  [3050, { opacity: 1, transform: "none" }, salir], [3300, { opacity: 0, transform: "translateY(20px)" }]]);
+linea(disco, [[4300, { transform: "scale(0)" }, rebote], [4900, { transform: "scale(1)" }]]);
+linea($("flecha"), [[4800, { opacity: 0, transform: "translateX(-40px)" }, salir], [5200, { opacity: 1, transform: "none" }]]);
+entra($("etqViejo"), 5400, "translateY(30px)");
+entra($("etqNuevo"), 5600, "translateY(30px)");
+entra(cierre, 6300);
+if (!post) ANIMS.push(cierre.querySelector(".baja").animate(
+  [{ transform: "translateY(0)" }, { transform: "translateY(18px)", offset: 0.5 }, { transform: "translateY(0)" }],
+  { duration: 900, iterations: Infinity, easing: "ease-in-out" }));
+
+// ---------------------------------------------------------------- pose de los teléfonos
+const tramo = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+const sal = (x) => 1 - Math.pow(1 - x, 3);
+const suave = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const mezcla = (a, b, f) => a + (b - a) * f;
+// px del lienzo -> pose 3D (mm); h = alto del equipo en px
+const aPose = (m, x, y, h) => ({ correr: (x - 540) / K, subir: (H / 2 - y) / K, escala: h / (m.tresd.medidas[1] * K) });
+
+function poseViejo(t) {
+  const e = sal(tramo(t, 300, 1500)), c = suave(tramo(t, 3200, 4300));
+  const flota = Math.sin(t / 700);
+  const x = mezcla(mezcla(-420, L.A.x, e), L.viejo.x, c);
+  const y = mezcla(L.A.y, L.viejo.y, c) + 6 * flota;
+  const h = mezcla(L.A.h, L.viejo.h, c);
+  return { ...aPose(mV, x, y, h), giroY: mezcla(-200, -18, e) + mezcla(4 * flota, -6, c), giroX: 8 + 2 * flota, giroZ: mezcla(-12, 0, e) + mezcla(0, -5, c) };
+}
+function poseNuevo(t) {
+  const e = sal(tramo(t, 3700, 5100));
+  const flota = Math.sin(t / 650 + 1);
+  const x = mezcla(1500, L.nuevo.x, e), y = L.nuevo.y + 6 * flota * e;
+  return { ...aPose(mN, x, y, L.nuevo.h), giroY: mezcla(400, 20, e) + 4 * flota * e, giroX: 8 + 2 * flota, giroZ: mezcla(14, 4, e) };
+}
+
+let viejo = null, nuevo = null;
+function dibujar(t) {
+  if (viejo) { viejo.pose(poseViejo(t)); viejo.luz(1 - 0.3 * tramo(t, 3300, 4300)); viejo.render(); }
+  if (nuevo) { nuevo.pose(poseNuevo(t)); nuevo.render(); }
+}
+
+const inicio = performance.now();
+let enVivo = true;
+(function bucle() {
+  if (!enVivo) return;
+  dibujar((performance.now() - inicio) % T);
+  requestAnimationFrame(bucle);
+})();
+
+const distancia = H / (K * 2 * Math.tan(10 * Math.PI / 180));
+const opciones = { fotos: "assets/telefonos", distancia, relleno: "#CCFF00" };
+const listos = Promise.all([
+  crearTelefono($("telViejo"), mV, colorV, { ...opciones, id: idViejo }).then((t) => { viejo = t; }),
+  crearTelefono($("telNuevo"), mN, colorN, { ...opciones, id: idNuevo }).then((t) => { nuevo = t; }),
+]).catch((e) => console.error("No se pudo armar el 3D:", e));
+
+const cargado = document.fonts.ready.then(() => {
+  const o = (ms) => ms / T;
+  for (const { el, linea: pl, t } of armarCallouts($("lienzo"))) {
+    pl.style.strokeDasharray = "1 1";
+    const t0 = 5200;
+    ANIMS.push(el.animate([{ offset: 0, opacity: 0 }, { offset: o(t0), opacity: 0 }, { offset: o(t0 + 120), opacity: 1 }, { offset: 1, opacity: 1 }], { duration: T, fill: "both" }));
+    ANIMS.push(pl.animate([{ offset: 0, strokeDashoffset: 1 }, { offset: o(t0), strokeDashoffset: 1, easing: salir },
+                           { offset: o(t0 + 500), strokeDashoffset: 0 }, { offset: 1, strokeDashoffset: 0 }], { duration: T, fill: "both" }));
+  }
+});
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await cargado; await listos; },
+  ir(ms) {
+    enVivo = false;
+    ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; });
+    dibujar(ms);
+  },
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Llegó — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<!--
+  Plantilla "Llegó" (equipo nuevo en stock). 1080×1920, loop de 10 s. Teléfono en 3D (telefono3d.js).
+  Parámetros por URL: ?modelo=iphone-17-pro&color=cosmicorange&formato=historia|post
+                      &bateria=92&estado=Impecable   (si faltan, quedan marcadores [__])
+  Se abre desde un servidor local (los módulos no cargan con file://):
+      python3 -m http.server   →   http://localhost:8000/plantillas/llego.html?modelo=iphone-13
+  La línea de tiempo es una sola (10 s) para que el loop sea limpio y para que
+  exportar_video.js pueda grabar cuadro por cuadro.
+-->
+<style>
+  :root {
+    /* colores de identidad.css con los nombres que usa esta plantilla */
+    --texto: var(--hueso); --acido: var(--lima); --gris: var(--acero);
+    --brillo: #CCFF00;
+    --W: 1080px; --H: 1920px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--tinta); }
+  body { width: var(--W); height: var(--H); overflow: hidden; color: var(--texto);
+         font-family: var(--f-texto); -webkit-font-smoothing: antialiased; }
+  body.post { --H: 1350px; }
+
+  .lienzo { position: relative; width: var(--W); height: var(--H); overflow: hidden; background: var(--tinta); }
+
+  /* luz detrás del equipo, tomada del color del equipo */
+  .luz { position: absolute; left: 50%; top: 49%; width: 1150px; height: 1150px; translate: -50% -50%;
+         background: radial-gradient(closest-side, color-mix(in srgb, var(--brillo) 36%, transparent), transparent 72%);
+         filter: blur(30px); opacity: 0; }
+
+  /* grano */
+  .grano { position: absolute; inset: -50%; pointer-events: none; opacity: .11; mix-blend-mode: overlay;
+           background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+  /* barra superior */
+  .barra { position: absolute; left: 72px; right: 72px; top: 150px; display: flex; justify-content: space-between;
+           align-items: center; font-family: "JetBrains Mono", monospace; font-size: 26px; letter-spacing: .14em;
+           text-transform: uppercase; }
+  .marca .logo-tc { font-size: 52px; }
+  .ingreso { display: flex; gap: 14px; align-items: center; color: var(--texto); }
+  .punto { width: 16px; height: 16px; border-radius: 50%; background: var(--acido); box-shadow: 0 0 18px var(--acido); }
+
+  /* nombre del modelo gigante */
+  .cabeza { position: absolute; left: 0; right: 0; top: 232px; text-align: center; }
+  .linea { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; font-size: var(--t-s); letter-spacing: var(--ls-titulo);
+           line-height: 1; color: var(--texto); }
+  .linea span { display: inline-block; }
+  .titulos { position: relative; margin-top: 4px; }
+  .titulo { white-space: nowrap; font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; font-size: var(--t-xxl);
+            line-height: .92; letter-spacing: var(--ls-titulo); padding: 0 20px; }
+  .titulo span { display: inline-block; }
+  .titulo.calado span { color: transparent; -webkit-text-stroke: 3px var(--texto); }
+  .titulo.lleno { position: absolute; inset: 0; color: var(--acido); clip-path: inset(0 100% 0 0); }
+
+  /* equipo 3D */
+  .escena { position: absolute; left: 0; right: 0; top: 470px; height: 960px; }
+  .escena canvas { width: 100%; height: 100%; display: block; }
+  .sombra { position: absolute; left: 50%; top: 1385px; width: 560px; height: 70px; translate: -50% 0;
+            background: radial-gradient(closest-side, rgba(0,0,0,.9), transparent); filter: blur(10px); }
+
+  /* sticker que gira */
+  .sticker { position: absolute; right: 64px; top: 640px; width: 240px; height: 240px; }
+  .sticker .disco { position: absolute; inset: 0; border-radius: 50%; background: var(--acido);
+                    box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+  .sticker svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .sticker text { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 21.5px; letter-spacing: .18em; fill: var(--tinta); }
+  .sticker .centro { position: absolute; inset: 0; display: grid; place-items: center; color: var(--tinta);
+                     font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; font-size: 52px; line-height: 1;
+                     letter-spacing: var(--ls-titulo); rotate: -8deg; }
+
+  /* ficha inferior */
+  .ficha { position: absolute; left: 72px; right: 72px; top: 1440px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0 18px; }
+  .chip { font-family: var(--f-texto); font-weight: 700; font-size: var(--m-m); letter-spacing: var(--ls-texto); text-transform: uppercase; }
+  .chip + .chip::before { content: "·"; margin-right: 18px; color: var(--gris); }
+  .chip.hueco { color: var(--gris); }
+  .chip.color { color: var(--acido); }
+  .fila { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 24px; }
+  .precio { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; line-height: .85; letter-spacing: var(--ls-titulo);
+            display: flex; align-items: flex-start; transform-origin: left bottom; }
+  .precio .signo { font-size: 64px; color: var(--acido); margin-right: 8px; margin-top: 8px; }
+  .precio .miles { font-size: var(--t-l); }
+  .precio .resto { font-size: var(--t-xs); margin-top: 10px; color: var(--gris); }
+  .cta { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 25px; letter-spacing: .1em;
+         text-transform: uppercase; text-align: right; line-height: 1.5; transform-origin: right center; }
+  .cta b { display: inline-block; margin-top: 8px; color: var(--acido);
+           font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; font-size: var(--t-xs); letter-spacing: var(--ls-titulo); }
+
+  /* telones de salida (loop limpio) */
+  .telon { position: absolute; inset: 0; }
+  .telon.verde { background: var(--acido); }
+  .telon.negro { background: var(--tinta); }
+
+  /* formato post 1080×1350 */
+  body.post .barra { top: 64px; }
+  body.post .cabeza { top: 120px; }
+  body.post .linea { font-size: 44px; }
+  body.post .titulo { font-size: 190px; }
+  body.post .escena { top: 330px; height: 700px; }
+  body.post .sombra { top: 990px; width: 420px; }
+  body.post .sticker { top: 420px; width: 200px; height: 200px; }
+  body.post .ficha { top: 1050px; }
+  body.post .fila { margin-top: 14px; }
+  body.post .precio .miles { font-size: 118px; }
+</style>
+</head>
+<body>
+<div class="lienzo" id="lienzo">
+  <div class="luz" id="luz"></div>
+
+  <div class="barra" id="barra">
+    <div class="marca" id="marca"></div>
+    <div class="ingreso"><span class="punto" id="punto"></span>Nuevo ingreso</div>
+  </div>
+
+  <div class="cabeza">
+    <div class="linea" id="linea"></div>
+    <div class="titulos">
+      <div class="titulo calado" id="tituloCalado"></div>
+      <div class="titulo lleno" id="tituloLleno"></div>
+    </div>
+  </div>
+
+  <div class="sombra" id="sombra"></div>
+  <div class="escena" id="escena"><canvas id="lienzo3d"></canvas></div>
+
+  <div class="sticker" id="sticker">
+    <div class="disco" id="disco">
+      <svg viewBox="0 0 250 250" aria-hidden="true">
+        <defs><path id="circulo" d="M125,125 m-98,0 a98,98 0 1,1 196,0 a98,98 0 1,1 -196,0"/></defs>
+        <text><textPath href="#circulo" id="textoSticker" textLength="612" lengthAdjust="spacing"></textPath></text>
+      </svg>
+    </div>
+    <div class="centro" id="centroSticker">Llegó</div>
+  </div>
+
+  <div class="ficha" id="ficha">
+    <div class="chips" id="chips"></div>
+    <div class="fila">
+      <div class="precio" id="precio"></div>
+      <div class="cta" id="cta">Mirá el<br><b>catálogo ↗</b></div>
+    </div>
+  </div>
+
+  <div class="grano"></div>
+  <div class="telon verde" id="telonVerde"></div>
+  <div class="telon negro" id="telonNegro"></div>
+</div>
+
+<script src="datos.js"></script>
+<script type="module">
+import { crearTelefono } from "./telefono3d.js";
+
+const P = new URLSearchParams(location.search);
+const id = P.get("modelo") || "iphone-17-pro";
+const m = MODELOS[id];
+const colorId = P.get("color") || m.color;
+const color = m.colores[colorId];
+const formato = P.get("formato") || "historia";
+if (formato === "post") document.body.classList.add("post");
+// CTA: en historias no hay links (Saber más → casilla de respuesta); en posts, link en la bio
+document.getElementById("cta").innerHTML = formato === "post" ? "Catálogo<br><b>Link en la bio →</b>" : "Escribinos acá abajo<br><b>Saber más ↓</b>";
+document.documentElement.style.setProperty("--brillo", color.brillo);
+
+const $ = (s) => document.getElementById(s);
+const letras = (txt) => [...txt].map((c) => (c === " " ? "<span>&nbsp;</span>" : `<span>${c}</span>`)).join("");
+
+$("marca").innerHTML = '<span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span>';
+// "iPhone 17 Pro" -> línea chica "iPhone" + gigante "17 PRO"
+const corto = m.nombre.replace(/^iPhone\s+/, "");
+$("linea").innerHTML = letras("iPhone");
+$("tituloCalado").innerHTML = letras(corto);
+$("tituloLleno").innerHTML = letras(corto);
+
+const bateria = P.get("bateria");
+const estado = P.get("estado");
+$("chips").innerHTML = [
+  `<span class="chip">${m.gb} GB</span>`,
+  `<span class="chip color">${color.nombre}</span>`,
+  `<span class="chip${bateria ? "" : " hueco"}">Batería ${bateria ? bateria : "[__]"}%</span>`,
+  `<span class="chip${estado ? "" : " hueco"}">${estado ? estado : "Estado [__]"}</span>`,
+].join("");
+
+const pr = partirPrecio(m.precio);
+$("precio").innerHTML = `<span class="signo">$</span><span class="miles">${pr.miles}</span><span class="resto">${pr.resto}</span>`;
+$("textoSticker").textContent = "NUEVO INGRESO ✦ " + MARCA.nombre.toUpperCase() + " ✦ ";
+
+// el nombre gigante se ajusta al ancho disponible (13 entra mucho más grande que 17 PRO)
+function ajustarTitulo() {
+  const max = formato === "post" ? 330 : 400, ancho = 1080 - 2 * 56;
+  for (const el of [$("tituloCalado"), $("tituloLleno")]) el.style.fontSize = "";
+  const base = parseFloat(getComputedStyle($("tituloCalado")).fontSize);
+  const r = document.createRange(); r.selectNodeContents($("tituloCalado"));
+  const w = r.getBoundingClientRect().width;
+  const tam = Math.min(max, base * ancho / w);
+  for (const el of [$("tituloCalado"), $("tituloLleno")]) el.style.fontSize = tam + "px";
+}
+
+// ---------------------------------------------------------------- línea de tiempo
+const T = 10000;
+const SALIDA = 8800;
+const ANIMS = [];
+function linea(el, puntos, opciones = {}) {
+  const fr = puntos.map(([t, props, easing]) => ({ ...props, offset: t / T, easing: easing || "linear" }));
+  if (fr[0].offset > 0) fr.unshift({ ...puntos[0][1], offset: 0 });
+  if (fr[fr.length - 1].offset < 1) fr.push({ ...puntos[puntos.length - 1][1], offset: 1 });
+  const a = el.animate(fr, { duration: T, iterations: Infinity, fill: "both", ...opciones });
+  ANIMS.push(a);
+  return a;
+}
+const salir = "cubic-bezier(.2,.8,.2,1)";
+const rebote = "cubic-bezier(.34,1.56,.64,1)";
+
+[...$("linea").children].forEach((s, i) => {
+  const t0 = 60 + i * 35;
+  linea(s, [[t0, { transform: "translateY(60%)", opacity: 0 }, salir], [t0 + 420, { transform: "none", opacity: 1 }]]);
+});
+[...$("tituloCalado").children].forEach((s, i) => {
+  const t0 = 160 + i * 70;
+  linea(s, [[t0, { transform: "translateY(-120%) rotate(-8deg)", opacity: 0 }, rebote],
+            [t0 + 620, { transform: "translateY(0) rotate(0)", opacity: 1 }]]);
+});
+linea($("tituloLleno"), [
+  [900, { clipPath: "inset(0 100% 0 0)" }, salir], [1500, { clipPath: "inset(0 0% 0 0)" }],
+  [3600, { clipPath: "inset(0 0% 0 0)" }, salir], [4200, { clipPath: "inset(0 0% 0 100%)" }],
+  [5600, { clipPath: "inset(0 100% 0 0)" }, salir], [6200, { clipPath: "inset(0 0% 0 0)" }],
+]);
+
+linea($("barra"), [[0, { opacity: 0, transform: "translateY(-30px)" }, salir], [600, { opacity: 1, transform: "none" }]]);
+linea($("punto"), Array.from({ length: 17 }, (_, i) => [i * 500, { opacity: i % 2 ? 0.2 : 1 }]));
+linea($("luz"), [[300, { opacity: 0, transform: "scale(.6)" }, salir], [1500, { opacity: 1, transform: "scale(1)" }],
+                 [5000, { opacity: .75, transform: "scale(1.08)" }], [8000, { opacity: 1, transform: "scale(1)" }]]);
+linea($("escena"), [[350, { opacity: 0 }, salir], [800, { opacity: 1 }]]);
+linea($("sombra"), [[500, { opacity: 0 }, salir], [1500, { opacity: 1 }]]);
+
+linea($("sticker"), [[2500, { transform: "scale(0) rotate(-90deg)" }, rebote], [3000, { transform: "scale(1) rotate(0deg)" }]]);
+ANIMS.push($("disco").animate([{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }], { duration: T, iterations: Infinity }));
+
+[...$("chips").children].forEach((c, i) => {
+  const t0 = 1750 + i * 110;
+  linea(c, [[t0, { opacity: 0, transform: "translateY(24px) scale(.9)" }, salir], [t0 + 420, { opacity: 1, transform: "none" }]]);
+});
+linea($("precio"), [[2300, { opacity: 0, transform: "scale(1.6)", filter: "blur(8px)" }, rebote],
+                    [2750, { opacity: 1, transform: "scale(1)", filter: "blur(0px)" }]]);
+linea($("cta"), [[2900, { opacity: 0, transform: "translateX(40px)" }, salir], [3350, { opacity: 1, transform: "none" }],
+                 [6000, { opacity: 1, transform: "scale(1)" }, rebote], [6250, { opacity: 1, transform: "scale(1.08)" }, salir],
+                 [6600, { opacity: 1, transform: "scale(1)" }]]);
+
+linea($("telonVerde"), [[SALIDA, { transform: "translateY(100%)" }, "cubic-bezier(.7,0,.3,1)"],
+                        [SALIDA + 520, { transform: "translateY(0)" }], [SALIDA + 760, { transform: "translateY(0)" }, "cubic-bezier(.7,0,.3,1)"],
+                        [SALIDA + 1100, { transform: "translateY(-100%)" }]]);
+linea($("telonNegro"), [[SALIDA + 260, { transform: "translateY(100%)" }, "cubic-bezier(.7,0,.3,1)"],
+                        [SALIDA + 780, { transform: "translateY(0)" }], [T - 1, { transform: "translateY(0)" }],
+                        [T, { transform: "translateY(100%)" }]]);
+
+// ---------------------------------------------------------------- pose del teléfono en el tiempo
+const sal = (x) => 1 - Math.pow(1 - x, 3);
+const tramo = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+function pose(t) {
+  // entrada (350–1700 ms): sube desde abajo girando
+  const e = sal(tramo(t, 350, 1700));
+  const amp = tramo(t, 1500, 2400);
+  // 4,6–6,4 s: vuelta completa para mostrar el canto, el grosor y la pantalla
+  const v = tramo(t, 4600, 6400);
+  const vuelta = 360 * (v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2);
+  // inclinación: a la izquierda antes de la vuelta, a la derecha después
+  const lado = -34 + 58 * tramo(t, 4600, 6400);
+  const f = Math.max(0, t - 1700) / 1000;
+  return {
+    giroY: -300 * (1 - e) + amp * (lado + 6 * Math.sin(f * 1.1)) + vuelta,
+    giroX: (1 - e) * 20 + amp * (8 + 4 * Math.sin(f * 0.8)),
+    giroZ: amp * (-5 + 9 * tramo(t, 4600, 6400) + 1.5 * Math.sin(f * 0.6)),
+    subir: -260 * (1 - e) + amp * 6 * Math.sin(f * 1.3),
+    escala: 0.8 + 0.2 * e,
+  };
+}
+
+let tel = null;
+function dibujar(t) { if (tel) { tel.pose(pose(t)); tel.render(); } }
+
+const inicio = performance.now();
+let enVivo = true;
+(function bucle() {
+  if (!enVivo) return;
+  dibujar((performance.now() - inicio) % T);
+  requestAnimationFrame(bucle);
+})();
+
+const listoTel = crearTelefono($("lienzo3d"), m, colorId, { id, fotos: "assets/telefonos", distancia: formato === "post" ? 560 : 520 })
+  .then((t) => { tel = t; })
+  .catch((e) => console.error("No se pudo armar el 3D:", e));
+
+// API para exportar_video.js
+window.PLANTILLA = {
+  duracion: T,
+  async listo() {
+    await document.fonts.ready;
+    ajustarTitulo();
+    await listoTel;
+  },
+  ir(ms) {
+    enVivo = false;
+    ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; });
+    dibujar(ms);
+  },
+};
+document.fonts.ready.then(ajustarTitulo);
+</script>
+</body>
+</html>

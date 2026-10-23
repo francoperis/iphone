@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Apertura — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<!--
+  Apertura de la cuenta, estilo "Manifiesto". Una pieza por vez:
+    ?pieza=post1 … post6     carrusel 1080×1350 (imagen fija)
+    ?pieza=story1 … story6   historias 1080×1920, animadas 6 s
+    &abrimos=a|b             post1 / story1: la palabra detrás del equipo (a) o encima (b)
+  La lámina 5 y la historia 5 (plan canje) salen de canje.html (animación 3D: entregás uno viejo, te llevás uno nuevo).
+  Los teléfonos se ubican por su CENTRO (left/top). Los callouts (<i class="co">) los dibuja piezas.js.
+  En las historias, los elementos .e entran en el ms de data-t (y salen en data-hasta si lo tienen).
+-->
+<style>
+  html, body { overflow: hidden; background: var(--tinta); }
+  body.post { width: 1080px; height: 1350px; }
+  body.story { width: 1080px; height: 1920px; }
+  section { display: none; position: relative; width: 1080px; overflow: hidden; color: var(--hueso);
+            font-family: "JetBrains Mono", monospace; }
+  section.activa { display: block; }
+  body.post section { height: 1350px; }
+  body.story section { height: 1920px; }
+
+  .tinta { background: var(--tinta); } .hueso { background: var(--hueso); color: var(--tinta); }
+  .lima { background: var(--lima); color: var(--tinta); } .voltio { background: var(--voltio); color: var(--tinta); }
+  .grilla { background-image: linear-gradient(rgba(204,255,0,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(204,255,0,.06) 1px, transparent 1px);
+            background-size: 54px 54px; }
+  .cabeza { left: var(--margen); right: var(--margen); display: flex; justify-content: space-between; align-items: baseline; font-size: var(--m-m); }
+  .cabeza .logo-tc { font-size: var(--logo); }
+  .circulo { border-radius: 50%; display: grid; place-items: center; }
+
+  /* ABRIMOS: una sola palabra gigante y el equipo flotando. Dos pruebas (?abrimos=a|b):
+     a = la palabra detrás y el equipo flotando adelante · b = el equipo detrás y la palabra encima */
+  .abrimos { left: 0; right: 0; text-align: center; white-space: nowrap; font-size: var(--t-xl); }
+  #post1 .abrimos { top: 560px; } #post1 #p1 { left: 540px; top: 760px; height: 720px; rotate: 8deg; }
+  #story1 .abrimos { top: 790px; } #story1 #s1 { left: 540px; top: 1010px; height: 860px; rotate: 8deg; }
+  body.abrimos-b #post1 .abrimos { top: 800px; z-index: 2; } body.abrimos-b #post1 #p1 { top: 640px; height: 800px; rotate: -8deg; }
+  body.abrimos-b #story1 .abrimos { top: 1130px; z-index: 2; } body.abrimos-b #story1 #s1 { top: 900px; height: 960px; rotate: -8deg; }
+
+  /* "3 pasos": línea de tiempo vertical, sin cajas */
+  .pasos { left: 72px; right: 72px; }
+  .pasos::before { content: ""; position: absolute; left: 34px; top: 40px; bottom: 40px; width: 3px; background: var(--acero); }
+  .paso { position: relative; display: flex; gap: 40px; align-items: flex-start; }
+  .paso + .paso { margin-top: 64px; }
+  .paso b { flex: none; width: 72px; height: 72px; border-radius: 50%; background: var(--lima); color: var(--tinta); display: grid; place-items: center;
+            font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; font-size: 44px; }
+  .paso span { display: block; font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; letter-spacing: var(--ls-titulo); font-size: var(--t-xs); line-height: var(--ih-titulo); }
+  .paso small { display: block; margin-top: 14px; font-weight: 700; font-size: var(--m-l); letter-spacing: .04em; color: var(--acero); }
+</style>
+</head>
+<body>
+
+<!-- ======================= CARRUSEL (1080×1350) ======================= -->
+
+<section id="post1" class="lima">
+  <div class="abs cabeza mono" style="top: 64px;"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+  <div class="abs titulo abrimos">Abrimos.</div>
+  <img class="tel" id="p1" src="assets/fotos3d/17pro-azul-izq.webp" alt="iPhone 17 Pro azul profundo">
+  <div class="abs cabeza mono" style="bottom: 60px;"><span>Deslizá →</span><span>Swap · Caja sellada</span></div>
+</section>
+
+<section id="post2" class="hueso">
+  <div class="abs cabeza mono" style="top: 64px;"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+  <div class="abs titulo" style="left: 64px; top: 150px; font-size: var(--t-l);"><span style="position: relative; z-index: 1;">Lo mejor,<br>a tu</span><br><span class="resalta">alcance.</span></div>
+  <img class="tel" id="p2a" src="assets/fotos3d/13-rosa.webp" alt="iPhone 13 rosa" style="left: 370px; top: 890px; height: 540px; rotate: -6deg;">
+  <img class="tel" id="p2b" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 710px; top: 890px; height: 560px; rotate: 6deg;">
+  <i class="co" data-l="@p2a:0.5:0.985 v:1200" data-etq="p2c" data-pos="bajo"></i>
+  <div class="etq" id="p2c"><span class="v">Swap</span></div>
+  <i class="co" data-l="@p2b:0.5:0.985 v:1200" data-etq="p2d" data-pos="bajo"></i>
+  <div class="etq" id="p2d"><span class="v">Sellado</span></div>
+</section>
+
+<section id="post3" class="tinta grilla">
+  <div class="abs cabeza mono" style="top: 64px; color: var(--lima);"><span></span><span class="logo-tc" style="color: var(--hueso);">Tech<b>&amp;</b>Co<i></i></span></div>
+  <div class="abs titulo" style="left: 0; right: 0; top: 150px; text-align: center; font-size: var(--t-xxl); color: var(--lima);">X→18</div>
+  <div class="abs titulo" style="left: 0; right: 0; top: 500px; text-align: center; font-size: var(--t-m);">Del X al 18 Pro Max.</div>
+  <img class="tel" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 300px; top: 930px; height: 460px; rotate: -10deg;">
+  <img class="tel" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 460px; top: 915px; height: 490px; rotate: -3deg;">
+  <img class="tel" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 620px; top: 915px; height: 490px; rotate: 3deg;">
+  <img class="tel" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 780px; top: 930px; height: 460px; rotate: 10deg;">
+  <div class="abs mono" style="left: 0; right: 0; bottom: 64px; text-align: center; font-size: var(--m-s); color: var(--acero);">X · XS · 11 · SE · 12 · 13 · 14 · 15 · 16 · 17 · Air · 18</div>
+</section>
+
+<section id="post4" class="lima">
+  <div class="abs cabeza mono" style="top: 64px;"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+  <div class="abs titulo" style="left: 64px; top: 150px; font-size: var(--t-l);">Todo<br>a la vista.</div>
+  <img class="tel" id="p4" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 540px; top: 860px; height: 640px;">
+  <i class="co" data-l="@p4:0.09:0.34 h:72" data-etq="p4a" data-pos="sobre-izq"></i>
+  <div class="etq chica" id="p4a"><span class="v">Batería</span><span class="k">% real</span></div>
+  <i class="co" data-l="@p4:0.09:0.74 h:72" data-etq="p4b" data-pos="sobre-izq"></i>
+  <div class="etq chica" id="p4b"><span class="v">Capacidad</span><span class="k">GB</span></div>
+  <i class="co" data-l="@p4:0.91:0.27 h:1008" data-etq="p4c" data-pos="sobre-der"></i>
+  <div class="etq chica" id="p4c"><span class="v">Color</span><span class="k">el real</span></div>
+  <i class="co" data-l="@p4:0.91:0.66 h:1008" data-etq="p4d" data-pos="sobre-der"></i>
+  <div class="etq chica" id="p4d"><span class="v">Estado</span><span class="k">detallado</span></div>
+  <div class="abs cabeza mono" style="bottom: 60px;"><span>Antes de que preguntes.</span><span></span></div>
+</section>
+
+<section id="post6" class="tinta">
+  <div class="abs cabeza mono" style="top: 64px; color: var(--lima);"><span></span><span class="logo-tc" style="color: var(--hueso);">Tech<b>&amp;</b>Co<i></i></span></div>
+  <div class="abs titulo" style="left: 64px; top: 150px; font-size: var(--t-l);">3 pasos<br>y es tuyo.</div>
+  <div class="abs pasos" style="top: 540px;">
+    <div class="paso"><b>1</b><div><span>Elegilo</span><small>En el catálogo online</small></div></div>
+    <div class="paso"><b>2</b><div><span>Tocá «Lo quiero»</span><small>Se abre WhatsApp con el mensaje listo</small></div></div>
+    <div class="paso"><b>3</b><div><span>Es tuyo</span><small>Retiro en [ZONA] · Envíos [__]</small></div></div>
+  </div>
+  <div class="abs cabeza mono" style="bottom: 60px;"><span>Catálogo online</span><span>Link en la bio →</span></div>
+</section>
+
+<!-- ======================= HISTORIAS (1080×1920, 6 s) ======================= -->
+<!-- Zona segura de Instagram: nada importante arriba de 250 px ni debajo de 1700 px.
+     Las historias cierran con "Saber más" + flecha a la casilla de respuesta (no hay links en historias). -->
+
+<section id="story1" class="tinta grilla">
+  <div class="abs titulo e" data-t="0" data-hasta="900" style="left: 0; right: 0; top: 600px; text-align: center; font-size: var(--t-cuenta); color: var(--hueso);">3</div>
+  <div class="abs titulo e" data-t="900" data-hasta="1800" style="left: 0; right: 0; top: 600px; text-align: center; font-size: var(--t-cuenta); color: var(--voltio);">2</div>
+  <div class="abs titulo e" data-t="1800" data-hasta="2700" style="left: 0; right: 0; top: 600px; text-align: center; font-size: var(--t-cuenta); color: var(--lima);">1</div>
+  <div class="abs e lima" data-t="2700" style="inset: 0;"></div>
+  <div class="abs titulo abrimos e" data-t="2800" style="color: var(--tinta);">Abrimos.</div>
+  <img class="tel e" id="s1" data-t="3100" src="assets/fotos3d/17pro-azul-izq.webp" alt="iPhone 17 Pro azul profundo">
+  <div class="abs mono e" data-t="4300" style="left: 0; right: 0; top: 1640px; text-align: center; font-size: var(--m-l); color: var(--tinta);">Hoy arranca Tech&amp;Co.</div>
+</section>
+
+<section id="story2" class="hueso">
+  <div class="abs circulo titulo e" data-t="150" style="left: 72px; top: 320px; width: 200px; height: 200px; background: var(--lima); color: var(--tinta); box-shadow: 0 0 0 10px var(--hueso), 0 0 0 16px var(--voltio);"><span class="logo-tc apilado plano" style="font-size: 74px;"><span>Tech</span><span>&amp;Co<i></i></span></span></div>
+  <div class="abs titulo e" data-t="400" style="left: 64px; top: 570px; font-size: var(--t-l);"><span style="position: relative; z-index: 1;">Lo mejor,<br>a tu</span><br><span class="resalta">alcance.</span></div>
+  <img class="tel e" id="s2a" data-t="1000" src="assets/fotos3d/13-rosa.webp" alt="iPhone 13 rosa" style="left: 370px; top: 1290px; height: 500px; rotate: -6deg;">
+  <img class="tel e" id="s2b" data-t="1200" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 710px; top: 1290px; height: 520px; rotate: 6deg;">
+  <i class="co" data-l="@s2a:0.5:0.985 v:1600" data-etq="s2c" data-pos="bajo" data-t="1600"></i>
+  <div class="etq e" id="s2c" data-t="1800"><span class="v">Swap</span></div>
+  <i class="co" data-l="@s2b:0.5:0.985 v:1600" data-etq="s2d" data-pos="bajo" data-t="1800"></i>
+  <div class="etq e" id="s2d" data-t="2000"><span class="v">Sellado</span></div>
+</section>
+
+<section id="story3" class="lima">
+  <div class="abs titulo e" data-t="150" style="left: 64px; top: 320px; font-size: var(--t-l);">¿Qué<br>buscás?</div>
+  <!-- espacio libre (650–930 px) para el sticker de encuesta de Instagram: Swap / Sellado -->
+  <img class="tel e" id="s3a" data-t="600" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 370px; top: 1250px; height: 520px; rotate: -6deg;">
+  <img class="tel e" id="s3b" data-t="800" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 710px; top: 1250px; height: 540px; rotate: 6deg;">
+  <i class="co" data-l="@s3a:0.5:0.985 v:1580" data-etq="s3c" data-pos="bajo" data-t="1100"></i>
+  <div class="etq e" id="s3c" data-t="1300"><span class="v">Swap</span></div>
+  <i class="co" data-l="@s3b:0.5:0.985 v:1580" data-etq="s3d" data-pos="bajo" data-t="1300"></i>
+  <div class="etq e" id="s3d" data-t="1500"><span class="v">Sellado</span></div>
+</section>
+
+<section id="story4" class="tinta grilla">
+  <div class="abs titulo e" data-t="150" style="left: 0; right: 0; top: 300px; text-align: center; font-size: var(--t-xxl); color: var(--lima);">X→18</div>
+  <div class="abs titulo e" data-t="500" style="left: 0; right: 0; top: 660px; text-align: center; font-size: var(--t-m);">Del X al<br>18 Pro Max.</div>
+  <img class="tel e" data-t="900" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 300px; top: 1210px; height: 500px; rotate: -10deg;">
+  <img class="tel e" data-t="1050" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 460px; top: 1195px; height: 530px; rotate: -3deg;">
+  <img class="tel e" data-t="1200" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 620px; top: 1195px; height: 530px; rotate: 3deg;">
+  <img class="tel e" data-t="1350" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 780px; top: 1210px; height: 500px; rotate: 10deg;">
+  <div class="abs mono e" data-t="1600" style="left: 0; right: 0; top: 1580px; text-align: center; font-size: var(--m-l); color: var(--acero);">Todo a la vista</div>
+</section>
+
+<section id="story6" class="tinta">
+  <div class="abs circulo titulo e" data-t="0" style="left: 50%; top: 290px; translate: -50% 0; width: 240px; height: 240px; background: var(--lima); color: var(--tinta); box-shadow: 0 0 0 12px var(--tinta), 0 0 0 20px var(--voltio);"><span class="logo-tc apilado plano" style="font-size: 89px;"><span>Tech</span><span>&amp;Co<i></i></span></span></div>
+  <div class="abs titulo e" data-t="300" style="left: 0; right: 0; top: 590px; text-align: center; font-size: var(--t-l);">¿Hay uno<br>para vos?</div>
+  <img class="tel e" data-t="900" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 340px; top: 1180px; height: 440px; rotate: -10deg;">
+  <img class="tel e" data-t="1050" src="assets/fotos3d/16pro-desierto.webp" alt="iPhone 16 Pro titanio del desierto" style="left: 740px; top: 1180px; height: 440px; rotate: 10deg;">
+  <img class="tel e" data-t="1200" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 540px; top: 1150px; height: 480px;">
+  <!-- en historias no hay links: la flecha apunta a la casilla para responder -->
+  <div class="saber e" data-t="1700" style="bottom: 190px; color: var(--hueso);">
+    <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+    <div class="txt"><span class="v" style="color: var(--lima);">Saber más</span><span class="k">Escribinos acá abajo</span></div>
+  </div>
+</section>
+
+<script src="piezas.js"></script>
+<script>
+const P = new URLSearchParams(location.search);
+const id = P.get("pieza") || "post1";
+const esStory = id.startsWith("story");
+document.body.classList.add(esStory ? "story" : "post");
+const sec = document.getElementById(id);
+const variante = P.get("abrimos") === "b" ? "b" : "a";
+document.body.classList.add("abrimos-" + variante);
+// en la prueba b la palabra va encima del equipo: un equipo claro para que la letra se lea
+if (variante === "b") for (const t of ["p1", "s1"]) { const im = document.getElementById(t); im.src = "assets/fotos3d/17pro-plata-frente.webp"; im.alt = "iPhone 17 Pro plata"; }
+sec.classList.add("activa");
+
+const T = esStory ? 6000 : 1000;
+const ANIMS = [];
+const golpe = "cubic-bezier(.34,1.56,.64,1)";
+
+function animarEntradas() {
+  sec.querySelectorAll(".e").forEach((el) => {
+    const t0 = Number(el.dataset.t || 0), hasta = el.dataset.hasta ? Number(el.dataset.hasta) : null;
+    const fr = [
+      { offset: 0, opacity: 0, transform: "translateY(60px) scale(.96)" },
+      { offset: t0 / T, opacity: 0, transform: "translateY(60px) scale(.96)", easing: golpe },
+      { offset: Math.min(1, (t0 + 420) / T), opacity: 1, transform: "translateY(0) scale(1)" },
+    ];
+    if (hasta !== null) {
+      fr.push({ offset: (hasta - 120) / T, opacity: 1, transform: "scale(1)" });
+      fr.push({ offset: hasta / T, opacity: 0, transform: "scale(1.15)" });
+    }
+    if (fr[fr.length - 1].offset < 1) fr.push({ ...fr[fr.length - 1], offset: 1 });
+    ANIMS.push(el.animate(fr, { duration: T, fill: "both" }));
+  });
+}
+
+// el trazo del callout se dibuja desde el teléfono hacia la etiqueta
+function animarTrazos(trazos) {
+  const o = (ms) => Math.min(1, ms / T);
+  for (const { el, linea, t } of trazos) {
+    linea.style.strokeDasharray = "1 1";
+    ANIMS.push(el.animate([{ offset: 0, opacity: 0 }, { offset: o(t), opacity: 0 }, { offset: o(t + 120), opacity: 1 }, { offset: 1, opacity: 1 }],
+                          { duration: T, fill: "both" }));
+    ANIMS.push(linea.animate([{ offset: 0, strokeDashoffset: 1 }, { offset: o(t), strokeDashoffset: 1, easing: "cubic-bezier(.2,.8,.2,1)" },
+                              { offset: o(t + 500), strokeDashoffset: 0 }, { offset: 1, strokeDashoffset: 0 }], { duration: T, fill: "both" }));
+  }
+}
+
+const cargado = Promise.all([document.fonts.ready, ...[...sec.querySelectorAll("img")].map((i) =>
+  i.complete ? null : new Promise((r) => { i.onload = r; i.onerror = r; }))]).then(() => {
+  const trazos = armarCallouts(sec);
+  if (esStory) {
+    animarEntradas(); animarTrazos(trazos);
+    sec.querySelectorAll(".saber .baja").forEach((f) => ANIMS.push(f.animate(
+      [{ transform: "translateY(0)" }, { transform: "translateY(18px)", offset: 0.5 }, { transform: "translateY(0)" }],
+      { duration: 900, iterations: Infinity, easing: "ease-in-out" })));
+  }
+});
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await cargado; },
+  ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
+};
+</script>
+</body>
+</html>
