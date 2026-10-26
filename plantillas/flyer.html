@@ -14,6 +14,7 @@
   Flyer "qué vendemos": post 1080×1350 (imagen fija) o historia 1080×1920 (&formato=historia, video de 6 s; la B, 8 s y más lenta
   con entradas escalonadas; en vez del pie cierra con "Saber más" + flecha a la casilla de respuesta).
     ?opcion=a   Los mejores en iPhone Swap americanos (tinta), con «¿Qué es un Swap?» y «¿Por qué americanos?»
+    ?opcion=c   Samsung y Xiaomi nuevos en caja sellada (hueso): modelos y almacenamiento/RAM, sin precios ni colores.
     ?opcion=b   Qué vendemos: tres secciones (iPhone Swap · iPhone sellados · Samsung y Xiaomi) sobre lima.
                 Va después de la A (carrusel): no repite las explicaciones de la A.
   node exportar_video.js plantillas/flyer.html "opcion=a&formato=post" salida.png --cuadro 0
@@ -57,6 +58,21 @@
   #b .fila .fotos img { height: 230px; filter: drop-shadow(0 14px 16px rgba(10,10,11,.25)); }
   #b .fila .nombre { font-size: var(--t-s); }
   #b .fila .det { font-size: var(--m-m); }
+
+  /* ---- opción C · Samsung y Xiaomi (hueso) ---- */
+  .hueso { background: var(--hueso); color: var(--tinta); }
+  .hueso .saber { color: var(--tinta); }
+  .hueso .saber .v { color: var(--voltio); }
+  #c .previa { left: var(--margen); top: 140px; font-size: var(--m-l); color: var(--voltio); }
+  #c .grande { left: 64px; top: 186px; font-size: var(--t-l); }
+  #c .filas { left: var(--margen); right: var(--margen); top: 520px; border-bottom: 3px solid var(--tinta); }
+  #c .fila { height: 340px; border-top: 3px solid var(--tinta); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  #c .fila .txt { display: flex; flex-direction: column; gap: 22px; }
+  #c .fila .marca-equipo { font-size: var(--t-s); }
+  #c .modelos { display: grid; grid-template-columns: auto auto; gap: 10px 26px; font-size: var(--m-m); letter-spacing: .04em; }
+  #c .modelos .cap { color: var(--voltio); }
+  #c .fila .fotos { display: flex; align-items: center; gap: 4px; padding-right: 4px; }
+  #c .fila .fotos img { height: 250px; filter: drop-shadow(0 16px 18px rgba(10,10,11,.25)); }
 
   /* ---- historia 1080×1920: el mismo armado del post, bajado 190 px para quedar en la zona segura (250–1700) ---- */
   body.historia, body.historia section { height: 1920px; }
@@ -134,9 +150,52 @@
   </div>
 </section>
 
+<!-- ======================= OPCIÓN C · SAMSUNG Y XIAOMI ======================= -->
+<section id="c" class="hueso">
+  <div class="abs cabeza mono"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+  <div class="abs mono previa">Samsung · Xiaomi</div>
+  <div class="abs titulo grande">Nuevos, en<br>caja sellada.</div>
+
+  <div class="abs filas">
+    <div class="fila">
+      <div class="txt">
+        <span class="titulo marca-equipo">Samsung</span>
+        <div class="mono modelos">
+          <span>Galaxy A17</span><span class="cap">128/4 GB</span>
+          <span>Galaxy A26 5G</span><span class="cap">128/6 GB</span>
+          <span>Galaxy S25 Ultra</span><span class="cap">256/12 GB</span>
+        </div>
+      </div>
+      <div class="fotos">
+        <img src="../catalogo/img/galaxy-a17.webp" alt="Samsung Galaxy A17" style="rotate: -6deg;">
+        <img src="../catalogo/img/galaxy-s25-ultra.webp" alt="Samsung Galaxy S25 Ultra" style="rotate: 5deg;">
+      </div>
+    </div>
+    <div class="fila">
+      <div class="txt">
+        <span class="titulo marca-equipo">Xiaomi</span>
+        <div class="mono modelos">
+          <span>Redmi 13C</span><span class="cap">128/4 GB</span>
+          <span>Redmi 15R 5G</span><span class="cap">256/8 GB</span>
+          <span>Redmi Note 15 Pro</span><span class="cap">256/8 GB</span>
+          <span>Redmi Note 17 Pro 5G</span><span class="cap">256/16 GB</span>
+        </div>
+      </div>
+      <div class="fotos">
+        <img src="../catalogo/img/redmi-note-15-pro.webp" alt="Xiaomi Redmi Note 15 Pro" style="height: 230px;">
+      </div>
+    </div>
+  </div>
+  <div class="abs pie mono"><span>Consultá por WhatsApp</span><span>Almacenamiento / RAM</span></div>
+  <div class="saber" style="bottom: 190px;">
+    <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+    <div class="txt"><span class="v">Saber más</span><span class="k">Escribinos acá abajo</span></div>
+  </div>
+</section>
+
 <script>
 const P = new URLSearchParams(location.search);
-const op = P.get("opcion") === "b" ? "b" : "a";
+const op = ["b", "c"].includes(P.get("opcion")) ? P.get("opcion") : "a";
 const historia = P.get("formato") === "historia";
 const sec = document.getElementById(op);
 sec.classList.add("activa");
@@ -145,7 +204,7 @@ const imgs = [...sec.querySelectorAll("img")].map((i) => i.complete ? Promise.re
 
 // historia: cada bloque entra desde abajo, uno detrás del otro; al final "Saber más" con la flecha que rebota
 // la B va más lenta (pedido del dueño): cada sección entra más espaciada y la historia dura 8 s
-const ritmo = op === "b" ? { T: 8000, paso: 420, entrada: 900, saber: 3600 } : { T: 6000, paso: 150, entrada: 500, saber: 2300 };
+const ritmo = op !== "a" ? { T: 8000, paso: 420, entrada: 900, saber: 3600 } : { T: 6000, paso: 150, entrada: 500, saber: 2300 };
 const T = historia ? ritmo.T : 1000;
 const ANIMS = [];
 if (historia) {
