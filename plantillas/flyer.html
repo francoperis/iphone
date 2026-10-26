@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Flyer qué vendemos — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<!--
+  Flyer "qué vendemos": post 1080×1350 (imagen fija) o historia 1080×1920 (&formato=historia, video de 6 s; la B, 8 s y más lenta
+  con entradas escalonadas; en vez del pie cierra con "Saber más" + flecha a la casilla de respuesta).
+    ?opcion=a   Los mejores en iPhone Swap americanos (tinta), con «¿Qué es un Swap?» y «¿Por qué americanos?»
+    ?opcion=b   Qué vendemos: tres secciones (iPhone Swap · iPhone sellados · Samsung y Xiaomi) sobre lima.
+                Va después de la A (carrusel): no repite las explicaciones de la A.
+  node exportar_video.js plantillas/flyer.html "opcion=a&formato=post" salida.png --cuadro 0
+  node exportar_video.js plantillas/flyer.html "opcion=a&formato=historia" salida.mp4
+  Sin precios. Fotos: iPhone en 3D (assets/fotos3d) y Samsung/Xiaomi oficiales (catalogo/img).
+-->
+<style>
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: var(--tinta); }
+  body.historia { height: 1920px; }
+  section { display: none; position: relative; width: 1080px; height: 1350px; overflow: hidden; }
+  section.activa { display: block; }
+  .tinta { background: var(--tinta); color: var(--hueso); }
+  .lima { background: var(--lima); color: var(--tinta); }
+  .cabeza { left: var(--margen); right: var(--margen); top: var(--post-arriba); display: flex; justify-content: space-between; align-items: baseline; font-size: var(--m-m); }
+  .cabeza .logo-tc { font-size: var(--logo); }
+  .pie { left: var(--margen); right: var(--margen); bottom: var(--post-abajo); display: flex; justify-content: space-between; font-size: var(--m-m); }
+  .foto { position: absolute; translate: -50% -50%; filter: drop-shadow(0 30px 40px rgba(0,0,0,.45)); }
+  .lima .foto { filter: drop-shadow(0 26px 30px rgba(10,10,11,.28)); }
+  .parrafo { font-family: var(--f-texto); font-weight: 500; font-size: var(--m-m); line-height: var(--ih-texto); letter-spacing: .02em; }
+
+  /* ---- opción A ---- */
+  #a .previa { left: var(--margen); top: 150px; font-size: var(--m-l); color: var(--lima); }
+  #a .grande { left: 64px; top: 196px; font-size: var(--t-l); }
+  #a .grande .lima-txt { color: var(--lima); }
+  #a .que { left: var(--margen); top: 590px; width: 470px; display: flex; flex-direction: column; gap: 40px; }
+  #a .que div { display: flex; flex-direction: column; gap: 14px; }
+  #a .que h2 { font-size: var(--t-xs); margin: 0; color: var(--lima); }
+  #a .tambien { left: var(--margen); right: var(--margen); top: 1080px; display: flex; flex-direction: column; gap: 14px; }
+  #a .tambien .rot { font-size: var(--m-m); color: var(--acero); }
+  #a .tambien .lista { font-size: var(--t-xs); }
+  #a .tambien .lista span { color: var(--lima); }
+  #a .disco { position: absolute; left: 790px; top: 790px; width: 470px; height: 470px; translate: -50% -50%; border-radius: 50%; background: var(--voltio); }
+
+  /* ---- opción B ---- */
+  #b .grande { left: 64px; top: 140px; font-size: var(--t-m); }
+  /* filas iguales entre líneas de 3 px; los equipos van dentro de cada fila, sin tocar las líneas */
+  #b .filas { left: var(--margen); right: var(--margen); top: 290px; border-bottom: 3px solid var(--tinta); }
+  #b .fila { height: 300px; border-top: 3px solid var(--tinta); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  #b .fila .txt { display: flex; flex-direction: column; gap: 12px; }
+  #b .fila .fotos { display: flex; align-items: center; gap: 6px; padding-right: 6px; }
+  #b .fila .fotos img { height: 230px; filter: drop-shadow(0 14px 16px rgba(10,10,11,.25)); }
+  #b .fila .nombre { font-size: var(--t-s); }
+  #b .fila .det { font-size: var(--m-m); }
+
+  /* ---- historia 1080×1920: el mismo armado del post, bajado 190 px para quedar en la zona segura (250–1700) ---- */
+  body.historia, body.historia section { height: 1920px; }
+  html:has(body.historia) { height: 1920px; }
+  body.historia section > *:not(.saber) { margin-top: 190px; }
+  body.historia .pie { display: none; }
+  .saber { display: none; }
+  body.historia .saber { display: flex; }
+  .tinta .saber .v { color: var(--lima); }
+  .lima .saber { color: var(--tinta); }
+</style>
+</head>
+<body>
+
+<!-- ======================= OPCIÓN A · LOS MEJORES EN IPHONE SWAP ======================= -->
+<section id="a" class="tinta">
+  <div class="abs cabeza mono"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+  <div class="abs mono previa">Los mejores en</div>
+  <div class="abs titulo grande">iPhone Swap<br><span class="lima-txt">americanos.</span></div>
+
+  <div class="disco"></div>
+  <img class="foto" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 680px; top: 800px; height: 470px; rotate: -10deg;">
+  <img class="foto" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 850px; top: 780px; height: 530px; rotate: 6deg;">
+
+  <div class="abs que">
+    <div><h2 class="titulo">¿Qué es un Swap?</h2>
+      <p class="parrafo" style="margin: 0;">Es un iPhone que Apple reacondiciona y entrega como equipo de reemplazo. Original, revisado y listo para usar.</p></div>
+    <div><h2 class="titulo">¿Por qué americanos?</h2>
+      <p class="parrafo" style="margin: 0;">Porque son traídos directamente de EE.&nbsp;UU.</p></div>
+  </div>
+
+  <div class="abs tambien">
+    <span class="mono rot">También</span>
+    <span class="titulo lista">iPhone en caja sellada <span>·</span> Samsung <span>·</span> Xiaomi</span>
+    <span class="mono rot" style="color: var(--hueso);">Nuevos, en caja sellada</span>
+  </div>
+  <div class="abs pie mono"><span>Consultá por WhatsApp</span></div>
+  <div class="saber" style="bottom: 190px;">
+    <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+    <div class="txt"><span class="v">Saber más</span><span class="k">Escribinos acá abajo</span></div>
+  </div>
+</section>
+
+<!-- ======================= OPCIÓN B · QUÉ VENDEMOS ======================= -->
+<section id="b" class="lima">
+  <div class="abs cabeza mono"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+  <div class="abs titulo grande">Qué vendemos.</div>
+
+  <div class="abs filas">
+    <div class="fila">
+      <div class="txt"><span class="titulo nombre">iPhone Swap</span></div>
+      <div class="fotos">
+        <img src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="rotate: -8deg;">
+        <img src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural">
+        <img src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="rotate: 8deg;">
+      </div>
+    </div>
+    <div class="fila">
+      <div class="txt"><span class="titulo nombre">iPhone sellados</span><span class="mono det">Nuevos, en su caja</span></div>
+      <div class="fotos"><img src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="rotate: 6deg;"></div>
+    </div>
+    <div class="fila">
+      <div class="txt"><span class="titulo nombre">Samsung · Xiaomi</span><span class="mono det">Nuevos, en caja sellada</span></div>
+      <div class="fotos">
+        <img src="../catalogo/img/galaxy-s25-ultra.webp" alt="Samsung Galaxy S25 Ultra">
+        <img src="../catalogo/img/redmi-note-15-pro.webp" alt="Xiaomi Redmi Note 15 Pro">
+      </div>
+    </div>
+  </div>
+
+  <div class="abs pie mono"><span>Consultá por WhatsApp</span></div>
+  <div class="saber" style="bottom: 190px;">
+    <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+    <div class="txt"><span class="v">Saber más</span><span class="k">Escribinos acá abajo</span></div>
+  </div>
+</section>
+
+<script>
+const P = new URLSearchParams(location.search);
+const op = P.get("opcion") === "b" ? "b" : "a";
+const historia = P.get("formato") === "historia";
+const sec = document.getElementById(op);
+sec.classList.add("activa");
+if (historia) document.body.classList.add("historia");
+const imgs = [...sec.querySelectorAll("img")].map((i) => i.complete ? Promise.resolve() : new Promise((r) => { i.onload = i.onerror = r; }));
+
+// historia: cada bloque entra desde abajo, uno detrás del otro; al final "Saber más" con la flecha que rebota
+// la B va más lenta (pedido del dueño): cada sección entra más espaciada y la historia dura 8 s
+const ritmo = op === "b" ? { T: 8000, paso: 420, entrada: 900, saber: 3600 } : { T: 6000, paso: 150, entrada: 500, saber: 2300 };
+const T = historia ? ritmo.T : 1000;
+const ANIMS = [];
+if (historia) {
+  const salir = "cubic-bezier(.2,.8,.2,1)";
+  // las filas de la B entran de a una (las líneas quedan quietas: se anima solo el contenido de cada fila)
+  const bloques = [...sec.children].filter((el) => !el.classList.contains("pie"))
+    .flatMap((el) => el.classList.contains("filas") ? [...el.querySelectorAll(".fila > *")] : [el]);
+  bloques.forEach((el, i) => {
+    const t0 = el.classList.contains("saber") ? ritmo.saber : ritmo.paso * i;
+    ANIMS.push(el.animate([{ offset: 0, opacity: 0, transform: "translateY(60px)" }, { offset: t0 / T, opacity: 0, transform: "translateY(60px)", easing: salir },
+                           { offset: (t0 + ritmo.entrada) / T, opacity: 1, transform: "none" }, { offset: 1, opacity: 1, transform: "none" }], { duration: T, fill: "both" }));
+  });
+  ANIMS.push(sec.querySelector(".saber .baja").animate(
+    [{ transform: "translateY(0)" }, { transform: "translateY(18px)", offset: 0.5 }, { transform: "translateY(0)" }],
+    { duration: 900, iterations: Infinity, easing: "ease-in-out" }));
+}
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await document.fonts.ready; await Promise.all(imgs); },
+  ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
+};
+</script>
+</body>
+</html>

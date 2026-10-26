@@ -1,0 +1,26 @@
+seccion,marca,linea,modelo,capacidad,ram,condicion,notas
+iPhone,Apple,Base,iPhone 12,128GB,,Swap,
+iPhone,Apple,Base,iPhone 13 mini,128GB,,Swap,
+iPhone,Apple,Base,iPhone 13,128GB,,Swap,
+iPhone,Apple,Base,iPhone 14,128GB,,Swap,
+iPhone,Apple,Base,iPhone 15,128GB,,Swap,
+iPhone,Apple,Base,iPhone 16,128GB,,Swap,
+iPhone,Apple,Pro,iPhone 12 Pro,128GB,,Swap,
+iPhone,Apple,Pro,iPhone 13 Pro,128GB,,Swap,
+iPhone,Apple,Pro,iPhone 14 Pro,128GB,,Swap,
+iPhone,Apple,Pro,iPhone 15 Pro,128GB,,Swap,
+iPhone,Apple,Pro,iPhone 16 Pro,128GB,,Swap,
+iPhone,Apple,Pro,iPhone 17 Pro,256GB,,Swap,el proveedor lo marcó sin stock en su historia; consultar
+iPhone,Apple,Pro Max,iPhone 12 Pro Max,128GB,,Swap,
+iPhone,Apple,Pro Max,iPhone 13 Pro Max,128GB,,Swap,
+iPhone,Apple,Pro Max,iPhone 14 Pro Max,128GB,,Swap,
+iPhone,Apple,Pro Max,iPhone 15 Pro Max,256GB,,Swap,
+iPhone,Apple,Pro Max,iPhone 16 Pro Max,256GB,,Swap,
+iPhone,Apple,Caja sellada,Todos los modelos,,,Caja sellada,consultar modelo y color
+Samsung,Samsung,Galaxy A,Galaxy A17,128GB,4GB,Caja sellada,
+Samsung,Samsung,Galaxy A,Galaxy A26 5G,128GB,6GB,Caja sellada,
+Samsung,Samsung,Galaxy S,Galaxy S25 Ultra 5G,256GB,12GB,Caja sellada,
+Xiaomi,Xiaomi,Redmi,Redmi 13C,128GB,4GB,Caja sellada,el proveedor lo llama «Xiaomi 13C»
+Xiaomi,Xiaomi,Redmi,Redmi 15R 5G,256GB,8GB,Caja sellada,el proveedor lo marca como NUEVO (recién llegado)
+Xiaomi,Xiaomi,Redmi Note,Redmi Note 15 Pro,256GB,8GB,Caja sellada,
+Xiaomi,Xiaomi,Redmi Note,Redmi Note 17 Pro 5G,256GB,16GB,Caja sellada,verificar el nombre exacto del modelo con el proveedor

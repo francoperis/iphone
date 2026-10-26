@@ -14,7 +14,7 @@
   Apertura de la cuenta, estilo "Manifiesto". Una pieza por vez:
     ?pieza=post1 … post6     carrusel 1080×1350 (imagen fija)
     ?pieza=story1 … story6   historias 1080×1920, animadas 6 s
-    &abrimos=a|b             post1 / story1: la palabra detrás del equipo (a) o encima (b)
+    &abrimos=a|b             post1 / story1: la palabra encima del equipo (b, la elegida) o detrás (a)
   La lámina 5 y la historia 5 (plan canje) salen de canje.html (animación 3D: entregás uno viejo, te llevás uno nuevo).
   Los teléfonos se ubican por su CENTRO (left/top). Los callouts (<i class="co">) los dibuja piezas.js.
   En las historias, los elementos .e entran en el ms de data-t (y salen en data-hasta si lo tienen).
@@ -181,7 +181,8 @@ const id = P.get("pieza") || "post1";
 const esStory = id.startsWith("story");
 document.body.classList.add(esStory ? "story" : "post");
 const sec = document.getElementById(id);
-const variante = P.get("abrimos") === "b" ? "b" : "a";
+// ABRIMOS: elegida la "b" (2026-10-23); ?abrimos=a deja la otra prueba
+const variante = P.get("abrimos") === "a" ? "a" : "b";
 document.body.classList.add("abrimos-" + variante);
 // en la prueba b la palabra va encima del equipo: un equipo claro para que la letra se lea
 if (variante === "b") for (const t of ["p1", "s1"]) { const im = document.getElementById(t); im.src = "assets/fotos3d/17pro-plata-frente.webp"; im.alt = "iPhone 17 Pro plata"; }

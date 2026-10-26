@@ -13,13 +13,13 @@
 
 window.MARCA = {
   nombre: "Tech&Co.",
-  instagram: "@[INSTAGRAM]",
+  instagram: "@techco.ctes",
   whatsapp: "[WHATSAPP]",
 };
 
 window.MODELOS = {
   "iphone-12": {
-    nombre: "iPhone 12", gb: 128, precio: 510000,
+    nombre: "iPhone 12", gb: 128,
     tresd: {
       medidas: [71.5, 146.7, 7.4], bisel: 0.7, material: "aluminio", isla: false,
       modulo: { caja: [0.063, 0.028, 0.476, 0.238], radio: 0.1, alto: 0.9 },
@@ -37,7 +37,7 @@ window.MODELOS = {
     color: "blue",
   },
   "iphone-13": {
-    nombre: "iPhone 13", gb: 128, precio: 610000,
+    nombre: "iPhone 13", gb: 128,
     tresd: {
       medidas: [71.5, 146.7, 7.65], bisel: 0.7, material: "aluminio", isla: false,
       modulo: { caja: [0.032, 0.014, 0.458, 0.218], radio: 0.1, alto: 0.9 },
@@ -54,7 +54,7 @@ window.MODELOS = {
     color: "blue",
   },
   "iphone-15-pro": {
-    nombre: "iPhone 15 Pro", gb: 128, precio: 1120000,
+    nombre: "iPhone 15 Pro", gb: 128,
     tresd: {
       medidas: [70.6, 146.6, 8.25], bisel: 2.2, material: "titanio", isla: true,
       modulo: { caja: [0.052, 0.016, 0.602, 0.302], radio: 0.13, alto: 1.3 },
@@ -70,7 +70,7 @@ window.MODELOS = {
     color: "naturaltitanium",
   },
   "iphone-16-pro": {
-    nombre: "iPhone 16 Pro", gb: 128, precio: 1435000,
+    nombre: "iPhone 16 Pro", gb: 128,
     tresd: {
       medidas: [71.5, 149.6, 8.25], bisel: 2.2, material: "titanio", isla: true,
       modulo: { caja: [0.052, 0.013, 0.622, 0.297], radio: 0.13, alto: 1.3 },
@@ -86,7 +86,7 @@ window.MODELOS = {
     color: "deserttitanium",
   },
   "iphone-17-pro": {
-    nombre: "iPhone 17 Pro", gb: 256, precio: 1900000,
+    nombre: "iPhone 17 Pro", gb: 256,
     tresd: {
       medidas: [71.9, 150.0, 8.75], bisel: 2.6, material: "aluminio", isla: true,
       modulo: { caja: [0.0, 0.0, 1.0, 0.3], radio: 0.16, alto: 1.6, meseta: true },
