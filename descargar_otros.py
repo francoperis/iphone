@@ -28,15 +28,16 @@ SALIDA = RAIZ / "catalogo/img"
 SAMSUNG = "https://images.samsung.com/is/image/samsung/p6pim/ar/"
 LICENCIA = "uso editorial (sitio oficial del fabricante)"
 
-# modelo del catálogo -> foto oficial elegida a mano (vista: dorso + frente o dorso solo)
+# modelo del catálogo -> foto oficial elegida a mano (vista: dorso + frente o dorso solo).
+# Samsung: usar la galería del producto con $ORIGIN_PNG$ (1920×1280); las miniaturas "thumb" son de 330 px.
 FOTOS_OFICIALES = {
     "galaxy-a17": {
-        "url": SAMSUNG + "sm-a175fzkraro/gallery/ar-galaxy-a17-sm-a175-582491-sm-a175fzkraro-thumb-551337044?$1300_1038_PNG$",
-        "pagina": "https://www.samsung.com/ar/smartphones/all-smartphones/", "fuente": "Samsung Argentina", "color": "negro",
+        "url": SAMSUNG + "sm-a175fzkraro/gallery/ar-galaxy-a17-sm-a175-582491-sm-a175fzkraro-551337027?$ORIGIN_PNG$",
+        "pagina": "https://www.samsung.com/ar/smartphones/galaxy-a/galaxy-a17-black-128gb-sm-a175fzkraro/", "fuente": "Samsung Argentina", "color": "negro",
     },
     "galaxy-s25-ultra": {
-        "url": SAMSUNG + "sm-s938bzkllea/gallery/ar-galaxy-s25-s938-567282-sm-s938bzkllea-thumb-549446870?$1300_1038_PNG$",
-        "pagina": "https://www.samsung.com/ar/smartphones/all-smartphones/", "fuente": "Samsung Argentina", "color": "negro titanio",
+        "url": SAMSUNG + "sm-s938bzkllea/gallery/ar-galaxy-s25-s938-567282-sm-s938bzkllea-549446835?$ORIGIN_PNG$",
+        "pagina": "https://www.samsung.com/ar/smartphones/galaxy-s/galaxy-s25-ultra-titanium-black-256gb-sm-s938bzkllea/", "fuente": "Samsung Argentina", "color": "negro titanio",
     },
     # Galaxy A26 5G: ya no figura en samsung.com (ar, latin, mx, cl, co, br, uk, es, de, it, fr, in): sin foto oficial por ahora
     "redmi-13c": {
