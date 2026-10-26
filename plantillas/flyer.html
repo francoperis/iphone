@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="logo.css">
 <link rel="stylesheet" href="piezas.css">
 <!--
-  Flyer "qué vendemos": post 1080×1350 (imagen fija) o historia 1080×1920 (&formato=historia, video de 6 s
+  Flyer "qué vendemos": post 1080×1350 (imagen fija) o historia 1080×1920 (&formato=historia, video de 6 s; la B, 8 s y más lenta
   con entradas escalonadas; en vez del pie cierra con "Saber más" + flecha a la casilla de respuesta).
     ?opcion=a   Los mejores en iPhone Swap americanos (tinta), con «¿Qué es un Swap?» y «¿Por qué americanos?»
     ?opcion=b   Qué vendemos: tres secciones (iPhone Swap · iPhone sellados · Samsung y Xiaomi) sobre lima.
@@ -144,15 +144,19 @@ if (historia) document.body.classList.add("historia");
 const imgs = [...sec.querySelectorAll("img")].map((i) => i.complete ? Promise.resolve() : new Promise((r) => { i.onload = i.onerror = r; }));
 
 // historia: cada bloque entra desde abajo, uno detrás del otro; al final "Saber más" con la flecha que rebota
-const T = historia ? 6000 : 1000;
+// la B va más lenta (pedido del dueño): cada sección entra más espaciada y la historia dura 8 s
+const ritmo = op === "b" ? { T: 8000, paso: 420, entrada: 900, saber: 3600 } : { T: 6000, paso: 150, entrada: 500, saber: 2300 };
+const T = historia ? ritmo.T : 1000;
 const ANIMS = [];
 if (historia) {
   const salir = "cubic-bezier(.2,.8,.2,1)";
-  const bloques = [...sec.children].filter((el) => !el.classList.contains("pie"));
+  // las filas de la B entran de a una (las líneas quedan quietas: se anima solo el contenido de cada fila)
+  const bloques = [...sec.children].filter((el) => !el.classList.contains("pie"))
+    .flatMap((el) => el.classList.contains("filas") ? [...el.querySelectorAll(".fila > *")] : [el]);
   bloques.forEach((el, i) => {
-    const t0 = el.classList.contains("saber") ? 2300 : 150 * i;
+    const t0 = el.classList.contains("saber") ? ritmo.saber : ritmo.paso * i;
     ANIMS.push(el.animate([{ offset: 0, opacity: 0, transform: "translateY(60px)" }, { offset: t0 / T, opacity: 0, transform: "translateY(60px)", easing: salir },
-                           { offset: (t0 + 500) / T, opacity: 1, transform: "none" }, { offset: 1, opacity: 1, transform: "none" }], { duration: T, fill: "both" }));
+                           { offset: (t0 + ritmo.entrada) / T, opacity: 1, transform: "none" }, { offset: 1, opacity: 1, transform: "none" }], { duration: T, fill: "both" }));
   });
   ANIMS.push(sec.querySelector(".saber .baja").animate(
     [{ transform: "translateY(0)" }, { transform: "translateY(18px)", offset: 0.5 }, { transform: "translateY(0)" }],
