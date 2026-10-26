@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="piezas.css">
 <!--
   Flyer "qué vendemos" (imagen fija, post 1080×1350):
-    ?opcion=a   Especialistas en iPhone Swap americanos (tinta), con la explicación de qué es un Swap
+    ?opcion=a   Los mejores en iPhone Swap americanos (tinta), con «¿Qué es un Swap?» y «¿Por qué americanos?»
     ?opcion=b   Qué vendemos: tres secciones (iPhone Swap · iPhone sellados · Samsung y Xiaomi) sobre lima
   node exportar_video.js plantillas/flyer.html "opcion=a&formato=post" salida.png --cuadro 0
   Sin precios. Fotos: iPhone en 3D (assets/fotos3d) y Samsung/Xiaomi oficiales (catalogo/img).
@@ -34,39 +34,46 @@
   #a .previa { left: var(--margen); top: 150px; font-size: var(--m-l); color: var(--lima); }
   #a .grande { left: 64px; top: 196px; font-size: var(--t-l); }
   #a .grande .lima-txt { color: var(--lima); }
-  #a .que { left: var(--margen); top: 640px; width: 470px; display: flex; flex-direction: column; gap: 18px; }
+  #a .que { left: var(--margen); top: 590px; width: 470px; display: flex; flex-direction: column; gap: 40px; }
+  #a .que div { display: flex; flex-direction: column; gap: 14px; }
   #a .que h2 { font-size: var(--t-xs); margin: 0; color: var(--lima); }
-  #a .tambien { left: var(--margen); right: var(--margen); top: 1035px; display: flex; flex-direction: column; gap: 14px; }
+  #a .tambien { left: var(--margen); right: var(--margen); top: 1080px; display: flex; flex-direction: column; gap: 14px; }
   #a .tambien .rot { font-size: var(--m-m); color: var(--acero); }
   #a .tambien .lista { font-size: var(--t-xs); }
   #a .tambien .lista span { color: var(--lima); }
-  #a .disco { position: absolute; left: 790px; top: 830px; width: 470px; height: 470px; translate: -50% -50%; border-radius: 50%; background: var(--voltio); }
+  #a .disco { position: absolute; left: 790px; top: 790px; width: 470px; height: 470px; translate: -50% -50%; border-radius: 50%; background: var(--voltio); }
 
   /* ---- opción B ---- */
   #b .grande { left: 64px; top: 140px; font-size: var(--t-m); }
-  #b .fila { position: absolute; left: var(--margen); right: var(--margen); height: 240px; border-top: 3px solid var(--tinta); }
-  #b .fila .txt { position: absolute; left: 0; top: 30px; display: flex; flex-direction: column; gap: 12px; }
+  /* filas iguales entre líneas de 3 px; los equipos van dentro de cada fila, sin tocar las líneas */
+  #b .filas { left: var(--margen); right: var(--margen); top: 290px; border-bottom: 3px solid var(--tinta); }
+  #b .fila { height: 230px; border-top: 3px solid var(--tinta); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  #b .fila .txt { display: flex; flex-direction: column; gap: 12px; }
+  #b .fila .fotos { display: flex; align-items: center; gap: 6px; padding-right: 6px; }
+  #b .fila .fotos img { height: 176px; filter: drop-shadow(0 14px 16px rgba(10,10,11,.25)); }
   #b .fila .nombre { font-size: var(--t-s); }
   #b .fila .det { font-size: var(--m-m); }
-  #b .swap { left: var(--margen); right: var(--margen); top: 1030px; border-top: 3px solid var(--tinta); padding-top: 22px; }
+  #b .swap { left: var(--margen); right: var(--margen); top: 1022px; display: flex; flex-direction: column; gap: 16px; }
   #b .swap b { font-family: var(--f-titulo); font-weight: 900; font-stretch: 62%; text-transform: uppercase; font-size: 34px; letter-spacing: var(--ls-titulo); }
 </style>
 </head>
 <body>
 
-<!-- ======================= OPCIÓN A · ESPECIALISTAS ======================= -->
+<!-- ======================= OPCIÓN A · LOS MEJORES EN IPHONE SWAP ======================= -->
 <section id="a" class="tinta">
   <div class="abs cabeza mono"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
-  <div class="abs mono previa">Especialistas en</div>
+  <div class="abs mono previa">Los mejores en</div>
   <div class="abs titulo grande">iPhone Swap<br><span class="lima-txt">americanos.</span></div>
 
   <div class="disco"></div>
-  <img class="foto" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 680px; top: 840px; height: 470px; rotate: -10deg;">
-  <img class="foto" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 850px; top: 820px; height: 530px; rotate: 6deg;">
+  <img class="foto" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 680px; top: 800px; height: 470px; rotate: -10deg;">
+  <img class="foto" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 850px; top: 780px; height: 530px; rotate: 6deg;">
 
   <div class="abs que">
-    <h2 class="titulo">¿Qué es un Swap?</h2>
-    <p class="parrafo" style="margin: 0;">Es un iPhone americano que Apple reacondiciona y entrega como equipo de reemplazo. Original, revisado y listo para usar.</p>
+    <div><h2 class="titulo">¿Qué es un Swap?</h2>
+      <p class="parrafo" style="margin: 0;">Es un iPhone que Apple reacondiciona y entrega como equipo de reemplazo. Original, revisado y listo para usar.</p></div>
+    <div><h2 class="titulo">¿Por qué americanos?</h2>
+      <p class="parrafo" style="margin: 0;">Porque son traídos directamente de EE.&nbsp;UU.</p></div>
   </div>
 
   <div class="abs tambien">
@@ -74,7 +81,7 @@
     <span class="titulo lista">iPhone en caja sellada <span>·</span> Samsung <span>·</span> Xiaomi</span>
     <span class="mono rot" style="color: var(--hueso);">Nuevos, en caja sellada</span>
   </div>
-  <div class="abs pie mono"><span>Consultá por WhatsApp</span><span>Link en la bio →</span></div>
+  <div class="abs pie mono"><span>Consultá por WhatsApp</span></div>
 </section>
 
 <!-- ======================= OPCIÓN B · QUÉ VENDEMOS ======================= -->
@@ -82,35 +89,33 @@
   <div class="abs cabeza mono"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
   <div class="abs titulo grande">Qué vendemos.</div>
 
-  <div class="fila" style="top: 300px;">
-    <div class="txt">
-      <span class="titulo nombre">iPhone Swap</span>
-      <span class="mono det">Americanos · Nuestra especialidad</span>
+  <div class="abs filas">
+    <div class="fila">
+      <div class="txt"><span class="titulo nombre">iPhone Swap</span></div>
+      <div class="fotos">
+        <img src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="rotate: -8deg;">
+        <img src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural">
+        <img src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="rotate: 8deg;">
+      </div>
     </div>
-    <img class="foto" src="assets/fotos3d/13-azul.webp" alt="iPhone 13 azul" style="left: 640px; top: 140px; height: 220px; rotate: -10deg;">
-    <img class="foto" src="assets/fotos3d/15pro-natural.webp" alt="iPhone 15 Pro titanio natural" style="left: 760px; top: 132px; height: 236px; rotate: -3deg;">
-    <img class="foto" src="assets/fotos3d/17pro-naranja-der.webp" alt="iPhone 17 Pro naranja cósmico" style="left: 875px; top: 140px; height: 220px; rotate: 8deg;">
+    <div class="fila">
+      <div class="txt"><span class="titulo nombre">iPhone sellados</span><span class="mono det">Nuevos, en su caja</span></div>
+      <div class="fotos"><img src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="rotate: 6deg;"></div>
+    </div>
+    <div class="fila">
+      <div class="txt"><span class="titulo nombre">Samsung · Xiaomi</span><span class="mono det">Nuevos, en caja sellada</span></div>
+      <div class="fotos">
+        <img src="../catalogo/img/galaxy-s25-ultra.webp" alt="Samsung Galaxy S25 Ultra">
+        <img src="../catalogo/img/redmi-note-15-pro.webp" alt="Xiaomi Redmi Note 15 Pro">
+      </div>
+    </div>
   </div>
 
-  <div class="fila" style="top: 540px;">
-    <div class="txt">
-      <span class="titulo nombre">iPhone sellados</span>
-      <span class="mono det">Nuevos, en su caja</span>
-    </div>
-    <img class="foto" src="assets/fotos3d/17pro-plata-frente.webp" alt="iPhone 17 Pro plata" style="left: 820px; top: 132px; height: 230px; rotate: 6deg;">
+  <div class="abs swap">
+    <p class="parrafo" style="margin: 0;"><b>¿Qué es un Swap?</b> Un iPhone que Apple reacondiciona y entrega como equipo de reemplazo. Original, revisado y listo para usar.</p>
+    <p class="parrafo" style="margin: 0;"><b>¿Por qué americanos?</b> Porque son traídos directamente de EE.&nbsp;UU.</p>
   </div>
-
-  <div class="fila" style="top: 780px;">
-    <div class="txt">
-      <span class="titulo nombre">Samsung · Xiaomi</span>
-      <span class="mono det">Nuevos, en caja sellada</span>
-    </div>
-    <img class="foto" src="../catalogo/img/galaxy-s25-ultra.webp" alt="Samsung Galaxy S25 Ultra" style="left: 730px; top: 132px; height: 230px; rotate: -4deg;">
-    <img class="foto" src="../catalogo/img/redmi-note-15-pro.webp" alt="Xiaomi Redmi Note 15 Pro" style="left: 845px; top: 136px; height: 210px;">
-  </div>
-
-  <p class="abs swap parrafo" style="margin: 0;"><b>¿Qué es un Swap?</b> Un iPhone americano que Apple reacondiciona y entrega como equipo de reemplazo. Original, revisado y listo para usar.</p>
-  <div class="abs pie mono"><span>Consultá por WhatsApp</span><span>Link en la bio →</span></div>
+  <div class="abs pie mono"><span>Consultá por WhatsApp</span></div>
 </section>
 
 <script>
