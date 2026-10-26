@@ -11,15 +11,18 @@
 <link rel="stylesheet" href="logo.css">
 <link rel="stylesheet" href="piezas.css">
 <!--
-  Flyer "qué vendemos" (imagen fija, post 1080×1350):
+  Flyer "qué vendemos": post 1080×1350 (imagen fija) o historia 1080×1920 (&formato=historia, video de 6 s
+  con entradas escalonadas; en vez del pie cierra con "Saber más" + flecha a la casilla de respuesta).
     ?opcion=a   Los mejores en iPhone Swap americanos (tinta), con «¿Qué es un Swap?» y «¿Por qué americanos?»
     ?opcion=b   Qué vendemos: tres secciones (iPhone Swap · iPhone sellados · Samsung y Xiaomi) sobre lima.
                 Va después de la A (carrusel): no repite las explicaciones de la A.
   node exportar_video.js plantillas/flyer.html "opcion=a&formato=post" salida.png --cuadro 0
+  node exportar_video.js plantillas/flyer.html "opcion=a&formato=historia" salida.mp4
   Sin precios. Fotos: iPhone en 3D (assets/fotos3d) y Samsung/Xiaomi oficiales (catalogo/img).
 -->
 <style>
   html, body { width: 1080px; height: 1350px; overflow: hidden; background: var(--tinta); }
+  body.historia { height: 1920px; }
   section { display: none; position: relative; width: 1080px; height: 1350px; overflow: hidden; }
   section.activa { display: block; }
   .tinta { background: var(--tinta); color: var(--hueso); }
@@ -54,6 +57,16 @@
   #b .fila .fotos img { height: 230px; filter: drop-shadow(0 14px 16px rgba(10,10,11,.25)); }
   #b .fila .nombre { font-size: var(--t-s); }
   #b .fila .det { font-size: var(--m-m); }
+
+  /* ---- historia 1080×1920: el mismo armado del post, bajado 190 px para quedar en la zona segura (250–1700) ---- */
+  body.historia, body.historia section { height: 1920px; }
+  html:has(body.historia) { height: 1920px; }
+  body.historia section > *:not(.saber) { margin-top: 190px; }
+  body.historia .pie { display: none; }
+  .saber { display: none; }
+  body.historia .saber { display: flex; }
+  .tinta .saber .v { color: var(--lima); }
+  .lima .saber { color: var(--tinta); }
 </style>
 </head>
 <body>
@@ -81,6 +94,10 @@
     <span class="mono rot" style="color: var(--hueso);">Nuevos, en caja sellada</span>
   </div>
   <div class="abs pie mono"><span>Consultá por WhatsApp</span></div>
+  <div class="saber" style="bottom: 190px;">
+    <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+    <div class="txt"><span class="v">Saber más</span><span class="k">Escribinos acá abajo</span></div>
+  </div>
 </section>
 
 <!-- ======================= OPCIÓN B · QUÉ VENDEMOS ======================= -->
@@ -111,14 +128,41 @@
   </div>
 
   <div class="abs pie mono"><span>Consultá por WhatsApp</span></div>
+  <div class="saber" style="bottom: 190px;">
+    <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+    <div class="txt"><span class="v">Saber más</span><span class="k">Escribinos acá abajo</span></div>
+  </div>
 </section>
 
 <script>
-const op = new URLSearchParams(location.search).get("opcion") === "b" ? "b" : "a";
+const P = new URLSearchParams(location.search);
+const op = P.get("opcion") === "b" ? "b" : "a";
+const historia = P.get("formato") === "historia";
 const sec = document.getElementById(op);
 sec.classList.add("activa");
+if (historia) document.body.classList.add("historia");
 const imgs = [...sec.querySelectorAll("img")].map((i) => i.complete ? Promise.resolve() : new Promise((r) => { i.onload = i.onerror = r; }));
-window.PLANTILLA = { duracion: 1000, async listo() { await document.fonts.ready; await Promise.all(imgs); }, ir() {} };
+
+// historia: cada bloque entra desde abajo, uno detrás del otro; al final "Saber más" con la flecha que rebota
+const T = historia ? 6000 : 1000;
+const ANIMS = [];
+if (historia) {
+  const salir = "cubic-bezier(.2,.8,.2,1)";
+  const bloques = [...sec.children].filter((el) => !el.classList.contains("pie"));
+  bloques.forEach((el, i) => {
+    const t0 = el.classList.contains("saber") ? 2300 : 150 * i;
+    ANIMS.push(el.animate([{ offset: 0, opacity: 0, transform: "translateY(60px)" }, { offset: t0 / T, opacity: 0, transform: "translateY(60px)", easing: salir },
+                           { offset: (t0 + 500) / T, opacity: 1, transform: "none" }, { offset: 1, opacity: 1, transform: "none" }], { duration: T, fill: "both" }));
+  });
+  ANIMS.push(sec.querySelector(".saber .baja").animate(
+    [{ transform: "translateY(0)" }, { transform: "translateY(18px)", offset: 0.5 }, { transform: "translateY(0)" }],
+    { duration: 900, iterations: Infinity, easing: "ease-in-out" }));
+}
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await document.fonts.ready; await Promise.all(imgs); },
+  ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
+};
 </script>
 </body>
 </html>
