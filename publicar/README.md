@@ -21,7 +21,8 @@ Reglas que ya están aplicadas en todas las piezas (manual completo en `IDENTIDA
 | `05-plan-canje/` | Canje en 3D (13 → 17 Pro, 12 → 16 Pro) y reel "¿Cuánto vale tu equipo viejo?" | Una vez por semana |
 | `06-tips/` | Reel "No compres un iPhone Swap sin chequear esto" | Contenido para guardar/compartir |
 | `equipos/iphone/` | Línea completa (X → 18), flyers de nuevos en caja sellada, "Llegó" (ingresos) y reel "primera foto" | Cuando entra stock o para mostrar la línea |
-| `equipos/samsung/`, `equipos/xiaomi/` | Vacías por ahora | Cuando se sumen esas marcas |
+| `equipos/samsung-xiaomi/` | Flyer «Nuevos, en caja sellada» de Samsung y Xiaomi (opciones C, D y E) | Para presentar las dos marcas |
+| `equipos/mas-buscados/` | 10 historias, una por equipo, de los más vendidos de Argentina (iPhone 17, 14 y 13; Galaxy A56, A36 y S25 Ultra; Redmi Note 14 y 15 Pro, Xiaomi 15T, POCO F7) | En serie, 2 o 3 por día; guardar en la destacada de cada marca |
 
 ## Textos para copiar
 

@@ -39,6 +39,27 @@ FOTOS_OFICIALES = {
         "url": SAMSUNG + "sm-s938bzkllea/gallery/ar-galaxy-s25-s938-567282-sm-s938bzkllea-549446835?$ORIGIN_PNG$",
         "pagina": "https://www.samsung.com/ar/smartphones/galaxy-s/galaxy-s25-ultra-titanium-black-256gb-sm-s938bzkllea/", "fuente": "Samsung Argentina", "color": "negro titanio",
     },
+    # los más vendidos de gama media/alta (historias «Nuevo · caja sellada», 2026-10-27)
+    "galaxy-a56": {
+        "url": SAMSUNG + "sm-a566ezgfaro/gallery/ar-galaxy-a56-5g-sm-a566-sm-a566ezgfaro-545609362?$ORIGIN_PNG$",
+        "pagina": "https://www.samsung.com/ar/smartphones/galaxy-a/galaxy-a56-5g-awesome-graphite-256gb-sm-a566ezkfaro/", "fuente": "Samsung Argentina", "color": "gris",
+    },
+    "galaxy-a36": {
+        "url": SAMSUNG + "sm-a366ezkflea/gallery/ar-galaxy-a36-5g-sm-a366-567284-sm-a366ezkflea-549446905?$ORIGIN_PNG$",
+        "pagina": "https://www.samsung.com/ar/smartphones/galaxy-a/galaxy-a36-5g-awesome-black-256gb-sm-a366ezkflea/", "fuente": "Samsung Argentina", "color": "negro",
+    },
+    "redmi-note-14": {
+        "url": "https://i02.appmifile.com/435_operatorx_operatorx_opx/03/03/2025/0c97b47c46fd8daf8eb3995840a2a0af.png",
+        "pagina": "https://www.mi.com/global/product/redmi-note-14/specs/", "fuente": "Xiaomi (mi.com global)", "color": "azul",
+    },
+    "xiaomi-15t": {
+        "url": "https://i02.appmifile.com/982_operatorx_operatorx_opx/23/09/2025/114eaa3c703c5b5cd9ae491b74204914.png",
+        "pagina": "https://www.mi.com/global/product/xiaomi-15t/specs/", "fuente": "Xiaomi (mi.com global)", "color": "dorado",
+    },
+    "poco-f7": {
+        "url": "https://i02.appmifile.com/835_operatorx_operatorx_opx/23/06/2025/b047c6f3809144760b4e96af902cca83.png",
+        "pagina": "https://www.mi.com/global/product/poco-f7/specs/", "fuente": "Xiaomi (mi.com global)", "color": "plata",
+    },
     # Galaxy A26 5G: ya no figura en samsung.com (ar, latin, mx, cl, co, br, uk, es, de, it, fr, in): sin foto oficial por ahora
     "redmi-13c": {
         "url": "https://i02.appmifile.com/477_operatorx_operatorx_opx/08/11/2023/a69b2ced4a4e2403fbfd446994c26a06.png",

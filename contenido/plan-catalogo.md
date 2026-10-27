@@ -30,8 +30,10 @@ Para sacar un modelo sin borrarlo: `visible` = `no`. Después de editar: `python
 
 1. **iPhone · Swap** — Base (12, 13 mini, 13, 14, 15, 16) · Pro (12 Pro → 17 Pro) · Pro Max (12 Pro Max → 16 Pro Max).
 2. **iPhone · Caja sellada** — «Consultá por modelo».
-3. **Samsung · Nuevos en caja sellada** — Galaxy A17 (128/4), Galaxy A26 5G (128/6), Galaxy S25 Ultra 5G (256/12).
-4. **Xiaomi · Nuevos en caja sellada** — Redmi 13C (128/4), Redmi 15R 5G (256/8), Redmi Note 15 Pro (256/8), Redmi Note 17 Pro 5G (256/16).
+3. **Samsung · Nuevos en caja sellada** — Galaxy A17 (128/4), Galaxy A26 5G (128/6), Galaxy A36 5G (256/8), Galaxy A56 5G (256/8), Galaxy S25 Ultra 5G (256/12).
+4. **Xiaomi · Nuevos en caja sellada** — Redmi 13C (128/4), Redmi 15R 5G (256/8), Redmi Note 14 (256/8), Redmi Note 15 Pro (256/8), Redmi Note 17 Pro 5G (256/16),
+   Xiaomi 15T (256/12), POCO F7 (256/12). (A36, A56, Note 14, 15T y POCO F7 sumados el 2026-10-27: los más vendidos del
+   país; el dueño confirmó que el proveedor los consigue. Capacidad/RAM = la versión que vende Samsung AR / mi.com.)
 5. **¿No lo ves? Te lo conseguimos.** — botón a WhatsApp con «Hola Tech&Co., busco un [modelo]».
 
 ## Lo que hay que hacer

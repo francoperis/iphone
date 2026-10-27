@@ -144,6 +144,9 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
     "solo iPhone": decir "equipos". iPhone se nombra solo cuando la pieza muestra un iPhone.
   - Flyer de equipos nuevos en caja sellada: `plantillas/sellado.html?modelo=&color=&gb=&formato=historia|post`
     (precio "consultar", sello "NUEVO · CAJA SELLADA"; la historia arranca con un video real de unboxing de Coverr).
+    (2026-10-27) También sirve para Samsung/Xiaomi e iPhone sin 3D: foto oficial de `EQUIPOS_FOTO` (datos.js), RAM en vez
+    de color, y `&condicion=swap` (título «Swap.»). El clip de unboxing muestra una caja de iPhone: solo va en iPhone nuevos.
+    Historias de «los más buscados» (ranking de Mercado Libre AR, oct. 2026) en `publicar/equipos/mas-buscados/`.
   - Todo lo listo para subir va en **`publicar/`** (sí se sube a git), por sección (00-marca, 01-teasers, 02-apertura,
     03-que-vendemos, 04-como-comprar, 05-plan-canje, 06-tips) y por marca (`equipos/iphone|samsung|xiaomi`).
     Se regenera con `./publicar.sh`; guía y textos en `publicar/README.md`.

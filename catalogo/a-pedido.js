@@ -223,6 +223,28 @@ window.A_PEDIDO = [
  {
   "seccion": "Samsung",
   "marca": "Samsung",
+  "linea": "Galaxy A",
+  "modelo": "Galaxy A36 5G",
+  "capacidad": "256GB",
+  "ram": "8GB",
+  "condicion": "Caja sellada",
+  "foto": "img/galaxy-a36.webp",
+  "visible": "si"
+ },
+ {
+  "seccion": "Samsung",
+  "marca": "Samsung",
+  "linea": "Galaxy A",
+  "modelo": "Galaxy A56 5G",
+  "capacidad": "256GB",
+  "ram": "8GB",
+  "condicion": "Caja sellada",
+  "foto": "img/galaxy-a56.webp",
+  "visible": "si"
+ },
+ {
+  "seccion": "Samsung",
+  "marca": "Samsung",
   "linea": "Galaxy S",
   "modelo": "Galaxy S25 Ultra 5G",
   "capacidad": "256GB",
@@ -257,6 +279,17 @@ window.A_PEDIDO = [
   "seccion": "Xiaomi",
   "marca": "Xiaomi",
   "linea": "Redmi Note",
+  "modelo": "Redmi Note 14",
+  "capacidad": "256GB",
+  "ram": "8GB",
+  "condicion": "Caja sellada",
+  "foto": "img/redmi-note-14.webp",
+  "visible": "si"
+ },
+ {
+  "seccion": "Xiaomi",
+  "marca": "Xiaomi",
+  "linea": "Redmi Note",
   "modelo": "Redmi Note 15 Pro",
   "capacidad": "256GB",
   "ram": "8GB",
@@ -273,6 +306,28 @@ window.A_PEDIDO = [
   "ram": "16GB",
   "condicion": "Caja sellada",
   "foto": "img/redmi-note-17-pro-5g.webp",
+  "visible": "si"
+ },
+ {
+  "seccion": "Xiaomi",
+  "marca": "Xiaomi",
+  "linea": "Xiaomi",
+  "modelo": "Xiaomi 15T",
+  "capacidad": "256GB",
+  "ram": "12GB",
+  "condicion": "Caja sellada",
+  "foto": "img/xiaomi-15t.webp",
+  "visible": "si"
+ },
+ {
+  "seccion": "Xiaomi",
+  "marca": "Xiaomi",
+  "linea": "POCO",
+  "modelo": "POCO F7",
+  "capacidad": "256GB",
+  "ram": "12GB",
+  "condicion": "Caja sellada",
+  "foto": "img/poco-f7.webp",
   "visible": "si"
  }
 ];
