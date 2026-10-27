@@ -26,7 +26,7 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
   iPhone 13, 15 Pro, 16 Pro y 17 Pro.
 
 ## Datos que faltan (pedírselos al usuario antes de publicar nada)
-- Número de WhatsApp. (Instagram: **@techco.ctes**, 2026-10-23; «ctes» = Corrientes → confirmar [ZONA].)
+- WhatsApp del negocio: **3795 33-6448** (wa.me/5493795336448, 2026-10-27; ya está en `catalogo/config.js`). (Instagram: **@techco.ctes**, 2026-10-23; «ctes» = Corrientes → confirmar [ZONA].)
 - (2026-10-23) Todavía NO hay equipos en la mano: fase 0 = teasers sin prometer stock (ver `publicar/ARRANCAR.md`).
 - Zona de retiro / envíos, medios de pago, cuotas, meses de garantía.
 - (2026-10-23) Sistema **a pedido**: no hay stock fijo; el proveedor consigue y se consulta en el momento

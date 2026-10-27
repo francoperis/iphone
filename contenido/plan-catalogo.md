@@ -10,7 +10,7 @@ Decisiones del dueño (2026-10-23):
 - **Sin colores:** solo modelo y capacidad; el color se habla por WhatsApp.
 - **Fotos:** oficiales de cada fabricante (Apple, Samsung, Xiaomi), recortadas. `procesar_fotos.py` (iPhone) y
   `descargar_otros.py` (Samsung/Xiaomi) → `catalogo/img/`. Fuentes en `fotos-iphone/indice.csv` y `fotos-otros/indice.csv`.
-- **WhatsApp:** todavía no hay número del negocio → todo se arma con el número vacío en `catalogo/config.js`.
+- **WhatsApp:** 3795 33-6448 → `5493795336448` en `catalogo/config.js` (2026-10-27).
 - **Web:** hecha (2026-10-27) en `catalogo/`; se publica en **Vercel** (ver «Cómo publicarla»).
 
 Fuente de datos: **`catalogo/a-pedido.csv`** (sección, marca, línea, modelo, capacidad, RAM, condición, foto, visible).
@@ -23,7 +23,7 @@ Para sacar un modelo sin borrarlo: `visible` = `no`. Después de editar: `python
 2. Entrar a vercel.com → «Continue with GitHub» → **Add New… › Project** → importar `francoperis/iphone`.
 3. En la configuración: **Root Directory = `catalogo`**, Framework Preset = **Other**. Nombre del proyecto: `techco`
    (la dirección queda `techco.vercel.app` si está libre) → **Deploy**.
-4. Poner el número de WhatsApp en `catalogo/config.js` (sin él, el botón abre WhatsApp para elegir el contacto).
+4. El número de WhatsApp ya está en `catalogo/config.js`; si cambia, se cambia ahí.
 5. Copiar la dirección en la bio de Instagram. Cada cambio que llegue a `main` se publica solo.
 
 ## Secciones
@@ -67,4 +67,3 @@ Para sacar un modelo sin borrarlo: `visible` = `no`. Después de editar: `python
 - **Redmi 13C:** el proveedor lo llama «Xiaomi 13C».
 - **Redmi 15R 5G:** el proveedor lo marca como NUEVO (recién llegado).
 - **Galaxy A26 5G y Redmi 15R 5G** van sin foto (en la web se ve el nombre corto) hasta confirmar el modelo.
-- Número de WhatsApp del negocio.
