@@ -34,7 +34,7 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
   (sin nombre ni precios del proveedor). El catálogo se organiza por secciones: iPhone (Base / Pro / Pro Max / caja sellada),
   Samsung y Xiaomi (nuevos en caja sellada, entran ya; itel queda afuera). Sin precios.
   Formatos del catálogo: web propia (link en la bio), carrusel para el feed, catálogo de WhatsApp Business e imagen única para historias.
-  **Plan completo y pendientes: `catalogo/PLAN.md`** (la web se hace el lunes, en Vercel o Netlify). Sin colores en el catálogo.
+  **Plan completo y pendientes: `contenido/plan-catalogo.md`** (web hecha el 2026-10-27; se publica en Vercel). Sin colores en el catálogo.
   Fotos de Samsung/Xiaomi: `python3 descargar_otros.py` (oficiales, recortadas) → `catalogo/img/`.
 - Reglas del plan canje.
 - Stock real: modelo, GB, color, % batería, precio, estado. Nunca inventar estos datos:
@@ -72,9 +72,9 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   módulo de cámara y lentes en relieve, botones y pantalla. Textura = `<modelo>_<color>_dorso.webp`.
   Para sumar un modelo: medidas, módulo y lentes en `datos.js` (fracciones del dorso) y en `MEDIDAS` de procesar_fotos.py.
 
-- Catálogo: `python3 verificar_specs.py && python3 procesar_fotos.py --salida catalogo/img --alto 900 --sin-dorso && python3 generar_catalogo.py`.
-  Se abre `catalogo/index.html` (con doble clic usa `stock-demo.js`; con servidor lee `stock.csv`).
-  `catalogo/config.js`: número de WhatsApp, link CSV de la Google Sheet con el stock real y `demo: true/false`.
+- Catálogo (a pedido): se edita `catalogo/a-pedido.csv` y se corre `python3 generar_catalogo.py` (revisa fotos y arma
+  `a-pedido.js` para abrirlo con doble clic). `catalogo/config.js`: número de WhatsApp, link CSV de una Google Sheet (opcional), Instagram.
+  La carpeta `catalogo/` se publica entera: no poner ahí notas internas ni nada del proveedor.
 - Reels: `plantillas/reel.html` + guiones en `plantillas/reels.js`.
   `node exportar_video.js plantillas/reel.html "reel=canje&exportar=1" salida/reel_canje.mp4 --fondo <clip> --desde <s> --encuadre <0..1>`.
   Antes de usar un clip, verificar con zoom que el teléfono sea un iPhone (en Mixkit hay muchos Android).
@@ -114,8 +114,10 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   (capacidades, colores, medidas, URL de la fuente). Usar SIEMPRE esto para specs, no cargar a mano.
 
 ## Catálogo web
-- Por ahora solo archivo local (no publicar). Stock de EJEMPLO (ficticio, marcado como demo), sin precios:
-  todos los modelos del X al 18 Pro Max con sus capacidades y colores reales. Es un esqueleto para editar después.
+- (2026-10-27) Modo **a pedido** (reemplaza al esqueleto de stock por unidad): secciones iPhone Swap (Base / Pro / Pro Max),
+  iPhone sellado (una sola tarjeta «Todos los modelos»), Samsung, Xiaomi y «¿No lo ves? Te lo conseguimos».
+  Tarjeta = foto, SWAP o NUEVO · CAJA SELLADA, modelo, capacidad (+ RAM en Android) y botón «Consultar» → WhatsApp.
+  Sin precios ni colores. Se publica en Vercel (Root Directory `catalogo`); guía en `contenido/plan-catalogo.md`.
 
 ## Feedback del usuario sobre la apertura (2026-10-22)
 - Estilo elegido para el feed: C "Manifiesto" (frases grandes + iPhone 3D sobre lima / voltio / hueso / tinta).

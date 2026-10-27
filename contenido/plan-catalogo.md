@@ -1,4 +1,4 @@
-# Catálogo Tech&Co. — plan (para el lunes)
+# Catálogo Tech&Co. — plan
 
 Decisiones del dueño (2026-10-23):
 
@@ -11,9 +11,20 @@ Decisiones del dueño (2026-10-23):
 - **Fotos:** oficiales de cada fabricante (Apple, Samsung, Xiaomi), recortadas. `procesar_fotos.py` (iPhone) y
   `descargar_otros.py` (Samsung/Xiaomi) → `catalogo/img/`. Fuentes en `fotos-iphone/indice.csv` y `fotos-otros/indice.csv`.
 - **WhatsApp:** todavía no hay número del negocio → todo se arma con el número vacío en `catalogo/config.js`.
-- **Web:** se publica en **Vercel o Netlify** (lunes).
+- **Web:** hecha (2026-10-27) en `catalogo/`; se publica en **Vercel** (ver «Cómo publicarla»).
 
-Fuente de datos: **`catalogo/a-pedido.csv`** (sección, marca, línea, modelo, capacidad, RAM, condición, notas).
+Fuente de datos: **`catalogo/a-pedido.csv`** (sección, marca, línea, modelo, capacidad, RAM, condición, foto, visible).
+Ese archivo se publica en la web: **nada de notas internas ni del proveedor** (van en «Pendientes», abajo).
+Para sacar un modelo sin borrarlo: `visible` = `no`. Después de editar: `python3 generar_catalogo.py`.
+
+## Cómo publicarla (Vercel, gratis)
+
+1. Aprobar el PR para que los cambios estén en `main` (Vercel publica lo que está en `main`).
+2. Entrar a vercel.com → «Continue with GitHub» → **Add New… › Project** → importar `francoperis/iphone`.
+3. En la configuración: **Root Directory = `catalogo`**, Framework Preset = **Other**. Nombre del proyecto: `techco`
+   (la dirección queda `techco.vercel.app` si está libre) → **Deploy**.
+4. Poner el número de WhatsApp en `catalogo/config.js` (sin él, el botón abre WhatsApp para elegir el contacto).
+5. Copiar la dirección en la bio de Instagram. Cada cambio que llegue a `main` se publica solo.
 
 ## Secciones
 
@@ -25,7 +36,7 @@ Fuente de datos: **`catalogo/a-pedido.csv`** (sección, marca, línea, modelo, c
 
 ## Lo que hay que hacer
 
-### 1. Web (link en la bio)
+### 1. Web (link en la bio) — HECHA, falta publicarla y el número de WhatsApp
 - Adaptar `catalogo/` del modo «stock por unidad» (batería, estado, precio) al **modo a pedido**: tarjetas por modelo con
   foto, nombre, capacidad (y RAM en Android), etiqueta SWAP o NUEVO · CAJA SELLADA y botón **«Consultar»**
   que abre WhatsApp con el mensaje armado («¡Hola Tech&Co.! Quiero consultar por el Galaxy S25 Ultra 256 GB»).
@@ -53,4 +64,7 @@ Fuente de datos: **`catalogo/a-pedido.csv`** (sección, marca, línea, modelo, c
 - **Redmi Note 17 Pro 5G:** el nombre existe (mi.com global), pero la foto del proveedor no coincide con la oficial.
   Confirmar el modelo exacto.
 - **iPhone 17 Pro:** el proveedor lo tachó en su historia (sin stock ese día). Va igual con «Consultar».
+- **Redmi 13C:** el proveedor lo llama «Xiaomi 13C».
+- **Redmi 15R 5G:** el proveedor lo marca como NUEVO (recién llegado).
+- **Galaxy A26 5G y Redmi 15R 5G** van sin foto (en la web se ve el nombre corto) hasta confirmar el modelo.
 - Número de WhatsApp del negocio.
