@@ -28,7 +28,9 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
 ## Datos que faltan (pedírselos al usuario antes de publicar nada)
 - WhatsApp del negocio: **3795 33-6448** (wa.me/5493795336448, 2026-10-27; ya está en `catalogo/config.js`). (Instagram: **@techco.ctes**, 2026-10-23; «ctes» = Corrientes → confirmar [ZONA].)
 - (2026-10-23) Todavía NO hay equipos en la mano: fase 0 = teasers sin prometer stock (ver `publicar/ARRANCAR.md`).
-- Zona de retiro / envíos, medios de pago, cuotas, meses de garantía.
+- (2026-10-28, bio de Instagram) **Envíos a todo el país** · Corrientes. Faltan: zona/forma de retiro, medios de pago, cuotas, meses de garantía.
+- (2026-10-28) Estadísticas a 30 días: 77 seguidores / 431 seguidos, 818 visitas al perfil, 0 toques en el enlace (la bio no tiene link),
+  1.444 reproducciones (62 % no seguidores), 0 reels subidos. Prioridad: link de WhatsApp/catálogo en la bio y subir los reels.
 - (2026-10-23) Sistema **a pedido**: no hay stock fijo; el proveedor consigue y se consulta en el momento
   (también otros modelos que no están en la lista). Modelos que comercializa el proveedor: `catalogo/a-pedido.csv`
   (sin nombre ni precios del proveedor). El catálogo se organiza por secciones: iPhone (Base / Pro / Pro Max / caja sellada),
