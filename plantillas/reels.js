@@ -32,6 +32,13 @@ window.REELS = {
     lineas: ["Estado de la batería a la vista", "Revisado antes de entregarlo", "Sin sorpresas"],
     cierre: { titulo: "Decime qué celular buscás.", cta: "Escribinos por WhatsApp" },
   },
+  "foto": {
+    clip: "../videos/clips/foto_vertical.mp4", desde: 0,   // armar_foto.sh
+    etiqueta: "",
+    hook: ["Tu próxima foto", "merece una", "buena cámara."], resaltar: "cámara.",
+    lineas: ["iPhone, Samsung y Xiaomi", "Swap o nuevos en caja sellada", "Te lo conseguimos"],
+    cierre: { titulo: "Decime qué celular buscás.", cta: "Escribinos por WhatsApp" },
+  },
   "canje": {
     clip: "", desde: 0,
     etiqueta: "",

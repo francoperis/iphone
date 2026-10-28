@@ -95,6 +95,9 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   cuadro a cuadro (dedos adelante, marcas tapadas); la pantalla arranca apagada para que se lea el hook (`--encender 4.2`).
   El porcentaje va BORRONEADO (no es un equipo real: no inventar el número). Los iPhone con pantalla verde de Coverr son
   modelos viejos (con bisel): por eso el clip va bien de cerca.
+- Reel «Tu próxima foto merece una buena cámara» (`reels.js` "foto", fondo `armar_foto.sh`: Coverr, mujer riendo con un
+  iPhone XR + chica con un iPhone 11 Pro) → `publicar/03-que-vendemos/foto_reel.mp4`. Hoja de 28 clips libres de Coverr
+  revisados (2026-10-28): regalos/Navidad (5, 6), iPhone 15 en mano (7–13), cámara (14, 27), trípode (18).
 - Comparar (en curso, sin exportar): `plantillas/comparar.html?c=a56-vs-13|note15pro-vs-a36` (historia con encuesta) y
   `?c=13-vs-14|15pro-vs-16pro` (reel comparador); datos verificados en `plantillas/comparar.js`.
 - Plan de contenido: `contenido/plan-2-semanas.md`.
