@@ -83,6 +83,12 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   iPhone 15 (`--encuadre 0.15`, así la cámara queda a la vista). Hook → «Revisados, uno por uno» con desfile 3D
   (13 → 15 Pro → 16 Pro → 17 Pro) y lo que se revisa → «Decime qué celular buscás y te lo conseguimos». Texto clave entre
   y 250 y 1300 (zona segura de anuncios). «Revisados» lo confirmó el dueño (2026-10-28). → `publicar/03-que-vendemos/por-que-swap_hook-*.mp4`.
+- Música: `python3 musica.py salida.wav --duracion 15 --entrada 3.2 --barridos 3.55,5.3,7.05,8.8 --cierre 11 --video in.mp4 --salida-video out.mp4`
+  sintetiza una pista ORIGINAL (120 BPM, La menor, sin licencias de terceros) con la entrada y los barridos en los cortes.
+  Mixkit Music (Free License) permite redes y anuncios, pero corta las consultas desde este entorno (429): no insistir con reintentos.
+  Para el feed conviene igual sumar un audio en tendencia de la biblioteca de Instagram.
+- Clips (2026-10-28): no hay en Mixkit ni en Coverr un clip libre de «una mano mostrando varios celulares distintos»;
+  Pexels/Pixabay bloquean el acceso automático. Ese tipo de video se filma (ver guía en la respuesta del 2026-10-28).
 - Plan de contenido: `contenido/plan-2-semanas.md`.
 - Apertura: `plantillas/apertura.html?pieza=post1..6|story1..6` + `plantillas/canje.html?de=&a=&formato=historia|post`
   (canje 3D, 9 s). Guía en `contenido/apertura.md`. Componentes compartidos: `plantillas/piezas.css` y `piezas.js`
