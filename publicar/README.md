@@ -18,6 +18,7 @@ Reglas que ya están aplicadas en todas las piezas (manual completo en `IDENTIDA
 | `02-apertura/` | Abrimos, revelación (continuación de Carga 99 %), presentación, "¿Hay uno para vos?" | El día que abrimos |
 | `03-que-vendemos/` | "Lo mejor, a tu alcance." (Swap y sellado), "Todo a la vista.", encuesta "¿Qué buscás?" | Primera semana, y cada tanto |
 | `03-que-vendemos/por-que-swap_*` | Reel/anuncio «¿Por qué un iPhone Swap?» en 2 versiones del hook (`porque` y `que`) | Reel del feed y publicidad paga (probar los dos hooks) |
+| `03-que-vendemos/unboxing_reel.mp4`, `bateria_reel.mp4` | Clips con personas reales: «¿Lo querés en caja sellada?» y «Antes de pagar, te muestro la batería» (10 s, con música) | Reels del feed y hooks para publicidad |
 | `04-como-comprar/` | 3 pasos: elegilo, tocá «Lo quiero», es tuyo | Primera semana, y fijar en el perfil |
 | `05-plan-canje/` | Canje en 3D (13 → 17 Pro, 12 → 16 Pro) y reel "¿Cuánto vale tu equipo viejo?" | Una vez por semana |
 | `06-tips/` | Reel "No compres un iPhone Swap sin chequear esto" | Contenido para guardar/compartir |

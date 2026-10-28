@@ -89,6 +89,14 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   Para el feed conviene igual sumar un audio en tendencia de la biblioteca de Instagram.
 - Clips (2026-10-28): no hay en Mixkit ni en Coverr un clip libre de «una mano mostrando varios celulares distintos»;
   Pexels/Pixabay bloquean el acceso automático. Ese tipo de video se filma (ver guía en la respuesta del 2026-10-28).
+- Clips con personas reales (2026-10-28, Coverr gratis): reels `unboxing` y `bateria` en `plantillas/reels.js` (10 s, con música)
+  → `publicar/03-que-vendemos/unboxing_reel.mp4`, `bateria_reel.mp4`. «Te muestro la batería»: `armar_bateria.py` pone
+  `plantillas/pantalla-bateria.html` (Ajustes › Batería, modo oscuro) en un iPhone con pantalla verde, siguiendo la pantalla
+  cuadro a cuadro (dedos adelante, marcas tapadas); la pantalla arranca apagada para que se lea el hook (`--encender 4.2`).
+  El porcentaje va BORRONEADO (no es un equipo real: no inventar el número). Los iPhone con pantalla verde de Coverr son
+  modelos viejos (con bisel): por eso el clip va bien de cerca.
+- Comparar (en curso, sin exportar): `plantillas/comparar.html?c=a56-vs-13|note15pro-vs-a36` (historia con encuesta) y
+  `?c=13-vs-14|15pro-vs-16pro` (reel comparador); datos verificados en `plantillas/comparar.js`.
 - Plan de contenido: `contenido/plan-2-semanas.md`.
 - Apertura: `plantillas/apertura.html?pieza=post1..6|story1..6` + `plantillas/canje.html?de=&a=&formato=historia|post`
   (canje 3D, 9 s). Guía en `contenido/apertura.md`. Componentes compartidos: `plantillas/piezas.css` y `piezas.js`

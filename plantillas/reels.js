@@ -16,6 +16,22 @@ window.REELS = {
     lista: ["Salud de batería", "Face ID", "iCloud desvinculado", "IMEI limpio"],
     cierre: { titulo: "Guardalo para después.", cta: "Catálogo en la bio" },
   },
+  // clips con personas reales (Coverr, gratis para uso comercial): unboxing_vertical.mp4 (armar_unboxing.sh)
+  // y bateria_vertical.mp4 (armar_bateria.py: la pantalla de batería puesta en un iPhone con pantalla verde)
+  "unboxing": {
+    clip: "../videos/clips/unboxing_vertical.mp4", desde: 0,
+    etiqueta: "",
+    hook: ["¿Lo querés", "en caja", "sellada?"], resaltar: "sellada?",
+    lineas: ["iPhone, Samsung y Xiaomi", "Nuevos, en caja sellada", "Te lo conseguimos"],
+    cierre: { titulo: "Decime cuál buscás.", cta: "Escribinos por WhatsApp" },
+  },
+  "bateria": {
+    clip: "../videos/clips/bateria_vertical.mp4", desde: 0,
+    etiqueta: "",
+    hook: ["Antes de pagar,", "te muestro", "la batería."], resaltar: "batería.",
+    lineas: ["Estado de la batería a la vista", "Revisado antes de entregarlo", "Sin sorpresas"],
+    cierre: { titulo: "Decime qué celular buscás.", cta: "Escribinos por WhatsApp" },
+  },
   "canje": {
     clip: "", desde: 0,
     etiqueta: "",
