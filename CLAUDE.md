@@ -79,6 +79,10 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   `node exportar_video.js plantillas/reel.html "reel=canje&exportar=1" salida/reel_canje.mp4 --fondo <clip> --desde <s> --encuadre <0..1>`.
   Antes de usar un clip, verificar con zoom que el teléfono sea un iPhone (en Mixkit hay muchos Android).
   Clips verificados con iPhone: Mixkit 100050, 100046, 100053 (iPhone rojo); Coverr "close-up of a man taking a selfie on iPhone 15".
+- Reel/anuncio «¿Por qué un Swap?» (15 s): `plantillas/swap.html?hook=porque|que` sobre el clip de Coverr de la selfie con
+  iPhone 15 (`--encuadre 0.15`, así la cámara queda a la vista). Hook → «Revisados, uno por uno» con desfile 3D
+  (13 → 15 Pro → 16 Pro → 17 Pro) y lo que se revisa → «Decime qué celular buscás y te lo conseguimos». Texto clave entre
+  y 250 y 1300 (zona segura de anuncios). «Revisados» lo confirmó el dueño (2026-10-28). → `publicar/03-que-vendemos/por-que-swap_hook-*.mp4`.
 - Plan de contenido: `contenido/plan-2-semanas.md`.
 - Apertura: `plantillas/apertura.html?pieza=post1..6|story1..6` + `plantillas/canje.html?de=&a=&formato=historia|post`
   (canje 3D, 9 s). Guía en `contenido/apertura.md`. Componentes compartidos: `plantillas/piezas.css` y `piezas.js`
