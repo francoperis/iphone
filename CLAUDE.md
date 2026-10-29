@@ -93,6 +93,10 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   para comprar, no características: `plantillas/razones.html` (reel tipográfico, 16 s, sin video de stock): original, más iPhone
   por tu plata, te dura años (actualizaciones de iOS), sin sorpresas (revisado), otra vida (sustentable) → cierre «Lo mejor,
   a tu alcance» con foto real → `publicar/03-que-vendemos/por-que-swap_razones.mp4`.
+- (2026-10-29) Al usuario NO le gustó el reel tipográfico de razones (mucho texto, «genérico, parece hecho con IA»).
+  Quiere estilo CREADOR: hook fuerte en los primeros 2 s, pocas palabras por corte, cortes rápidos, loop corto.
+  `plantillas/hook.html?r=no-compres` (9 s, fotos reales HD con punch-in): «No compres un iPhone nuevo.» → «Comprá un Swap.» →
+  «Mismo iPhone.» → «Original. Revisado.» → «Y mucho menos plata.» → «¿Cuál buscás?» → `publicar/03-que-vendemos/no-compres-nuevo_reel.mp4`.
 - Música: `python3 musica.py salida.wav --duracion 15 --entrada 3.2 --barridos 3.55,5.3,7.05,8.8 --cierre 11 --video in.mp4 --salida-video out.mp4`
   sintetiza una pista ORIGINAL (120 BPM, La menor, sin licencias de terceros) con la entrada y los barridos en los cortes.
   Mixkit Music (Free License) permite redes y anuncios, pero corta las consultas desde este entorno (429): no insistir con reintentos.
