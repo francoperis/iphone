@@ -60,7 +60,12 @@ const FOTOS = {
          datos: ["Nuevo, en caja sellada", "Te lo conseguimos"], pos: "40% 50%" },
 };
 const P = new URLSearchParams(location.search);
-const F = FOTOS[P.get("p") || "naranja"];
+const F = { ...FOTOS[P.get("p") || "naranja"] };
+// para armar piezas sin tocar FOTOS: &ojo= &titulo= &datos=a|b &pie= &limpio=1 &fundido=1
+if (P.has("ojo")) F.ojo = P.get("ojo");
+if (P.has("datos")) F.datos = P.get("datos").split("|").filter(Boolean);
+if (P.has("limpio")) F.limpio = true;
+if (P.has("fundido")) F.fundido = true;
 const hist = P.get("formato") === "historia";
 if (hist) document.body.classList.add("historia");
 const $ = (s) => document.getElementById(s);
@@ -85,7 +90,8 @@ $("titulo").innerHTML = P.get("titulo") || F.titulo;   // &titulo= para probar o
 $("titulo").style.fontSize = `var(${F.t})`;
 $("datos").innerHTML = F.datos.map((d) => `<span>${d}</span>`).join("");
 // limpio: sin datos ni pie (solo el hook y la foto)
-if (F.limpio) { $("pie").remove(); if (!F.fundido) document.querySelector(".velo-abajo").remove(); }
+if (F.limpio && P.has("pie")) $("pie").innerHTML = `<span>${P.get("pie")}</span>`;
+else if (F.limpio) { $("pie").remove(); if (!F.fundido && !F.datos.length) document.querySelector(".velo-abajo").remove(); }
 if (F.encoger) $("titulo").style.fontSize = "var(--t-m)";
 const arriba = hist ? 250 : 64;
 $("cabeza").style.top = arriba + "px";
