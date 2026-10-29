@@ -89,6 +89,10 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   y 250 y 1300 (zona segura de anuncios). «Revisados» lo confirmó el dueño (2026-10-28). → `publicar/03-que-vendemos/por-que-swap_hook-*.mp4`.
   (2026-10-29) Más fondos, para no repetir clip: `por-que-swap_videollamada|cama|rojo.mp4` (Coverr videollamada con iPhone 15,
   --encuadre 0.8 --desde 1; Coverr chica en la cama con iPhone 11 Pro, 0.5/6; Mixkit 100053 iPhone rojo en loop, 0.1/0).
+- (2026-10-29) El usuario NO quiere que se repitan los clips de stock entre videos. «¿Por qué un Swap?» tiene que dar RAZONES
+  para comprar, no características: `plantillas/razones.html` (reel tipográfico, 16 s, sin video de stock): original, más iPhone
+  por tu plata, te dura años (actualizaciones de iOS), sin sorpresas (revisado), otra vida (sustentable) → cierre «Lo mejor,
+  a tu alcance» con foto real → `publicar/03-que-vendemos/por-que-swap_razones.mp4`.
 - Música: `python3 musica.py salida.wav --duracion 15 --entrada 3.2 --barridos 3.55,5.3,7.05,8.8 --cierre 11 --video in.mp4 --salida-video out.mp4`
   sintetiza una pista ORIGINAL (120 BPM, La menor, sin licencias de terceros) con la entrada y los barridos en los cortes.
   Mixkit Music (Free License) permite redes y anuncios, pero corta las consultas desde este entorno (429): no insistir con reintentos.
