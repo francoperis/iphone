@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Foto real — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<!--
+  Post / historia con una foto REAL a sangre (fotos-proveedor/hd), título grande y datos en mono. Imagen fija.
+    ?p=naranja   (piezas en FOTOS, abajo)   &formato=post|historia
+-->
+<style>
+  html, body { margin: 0; overflow: hidden; background: var(--tinta); }
+  body { width: 1080px; height: 1350px; color: var(--hueso); }
+  body.historia { height: 1920px; }
+  .lienzo { position: relative; width: 1080px; height: 100%; overflow: hidden; }
+  .foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .velo-arriba { position: absolute; left: 0; right: 0; top: 0; height: 46%; background: linear-gradient(rgba(10,10,11,.82), rgba(10,10,11,0)); }
+  .velo-abajo { position: absolute; left: 0; right: 0; bottom: 0; height: 42%; background: linear-gradient(rgba(10,10,11,0), rgba(10,10,11,.88)); }
+  .cabeza { left: var(--margen); right: var(--margen); display: flex; justify-content: space-between; align-items: center; font-size: var(--m-m); }
+  .cabeza .logo-tc { font-size: var(--logo); }
+  .titulo { left: 60px; right: 60px; text-shadow: 0 6px 30px rgba(0,0,0,.35); }
+  .titulo b { color: var(--lima); }
+  .ojo { left: var(--margen); color: var(--lima); font-size: var(--m-m); }
+  .datos { left: var(--margen); right: var(--margen); display: flex; flex-direction: column; gap: 10px; font-size: var(--m-l); }
+  .datos span::before { content: "— "; color: var(--lima); }
+  .pie { left: var(--margen); right: var(--margen); display: flex; justify-content: space-between; font-size: var(--m-m); opacity: .85; }
+</style>
+</head>
+<body>
+<div class="lienzo">
+  <img class="foto" id="foto" alt="">
+  <div class="velo-arriba"></div>
+  <div class="velo-abajo"></div>
+  <div class="abs cabeza mono" id="cabeza"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+  <div class="abs mono ojo" id="ojo"></div>
+  <div class="abs titular titulo" id="titulo"></div>
+  <div class="abs mono datos" id="datos"></div>
+  <div class="abs mono pie" id="pie"><span>Consultá por WhatsApp</span><span>3795 33-6448</span></div>
+</div>
+<script>
+// pieza → foto, ojo (arriba, mono lima), título, tamaño, datos (abajo), encuadre (object-position)
+const FOTOS = {
+  naranja: { foto: "iphone-17-pro_naranja_mano", ojo: "iPhone 17 Pro", titulo: "Naranja<br><b>cósmico.</b>", t: "--t-l",
+             datos: ["Swap o en caja sellada", "Te lo conseguimos"], pos: "50% 60%" },
+  colores: { foto: "iphone-17-pro_tres-colores_mano", ojo: "iPhone 17 Pro", titulo: "Elegí<br><b>tu color.</b>", t: "--t-m",
+             datos: ["Naranja cósmico · Plata · Azul profundo", "Swap o en caja sellada"], pos: "50% 0%" },
+  cajas: { foto: "iphone-17-pro_tres-colores_cajas", ojo: "iPhone 17 Pro", titulo: "Los tres<br><b>colores.</b>", t: "--t-l",
+           datos: ["Naranja cósmico · Plata · Azul profundo", "Te lo conseguimos"], pos: "50% 40%" },
+  "14pro": { foto: "iphone-14-pro_plata_accesorios", ojo: "iPhone 14 Pro · Swap", titulo: "Pro, a tu<br><b>alcance.</b>", t: "--t-l",
+             datos: ["Revisado uno por uno", "Te lo conseguimos"], pos: "50% 75%" },
+  "13pro": { foto: "iphone-13-pro_plata_accesorios", ojo: "iPhone 13 Pro · Swap", titulo: "Un Pro<br><b>que rinde.</b>", t: "--t-l",
+             datos: ["Revisado uno por uno", "Te lo conseguimos"], pos: "50% 75%" },
+  "13mini": { foto: "iphone-13-mini_rosa_accesorios", ojo: "iPhone 13 mini · Swap", titulo: "Chico.<br><b>Y completo.</b>", t: "--t-l",
+              datos: ["Revisado uno por uno", "Te lo conseguimos"], pos: "50% 70%" },
+  a17: { foto: "galaxy-a17_caja", ojo: "Samsung · Nuevo, caja sellada", titulo: "Galaxy<br><b>A17.</b>", t: "--t-l",
+         datos: ["Nuevo, en caja sellada", "Te lo conseguimos"], pos: "40% 50%" },
+};
+const P = new URLSearchParams(location.search);
+const F = FOTOS[P.get("p") || "naranja"];
+const hist = P.get("formato") === "historia";
+if (hist) document.body.classList.add("historia");
+const $ = (s) => document.getElementById(s);
+const H = hist ? 1920 : 1350;
+$("foto").src = `../fotos-proveedor/hd/${F.foto}.jpg`;
+$("foto").style.objectPosition = F.pos;
+$("ojo").textContent = F.ojo;
+$("titulo").innerHTML = F.titulo;
+$("titulo").style.fontSize = `var(${F.t})`;
+$("datos").innerHTML = F.datos.map((d) => `<span>${d}</span>`).join("");
+const arriba = hist ? 250 : 64;
+$("cabeza").style.top = arriba + "px";
+$("ojo").style.top = arriba + 110 + "px";
+$("titulo").style.top = arriba + 160 + "px";
+$("datos").style.bottom = (hist ? 330 : 140) + "px";
+$("pie").style.bottom = (hist ? 250 : 60) + "px";
+window.PLANTILLA = { duracion: 1000, async listo() { await document.fonts.ready; await $("foto").decode(); }, ir() {} };
+</script>
+</body>
+</html>
