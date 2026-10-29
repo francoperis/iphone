@@ -73,8 +73,10 @@ if (F.encoger) {
   fondo.removeAttribute("id");
   Object.assign(fondo.style, { filter: "blur(40px) brightness(.45)", transform: "scale(1.15)" });
   $("foto").before(fondo);
-  const w = 1080 * F.encoger;
-  Object.assign($("foto").style, { inset: "auto", width: w + "px", height: "auto", left: (1080 - w) / 2 + "px", bottom: "0px" });
+  // en historia la foto entra a lo ancho (sobra alto); el borde de arriba se funde con el fondo
+  const w = hist ? 1080 : 1080 * F.encoger;
+  Object.assign($("foto").style, { inset: "auto", width: w + "px", height: "auto", left: (1080 - w) / 2 + "px", bottom: "0px",
+    maskImage: "linear-gradient(transparent, #000 14%)", webkitMaskImage: "linear-gradient(transparent, #000 14%)" });
 }
 // zoom: agranda la foto desde arriba para que abajo no se vean cosas cortadas
 if (F.zoom) Object.assign($("foto").style, { transform: `scale(${F.zoom})`, transformOrigin: "50% 0%" });
