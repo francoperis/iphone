@@ -48,10 +48,10 @@
 const FOTOS = {
   naranja: { foto: "iphone-17-pro_naranja_mano", ojo: "iPhone 17 Pro", titulo: "Naranja<br><b>cósmico.</b>", t: "--t-l",
              datos: ["Swap o en caja sellada", "Te lo conseguimos"], pos: "50% 10%" },
-  colores: { foto: "iphone-17-pro_tres-colores_mano", ojo: "iPhone 17 Pro", titulo: "Elegí<br><b>tu color.</b>", t: "--t-m",
-             datos: ["Naranja cósmico · Plata · Azul profundo", "Swap o en caja sellada"], pos: "50% 0%" },
-  cajas: { foto: "iphone-17-pro_tres-colores_cajas", ojo: "iPhone 17 Pro", titulo: "Los tres<br><b>colores.</b>", t: "--t-l",
-           datos: ["Naranja cósmico · Plata · Azul profundo", "Te lo conseguimos"], pos: "50% 0%" },
+  colores: { foto: "iphone-17-pro_tres-colores_mano", ojo: "iPhone 17 Pro", titulo: "¿Cuál es<br><b>el tuyo?</b>", t: "--t-m",
+             datos: [], limpio: true, pos: "50% 0%" },
+  cajas: { foto: "iphone-17-pro_tres-colores_cajas", ojo: "iPhone 17 Pro", titulo: "¿Naranja, plata<br><b>o azul?</b>", t: "--t-l",
+           datos: [], limpio: true, pos: "50% 0%" },
   "14pro": { foto: "iphone-14-pro_plata_accesorios", ojo: "iPhone 14 Pro · Swap", titulo: "Pro, a tu<br><b>alcance.</b>", t: "--t-l",
              datos: ["Revisado uno por uno", "Te lo conseguimos"], pos: "50% 100%" },
   "13pro": { foto: "iphone-13-pro_plata_accesorios", ojo: "iPhone 13 Pro · Swap", titulo: "Un Pro<br><b>que rinde.</b>", t: "--t-l",
@@ -73,12 +73,14 @@ $("ojo").textContent = F.ojo;
 $("titulo").innerHTML = F.titulo;
 $("titulo").style.fontSize = `var(${F.t})`;
 $("datos").innerHTML = F.datos.map((d) => `<span>${d}</span>`).join("");
+// limpio: sin datos ni pie (solo el hook y la foto)
+if (F.limpio) { $("pie").remove(); document.querySelector(".velo-abajo").remove(); }
 const arriba = hist ? 250 : 64;
 $("cabeza").style.top = arriba + "px";
 $("ojo").style.top = arriba + 110 + "px";
 $("titulo").style.top = arriba + 160 + "px";
 $("datos").style.bottom = (hist ? 330 : 140) + "px";
-$("pie").style.bottom = (hist ? 250 : 60) + "px";
+if ($("pie")) $("pie").style.bottom = (hist ? 250 : 60) + "px";
 window.PLANTILLA = { duracion: 1000, async listo() { await document.fonts.ready; await $("foto").decode(); }, ir() {} };
 </script>
 </body>
