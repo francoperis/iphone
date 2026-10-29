@@ -100,6 +100,9 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
 - Reel «Tu próxima foto merece una buena cámara» (`reels.js` "foto", fondo `armar_foto.sh`: Coverr, mujer riendo con un
   iPhone XR + chica con un iPhone 11 Pro) → `publicar/03-que-vendemos/foto_reel.mp4`. Hoja de 28 clips libres de Coverr
   revisados (2026-10-28): regalos/Navidad (5, 6), iPhone 15 en mano (7–13), cámara (14, 27), trípode (18).
+- Unboxing (2026-10-29): reels `unboxing2` («¿Hay algo mejor que abrir un celu nuevo?») y `navidad` («¿Y si este año el regalo
+  es un celu?», para noviembre/diciembre); fondos con `armar_unboxing2.sh` (6 clips libres de Coverr) →
+  `publicar/03-que-vendemos/unboxing2_reel.mp4`, `navidad_reel.mp4`.
 - Comparar (reels exportados a `publicar/06-tips/comparar_13-vs-14.mp4` y `comparar_15pro-vs-16pro.mp4`, 15 s, con música): `plantillas/comparar.html?c=a56-vs-13|note15pro-vs-a36` (historia con encuesta) y
   `?c=13-vs-14|15pro-vs-16pro` (reel comparador); datos verificados en `plantillas/comparar.js`.
 - Plan de contenido: `contenido/plan-2-semanas.md`.

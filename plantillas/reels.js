@@ -39,6 +39,21 @@ window.REELS = {
     lineas: ["iPhone, Samsung y Xiaomi", "Swap o nuevos en caja sellada", "Te lo conseguimos"],
     cierre: { titulo: "Decime qué celular buscás.", cta: "Escribinos por WhatsApp" },
   },
+  // armar_unboxing2.sh
+  "unboxing2": {
+    clip: "../videos/clips/unboxing2_vertical.mp4", desde: 0,
+    etiqueta: "",
+    hook: ["¿Hay algo mejor", "que abrir un", "celu nuevo?"], resaltar: "nuevo?",
+    lineas: ["Nuevo, en caja sellada", "iPhone, Samsung y Xiaomi", "Te lo conseguimos"],
+    cierre: { titulo: "Decime cuál buscás.", cta: "Escribinos por WhatsApp" },
+  },
+  "navidad": {
+    clip: "../videos/clips/navidad_vertical.mp4", desde: 0,
+    etiqueta: "",
+    hook: ["¿Y si este año", "el regalo es", "un celu?"], resaltar: "celu?",
+    lineas: ["Nuevo, en caja sellada", "iPhone, Samsung y Xiaomi", "Envíos a todo el país"],
+    cierre: { titulo: "Decime cuál buscás.", cta: "Escribinos por WhatsApp" },
+  },
   "canje": {
     clip: "", desde: 0,
     etiqueta: "",
