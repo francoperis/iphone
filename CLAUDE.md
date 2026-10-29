@@ -31,6 +31,8 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
 - (2026-10-28, bio de Instagram) **Envíos a todo el país** · Corrientes. Faltan: zona/forma de retiro, medios de pago, cuotas, meses de garantía.
 - (2026-10-28) Estadísticas a 30 días: 77 seguidores / 431 seguidos, 818 visitas al perfil, 0 toques en el enlace (la bio no tiene link),
   1.444 reproducciones (62 % no seguidores), 0 reels subidos. Prioridad: link de WhatsApp/catálogo en la bio y subir los reels.
+- (2026-10-29) Perfil: 3 posts, 110 seguidores / 644 seguidos (siguen sumando seguidos), sin link ni botón de WhatsApp,
+  sin reels ni destacadas. Primer post con foto real («Los mejores Swap al mejor precio») publicado.
 - (2026-10-23) Sistema **a pedido**: no hay stock fijo; el proveedor consigue y se consulta en el momento
   (también otros modelos que no están en la lista). Modelos que comercializa el proveedor: `catalogo/a-pedido.csv`
   (sin nombre ni precios del proveedor). El catálogo se organiza por secciones: iPhone (Base / Pro / Pro Max / caja sellada),
