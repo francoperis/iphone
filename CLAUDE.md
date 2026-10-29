@@ -103,10 +103,11 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
 - Unboxing (2026-10-29): reels `unboxing2` («¿Hay algo mejor que abrir un celu nuevo?») y `navidad` («¿Y si este año el regalo
   es un celu?», para noviembre/diciembre); fondos con `armar_unboxing2.sh` (6 clips libres de Coverr) →
   `publicar/03-que-vendemos/unboxing2_reel.mp4`, `navidad_reel.mp4`.
-- Material del proveedor (2026-10-29): capturas de SUS historias (590×1280). `limpiar_proveedor.py` recorta la interfaz y los
+- Material del proveedor (2026-10-29): capturas de SUS historias (590×1280). `limpiar_proveedor.py` (recortes que usa mejorar_ia.py) recorta la interfaz y los
   textos (tienen nombres de clientes y ventas DEL PROVEEDOR: nunca usarlos como ventas o testimonios propios), borronea
   números de serie y mejora → `fotos-proveedor/`. Las originales no se suben. Las fotos muestran accesorios (vidrio, cargador,
-  cable, bolsa): no prometer «kit» sin confirmarlo. Reel `17pro` (`armar_17pro.sh`) → `publicar/equipos/iphone/17pro_reel.mp4`.
+  cable, bolsa): no prometer «kit» sin confirmarlo. Solo se guardan las versiones HD (`fotos-proveedor/hd/`); el reel `17pro`
+  y las descartadas (13 Pro de espaldas, 13 mini, versiones sin IA) se borraron del repo (2026-10-29).
 - (2026-10-29) Fotos del proveedor en HD: `mejorar_ia.py` (Real-ESRGAN x4plus, BSD-3, ONNX; se baja solo) → `fotos-proveedor/hd/`.
   Posts con foto real a sangre: `plantillas/foto.html?p=colores|cajas|naranja|a17|14pro|13pro` → `publicar/equipos/fotos-reales/`.
   Descartadas por calidad: 13 Pro de espaldas (movida) y 13 mini (casi no se ve el equipo). Al usuario NO le gustó el reel `17pro`

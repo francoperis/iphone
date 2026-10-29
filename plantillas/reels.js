@@ -54,14 +54,6 @@ window.REELS = {
     lineas: ["Nuevo, en caja sellada", "iPhone, Samsung y Xiaomi", "Envíos a todo el país"],
     cierre: { titulo: "Decime cuál buscás.", cta: "Escribinos por WhatsApp" },
   },
-  // fotos del proveedor limpias (limpiar_proveedor.py), armar_17pro.sh
-  "17pro": {
-    clip: "../videos/clips/17pro_vertical.mp4", desde: 0,
-    etiqueta: "",
-    hook: ["iPhone 17 Pro.", "¿Cuál", "te llevás?"], resaltar: "llevás?",
-    lineas: ["Naranja cósmico · Plata · Azul profundo", "Swap o en caja sellada", "Te lo conseguimos"],
-    cierre: { titulo: "Decime cuál buscás.", cta: "Escribinos por WhatsApp" },
-  },
   "canje": {
     clip: "", desde: 0,
     etiqueta: "",

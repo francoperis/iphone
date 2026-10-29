@@ -13,9 +13,7 @@ from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 # archivo -> (nombre, y0, y1) en px de la captura de 590×1280 (ancho completo)
 RECORTES = {
     "5123260290773486867.jpg": ("galaxy-a17_caja", 335, 935),
-    "5123260290773486868.jpg": ("iphone-13-mini_rosa_accesorios", 150, 1000),
     "5123260290773486869.jpg": ("iphone-14-pro_plata_accesorios", 210, 1005),
-    "5123260290773486870.jpg": ("iphone-13-pro_plata_dorso", 200, 1000),
     "5123260290773486871.jpg": ("iphone-13-pro_plata_accesorios", 280, 1000),
     "5123260290773486873.jpg": ("iphone-17-pro_naranja_camara", 160, 1150),
     "5123260290773486874.jpg": ("iphone-17-pro_naranja_mano", 160, 1130),
