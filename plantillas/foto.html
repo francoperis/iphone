@@ -51,7 +51,7 @@ const FOTOS = {
   colores: { foto: "iphone-17-pro_tres-colores_mano", ojo: "iPhone 17 Pro", titulo: "¿Cuál es<br><b>el tuyo?</b>", t: "--t-m",
              datos: [], limpio: true, pos: "50% 0%" },
   cajas: { foto: "iphone-17-pro_tres-colores_cajas", ojo: "iPhone 17 Pro", titulo: "¿Naranja, plata<br><b>o azul?</b>", t: "--t-l",
-           datos: [], limpio: true, pos: "50% 0%" },
+           datos: [], limpio: true, fundido: true, zoom: 1.12, pos: "50% 0%" },
   "14pro": { foto: "iphone-14-pro_plata_accesorios", ojo: "iPhone 14 Pro · Swap", titulo: "Pro, a tu<br><b>alcance.</b>", t: "--t-l",
              datos: ["Revisado uno por uno", "Te lo conseguimos"], pos: "50% 100%" },
   "13pro": { foto: "iphone-13-pro_plata_accesorios", ojo: "iPhone 13 Pro · Swap", titulo: "Un Pro<br><b>que rinde.</b>", t: "--t-l",
@@ -69,12 +69,14 @@ const $ = (s) => document.getElementById(s);
 const H = hist ? 1920 : 1350;
 $("foto").src = `../fotos-proveedor/hd/${F.foto}.jpg`;
 $("foto").style.objectPosition = F.pos;
+// zoom: agranda la foto desde arriba para que abajo no se vean cosas cortadas
+if (F.zoom) Object.assign($("foto").style, { transform: `scale(${F.zoom})`, transformOrigin: "50% 0%" });
 $("ojo").textContent = F.ojo;
-$("titulo").innerHTML = F.titulo;
+$("titulo").innerHTML = P.get("titulo") || F.titulo;   // &titulo= para probar otros hooks
 $("titulo").style.fontSize = `var(${F.t})`;
 $("datos").innerHTML = F.datos.map((d) => `<span>${d}</span>`).join("");
 // limpio: sin datos ni pie (solo el hook y la foto)
-if (F.limpio) { $("pie").remove(); document.querySelector(".velo-abajo").remove(); }
+if (F.limpio) { $("pie").remove(); if (!F.fundido) document.querySelector(".velo-abajo").remove(); }
 const arriba = hist ? 250 : 64;
 $("cabeza").style.top = arriba + "px";
 $("ojo").style.top = arriba + 110 + "px";
