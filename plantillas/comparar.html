@@ -146,8 +146,8 @@ if (encuesta) {
   for (const [k, lado, t0] of [["a", -1, 300], ["b", 1, 450]]) {
     const giro = 6 * lado;
     linea(tel[k], [[t0, { opacity: 0, transform: `translate(${lado * 500}px, ${dy}px) scale(${esc0}) rotate(${lado * 25}deg)` }, salir],
-                   [t0 + 700, { opacity: 1, transform: `translate(0px, ${dy}px) scale(${esc0}) rotate(${giro}deg)` }],
-                   [TH - 100, { opacity: 1, transform: `translate(0px, ${dy}px) scale(${esc0}) rotate(${giro}deg)` }, cortar],
+                   [t0 + 700, { opacity: 1, transform: `translate(${-lado * 70}px, ${dy}px) scale(${esc0}) rotate(${giro}deg)` }],
+                   [TH - 100, { opacity: 1, transform: `translate(${-lado * 70}px, ${dy}px) scale(${esc0}) rotate(${giro}deg)` }, cortar],
                    [TH + 500, { opacity: 1, transform: `translate(0px, 0px) scale(1) rotate(${giro / 2}deg)` }],
                    [TC, { opacity: 1, transform: `translate(0px, 0px) scale(1) rotate(${giro / 2}deg)` }, cortar],
                    [TC + 400, { opacity: 0, transform: `translate(0px, -80px) scale(1) rotate(${giro / 2}deg)` }]]);
