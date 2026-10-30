@@ -32,4 +32,11 @@ montar cual_vertical.mp4 284347:6:2.4:0.5 8255:4.5:1.4:0.85 138875:2:1.2:0.65 12
 montar conseguimos_vertical.mp4 122389:0.3:2.4:0.5 203251:4:1.6:0.57 209854:4:1.6:0.82 174009:4:1.6:0.65 130720:3:1.6:0.21 174009:9:1.2:0.65
 # «¿Ya sabés qué regalar esta Navidad?» — cortes 0 · 2,4 · 4,4 · 6,0 · 7,6 · 10
 montar navidad-px_vertical.mp4 186535:1:2.4:0.28 50017:6.0:2.0:0.21 172681:6:1.6:0.65 50017:9.5:1.6:0.57 186535:8:2.4:0.28
+# Samsung / Xiaomi (fotos oficiales en los cortes de equipo: ahí el video queda tapado). Clips con Android, sin iPhone a la vista.
+# «¿Sos de Samsung?» — cortes 0 · 5,6 (equipos 2,2–5,6) · 7,4 · 9,2 · 11
+montar samsung_vertical.mp4 61298:6:5.6:0.65 142641:2:1.8:0.5 95393:4:1.8:0.43 202987:4:1.8:0.57
+# «¿Team Xiaomi?» — cortes 0 · 6,2 (equipos 2,2–6,2) · 8,0 · 9,4 · 11
+montar xiaomi_vertical.mp4 83868:1:6.2:0.57 168485:2:1.8:0.57 9490:2:1.4:0.57 214736:3:1.6:0.65
+# «¿Samsung o Xiaomi?» — cortes 0 · 9,2 (comparación 2,2–9,2) · 12
+montar samsung-o-xiaomi_vertical.mp4 38084:0:8:0.5 83870:5:1.2:0.45 83870:0.5:2.8:0.6
 echo "listo"

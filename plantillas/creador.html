@@ -32,7 +32,20 @@
   .chico { position: absolute; left: 0; right: 0; top: 1290px; text-align: center; color: var(--hueso); font-size: 40px;
            text-shadow: 0 2px 12px rgba(0,0,0,.8); }
   .chico b { color: var(--lima); }
-  .logo { position: absolute; left: 50%; translate: -50% 0; top: 250px; font-size: var(--logo); color: var(--hueso); }
+  .logo { position: absolute; left: 50%; translate: -50% 0; top: 250px; font-size: var(--logo); color: var(--hueso); z-index: 5; }
+  /* corte de equipo: foto oficial sobre un color de la marca (tapa el video) */
+  .panel { position: absolute; inset: 0; overflow: hidden; }
+  .panel.tinta { background: radial-gradient(ellipse 70% 45% at 50% 38%, #26262b, var(--tinta)); }
+  .panel.voltio { background: radial-gradient(ellipse 70% 45% at 50% 38%, #a891ff, var(--voltio)); }
+  .panel img { position: absolute; top: 690px; left: 50%; height: 660px; translate: -50% -50%; filter: drop-shadow(0 40px 50px rgba(0,0,0,.45)); }
+  .panel.par img { height: 560px; }
+  .panel .nom { position: absolute; top: 960px; width: 460px; translate: -50% 0; text-align: center; color: var(--hueso); font-size: 32px; }
+  .panel .dato { position: absolute; top: 1110px; width: 500px; translate: -50% 0; text-align: center; color: var(--hueso); font-size: 150px; line-height: .92; }
+  .panel .dato.gana { color: var(--lima); }
+  .panel.voltio .dato.gana { color: var(--tinta); }
+  .panel .etq { position: absolute; left: 0; right: 0; top: 1290px; text-align: center; color: var(--hueso); font-size: 40px; opacity: .85; }
+  .sub.en-panel { top: 1180px; text-shadow: none; }
+  .sub.en-voltio b { color: var(--tinta); }
 </style>
 </head>
 <body>
@@ -41,7 +54,10 @@
 <div id="subs"></div>
 <span class="logo-tc logo">Tech<b>&amp;</b>Co<i></i></span>
 <script>
-// [desde (s), hasta (s), texto (las palabras entre * van en lima; | = salto de línea), texto chico (opcional)]
+// [desde (s), hasta (s), texto (las palabras entre * van en lima; | = salto de línea), texto chico (opcional), equipo (opcional)]
+// equipo: { foto, fondo: "tinta"|"voltio" } → la foto oficial (catalogo/img) tapa el video en ese corte
+//         { fotos: [a, b], nombres: [a, b], datos: [a, b], gana: 0|1, centro, etiqueta } → comparación lado a lado
+// dur: duración del reel en s (10 por defecto)
 // los tiempos siguen los cortes de armar_pixabay.sh
 const GUIONES = {
   // (2026-10-30) Sin el ángulo «pagás menos»: también se venden nuevos en caja sellada. Ejes: te asesoramos, a pedido, regalo.
@@ -68,10 +84,42 @@ const GUIONES = {
     [6.0, 7.6, "Nuevo,|*en caja|sellada.*"],
     [7.6, 10, "Pedilo|*con tiempo.*", "Escribinos · <b>te lo conseguimos</b>"],
   ] },
+  // (2026-10-30) Samsung y Xiaomi: nuevos en caja sellada. Fotos oficiales de catalogo/img; clips de personas con Android.
+  "samsung": { dur: 11, fondo: "../videos/clips/pixabay/samsung_vertical.mp4", lineas: [
+    [0, 2.2, "¿Sos de|*Samsung?*"],
+    [2.2, 3.0, "Galaxy|*A17*", "", { foto: "galaxy-a17", fondo: "tinta" }],
+    [3.0, 3.8, "Galaxy|*A36*", "", { foto: "galaxy-a36", fondo: "voltio" }],
+    [3.8, 4.6, "Galaxy|*A56*", "", { foto: "galaxy-a56", fondo: "tinta" }],
+    [4.6, 5.6, "Galaxy|*S25 Ultra*", "", { foto: "galaxy-s25-ultra", fondo: "voltio" }],
+    [5.6, 7.4, "Nuevos,|*en caja|sellada.*"],
+    [7.4, 9.2, "Para vos|*o para|regalar.*"],
+    [9.2, 11, "¿Cuál|*querés?*", "Escribinos · <b>te lo conseguimos</b>"],
+  ] },
+  "xiaomi": { dur: 11, fondo: "../videos/clips/pixabay/xiaomi_vertical.mp4", lineas: [
+    [0, 2.2, "¿Team|*Xiaomi?*"],
+    [2.2, 2.86, "Redmi|*13C*", "", { foto: "redmi-13c", fondo: "tinta" }],
+    [2.86, 3.52, "Redmi|*Note 14*", "", { foto: "redmi-note-14", fondo: "voltio" }],
+    [3.52, 4.18, "Redmi|*Note 15 Pro*", "", { foto: "redmi-note-15-pro", fondo: "tinta" }],
+    [4.18, 4.84, "Redmi|*Note 17 Pro*", "", { foto: "redmi-note-17-pro-5g", fondo: "voltio" }],
+    [4.84, 5.5, "Xiaomi|*15T*", "", { foto: "xiaomi-15t", fondo: "tinta" }],
+    [5.5, 6.2, "POCO|*F7*", "", { foto: "poco-f7", fondo: "voltio" }],
+    [6.2, 8.0, "Nuevos,|*en caja|sellada.*"],
+    [8.0, 9.4, "Redmi, POCO|*y Xiaomi.*"],
+    [9.4, 11, "¿Cuál|*querés?*", "Escribinos · <b>te lo conseguimos</b>"],
+  ] },
+  // specs verificadas en fichas oficiales (ver plantillas/comparar.js)
+  "samsung-o-xiaomi": { dur: 12, fondo: "../videos/clips/pixabay/samsung-o-xiaomi_vertical.mp4", lineas: [
+    [0, 2.2, "¿Samsung|*o Xiaomi?*"],
+    [2.2, 3.8, "", "", { fotos: ["galaxy-a36", "redmi-note-15-pro"], nombres: ["Galaxy A36 5G", "Redmi Note 15 Pro"], datos: ["", ""], centro: "VS", etiqueta: "Los dos nuevos, en caja sellada" }],
+    [3.8, 5.6, "", "", { fotos: ["galaxy-a36", "redmi-note-15-pro"], nombres: ["Galaxy A36 5G", "Redmi Note 15 Pro"], datos: ["50 MP", "200 MP"], gana: 1, etiqueta: "Cámara principal" }],
+    [5.6, 7.4, "", "", { fotos: ["galaxy-a36", "redmi-note-15-pro"], nombres: ["Galaxy A36 5G", "Redmi Note 15 Pro"], datos: ["5000", "6500"], gana: 1, etiqueta: "Batería (mAh)" }],
+    [7.4, 9.2, "", "", { fotos: ["galaxy-a36", "redmi-note-15-pro"], nombres: ["Galaxy A36 5G", "Redmi Note 15 Pro"], datos: ["256 GB", "256 GB"], etiqueta: "Capacidad" }],
+    [9.2, 12, "¿Cuál te|*llevás?*", "Comentá <b>S o X</b> 👇"],
+  ] },
 };
 const P = new URLSearchParams(location.search);
 const G = GUIONES[P.get("r") || "cual"];
-const T = 10000;
+const T = (G.dur || 10) * 1000;
 const $ = (s) => document.getElementById(s);
 if (P.has("ver")) { const v = document.createElement("video"); v.src = G.fondo; v.muted = v.loop = v.autoplay = true; document.body.prepend(v); }
 
@@ -84,10 +132,31 @@ const anim = (el, fr) => {
 };
 const pop = "cubic-bezier(.2,1.6,.4,1)";
 
-G.lineas.forEach(([a, b, txt, chico], i) => {
+const visible = (el, ini, fin) => anim(el, [[ini - 1, { visibility: "hidden" }], [ini, { visibility: "visible" }], [fin - 1, { visibility: "visible" }], [fin, { visibility: "hidden" }]]);
+const fotos = [];
+G.lineas.forEach(([a, b, txt, chico, eq], i) => {
   const ini = a * 1000, fin = b * 1000;
+  if (eq) {
+    const p = document.createElement("div");
+    const par = Boolean(eq.fotos);
+    p.className = "panel " + (eq.fondo || (i % 2 ? "tinta" : "voltio")) + (par ? " par" : "");
+    const fs = par ? eq.fotos : [eq.foto];
+    p.innerHTML = fs.map((f, k) => {
+      const x = par ? (k ? 790 : 290) : 540;
+      return `<img src="../catalogo/img/${f}.webp" alt="" style="left:${x}px">`
+        + (par ? `<div class="mono nom" style="left:${x}px">${eq.nombres[k]}</div><div class="titular dato${eq.gana === k ? " gana" : ""}" style="left:${x}px">${eq.datos[k]}</div>` : "");
+    }).join("") + (eq.centro ? `<div class="titular dato gana" style="left:540px; top:560px; width:200px">${eq.centro}</div>` : "") + (eq.etiqueta ? `<div class="mono etq">${eq.etiqueta}</div>` : "");
+    $("subs").appendChild(p);
+    visible(p, ini, fin);
+    p.querySelectorAll("img").forEach((im, k) => {
+      fotos.push(im);
+      anim(im, [[ini + k * 80, { transform: "scale(.82) translateY(60px)", opacity: 0 }, pop], [ini + k * 80 + 260, { transform: "scale(1)", opacity: 1 }], [fin, { transform: "scale(1.06)", opacity: 1 }]]);
+    });
+    p.querySelectorAll(".dato").forEach((dt, k) => anim(dt, [[ini + 200 + k * 120, { transform: "scale(.6)", opacity: 0 }, pop], [ini + 420 + k * 120, { transform: "scale(1)", opacity: 1 }]]));
+  }
+  if (!txt) return;
   const d = document.createElement("div");
-  d.className = "titular sub" + (i ? "" : " hook");
+  d.className = "titular sub" + (i ? "" : " hook") + (eq ? " en-panel" : "") + (eq && eq.fondo === "voltio" ? " en-voltio" : "");
   // palabras: *x* = lima, | = salto de línea
   let lima = false;
   d.innerHTML = txt.split("|").map((ln) => ln.split(" ").map((w) => {
@@ -98,7 +167,7 @@ G.lineas.forEach(([a, b, txt, chico], i) => {
     return html;
   }).join(" ")).join("<br>");
   $("subs").appendChild(d);
-  anim(d, [[ini - 1, { visibility: "hidden" }], [ini, { visibility: "visible" }], [fin - 1, { visibility: "visible" }], [fin, { visibility: "hidden" }]]);
+  visible(d, ini, fin);
   // el hook está entero en el cuadro 0; el resto entra palabra por palabra
   [...d.querySelectorAll("span")].forEach((s, k) => {
     const t = i ? ini + k * 110 : 0;
@@ -115,7 +184,7 @@ G.lineas.forEach(([a, b, txt, chico], i) => {
 
 window.PLANTILLA = {
   duracion: T,
-  async listo() { await document.fonts.ready; },
+  async listo() { await document.fonts.ready; await Promise.all(fotos.map((f) => f.decode())); },
   ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
 };
 </script>

@@ -107,6 +107,10 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   `regalo-navidad_reel.mp4`. **Registro de clips usados: `videos-usados.md`** (no repetir clips entre reels; excluir IA).
 - (2026-10-30) **NO usar el ángulo «pagás menos / más barato que nuevo»**: también se venden nuevos en caja sellada y no hay
   que desmerecerlos. Ejes que sí: te asesoramos (qué celu te conviene), a pedido (te lo conseguimos), envíos, regalo.
+- (2026-10-30) Reels de **Samsung y Xiaomi** (`creador.html?r=samsung|xiaomi|samsung-o-xiaomi`, 11–12 s): clips de personas con
+  Android (en Pixabay no hay clips con un Samsung/Xiaomi reconocible; verificar con zoom que NO se vea un iPhone) + cortes de
+  equipo con la foto oficial de `catalogo/img` sobre tinta/voltio, y comparación A36 vs Note 15 Pro con specs de `comparar.js`
+  → `publicar/equipos/samsung/sos-de-samsung_reel.mp4`, `xiaomi/team-xiaomi_reel.mp4`, `samsung-o-xiaomi_reel.mp4`.
 - Música: `python3 musica.py salida.wav --duracion 15 --entrada 3.2 --barridos 3.55,5.3,7.05,8.8 --cierre 11 --video in.mp4 --salida-video out.mp4`
   sintetiza una pista ORIGINAL (120 BPM, La menor, sin licencias de terceros) con la entrada y los barridos en los cortes.
   Mixkit Music (Free License) permite redes y anuncios, pero corta las consultas desde este entorno (429): no insistir con reintentos.

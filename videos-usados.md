@@ -21,10 +21,22 @@ resoluciones raras tipo 1904×1078 de cuentas de IA: p. ej. 317011, 317014, 2603
 | [186535](https://pixabay.com/videos/id-186535/) | chica con gorro de Papá Noel y celular | `regalo-navidad_reel.mp4` |
 | [50017](https://pixabay.com/videos/id-50017/) | chica sorprendida abriendo un regalo | `regalo-navidad_reel.mp4` |
 | [172681](https://pixabay.com/videos/id-172681/) | pareja mayor con celular y auriculares | `regalo-navidad_reel.mp4` |
+| [61298](https://pixabay.com/videos/id-61298/) | hombre mirando un Android (triple cámara) | `sos-de-samsung_reel.mp4` |
+| [142641](https://pixabay.com/videos/id-142641/) | manos con celular negro, saco camel | `sos-de-samsung_reel.mp4` |
+| [95393](https://pixabay.com/videos/id-95393/) | padre e hijo con celulares | `sos-de-samsung_reel.mp4` |
+| [202987](https://pixabay.com/videos/id-202987/) | manos escribiendo, fondo oscuro | `sos-de-samsung_reel.mp4` |
+| [83868](https://pixabay.com/videos/id-83868/) | chica de anteojos con celular, en la calle | `team-xiaomi_reel.mp4` |
+| [168485](https://pixabay.com/videos/id-168485/) | Android en la mano, al aire libre | `team-xiaomi_reel.mp4` |
+| [9490](https://pixabay.com/videos/id-9490/) | manos con Android (lector atrás) | `team-xiaomi_reel.mp4` |
+| [214736](https://pixabay.com/videos/id-214736/) | manos con celular, luces de ciudad | `team-xiaomi_reel.mp4` |
+| [38084](https://pixabay.com/videos/id-38084/) | Android plateado con lector adelante | `samsung-o-xiaomi_reel.mp4` |
+| [83870](https://pixabay.com/videos/id-83870/) | chica de saco en la escalera | `samsung-o-xiaomi_reel.mp4` |
 
 Usados en reels DESCARTADOS (2026-10-30, ángulo «pagás menos», que el usuario no quiere porque también vende nuevos):
 183448, 130650, 204527, 130647, 79336, 130652, 204529, 174004 — se pueden volver a usar, porque esos reels no se publicaron.
 
-Sin usar todavía (revisados, parecen reales): 208770 (pelo rulos, fondo amarillo), 241224 (dos amigas, selfie frente al mar,
+Son iPhone (NO usar en reels de Samsung/Xiaomi; sirven para iPhone): 208770 (pelo rulos, fondo amarillo), 154829 (chica jugando,
+iPhone 14 Pro con funda rosa), 131161, 148493.
+Sin usar todavía (revisados, parecen reales): 241224 (dos amigas, selfie frente al mar,
 celular chico), 130212, 85879, 356885.
 Coverr y Mixkit ya se usaron en los reels anteriores (ver CLAUDE.md): no repetir esos clips.
