@@ -97,6 +97,9 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   Quiere estilo CREADOR: hook fuerte en los primeros 2 s, pocas palabras por corte, cortes rápidos, loop corto.
   `plantillas/hook.html?r=no-compres` (9 s, fotos reales HD con punch-in): «No compres un iPhone nuevo.» → «Comprá un Swap.» →
   «Mismo iPhone.» → «Original. Revisado.» → «Y mucho menos plata.» → «¿Cuál buscás?» → `publicar/03-que-vendemos/no-compres-nuevo_reel.mp4`.
+- (2026-10-30) El usuario calificó «pésimos» los reels hechos solo con texto + fotos/stock (incluido «No compres un iPhone
+  nuevo»). Cambio de rumbo: el material lo FILMAN ellos (celular, personas reales, voz) y acá se edita (cortes, subtítulos,
+  hook, música, marca). No volver a producir reels de solo texto sobre fotos/stock salvo que lo pida.
 - Música: `python3 musica.py salida.wav --duracion 15 --entrada 3.2 --barridos 3.55,5.3,7.05,8.8 --cierre 11 --video in.mp4 --salida-video out.mp4`
   sintetiza una pista ORIGINAL (120 BPM, La menor, sin licencias de terceros) con la entrada y los barridos en los cortes.
   Mixkit Music (Free License) permite redes y anuncios, pero corta las consultas desde este entorno (429): no insistir con reintentos.
