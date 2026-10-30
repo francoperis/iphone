@@ -7,15 +7,24 @@ resoluciones raras tipo 1904×1078 de cuentas de IA: p. ej. 317011, 317014, 2603
 
 | Clip | Qué se ve | Usado en |
 |---|---|---|
-| [183448](https://pixabay.com/videos/id-183448/) | chico con iPhone Pro en el parque | `pagando-de-mas_reel.mp4` |
-| [130650](https://pixabay.com/videos/id-130650/) | chica en la cama con iPhone Pro | `pagando-de-mas_reel.mp4` |
-| [204527](https://pixabay.com/videos/id-204527/) | manos con iPhone 11 rojo | `pagando-de-mas_reel.mp4` |
-| [130647](https://pixabay.com/videos/id-130647/) | chica en el escritorio con iPhone Pro | `pagando-de-mas_reel.mp4` |
-| [79336](https://pixabay.com/videos/id-79336/) | chica en el sillón con iPhone (funda rosa) | `pov-swap_reel.mp4` |
-| [130652](https://pixabay.com/videos/id-130652/) | chica de saco con iPhone Pro | `pov-swap_reel.mp4` |
-| [204529](https://pixabay.com/videos/id-204529/) | iPhone 11 rojo, de cerca | `pov-swap_reel.mp4` |
-| [174004](https://pixabay.com/videos/id-174004/) | selfie, camisa amarilla, pared de ladrillo | `pov-swap_reel.mp4` |
+| [284347](https://pixabay.com/videos/id-284347/) | chico encogiéndose de hombros, fondo amarillo | `que-celu-comprar_reel.mp4` |
+| [8255](https://pixabay.com/videos/id-8255/) | cámara del iPhone filmando una ciudad | `que-celu-comprar_reel.mp4` |
+| [138875](https://pixabay.com/videos/id-138875/) | jugando en el celular con joystick | `que-celu-comprar_reel.mp4` |
+| [129426](https://pixabay.com/videos/id-129426/) | chica con iPhone, fondo blanco | `que-celu-comprar_reel.mp4` |
+| [212637](https://pixabay.com/videos/id-212637/) | chica de anteojos sonriendo con el iPhone | `que-celu-comprar_reel.mp4` |
+| [45119](https://pixabay.com/videos/id-45119/) | mujer festejando | `que-celu-comprar_reel.mp4` |
+| [122389](https://pixabay.com/videos/id-122389/) | hombre sorprendido, mano en la boca | `te-lo-conseguimos_reel.mp4` |
+| [203251](https://pixabay.com/videos/id-203251/) | hombre pensando | `te-lo-conseguimos_reel.mp4` |
+| [209854](https://pixabay.com/videos/id-209854/) | manos con iPhone, de perfil | `te-lo-conseguimos_reel.mp4` |
+| [174009](https://pixabay.com/videos/id-174009/) | chica sonriendo con iPhone, pared de ladrillo | `te-lo-conseguimos_reel.mp4` |
+| [130720](https://pixabay.com/videos/id-130720/) | chica con iPhone en la escalera | `te-lo-conseguimos_reel.mp4` |
+| [186535](https://pixabay.com/videos/id-186535/) | chica con gorro de Papá Noel y celular | `regalo-navidad_reel.mp4` |
+| [50017](https://pixabay.com/videos/id-50017/) | chica sorprendida abriendo un regalo | `regalo-navidad_reel.mp4` |
+| [172681](https://pixabay.com/videos/id-172681/) | pareja mayor con celular y auriculares | `regalo-navidad_reel.mp4` |
+
+Usados en reels DESCARTADOS (2026-10-30, ángulo «pagás menos», que el usuario no quiere porque también vende nuevos):
+183448, 130650, 204527, 130647, 79336, 130652, 204529, 174004 — se pueden volver a usar, porque esos reels no se publicaron.
 
 Sin usar todavía (revisados, parecen reales): 208770 (pelo rulos, fondo amarillo), 241224 (dos amigas, selfie frente al mar,
-celular chico), 174009, 130212, 85879, 356885.
+celular chico), 130212, 85879, 356885.
 Coverr y Mixkit ya se usaron en los reels anteriores (ver CLAUDE.md): no repetir esos clips.

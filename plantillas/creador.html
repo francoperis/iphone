@@ -14,7 +14,7 @@
   Reel estilo creador (1080×1920, 10 s): subtítulos que entran palabra por palabra sobre un video de PERSONAS REALES
   (montajes de armar_pixabay.sh). La página es transparente: se graba encima del video con --fondo.
   El hook está entero desde el cuadro 0. Texto dentro de la zona segura (250–1300 px).
-    node exportar_video.js plantillas/creador.html "r=de-mas" salida/x.mp4 --fondo videos/clips/pixabay/de-mas_vertical.mp4
+    node exportar_video.js plantillas/creador.html "r=cual" salida/x.mp4 --fondo videos/clips/pixabay/cual_vertical.mp4
   ?ver=1 muestra el video en el navegador (para revisar).
 -->
 <style>
@@ -44,24 +44,33 @@
 // [desde (s), hasta (s), texto (las palabras entre * van en lima; | = salto de línea), texto chico (opcional)]
 // los tiempos siguen los cortes de armar_pixabay.sh
 const GUIONES = {
-  "de-mas": { fondo: "../videos/clips/pixabay/de-mas_vertical.mp4", lineas: [
-    [0, 2.4, "Estás pagando|*de más*|por tu iPhone."],
-    [2.4, 4.2, "Mismo|*iPhone.*"],
-    [4.2, 6.0, "Original.|*Revisado.*"],
-    [6.0, 7.6, "Mucho menos|*plata.*"],
-    [7.6, 8.8, "Se llama|*Swap.*"],
-    [8.8, 10, "¿Cuál|*buscás?*", "Escribinos · <b>te lo conseguimos</b>"],
+  // (2026-10-30) Sin el ángulo «pagás menos»: también se venden nuevos en caja sellada. Ejes: te asesoramos, a pedido, regalo.
+  "cual": { fondo: "../videos/clips/pixabay/cual_vertical.mp4", lineas: [
+    [0, 2.4, "¿No sabés|qué celu|*comprarte?*"],
+    [2.4, 3.8, "¿Sacás|*fotos?*"],
+    [3.8, 5.0, "¿*Jugás?*"],
+    [5.0, 6.2, "¿Vivís en|*las redes?*"],
+    [6.2, 8.0, "Te decimos|*cuál va|con vos.*"],
+    [8.0, 10, "Y te lo|*conseguimos.*", "Contanos qué usás · <b>escribinos</b>"],
   ] },
-  "pov": { fondo: "../videos/clips/pixabay/pov_vertical.mp4", lineas: [
-    [0, 2.4, "POV: tenés|el iPhone|*que querías*"],
-    [2.4, 4.4, "y pagaste|*mucho menos.*"],
-    [4.4, 6.2, "Es un|*Swap.*"],
-    [6.2, 7.8, "Original.|*Revisado.*"],
-    [7.8, 10, "¿Cuál|*querés vos?*", "Escribinos · <b>te lo conseguimos</b>"],
+  "conseguimos": { fondo: "../videos/clips/pixabay/conseguimos_vertical.mp4", lineas: [
+    [0, 2.4, "¿No encontrás|el celu|*que querés?*"],
+    [2.4, 4.0, "¿Ya lo|buscaste|*por todos lados?*"],
+    [4.0, 5.6, "*Escribinos.*"],
+    [5.6, 7.2, "Te lo|*conseguimos.*"],
+    [7.2, 8.8, "Y te llega|*a tu casa.*"],
+    [8.8, 10, "¿Cuál|*buscás?*", "<b>Envíos a todo el país</b>"],
+  ] },
+  "navidad": { fondo: "../videos/clips/pixabay/navidad-px_vertical.mp4", lineas: [
+    [0, 2.4, "¿Ya sabés|qué regalar|*esta Navidad?*"],
+    [2.4, 4.4, "Un celu|*nunca falla.*"],
+    [4.4, 6.0, "Para tus|*viejos.*"],
+    [6.0, 7.6, "Nuevo,|*en caja|sellada.*"],
+    [7.6, 10, "Pedilo|*con tiempo.*", "Escribinos · <b>te lo conseguimos</b>"],
   ] },
 };
 const P = new URLSearchParams(location.search);
-const G = GUIONES[P.get("r") || "de-mas"];
+const G = GUIONES[P.get("r") || "cual"];
 const T = 10000;
 const $ = (s) => document.getElementById(s);
 if (P.has("ver")) { const v = document.createElement("video"); v.src = G.fondo; v.muted = v.loop = v.autoplay = true; document.body.prepend(v); }
