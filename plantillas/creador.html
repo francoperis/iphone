@@ -54,7 +54,7 @@
 <div id="subs"></div>
 <span class="logo-tc logo">Tech<b>&amp;</b>Co<i></i></span>
 <script>
-// [desde (s), hasta (s), texto (las palabras entre * van en lima; | = salto de línea), texto chico (opcional), equipo (opcional)]
+// [desde (s), hasta (s), texto (las palabras entre * van en lima; | = salto de línea; ^ = sin mayúsculas forzadas), texto chico (opcional), equipo (opcional)]
 // equipo: { foto, fondo: "tinta"|"voltio" } → la foto oficial (catalogo/img) tapa el video en ese corte
 //         { fotos: [a, b], nombres: [a, b], datos: [a, b], gana: 0|1, centro, etiqueta } → comparación lado a lado
 // dur: duración del reel en s (10 por defecto)
@@ -116,6 +116,39 @@ const GUIONES = {
     [7.4, 9.2, "", "", { fotos: ["galaxy-a36", "redmi-note-15-pro"], nombres: ["Galaxy A36 5G", "Redmi Note 15 Pro"], datos: ["256 GB", "256 GB"], etiqueta: "Capacidad" }],
     [9.2, 12, "¿Cuál te|*llevás?*", "Comentá <b>S o X</b> 👇"],
   ] },
+  // (2026-10-30) Más Samsung/Xiaomi. El usuario NO quiere cierres con «¿cuál querés/elegís?»: el eje es «¿Team Android? Esto es para vos».
+  "team-android": { dur: 11, fondo: "../videos/clips/pixabay/team-android_vertical.mp4", lineas: [
+    [0, 2.4, "¿Team Android?|*Esto es|para vos.*"],
+    [2.4, 3.0, "Galaxy|*S25 Ultra*", "", { foto: "galaxy-s25-ultra", fondo: "tinta" }],
+    [3.0, 3.6, "Xiaomi|*15T*", "", { foto: "xiaomi-15t", fondo: "voltio" }],
+    [3.6, 4.2, "Galaxy|*A56*", "", { foto: "galaxy-a56", fondo: "tinta" }],
+    [4.2, 4.8, "POCO|*F7*", "", { foto: "poco-f7", fondo: "voltio" }],
+    [4.8, 5.4, "Redmi|*Note 15 Pro*", "", { foto: "redmi-note-15-pro", fondo: "tinta" }],
+    [5.4, 6.0, "Galaxy|*A36*", "", { foto: "galaxy-a36", fondo: "voltio" }],
+    [6.0, 7.6, "Samsung|*y Xiaomi.*"],
+    [7.6, 9.2, "Nuevos,|*en caja|sellada.*"],
+    [9.2, 11, "Escribinos.|*Te lo|conseguimos.*", "<b>Envíos a todo el país</b>"],
+  ] },
+  "ya-no-da": { dur: 11, fondo: "../videos/clips/pixabay/ya-no-da_vertical.mp4", lineas: [
+    [0, 2.2, "¿Tu celu|ya no|*da más?*"],
+    [2.2, 3.2, "*Esto es|para vos.*"],
+    [3.2, 3.9, "Galaxy|*A17*", "", { foto: "galaxy-a17", fondo: "tinta" }],
+    [3.9, 4.6, "Redmi|*Note 14*", "", { foto: "redmi-note-14", fondo: "voltio" }],
+    [4.6, 5.3, "Galaxy|*A56*", "", { foto: "galaxy-a56", fondo: "tinta" }],
+    [5.3, 6.0, "Xiaomi|*15T*", "", { foto: "xiaomi-15t", fondo: "voltio" }],
+    [6.0, 7.6, "Nuevos,|*en caja|sellada.*"],
+    [7.6, 9.2, "Te llega|*a tu casa.*"],
+    [9.2, 11, "Escribinos.|*Te lo|conseguimos.*", "<b>Envíos a todo el país</b>"],
+  ] },
+  // batería: datos de fichas oficiales (ver plantillas/comparar.js)
+  "bateria-android": { dur: 12, fondo: "../videos/clips/pixabay/bateria-android_vertical.mp4", lineas: [
+    [0, 2.4, "¿Tu batería|no llega|*a la noche?*"],
+    [2.4, 3.4, "*Esto es|para vos.*"],
+    [3.4, 5.4, "6500 *^mAh*", "Redmi Note 15 Pro · batería", { foto: "redmi-note-15-pro", fondo: "tinta" }],
+    [5.4, 7.4, "5000 *^mAh*", "Galaxy A36 5G · batería", { foto: "galaxy-a36", fondo: "voltio" }],
+    [7.4, 9.4, "Nuevos,|*en caja|sellada.*"],
+    [9.4, 12, "Escribinos.|*Te lo|conseguimos.*", "<b>Envíos a todo el país</b>"],
+  ] },
 };
 const P = new URLSearchParams(location.search);
 const G = GUIONES[P.get("r") || "cual"];
@@ -162,7 +195,8 @@ G.lineas.forEach(([a, b, txt, chico, eq], i) => {
   d.innerHTML = txt.split("|").map((ln) => ln.split(" ").map((w) => {
     const ab = w.startsWith("*"), ce = w.endsWith("*");
     if (ab) lima = true;
-    const html = `<span>${lima ? "<b>" : ""}${w.replace(/\*/g, "")}${lima ? "</b>" : ""}</span>`;
+    const caja = w.includes("^") ? ' style="text-transform: none"' : "";   // ^ = respeta mayúsculas/minúsculas (mAh)
+    const html = `<span${caja}>${lima ? "<b>" : ""}${w.replace(/[*^]/g, "")}${lima ? "</b>" : ""}</span>`;
     if (ce) lima = false;
     return html;
   }).join(" ")).join("<br>");
@@ -177,7 +211,9 @@ G.lineas.forEach(([a, b, txt, chico, eq], i) => {
     const c = document.createElement("div");
     c.className = "mono chico";
     c.innerHTML = chico;
+    if (txt.split("|").length > 2 && !eq) c.style.top = "1360px";   // con 3 renglones, el texto chico baja
     $("subs").appendChild(c);
+    visible(c, ini, fin);
     anim(c, [[ini + 450, { opacity: 0, transform: "translateY(20px)" }, pop], [ini + 750, { opacity: 1, transform: "none" }], [fin, { opacity: 1 }]]);
   }
 });

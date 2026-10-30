@@ -111,6 +111,9 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   Android (en Pixabay no hay clips con un Samsung/Xiaomi reconocible; verificar con zoom que NO se vea un iPhone) + cortes de
   equipo con la foto oficial de `catalogo/img` sobre tinta/voltio, y comparación A36 vs Note 15 Pro con specs de `comparar.js`
   → `publicar/equipos/samsung/sos-de-samsung_reel.mp4`, `xiaomi/team-xiaomi_reel.mp4`, `samsung-o-xiaomi_reel.mp4`.
+- (2026-10-30) Más Samsung/Xiaomi: el usuario NO quiere cierres con «¿Cuál querés/elegís?». Eje: **«¿Team Android? Esto es para vos.»**
+  y cierres afirmativos («Escribinos. Te lo conseguimos.»). `creador.html?r=team-android|ya-no-da|bateria-android` →
+  `publicar/equipos/team-android_reel.mp4`, `ya-no-da_reel.mp4`, `bateria-android_reel.mp4` (batería con datos de `comparar.js`).
 - Música: `python3 musica.py salida.wav --duracion 15 --entrada 3.2 --barridos 3.55,5.3,7.05,8.8 --cierre 11 --video in.mp4 --salida-video out.mp4`
   sintetiza una pista ORIGINAL (120 BPM, La menor, sin licencias de terceros) con la entrada y los barridos en los cortes.
   Mixkit Music (Free License) permite redes y anuncios, pero corta las consultas desde este entorno (429): no insistir con reintentos.

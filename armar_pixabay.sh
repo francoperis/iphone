@@ -39,4 +39,10 @@ montar samsung_vertical.mp4 61298:6:5.6:0.65 142641:2:1.8:0.5 95393:4:1.8:0.43 2
 montar xiaomi_vertical.mp4 83868:1:6.2:0.57 168485:2:1.8:0.57 9490:2:1.4:0.57 214736:3:1.6:0.65
 # «¿Samsung o Xiaomi?» — cortes 0 · 9,2 (comparación 2,2–9,2) · 12
 montar samsung-o-xiaomi_vertical.mp4 38084:0:8:0.5 83870:5:1.2:0.45 83870:0.5:2.8:0.6
+# «¿Team Android? Esto es para vos.» — cortes 0 · 6,0 (equipos 2,4–6,0) · 7,6 · 9,2 · 11
+montar team-android_vertical.mp4 154833:4:2.4:0.57 154833:0:3.6:0.57 348444:3:1.6:0.5 6590:1:1.6:0.35 241224:1:1.8:0.29
+# «¿Tu celu ya no da más?» — cortes 0 · 6,0 (equipos 3,2–6,0) · 7,6 · 9,2 · 11
+montar ya-no-da_vertical.mp4 366322:6:6.0:0.43 211636:2:1.6:0.87 23803:1:1.6:0.13 3135:3:1.8:0.87
+# «¿Tu batería no llega a la noche?» — cortes 0 · 7,4 (equipos 3,4–7,4) · 9,4 · 12
+montar bateria-android_vertical.mp4 44859:0:7.4:0.43 259189:5:2.0:0.21 90:3:2.6:0.43
 echo "listo"

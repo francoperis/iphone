@@ -31,12 +31,22 @@ resoluciones raras tipo 1904×1078 de cuentas de IA: p. ej. 317011, 317014, 2603
 | [214736](https://pixabay.com/videos/id-214736/) | manos con celular, luces de ciudad | `team-xiaomi_reel.mp4` |
 | [38084](https://pixabay.com/videos/id-38084/) | Android plateado con lector adelante | `samsung-o-xiaomi_reel.mp4` |
 | [83870](https://pixabay.com/videos/id-83870/) | chica de saco en la escalera | `samsung-o-xiaomi_reel.mp4` |
+| [154833](https://pixabay.com/videos/id-154833/) | chica mostrando un celular, fondo amarillo | `team-android_reel.mp4` |
+| [348444](https://pixabay.com/videos/id-348444/) | manos con Android azul | `team-android_reel.mp4` |
+| [6590](https://pixabay.com/videos/id-6590/) | chico de anteojos de sol con celular, en la calle | `team-android_reel.mp4` |
+| [241224](https://pixabay.com/videos/id-241224/) | dos amigas, selfie frente al mar | `team-android_reel.mp4` |
+| [366322](https://pixabay.com/videos/id-366322/) | señor de anteojos con Android | `ya-no-da_reel.mp4` |
+| [211636](https://pixabay.com/videos/id-211636/) | chica con hiyab y celular | `ya-no-da_reel.mp4` |
+| [23803](https://pixabay.com/videos/id-23803/) | chico de campera bordó con celular | `ya-no-da_reel.mp4` |
+| [3135](https://pixabay.com/videos/id-3135/) | hombre de traje con celular violeta | `ya-no-da_reel.mp4` |
+| [44859](https://pixabay.com/videos/id-44859/) · [90](https://pixabay.com/videos/id-90/) | mano con un Android viejo (Gmail) | `bateria-android_reel.mp4` |
+| [259189](https://pixabay.com/videos/id-259189/) | chica sacando una foto en el parque | `bateria-android_reel.mp4` |
 
 Usados en reels DESCARTADOS (2026-10-30, ángulo «pagás menos», que el usuario no quiere porque también vende nuevos):
 183448, 130650, 204527, 130647, 79336, 130652, 204529, 174004 — se pueden volver a usar, porque esos reels no se publicaron.
 
 Son iPhone (NO usar en reels de Samsung/Xiaomi; sirven para iPhone): 208770 (pelo rulos, fondo amarillo), 154829 (chica jugando,
-iPhone 14 Pro con funda rosa), 131161, 148493.
+iPhone 14 Pro con funda rosa), 131161, 148493, 44082 (cargando), 53701, 79337, 79338, 129410, 129411.
 Sin usar todavía (revisados, parecen reales): 241224 (dos amigas, selfie frente al mar,
 celular chico), 130212, 85879, 356885.
 Coverr y Mixkit ya se usaron en los reels anteriores (ver CLAUDE.md): no repetir esos clips.
