@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Reel creador — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<!--
+  Reel estilo creador (1080×1920, 10 s): subtítulos que entran palabra por palabra sobre un video de PERSONAS REALES
+  (montajes de armar_pixabay.sh). La página es transparente: se graba encima del video con --fondo.
+  El hook está entero desde el cuadro 0. Texto dentro de la zona segura (250–1300 px).
+    node exportar_video.js plantillas/creador.html "r=de-mas" salida/x.mp4 --fondo videos/clips/pixabay/de-mas_vertical.mp4
+  ?ver=1 muestra el video en el navegador (para revisar).
+-->
+<style>
+  html, body { margin: 0; overflow: hidden; background: transparent; }
+  body { width: 1080px; height: 1920px; }
+  video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .sombra { position: absolute; left: 0; right: 0; top: 700px; height: 760px;
+            background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(10,10,11,.5), rgba(10,10,11,0)); }
+  .arriba { position: absolute; left: 0; right: 0; top: 0; height: 420px; background: linear-gradient(rgba(10,10,11,.45), rgba(10,10,11,0)); }
+  .sub { position: absolute; left: 60px; right: 60px; top: 1080px; translate: 0 -50%; text-align: center; color: var(--hueso);
+         font-size: 168px; line-height: .92; text-shadow: 0 0 2px rgba(0,0,0,.9), 0 6px 0 rgba(0,0,0,.35), 0 10px 40px rgba(0,0,0,.6); }
+  .sub.hook { font-size: 150px; }
+  .sub span { display: inline-block; }
+  .sub b { color: var(--lima); font-weight: inherit; }
+  .chico { position: absolute; left: 0; right: 0; top: 1290px; text-align: center; color: var(--hueso); font-size: 40px;
+           text-shadow: 0 2px 12px rgba(0,0,0,.8); }
+  .chico b { color: var(--lima); }
+  .logo { position: absolute; left: 50%; translate: -50% 0; top: 250px; font-size: var(--logo); color: var(--hueso); }
+</style>
+</head>
+<body>
+<div class="arriba"></div>
+<div class="sombra"></div>
+<div id="subs"></div>
+<span class="logo-tc logo">Tech<b>&amp;</b>Co<i></i></span>
+<script>
+// [desde (s), hasta (s), texto (las palabras entre * van en lima; | = salto de línea), texto chico (opcional)]
+// los tiempos siguen los cortes de armar_pixabay.sh
+const GUIONES = {
+  "de-mas": { fondo: "../videos/clips/pixabay/de-mas_vertical.mp4", lineas: [
+    [0, 2.4, "Estás pagando|*de más*|por tu iPhone."],
+    [2.4, 4.2, "Mismo|*iPhone.*"],
+    [4.2, 6.0, "Original.|*Revisado.*"],
+    [6.0, 7.6, "Mucho menos|*plata.*"],
+    [7.6, 8.8, "Se llama|*Swap.*"],
+    [8.8, 10, "¿Cuál|*buscás?*", "Escribinos · <b>te lo conseguimos</b>"],
+  ] },
+  "pov": { fondo: "../videos/clips/pixabay/pov_vertical.mp4", lineas: [
+    [0, 2.4, "POV: tenés|el iPhone|*que querías*"],
+    [2.4, 4.4, "y pagaste|*mucho menos.*"],
+    [4.4, 6.2, "Es un|*Swap.*"],
+    [6.2, 7.8, "Original.|*Revisado.*"],
+    [7.8, 10, "¿Cuál|*querés vos?*", "Escribinos · <b>te lo conseguimos</b>"],
+  ] },
+};
+const P = new URLSearchParams(location.search);
+const G = GUIONES[P.get("r") || "de-mas"];
+const T = 10000;
+const $ = (s) => document.getElementById(s);
+if (P.has("ver")) { const v = document.createElement("video"); v.src = G.fondo; v.muted = v.loop = v.autoplay = true; document.body.prepend(v); }
+
+const ANIMS = [];
+const anim = (el, fr) => {
+  const k = fr.map(([ms, p, e]) => ({ ...p, offset: Math.min(1, Math.max(0, ms / T)), easing: e || "linear" }));
+  if (k[0].offset > 0) k.unshift({ ...k[0], offset: 0 });
+  if (k[k.length - 1].offset < 1) k.push({ ...k[k.length - 1], offset: 1 });
+  ANIMS.push(el.animate(k, { duration: T, fill: "both" }));
+};
+const pop = "cubic-bezier(.2,1.6,.4,1)";
+
+G.lineas.forEach(([a, b, txt, chico], i) => {
+  const ini = a * 1000, fin = b * 1000;
+  const d = document.createElement("div");
+  d.className = "titular sub" + (i ? "" : " hook");
+  // palabras: *x* = lima, | = salto de línea
+  let lima = false;
+  d.innerHTML = txt.split("|").map((ln) => ln.split(" ").map((w) => {
+    const ab = w.startsWith("*"), ce = w.endsWith("*");
+    if (ab) lima = true;
+    const html = `<span>${lima ? "<b>" : ""}${w.replace(/\*/g, "")}${lima ? "</b>" : ""}</span>`;
+    if (ce) lima = false;
+    return html;
+  }).join(" ")).join("<br>");
+  $("subs").appendChild(d);
+  anim(d, [[ini - 1, { visibility: "hidden" }], [ini, { visibility: "visible" }], [fin - 1, { visibility: "visible" }], [fin, { visibility: "hidden" }]]);
+  // el hook está entero en el cuadro 0; el resto entra palabra por palabra
+  [...d.querySelectorAll("span")].forEach((s, k) => {
+    const t = i ? ini + k * 110 : 0;
+    anim(s, [[t, { opacity: i ? 0 : 1, transform: i ? "scale(.6) translateY(30px)" : "scale(1)" }, pop], [t + 220, { opacity: 1, transform: "scale(1)" }]]);
+  });
+  if (chico) {
+    const c = document.createElement("div");
+    c.className = "mono chico";
+    c.innerHTML = chico;
+    $("subs").appendChild(c);
+    anim(c, [[ini + 450, { opacity: 0, transform: "translateY(20px)" }, pop], [ini + 750, { opacity: 1, transform: "none" }], [fin, { opacity: 1 }]]);
+  }
+});
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await document.fonts.ready; },
+  ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
+};
+</script>
+</body>
+</html>

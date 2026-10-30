@@ -100,6 +100,11 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
 - (2026-10-30) El usuario calificó «pésimos» los reels hechos solo con texto + fotos/stock (incluido «No compres un iPhone
   nuevo»). Cambio de rumbo: el material lo FILMAN ellos (celular, personas reales, voz) y acá se edita (cortes, subtítulos,
   hook, música, marca). No volver a producir reels de solo texto sobre fotos/stock salvo que lo pida.
+- (2026-10-30) El usuario NO puede filmar personas reales: pidió reels con videos de bancos de stock. Pexels ya no da claves;
+  se usa **Pixabay** (API con `PIXABAY_API_KEY` en el entorno, nunca en el repo; curl con User-Agent). Reels estilo creador
+  `plantillas/creador.html?r=de-mas|pov` (10 s, subtítulos palabra por palabra, hook entero en el cuadro 0) sobre montajes de
+  `armar_pixabay.sh` → `publicar/03-que-vendemos/pagando-de-mas_reel.mp4`, `pov-swap_reel.mp4`.
+  **Registro de clips usados: `videos-usados.md`** (no repetir clips entre reels; excluir clips generados con IA).
 - Música: `python3 musica.py salida.wav --duracion 15 --entrada 3.2 --barridos 3.55,5.3,7.05,8.8 --cierre 11 --video in.mp4 --salida-video out.mp4`
   sintetiza una pista ORIGINAL (120 BPM, La menor, sin licencias de terceros) con la entrada y los barridos en los cortes.
   Mixkit Music (Free License) permite redes y anuncios, pero corta las consultas desde este entorno (429): no insistir con reintentos.
