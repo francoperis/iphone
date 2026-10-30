@@ -33,6 +33,8 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
   1.444 reproducciones (62 % no seguidores), 0 reels subidos. Prioridad: link de WhatsApp/catálogo en la bio y subir los reels.
 - (2026-10-29) Perfil: 3 posts, 110 seguidores / 644 seguidos (siguen sumando seguidos), sin link ni botón de WhatsApp,
   sin reels ni destacadas. Primer post con foto real («Los mejores Swap al mejor precio») publicado.
+- (2026-10-30) **Primeras 2 consultas de precio** de un modelo, respondiendo historias: el cierre «Saber más» + casilla de respuesta
+  funciona. Para responderlas hacen falta precios, medios de pago, cuotas y garantía (siguen pendientes).
 - (2026-10-23) Sistema **a pedido**: no hay stock fijo; el proveedor consigue y se consulta en el momento
   (también otros modelos que no están en la lista). Modelos que comercializa el proveedor: `catalogo/a-pedido.csv`
   (sin nombre ni precios del proveedor). El catálogo se organiza por secciones: iPhone (Base / Pro / Pro Max / caja sellada),
