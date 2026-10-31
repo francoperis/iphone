@@ -145,6 +145,8 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   (repetitivo con lo anterior y fotos de baja calidad): no reutilizar ese formato.
 - Comparar (reels exportados a `publicar/06-tips/comparar_13-vs-14.mp4` y `comparar_15pro-vs-16pro.mp4`, 15 s, con música): `plantillas/comparar.html?c=a56-vs-13|note15pro-vs-a36` (historia con encuesta) y
   `?c=13-vs-14|15pro-vs-16pro` (reel comparador); datos verificados en `plantillas/comparar.js`.
+- (2026-10-31) Carrusel comparativo para el feed: `plantillas/carrusel.html?c=13-vs-13pro&n=1..7&formato=post` (fotos oficiales de
+  `catalogo/img`, specs de las fichas de Apple Support 111872 y 111871) → `publicar/06-tips/carrusel_13-vs-13pro/1..7.png`.
 - Plan de contenido: `contenido/plan-2-semanas.md`.
 - Apertura: `plantillas/apertura.html?pieza=post1..6|story1..6` + `plantillas/canje.html?de=&a=&formato=historia|post`
   (canje 3D, 9 s). Guía en `contenido/apertura.md`. Componentes compartidos: `plantillas/piezas.css` y `piezas.js`

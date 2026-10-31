@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Carrusel — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<!--
+  Carrusel comparativo para el feed (1080×1350, imagen fija). Una lámina por exportación:
+    node exportar_video.js plantillas/carrusel.html "c=13-vs-13pro&n=1&formato=post" salida/1.png --cuadro 0
+  Specs SOLO de las fichas oficiales de Apple Support (fuentes en CARRUSELES). Sin cajas ni tablas: columnas de texto.
+-->
+<style>
+  html, body { margin: 0; overflow: hidden; }
+  body { width: 1080px; height: 1350px; }
+  .lam { position: relative; width: 1080px; height: 1350px; overflow: hidden; }
+  .tinta { background: var(--tinta); color: var(--hueso); --acento: var(--lima); --suave: var(--acero); }
+  .hueso { background: var(--hueso); color: var(--tinta); --acento: var(--voltio); --suave: #6b6b72; }
+  .lima { background: var(--lima); color: var(--tinta); --acento: var(--voltio); --suave: #4b5a00; }
+  .voltio { background: var(--voltio); color: var(--tinta); --acento: var(--lima); --suave: #2d2266; }
+  .cabeza { position: absolute; left: var(--margen); right: var(--margen); top: var(--post-arriba); display: flex;
+            justify-content: space-between; align-items: center; font-size: var(--m-m); }
+  .cabeza .num { color: var(--suave); }
+  .cabeza .logo-tc { font-size: var(--logo); }
+  .titulo { position: absolute; left: var(--margen); right: var(--margen); top: 170px; font-size: var(--t-l); }
+  .titulo b { color: var(--acento); }
+  .titulo.m { font-size: var(--t-m); }
+  .pie { position: absolute; left: var(--margen); right: var(--margen); bottom: var(--post-abajo); display: flex;
+         justify-content: space-between; font-size: var(--m-m); }
+  .pie .fuente { color: var(--suave); }
+  .tel { position: absolute; translate: -50% -50%; filter: drop-shadow(0 30px 40px rgba(0,0,0,.35)); }
+  .rot { position: absolute; translate: -50% 0; text-align: center; font-size: var(--m-l); white-space: nowrap; }
+  /* columnas de comparación: rótulo mono, valor grande, aclaración */
+  .col { position: absolute; width: 430px; display: flex; flex-direction: column; gap: 14px; }
+  .col .k { font-size: var(--m-m); color: var(--suave); }
+  .col .v { font-size: var(--t-s); }
+  .col .v.gana { color: var(--acento); }
+  .col .v.xxl { font-size: 250px; }
+  .col .a { font-size: var(--m-l); line-height: 1.45; }
+  .col .a span { display: block; }
+  .col .a span::before { content: "— "; color: var(--acento); }
+  .lista { position: absolute; left: var(--margen); right: var(--margen); display: flex; flex-direction: column; gap: 18px; font-size: var(--m-l); line-height: 1.4; }
+  .lista span::before { content: "— "; color: var(--acento); }
+  .lista.sin-raya span::before { content: none; }
+  .lista small { display: block; font-size: var(--m-s); color: var(--suave); padding-left: 2.2em; }
+  .cam { position: absolute; width: 440px; height: 440px; overflow: hidden; border-radius: 0; }
+  .cam img { position: absolute; }
+</style>
+</head>
+<body>
+<div class="lam" id="lam"></div>
+<script>
+const IMG = (f) => `../catalogo/img/${f}.webp`;
+// [lámina] = { fondo, html }. Fuentes: support.apple.com/en-us/111872 (iPhone 13) y /111871 (iPhone 13 Pro), revisadas 2026-10-31.
+const A = { nombre: "iPhone 13", foto: "iphone-13_pink" }, B = { nombre: "iPhone 13 Pro", foto: "iphone-13-pro_sierrablue" };
+const tel = (f, x, y, h) => `<img class="tel" src="${IMG(f)}" style="left:${x}px; top:${y}px; height:${h}px" alt="">`;
+const rot = (t, x, y) => `<div class="mono rot" style="left:${x}px; top:${y}px">${t}</div>`;
+const col = (x, y, k, v, a = [], gana = false, xxl = false) => `<div class="col mono" style="left:${x}px; top:${y}px">
+  <div class="k">${k}</div><div class="titular v${gana ? " gana" : ""}${xxl ? " xxl" : ""}">${v}</div>
+  ${a.length ? `<div class="a">${a.map((s) => `<span>${s}</span>`).join("")}</div>` : ""}</div>`;
+// recorte del módulo de cámaras del dorso (fracciones de la foto oficial: x, y, lado)
+const cam = (f, [fx, fy, fl], x, y) => `<div class="cam" style="left:${x}px; top:${y}px">
+  <img src="${IMG(f)}" style="width:${440 / fl}px; left:${-fx / fl * 440}px; top:${-fy / fl * 440 * (1)}px" alt=""></div>`;
+const CARRUSELES = {
+  "13-vs-13pro": [
+    { fondo: "lima", html: `<div class="titular titulo">¿13 o<br><b>13 Pro?</b></div>
+        ${tel(A.foto, 300, 860, 560)}${tel(B.foto, 790, 860, 560)}
+        ${rot(A.nombre, 300, 1160)}${rot(B.nombre, 790, 1160)}` },
+    { fondo: "hueso", html: `<div class="titular titulo">En lo básico,<br><b>iguales.</b></div>
+        <div class="lista mono" style="top: 560px">
+          <span>Chip A15 Bionic<small>Gráficos de 4 núcleos en el 13 · de 5 en el Pro</small></span>
+          <span>Pantalla OLED de 6,1"</span>
+          <span>Face ID</span>
+          <span>Resistentes al agua (IP68)<small>Hasta 6 metros durante 30 minutos</small></span>
+          <span>Mismo tamaño<small>146,7 × 71,5 × 7,65 mm</small></span>
+        </div>
+        ${tel(A.foto, 380, 1110, 290)}${tel(B.foto, 700, 1110, 290)}` },
+    { fondo: "tinta", html: `<div class="titular titulo">La del Pro,<br><b>más fluida.</b></div>
+        ${col(72, 640, A.nombre, "Super<br>Retina XDR", ["800 nits de brillo"])}
+        ${col(578, 640, B.nombre, "ProMotion<br>120 Hz", ["1000 nits de brillo", "Más fluida al scrollear y jugar"], true)}
+        ${tel(A.foto, 290, 1130, 250)}${tel(B.foto, 796, 1130, 250)}`,
+      fuente: "Brillo típico · datos de Apple" },
+    { fondo: "voltio", html: `<div class="titular titulo">Una cámara<br><b>más.</b></div>
+        ${cam(A.foto, [0.0, 0.0, 0.33], 72, 540)}${cam(B.foto, [0.0, 0.0, 0.37], 568, 540)}
+        ${col(72, 1000, A.nombre, "2 cámaras", ["Principal y ultra gran angular"])}
+        ${col(568, 1000, B.nombre, "3 cámaras", ["Suma teleobjetivo 3x", "Fotos macro"], true)}` },
+    { fondo: "tinta", html: `<div class="titular titulo m">Batería: el Pro<br><b>dura más.</b></div>
+        ${col(72, 560, A.nombre, "19 h", ["Hasta 19 horas", "de video"], false, true)}
+        ${col(578, 560, B.nombre, "22 h", ["Hasta 22 horas", "de video"], true, true)}`,
+      fuente: "Reproducción de video · datos de Apple" },
+    { fondo: "hueso", html: `<div class="titular titulo">Aluminio<br><b>o acero.</b></div>
+        ${tel(A.foto, 300, 790, 420)}${tel(B.foto, 790, 790, 420)}
+        ${col(72, 1030, A.nombre, "174 g", ["Aluminio", "Más liviano"])}
+        ${col(578, 1030, B.nombre, "204 g", ["Acero inoxidable"])}` },
+    { fondo: "lima", html: `<div class="titular titulo m">¿Cuál va<br><b>con vos?</b></div>
+        <div class="lista sin-raya mono" style="top: 520px; gap: 46px">
+          <span><b class="titular" style="font-size: var(--t-s); display:block">iPhone 13</b>Si querés un iPhone liviano<br>y completo para todos los días.</span>
+          <span><b class="titular" style="font-size: var(--t-s); display:block">iPhone 13 Pro</b>Si sacás muchas fotos, querés zoom<br>y la pantalla de 120 Hz.</span>
+        </div>
+        <div class="mono" style="position:absolute; left: var(--margen); right: var(--margen); top: 1060px; font-size: var(--m-l); line-height: 1.45">
+          Los dos, Swap y revisados uno por uno.<br>Escribinos y te lo conseguimos.</div>`, pie: "Catálogo online · Link en la bio →" },
+  ],
+};
+const P = new URLSearchParams(location.search);
+const L = CARRUSELES[P.get("c") || "13-vs-13pro"];
+const n = Number(P.get("n") || 1), l = L[n - 1];
+const lam = document.getElementById("lam");
+lam.className = "lam " + l.fondo;
+const plano = l.fondo === "lima" || l.fondo === "hueso" ? " plano" : "";
+lam.innerHTML = `<div class="cabeza mono"><span class="num">${String(n).padStart(2, "0")} / ${String(L.length).padStart(2, "0")}</span>
+  <span class="logo-tc${plano}">Tech<b>&amp;</b>Co<i></i></span></div>${l.html}
+  <div class="pie mono"><span class="fuente">${l.fuente || ""}</span><span>${l.pie || (n < L.length ? "Deslizá →" : "")}</span></div>`;
+window.PLANTILLA = {
+  duracion: 1000,
+  async listo() { await document.fonts.ready; await Promise.all([...document.images].map((i) => i.decode())); },
+  ir() {},
+};
+</script>
+</body>
+</html>
