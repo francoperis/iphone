@@ -26,15 +26,21 @@ Idioma de todo el contenido: español rioplatense (vos, "escribinos", "tuyo").
   iPhone 13, 15 Pro, 16 Pro y 17 Pro.
 
 ## Datos que faltan (pedírselos al usuario antes de publicar nada)
-- Número de WhatsApp. (Instagram: **@techco.ctes**, 2026-10-23; «ctes» = Corrientes → confirmar [ZONA].)
+- WhatsApp del negocio: **3795 33-6448** (wa.me/5493795336448, 2026-10-27; ya está en `catalogo/config.js`). (Instagram: **@techco.ctes**, 2026-10-23; «ctes» = Corrientes → confirmar [ZONA].)
 - (2026-10-23) Todavía NO hay equipos en la mano: fase 0 = teasers sin prometer stock (ver `publicar/ARRANCAR.md`).
-- Zona de retiro / envíos, medios de pago, cuotas, meses de garantía.
+- (2026-10-28, bio de Instagram) **Envíos a todo el país** · Corrientes. Faltan: zona/forma de retiro, medios de pago, cuotas, meses de garantía.
+- (2026-10-28) Estadísticas a 30 días: 77 seguidores / 431 seguidos, 818 visitas al perfil, 0 toques en el enlace (la bio no tiene link),
+  1.444 reproducciones (62 % no seguidores), 0 reels subidos. Prioridad: link de WhatsApp/catálogo en la bio y subir los reels.
+- (2026-10-29) Perfil: 3 posts, 110 seguidores / 644 seguidos (siguen sumando seguidos), sin link ni botón de WhatsApp,
+  sin reels ni destacadas. Primer post con foto real («Los mejores Swap al mejor precio») publicado.
+- (2026-10-30) **Primeras 2 consultas de precio** de un modelo, respondiendo historias: el cierre «Saber más» + casilla de respuesta
+  funciona. Para responderlas hacen falta precios, medios de pago, cuotas y garantía (siguen pendientes).
 - (2026-10-23) Sistema **a pedido**: no hay stock fijo; el proveedor consigue y se consulta en el momento
   (también otros modelos que no están en la lista). Modelos que comercializa el proveedor: `catalogo/a-pedido.csv`
   (sin nombre ni precios del proveedor). El catálogo se organiza por secciones: iPhone (Base / Pro / Pro Max / caja sellada),
   Samsung y Xiaomi (nuevos en caja sellada, entran ya; itel queda afuera). Sin precios.
   Formatos del catálogo: web propia (link en la bio), carrusel para el feed, catálogo de WhatsApp Business e imagen única para historias.
-  **Plan completo y pendientes: `catalogo/PLAN.md`** (la web se hace el lunes, en Vercel o Netlify). Sin colores en el catálogo.
+  **Plan completo y pendientes: `contenido/plan-catalogo.md`** (web hecha el 2026-10-27; se publica en Vercel). Sin colores en el catálogo.
   Fotos de Samsung/Xiaomi: `python3 descargar_otros.py` (oficiales, recortadas) → `catalogo/img/`.
 - Reglas del plan canje.
 - Stock real: modelo, GB, color, % batería, precio, estado. Nunca inventar estos datos:
@@ -72,13 +78,75 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   módulo de cámara y lentes en relieve, botones y pantalla. Textura = `<modelo>_<color>_dorso.webp`.
   Para sumar un modelo: medidas, módulo y lentes en `datos.js` (fracciones del dorso) y en `MEDIDAS` de procesar_fotos.py.
 
-- Catálogo: `python3 verificar_specs.py && python3 procesar_fotos.py --salida catalogo/img --alto 900 --sin-dorso && python3 generar_catalogo.py`.
-  Se abre `catalogo/index.html` (con doble clic usa `stock-demo.js`; con servidor lee `stock.csv`).
-  `catalogo/config.js`: número de WhatsApp, link CSV de la Google Sheet con el stock real y `demo: true/false`.
+- Catálogo (a pedido): se edita `catalogo/a-pedido.csv` y se corre `python3 generar_catalogo.py` (revisa fotos y arma
+  `a-pedido.js` para abrirlo con doble clic). `catalogo/config.js`: número de WhatsApp, link CSV de una Google Sheet (opcional), Instagram.
+  La carpeta `catalogo/` se publica entera: no poner ahí notas internas ni nada del proveedor.
 - Reels: `plantillas/reel.html` + guiones en `plantillas/reels.js`.
   `node exportar_video.js plantillas/reel.html "reel=canje&exportar=1" salida/reel_canje.mp4 --fondo <clip> --desde <s> --encuadre <0..1>`.
   Antes de usar un clip, verificar con zoom que el teléfono sea un iPhone (en Mixkit hay muchos Android).
   Clips verificados con iPhone: Mixkit 100050, 100046, 100053 (iPhone rojo); Coverr "close-up of a man taking a selfie on iPhone 15".
+- Reel/anuncio «¿Por qué un Swap?» (15 s): `plantillas/swap.html?hook=porque|que` sobre el clip de Coverr de la selfie con
+  iPhone 15 (`--encuadre 0.15`, así la cámara queda a la vista). Hook → «Revisados, uno por uno» con desfile 3D
+  (13 → 15 Pro → 16 Pro → 17 Pro) y lo que se revisa → «Decime qué celular buscás y te lo conseguimos». Texto clave entre
+  y 250 y 1300 (zona segura de anuncios). «Revisados» lo confirmó el dueño (2026-10-28). → `publicar/03-que-vendemos/por-que-swap_hook-*.mp4`.
+  (2026-10-29) Más fondos, para no repetir clip: `por-que-swap_videollamada|cama|rojo.mp4` (Coverr videollamada con iPhone 15,
+  --encuadre 0.8 --desde 1; Coverr chica en la cama con iPhone 11 Pro, 0.5/6; Mixkit 100053 iPhone rojo en loop, 0.1/0).
+- (2026-10-29) El usuario NO quiere que se repitan los clips de stock entre videos. «¿Por qué un Swap?» tiene que dar RAZONES
+  para comprar, no características: `plantillas/razones.html` (reel tipográfico, 16 s, sin video de stock): original, más iPhone
+  por tu plata, te dura años (actualizaciones de iOS), sin sorpresas (revisado), otra vida (sustentable) → cierre «Lo mejor,
+  a tu alcance» con foto real → `publicar/03-que-vendemos/por-que-swap_razones.mp4`.
+- (2026-10-29) Al usuario NO le gustó el reel tipográfico de razones (mucho texto, «genérico, parece hecho con IA»).
+  Quiere estilo CREADOR: hook fuerte en los primeros 2 s, pocas palabras por corte, cortes rápidos, loop corto.
+  `plantillas/hook.html?r=no-compres` (9 s, fotos reales HD con punch-in): «No compres un iPhone nuevo.» → «Comprá un Swap.» →
+  «Mismo iPhone.» → «Original. Revisado.» → «Y mucho menos plata.» → «¿Cuál buscás?» → `publicar/03-que-vendemos/no-compres-nuevo_reel.mp4`.
+- (2026-10-30) El usuario calificó «pésimos» los reels hechos solo con texto + fotos/stock (incluido «No compres un iPhone
+  nuevo»). Cambio de rumbo: el material lo FILMAN ellos (celular, personas reales, voz) y acá se edita (cortes, subtítulos,
+  hook, música, marca). No volver a producir reels de solo texto sobre fotos/stock salvo que lo pida.
+- (2026-10-30) El usuario NO puede filmar personas reales: pidió reels con videos de bancos de stock. Pexels ya no da claves;
+  se usa **Pixabay** (API con `PIXABAY_API_KEY` en el entorno, nunca en el repo; curl con User-Agent). Reels estilo creador
+  `plantillas/creador.html?r=cual|conseguimos|navidad` (10 s, subtítulos palabra por palabra, hook entero en el cuadro 0) sobre
+  montajes de `armar_pixabay.sh` → `publicar/03-que-vendemos/que-celu-comprar_reel.mp4`, `te-lo-conseguimos_reel.mp4`,
+  `regalo-navidad_reel.mp4`. **Registro de clips usados: `videos-usados.md`** (no repetir clips entre reels; excluir IA).
+- (2026-10-30) **NO usar el ángulo «pagás menos / más barato que nuevo»**: también se venden nuevos en caja sellada y no hay
+  que desmerecerlos. Ejes que sí: te asesoramos (qué celu te conviene), a pedido (te lo conseguimos), envíos, regalo.
+- (2026-10-30) Reels de **Samsung y Xiaomi** (`creador.html?r=samsung|xiaomi|samsung-o-xiaomi`, 11–12 s): clips de personas con
+  Android (en Pixabay no hay clips con un Samsung/Xiaomi reconocible; verificar con zoom que NO se vea un iPhone) + cortes de
+  equipo con la foto oficial de `catalogo/img` sobre tinta/voltio, y comparación A36 vs Note 15 Pro con specs de `comparar.js`
+  → `publicar/equipos/samsung/sos-de-samsung_reel.mp4`, `xiaomi/team-xiaomi_reel.mp4`, `samsung-o-xiaomi_reel.mp4`.
+- (2026-10-30) Más Samsung/Xiaomi: el usuario NO quiere cierres con «¿Cuál querés/elegís?». Eje: **«¿Team Android? Esto es para vos.»**
+  y cierres afirmativos («Escribinos. Te lo conseguimos.»). `creador.html?r=team-android|ya-no-da|bateria-android` →
+  `publicar/equipos/team-android_reel.mp4`, `ya-no-da_reel.mp4`, `bateria-android_reel.mp4` (batería con datos de `comparar.js`).
+- Música: `python3 musica.py salida.wav --duracion 15 --entrada 3.2 --barridos 3.55,5.3,7.05,8.8 --cierre 11 --video in.mp4 --salida-video out.mp4`
+  sintetiza una pista ORIGINAL (120 BPM, La menor, sin licencias de terceros) con la entrada y los barridos en los cortes.
+  Mixkit Music (Free License) permite redes y anuncios, pero corta las consultas desde este entorno (429): no insistir con reintentos.
+  Para el feed conviene igual sumar un audio en tendencia de la biblioteca de Instagram.
+- Clips (2026-10-28): no hay en Mixkit ni en Coverr un clip libre de «una mano mostrando varios celulares distintos»;
+  Pexels/Pixabay bloquean el acceso automático. Ese tipo de video se filma (ver guía en la respuesta del 2026-10-28).
+- Clips con personas reales (2026-10-28, Coverr gratis): reels `unboxing` y `bateria` en `plantillas/reels.js` (10 s, con música)
+  → `publicar/03-que-vendemos/unboxing_reel.mp4`, `bateria_reel.mp4`. «Te muestro la batería»: `armar_bateria.py` pone
+  `plantillas/pantalla-bateria.html` (Ajustes › Batería, modo oscuro) en un iPhone con pantalla verde, siguiendo la pantalla
+  cuadro a cuadro (dedos adelante, marcas tapadas); la pantalla arranca apagada para que se lea el hook (`--encender 4.2`).
+  El porcentaje va BORRONEADO (no es un equipo real: no inventar el número). Los iPhone con pantalla verde de Coverr son
+  modelos viejos (con bisel): por eso el clip va bien de cerca.
+- Reel «Tu próxima foto merece una buena cámara» (`reels.js` "foto", fondo `armar_foto.sh`: Coverr, mujer riendo con un
+  iPhone XR + chica con un iPhone 11 Pro) → `publicar/03-que-vendemos/foto_reel.mp4`. Hoja de 28 clips libres de Coverr
+  revisados (2026-10-28): regalos/Navidad (5, 6), iPhone 15 en mano (7–13), cámara (14, 27), trípode (18).
+- Unboxing (2026-10-29): reels `unboxing2` («¿Hay algo mejor que abrir un celu nuevo?») y `navidad` («¿Y si este año el regalo
+  es un celu?», para noviembre/diciembre); fondos con `armar_unboxing2.sh` (6 clips libres de Coverr) →
+  `publicar/03-que-vendemos/unboxing2_reel.mp4`, `navidad_reel.mp4`.
+- Material del proveedor (2026-10-29): capturas de SUS historias (590×1280). `limpiar_proveedor.py` (recortes que usa mejorar_ia.py) recorta la interfaz y los
+  textos (tienen nombres de clientes y ventas DEL PROVEEDOR: nunca usarlos como ventas o testimonios propios), borronea
+  números de serie y mejora → `fotos-proveedor/`. Las originales no se suben. Las fotos muestran accesorios (vidrio, cargador,
+  cable, bolsa): no prometer «kit» sin confirmarlo. Solo se guardan las versiones HD (`fotos-proveedor/hd/`); el reel `17pro`
+  y las descartadas (13 Pro de espaldas, 13 mini, versiones sin IA) se borraron del repo (2026-10-29).
+- (2026-10-29) Fotos del proveedor en HD: `mejorar_ia.py` (Real-ESRGAN x4plus, BSD-3, ONNX; se baja solo) → `fotos-proveedor/hd/`.
+  Posts con foto real a sangre: `plantillas/foto.html?p=colores|cajas|naranja|a17|14pro|13pro` → `publicar/equipos/fotos-reales/`.
+  Descartadas por calidad: 13 Pro de espaldas (movida) y 13 mini (casi no se ve el equipo). Al usuario NO le gustó el reel `17pro`
+  (repetitivo con lo anterior y fotos de baja calidad): no reutilizar ese formato.
+- Comparar (reels exportados a `publicar/06-tips/comparar_13-vs-14.mp4` y `comparar_15pro-vs-16pro.mp4`, 15 s, con música): `plantillas/comparar.html?c=a56-vs-13|note15pro-vs-a36` (historia con encuesta) y
+  `?c=13-vs-14|15pro-vs-16pro` (reel comparador); datos verificados en `plantillas/comparar.js`.
+- (2026-10-31) Carrusel comparativo para el feed: `plantillas/carrusel.html?c=13-vs-13pro&n=1..7&formato=post` (fotos oficiales de
+  `catalogo/img`, specs de las fichas de Apple Support 111872 y 111871) → `publicar/06-tips/carrusel_13-vs-13pro/1..7.png`.
 - Plan de contenido: `contenido/plan-2-semanas.md`.
 - Apertura: `plantillas/apertura.html?pieza=post1..6|story1..6` + `plantillas/canje.html?de=&a=&formato=historia|post`
   (canje 3D, 9 s). Guía en `contenido/apertura.md`. Componentes compartidos: `plantillas/piezas.css` y `piezas.js`
@@ -114,8 +182,10 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
   (capacidades, colores, medidas, URL de la fuente). Usar SIEMPRE esto para specs, no cargar a mano.
 
 ## Catálogo web
-- Por ahora solo archivo local (no publicar). Stock de EJEMPLO (ficticio, marcado como demo), sin precios:
-  todos los modelos del X al 18 Pro Max con sus capacidades y colores reales. Es un esqueleto para editar después.
+- (2026-10-27) Modo **a pedido** (reemplaza al esqueleto de stock por unidad): secciones iPhone Swap (Base / Pro / Pro Max),
+  iPhone sellado (una sola tarjeta «Todos los modelos»), Samsung, Xiaomi y «¿No lo ves? Te lo conseguimos».
+  Tarjeta = foto, SWAP o NUEVO · CAJA SELLADA, modelo, capacidad (+ RAM en Android) y botón «Consultar» → WhatsApp.
+  Sin precios ni colores. Se publica en Vercel (Root Directory `catalogo`); guía en `contenido/plan-catalogo.md`.
 
 ## Feedback del usuario sobre la apertura (2026-10-22)
 - Estilo elegido para el feed: C "Manifiesto" (frases grandes + iPhone 3D sobre lima / voltio / hueso / tinta).
@@ -142,6 +212,9 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
     "solo iPhone": decir "equipos". iPhone se nombra solo cuando la pieza muestra un iPhone.
   - Flyer de equipos nuevos en caja sellada: `plantillas/sellado.html?modelo=&color=&gb=&formato=historia|post`
     (precio "consultar", sello "NUEVO · CAJA SELLADA"; la historia arranca con un video real de unboxing de Coverr).
+    (2026-10-27) También sirve para Samsung/Xiaomi e iPhone sin 3D: foto oficial de `EQUIPOS_FOTO` (datos.js), RAM en vez
+    de color, y `&condicion=swap` (título «Swap.»). El clip de unboxing muestra una caja de iPhone: solo va en iPhone nuevos.
+    Historias de «los más buscados» (ranking de Mercado Libre AR, oct. 2026) en `publicar/equipos/mas-buscados/`.
   - Todo lo listo para subir va en **`publicar/`** (sí se sube a git), por sección (00-marca, 01-teasers, 02-apertura,
     03-que-vendemos, 04-como-comprar, 05-plan-canje, 06-tips) y por marca (`equipos/iphone|samsung|xiaomi`).
     Se regenera con `./publicar.sh`; guía y textos en `publicar/README.md`.

@@ -102,6 +102,20 @@ window.MODELOS = {
   },
 };
 
+// Equipos sin modelo 3D: el flyer «Nuevo · caja sellada» (sellado.html) usa la foto oficial recortada (catalogo/img).
+// gb / ram: la configuración que se vende en Argentina según el sitio oficial (Samsung AR, mi.com) o la lista del proveedor.
+window.EQUIPOS_FOTO = {
+  "iphone-17": { nombre: "iPhone 17", gb: 256, foto: "../catalogo/img/iphone-17_black.webp" },
+  "iphone-14": { nombre: "iPhone 14", gb: 128, foto: "../catalogo/img/iphone-14_midnight.webp" },
+  "galaxy-a56": { nombre: "Galaxy A56 5G", gb: 256, ram: 8, foto: "../catalogo/img/galaxy-a56.webp" },
+  "galaxy-a36": { nombre: "Galaxy A36 5G", gb: 256, ram: 8, foto: "../catalogo/img/galaxy-a36.webp" },
+  "galaxy-s25-ultra": { nombre: "Galaxy S25 Ultra", gb: 256, ram: 12, foto: "../catalogo/img/galaxy-s25-ultra.webp" },
+  "redmi-note-14": { nombre: "Redmi Note 14", gb: 256, ram: 8, foto: "../catalogo/img/redmi-note-14.webp" },
+  "redmi-note-15-pro": { nombre: "Redmi Note 15 Pro", gb: 256, ram: 8, foto: "../catalogo/img/redmi-note-15-pro.webp" },
+  "xiaomi-15t": { nombre: "Xiaomi 15T", gb: 256, ram: 12, foto: "../catalogo/img/xiaomi-15t.webp" },
+  "poco-f7": { nombre: "POCO F7", gb: 256, ram: 12, foto: "../catalogo/img/poco-f7.webp" },
+};
+
 // $1.120.000 -> { miles: "1.120", resto: ".000" }
 window.partirPrecio = function (n) {
   const s = Math.round(n).toLocaleString("es-AR");
