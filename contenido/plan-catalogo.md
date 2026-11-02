@@ -1,4 +1,4 @@
-# Catálogo Tech&Co. — plan (para el lunes)
+# Catálogo Tech&Co. — plan
 
 Decisiones del dueño (2026-10-23):
 
@@ -10,22 +10,35 @@ Decisiones del dueño (2026-10-23):
 - **Sin colores:** solo modelo y capacidad; el color se habla por WhatsApp.
 - **Fotos:** oficiales de cada fabricante (Apple, Samsung, Xiaomi), recortadas. `procesar_fotos.py` (iPhone) y
   `descargar_otros.py` (Samsung/Xiaomi) → `catalogo/img/`. Fuentes en `fotos-iphone/indice.csv` y `fotos-otros/indice.csv`.
-- **WhatsApp:** todavía no hay número del negocio → todo se arma con el número vacío en `catalogo/config.js`.
-- **Web:** se publica en **Vercel o Netlify** (lunes).
+- **WhatsApp:** 3795 33-6448 → `5493795336448` en `catalogo/config.js` (2026-10-27).
+- **Web:** hecha (2026-10-27) en `catalogo/`; se publica en **Vercel** (ver «Cómo publicarla»).
 
-Fuente de datos: **`catalogo/a-pedido.csv`** (sección, marca, línea, modelo, capacidad, RAM, condición, notas).
+Fuente de datos: **`catalogo/a-pedido.csv`** (sección, marca, línea, modelo, capacidad, RAM, condición, foto, visible).
+Ese archivo se publica en la web: **nada de notas internas ni del proveedor** (van en «Pendientes», abajo).
+Para sacar un modelo sin borrarlo: `visible` = `no`. Después de editar: `python3 generar_catalogo.py`.
+
+## Cómo publicarla (Vercel, gratis)
+
+1. Aprobar el PR para que los cambios estén en `main` (Vercel publica lo que está en `main`).
+2. Entrar a vercel.com → «Continue with GitHub» → **Add New… › Project** → importar `francoperis/iphone`.
+3. En la configuración: **Root Directory = `catalogo`**, Framework Preset = **Other**. Nombre del proyecto: `techco`
+   (la dirección queda `techco.vercel.app` si está libre) → **Deploy**.
+4. El número de WhatsApp ya está en `catalogo/config.js`; si cambia, se cambia ahí.
+5. Copiar la dirección en la bio de Instagram. Cada cambio que llegue a `main` se publica solo.
 
 ## Secciones
 
 1. **iPhone · Swap** — Base (12, 13 mini, 13, 14, 15, 16) · Pro (12 Pro → 17 Pro) · Pro Max (12 Pro Max → 16 Pro Max).
 2. **iPhone · Caja sellada** — «Consultá por modelo».
-3. **Samsung · Nuevos en caja sellada** — Galaxy A17 (128/4), Galaxy A26 5G (128/6), Galaxy S25 Ultra 5G (256/12).
-4. **Xiaomi · Nuevos en caja sellada** — Redmi 13C (128/4), Redmi 15R 5G (256/8), Redmi Note 15 Pro (256/8), Redmi Note 17 Pro 5G (256/16).
+3. **Samsung · Nuevos en caja sellada** — Galaxy A17 (128/4), Galaxy A26 5G (128/6), Galaxy A36 5G (256/8), Galaxy A56 5G (256/8), Galaxy S25 Ultra 5G (256/12).
+4. **Xiaomi · Nuevos en caja sellada** — Redmi 13C (128/4), Redmi 15R 5G (256/8), Redmi Note 14 (256/8), Redmi Note 15 Pro (256/8), Redmi Note 17 Pro 5G (256/16),
+   Xiaomi 15T (256/12), POCO F7 (256/12). (A36, A56, Note 14, 15T y POCO F7 sumados el 2026-10-27: los más vendidos del
+   país; el dueño confirmó que el proveedor los consigue. Capacidad/RAM = la versión que vende Samsung AR / mi.com.)
 5. **¿No lo ves? Te lo conseguimos.** — botón a WhatsApp con «Hola Tech&Co., busco un [modelo]».
 
 ## Lo que hay que hacer
 
-### 1. Web (link en la bio)
+### 1. Web (link en la bio) — HECHA, falta publicarla y el número de WhatsApp
 - Adaptar `catalogo/` del modo «stock por unidad» (batería, estado, precio) al **modo a pedido**: tarjetas por modelo con
   foto, nombre, capacidad (y RAM en Android), etiqueta SWAP o NUEVO · CAJA SELLADA y botón **«Consultar»**
   que abre WhatsApp con el mensaje armado («¡Hola Tech&Co.! Quiero consultar por el Galaxy S25 Ultra 256 GB»).
@@ -53,4 +66,6 @@ Fuente de datos: **`catalogo/a-pedido.csv`** (sección, marca, línea, modelo, c
 - **Redmi Note 17 Pro 5G:** el nombre existe (mi.com global), pero la foto del proveedor no coincide con la oficial.
   Confirmar el modelo exacto.
 - **iPhone 17 Pro:** el proveedor lo tachó en su historia (sin stock ese día). Va igual con «Consultar».
-- Número de WhatsApp del negocio.
+- **Redmi 13C:** el proveedor lo llama «Xiaomi 13C».
+- **Redmi 15R 5G:** el proveedor lo marca como NUEVO (recién llegado).
+- **Galaxy A26 5G y Redmi 15R 5G** van sin foto (en la web se ve el nombre corto) hasta confirmar el modelo.

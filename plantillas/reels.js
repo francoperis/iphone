@@ -16,6 +16,44 @@ window.REELS = {
     lista: ["Salud de batería", "Face ID", "iCloud desvinculado", "IMEI limpio"],
     cierre: { titulo: "Guardalo para después.", cta: "Catálogo en la bio" },
   },
+  // clips con personas reales (Coverr, gratis para uso comercial): unboxing_vertical.mp4 (armar_unboxing.sh)
+  // y bateria_vertical.mp4 (armar_bateria.py: la pantalla de batería puesta en un iPhone con pantalla verde)
+  "unboxing": {
+    clip: "../videos/clips/unboxing_vertical.mp4", desde: 0,
+    etiqueta: "",
+    hook: ["¿Lo querés", "en caja", "sellada?"], resaltar: "sellada?",
+    lineas: ["iPhone, Samsung y Xiaomi", "Nuevos, en caja sellada", "Te lo conseguimos"],
+    cierre: { titulo: "Decime cuál buscás.", cta: "Escribinos por WhatsApp" },
+  },
+  "bateria": {
+    clip: "../videos/clips/bateria_vertical.mp4", desde: 0,
+    etiqueta: "",
+    hook: ["Antes de pagar,", "te muestro", "la batería."], resaltar: "batería.",
+    lineas: ["Estado de la batería a la vista", "Revisado antes de entregarlo", "Sin sorpresas"],
+    cierre: { titulo: "Decime qué celular buscás.", cta: "Escribinos por WhatsApp" },
+  },
+  "foto": {
+    clip: "../videos/clips/foto_vertical.mp4", desde: 0,   // armar_foto.sh
+    etiqueta: "",
+    hook: ["Tu próxima foto", "merece una", "buena cámara."], resaltar: "cámara.",
+    lineas: ["iPhone, Samsung y Xiaomi", "Swap o nuevos en caja sellada", "Te lo conseguimos"],
+    cierre: { titulo: "Decime qué celular buscás.", cta: "Escribinos por WhatsApp" },
+  },
+  // armar_unboxing2.sh
+  "unboxing2": {
+    clip: "../videos/clips/unboxing2_vertical.mp4", desde: 0,
+    etiqueta: "",
+    hook: ["¿Hay algo mejor", "que abrir un", "celu nuevo?"], resaltar: "nuevo?",
+    lineas: ["Nuevo, en caja sellada", "iPhone, Samsung y Xiaomi", "Te lo conseguimos"],
+    cierre: { titulo: "Decime cuál buscás.", cta: "Escribinos por WhatsApp" },
+  },
+  "navidad": {
+    clip: "../videos/clips/navidad_vertical.mp4", desde: 0,
+    etiqueta: "",
+    hook: ["¿Y si este año", "el regalo es", "un celu?"], resaltar: "celu?",
+    lineas: ["Nuevo, en caja sellada", "iPhone, Samsung y Xiaomi", "Envíos a todo el país"],
+    cierre: { titulo: "Decime cuál buscás.", cta: "Escribinos por WhatsApp" },
+  },
   "canje": {
     clip: "", desde: 0,
     etiqueta: "",

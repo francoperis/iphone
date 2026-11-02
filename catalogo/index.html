@@ -4,81 +4,62 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tech&amp;Co. — Catálogo</title>
-<meta name="description" content="Equipos Swap y en caja sellada. Elegí el tuyo y escribinos por WhatsApp.">
+<meta name="description" content="iPhone Swap y equipos nuevos en caja sellada en Corrientes. Elegí el tuyo y consultá por WhatsApp.">
+<meta property="og:title" content="Tech&amp;Co. — Catálogo">
+<meta property="og:description" content="iPhone Swap y equipos nuevos en caja sellada. Elegí el tuyo y consultá por WhatsApp.">
 <meta name="theme-color" content="#0A0A0B">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 <header class="barra">
   <a class="logo" href="#" aria-label="Tech&amp;Co. — inicio">Tech<b>&amp;</b>Co<i></i></a>
-  <a class="barra-wa" id="barraWa" href="#" target="_blank" rel="noopener">Escribinos</a>
+  <a class="barra-wa" data-wa="¡Hola Tech&Co.! Quiero consultar por un equipo." href="#" target="_blank" rel="noopener">Escribinos</a>
 </header>
-
-<div class="aviso-demo" id="avisoDemo" hidden>
-  <strong>Stock de ejemplo.</strong> Los equipos, baterías y estados de esta página son ficticios: sirven para armar el catálogo.
-</div>
 
 <main>
   <section class="portada">
-    <p class="etiqueta">// Catálogo · Swap y caja sellada</p>
-    <h1>Elegí tu<br><span>equipo.</span></h1>
-    <p class="bajada">Swap y en caja sellada. De cada equipo ves capacidad, color, batería y estado.</p>
-    <p class="resumen" id="resumen" aria-live="polite"></p>
+    <p class="ojo">Catálogo · Swap y caja sellada</p>
+    <h1>Lo mejor,<br><span>a tu alcance.</span></h1>
+    <p class="bajada">iPhone Swap y equipos nuevos en caja sellada. Elegí el tuyo, consultá por WhatsApp y te lo conseguimos.</p>
+    <ol class="pasos">
+      <li><b>01</b> Elegís el equipo</li>
+      <li><b>02</b> Nos escribís</li>
+      <li><b>03</b> Es tuyo</li>
+    </ol>
   </section>
 
-  <section class="filtros" aria-label="Filtros">
-    <div class="filtros-fila">
-      <label class="buscar">
-        <span class="sr">Buscar modelo</span>
-        <input type="search" id="buscar" placeholder="Buscar: 15 Pro, Max, 256…" autocomplete="off">
-      </label>
-      <label class="campo">
-        <span>Capacidad</span>
-        <select id="capacidad"><option value="">Todas</option></select>
-      </label>
-      <label class="campo">
-        <span>Batería mín.</span>
-        <select id="bateria">
-          <option value="0">Cualquiera</option>
-          <option value="80">80 % o más</option>
-          <option value="85">85 % o más</option>
-          <option value="90">90 % o más</option>
-          <option value="95">95 % o más</option>
-        </select>
-      </label>
-      <label class="campo">
-        <span>Orden</span>
-        <select id="orden">
-          <option value="nuevo">Más nuevos primero</option>
-          <option value="viejo">Más viejos primero</option>
-        </select>
-      </label>
+  <nav class="filtros" aria-label="Secciones">
+    <div class="chips" id="chips">
+      <button type="button" class="chip activo" data-seccion="">Todo</button>
+      <button type="button" class="chip" data-seccion="swap">iPhone Swap</button>
+      <button type="button" class="chip" data-seccion="sellado">iPhone sellado</button>
+      <button type="button" class="chip" data-seccion="samsung">Samsung</button>
+      <button type="button" class="chip" data-seccion="xiaomi">Xiaomi</button>
     </div>
-    <div class="chips" role="group" aria-label="Condición" id="condicion">
-      <button type="button" class="chip activo" data-valor="">Todos</button>
-      <button type="button" class="chip" data-valor="swap">Swap</button>
-      <button type="button" class="chip" data-valor="sellado">Sellados</button>
-      <label class="chip chip-check"><input type="checkbox" id="disponibles"> Solo disponibles</label>
-    </div>
-    <div class="chips familias" role="group" aria-label="Generación" id="familias"></div>
-  </section>
+  </nav>
 
-  <div id="resultados"></div>
-  <p class="vacio" id="vacio" hidden>No hay equipos con esos filtros. Probá sacando alguno o escribinos y te lo buscamos.</p>
+  <div id="secciones" aria-live="polite"></div>
+
+  <section class="busco">
+    <h2>¿No lo ves?<br><span>Te lo conseguimos.</span></h2>
+    <p>Decinos qué modelo, capacidad y color buscás y te lo buscamos.</p>
+    <a class="boton" data-wa="¡Hola Tech&Co.! Busco un " href="#" target="_blank" rel="noopener">Escribinos <span aria-hidden="true">→</span></a>
+  </section>
 </main>
 
 <footer class="pie">
   <div class="logo">Tech<b>&amp;</b>Co<i></i></div>
-  <p>Equipos Swap y en caja sellada · [ZONA] · Envíos [__]</p>
-  <p class="pie-chico">Specs según las fichas técnicas oficiales de Apple.</p>
+  <p>Corrientes · <a id="ig" href="#" target="_blank" rel="noopener"></a></p>
+  <p class="pie-chico">Fotos ilustrativas. El color, la disponibilidad y el precio se consultan por WhatsApp.</p>
 </footer>
 
 <script src="config.js"></script>
-<script src="modelos.js"></script>
-<script src="stock-demo.js"></script>
+<script src="a-pedido.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

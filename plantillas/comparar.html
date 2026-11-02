@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Comparar — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<!--
+  Dos equipos frente a frente (1080×1920). Datos en comparar.js (solo specs de fichas oficiales).
+    ?c=a56-vs-13          modo "encuesta" (historia, 8 s): «¿Cuál te llevás?», sin ganador; abajo queda lugar para el sticker de encuesta.
+    ?c=13-vs-14           modo "comparador" (reel, 15 s): hook gigante, una diferencia por vez (la mejor en lima),
+                          veredicto y cierre «¿Cuál buscás? Te lo conseguimos.». Música: musica.py --entrada 2.6 --cierre 12.
+  Fotos: catalogo/img/<foto>.webp.
+-->
+<style>
+  html, body { overflow: hidden; background: var(--tinta); }
+  body { width: 1080px; height: 1920px; color: var(--hueso); font-family: var(--f-texto); }
+  .lienzo { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+  .cabeza { left: var(--margen); right: var(--margen); top: 250px; display: flex; justify-content: space-between; align-items: center; font-size: var(--m-m); z-index: 3; }
+  .cabeza .logo-tc { font-size: var(--logo); }
+  .tituloE { left: 60px; top: 340px; font-size: var(--t-m); }
+  .tituloE b { color: var(--lima); }
+  .hook { left: 60px; top: 360px; }
+  .hook b { color: var(--lima); }
+  .tel { position: absolute; translate: -50% -50%; object-fit: contain; filter: drop-shadow(0 30px 40px rgba(0,0,0,.6)); }
+  .vs { position: absolute; width: 140px; height: 140px; translate: -50% -50%; border-radius: 50%; background: var(--voltio);
+        color: var(--tinta); display: grid; place-items: center; font-size: var(--t-xs); }
+  .nombre { position: absolute; translate: -50% 0; width: 400px; text-align: center; font-size: 52px; }
+  .tag { position: absolute; translate: -50% 0; width: 400px; text-align: center; font-size: var(--m-s); color: var(--lima); }
+  .tag.swap { color: var(--lima); }
+  .tag.nuevo { color: #B7A6FF; }
+  .fila { position: absolute; left: var(--margen); right: var(--margen); display: grid; grid-template-columns: 376px 1fr 376px;
+          align-items: center; border-top: 2px solid rgba(238,235,228,.16); padding-top: 14px; }
+  .fila .v { text-align: center; font-size: 50px; }
+  .fila .k { text-align: center; font-size: 19px; opacity: .65; line-height: 1.25; }
+  .fila .v.gana { color: var(--lima); }
+  .fila .v.pierde { opacity: .55; }
+  .pista { left: 0; right: 0; text-align: center; font-size: var(--m-m); color: var(--acero); }
+  .veredicto { left: var(--margen); right: var(--margen); font-size: var(--m-l); line-height: 1.35; }
+  .veredicto b { color: var(--lima); }
+  .cierre1 { left: 60px; top: 520px; font-size: var(--t-l); }
+  .cierre2 { left: 60px; top: 860px; font-size: var(--t-l); color: var(--lima); }
+  .cta { left: var(--margen); top: 1240px; font-size: var(--m-l); }
+  .cta b { color: var(--lima); }
+</style>
+</head>
+<body>
+<div class="lienzo" id="lienzo">
+  <div class="abs cabeza mono" id="cabeza"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+</div>
+
+<script src="comparar.js"></script>
+<script>
+const P = new URLSearchParams(location.search);
+const C = COMPARACIONES[P.get("c") || "a56-vs-13"];
+const encuesta = C.modo === "encuesta";
+const $ = (s) => document.getElementById(s);
+const lienzo = $("lienzo");
+function el(tag, clase, html, estilo = {}) {
+  const e = document.createElement(tag);
+  e.className = clase;
+  e.innerHTML = html;
+  Object.assign(e.style, estilo);
+  lienzo.insertBefore(e, $("cabeza"));
+  return e;
+}
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+// ---------------------------------------------------------------- medidas
+const X = { a: 260, b: 820 };                       // centro de cada columna
+const L = encuesta
+  ? { tel: { y: 760, h: 440 }, nombre: 1010, tag: 1078, filas: 1150, paso: 92, pista: 1540 }
+  : { tel: { y: 620, h: 380 }, nombre: 845, tag: 910, filas: 985, paso: 104, veredicto: 1640, hookTel: { y: 1400, h: 560 } };
+
+// ---------------------------------------------------------------- piezas
+const T = encuesta ? 8000 : 15000;
+let titulo;
+if (encuesta) {
+  titulo = el("div", "abs titular tituloE", "¿Cuál te <b>llevás?</b>");
+} else {
+  const largo = Math.max(...C.titulo.map((r) => r.length));
+  const tam = Math.min(380, Math.floor(950 / (largo * 0.5)));
+  titulo = el("div", "abs titular hook", C.titulo.map((r, i) => i === C.titulo.length - 1 ? `<b>${esc(r)}</b>` : esc(r)).join("<br>"),
+              { fontSize: tam + "px" });
+}
+const tel = {}, nombre = {}, tag = {};
+for (const k of ["a", "b"]) {
+  const e = C[k];
+  tel[k] = el("img", "tel", "", { left: X[k] + "px", top: L.tel.y + "px", height: L.tel.h + "px", maxWidth: "400px" });
+  tel[k].src = `../catalogo/img/${e.foto}.webp`;
+  tel[k].alt = e.nombre;
+  nombre[k] = el("div", "titular nombre", esc(e.nombre), { left: X[k] + "px", top: L.nombre + "px" });
+  tag[k] = el("div", `mono tag ${e.tag === "Swap" ? "swap" : "nuevo"}`, esc(e.tag), { left: X[k] + "px", top: L.tag + "px" });
+}
+const vs = encuesta ? el("div", "vs titular", "VS", { left: "540px", top: L.tel.y + "px" }) : null;
+const filas = C.filas.map(([k, a, b, gana], i) => {
+  const clase = (lado) => !gana || gana === "=" ? "" : gana === lado ? "gana" : "pierde";
+  return el("div", "fila", `<span class="titular v ${clase("a")}">${esc(a)}</span><span class="mono k">${esc(k)}</span><span class="titular v ${clase("b")}">${esc(b)}</span>`,
+            { top: L.filas + i * L.paso + "px" });
+});
+const pista = encuesta ? el("div", "abs mono pista", "Votá acá abajo ↓", { top: L.pista + "px" }) : null;
+const veredicto = C.veredicto ? el("div", "abs mono veredicto", esc(C.veredicto).replace(/^([^:.]+[:.])/, "<b>$1</b>"), { top: L.veredicto + "px" }) : null;
+let cierre = [];
+if (!encuesta) {
+  cierre = [el("div", "abs titular cierre1", "¿Cuál<br>buscás?"), el("div", "abs titular cierre2", "Te lo<br>conseguimos."),
+            el("div", "abs mono cta", "Escribinos por <b>WhatsApp →</b>")];
+}
+
+// ---------------------------------------------------------------- línea de tiempo
+const ANIMS = [];
+function linea(e, puntos) {
+  const fr = puntos.map(([t, props, easing]) => ({ ...props, offset: t / T, easing: easing || "linear" }));
+  if (fr[0].offset > 0) fr.unshift({ ...puntos[0][1], offset: 0 });
+  if (fr[fr.length - 1].offset < 1) fr.push({ ...puntos[puntos.length - 1][1], offset: 1 });
+  ANIMS.push(e.animate(fr, { duration: T, fill: "both" }));
+}
+const salir = "cubic-bezier(.2,.8,.2,1)", rebote = "cubic-bezier(.34,1.56,.64,1)", cortar = "cubic-bezier(.7,0,.2,1)";
+const entra = (e, t, desde = "translateY(50px)", hasta = null) => {
+  const p = [[t, { opacity: 0, transform: desde }, salir], [t + 450, { opacity: 1, transform: "none" }]];
+  if (hasta) p.push([hasta, { opacity: 1, transform: "none" }, cortar], [hasta + 350, { opacity: 0, transform: "translateY(-40px)" }]);
+  linea(e, p);
+};
+entra($("cabeza"), 0, "translateY(-30px)");
+
+if (encuesta) {
+  entra(titulo, 150);
+  linea(tel.a, [[400, { opacity: 0, transform: "translateX(-500px) rotate(-20deg)" }, salir], [1100, { opacity: 1, transform: "rotate(-4deg)" }]]);
+  linea(tel.b, [[550, { opacity: 0, transform: "translateX(500px) rotate(20deg)" }, salir], [1250, { opacity: 1, transform: "rotate(4deg)" }]]);
+  linea(vs, [[1100, { transform: "scale(0) rotate(-30deg)" }, rebote], [1600, { transform: "scale(1) rotate(-8deg)" }]]);
+  ["a", "b"].forEach((k, i) => { entra(nombre[k], 1400 + i * 120, "translateY(30px)"); entra(tag[k], 1550 + i * 120, "translateY(20px)"); });
+  filas.forEach((f, i) => entra(f, 2000 + i * 300, "translateY(30px)"));
+  entra(pista, 2000 + filas.length * 300 + 300, "translateY(20px)");
+  ANIMS.push(pista.animate([{ transform: "translateY(0)" }, { transform: "translateY(10px)", offset: 0.5 }, { transform: "translateY(0)" }],
+    { duration: 900, iterations: Infinity, easing: "ease-in-out" }));
+} else {
+  const TH = 2600, TC = 12000;        // fin del hook · cierre
+  // hook: título gigante y los dos equipos grandes abajo; después suben a la cabecera
+  linea(titulo, [[150, { opacity: 0, transform: "translateY(80px)" }, salir], [650, { opacity: 1, transform: "none" }],
+                 [TH - 200, { opacity: 1, transform: "none" }, cortar], [TH + 200, { opacity: 0, transform: "translateY(-80px)" }]]);
+  const esc0 = L.hookTel.h / L.tel.h, dy = L.hookTel.y - L.tel.y;
+  for (const [k, lado, t0] of [["a", -1, 300], ["b", 1, 450]]) {
+    const giro = 6 * lado;
+    linea(tel[k], [[t0, { opacity: 0, transform: `translate(${lado * 500}px, ${dy}px) scale(${esc0}) rotate(${lado * 25}deg)` }, salir],
+                   [t0 + 700, { opacity: 1, transform: `translate(${-lado * 70}px, ${dy}px) scale(${esc0}) rotate(${giro}deg)` }],
+                   [TH - 100, { opacity: 1, transform: `translate(${-lado * 70}px, ${dy}px) scale(${esc0}) rotate(${giro}deg)` }, cortar],
+                   [TH + 500, { opacity: 1, transform: `translate(0px, 0px) scale(1) rotate(${giro / 2}deg)` }],
+                   [TC, { opacity: 1, transform: `translate(0px, 0px) scale(1) rotate(${giro / 2}deg)` }, cortar],
+                   [TC + 400, { opacity: 0, transform: `translate(0px, -80px) scale(1) rotate(${giro / 2}deg)` }]]);
+  }
+  ["a", "b"].forEach((k, i) => { entra(nombre[k], TH + 300 + i * 100, "translateY(30px)", TC); entra(tag[k], TH + 450 + i * 100, "translateY(20px)", TC); });
+  filas.forEach((f, i) => entra(f, TH + 700 + i * 1000, "translateY(30px)", TC));
+  if (veredicto) entra(veredicto, TH + 700 + filas.length * 1000 + 300, "translateY(30px)", TC);
+  cierre.forEach((c, i) => entra(c, TC + 400 + i * 400));
+}
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await document.fonts.ready; await Promise.all(Object.values(tel).map((i) => i.decode())); },
+  ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
+};
+</script>
+</body>
+</html>

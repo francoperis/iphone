@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Por qué un Swap — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<!--
+  Reel tipográfico «¿Por qué un iPhone Swap?» (1080×1920, 16 s): las RAZONES para comprarlo, una por pantalla, sobre los
+  colores de la marca (estilo Manifiesto), sin video de stock. Cierra con una foto real (fotos-proveedor/hd).
+  Música: musica.py --duracion 16 --entrada 2.4 --barridos 2.4,4.6,6.8,9,11.2 --cierre 13.4
+-->
+<style>
+  html, body { margin: 0; overflow: hidden; background: var(--tinta); }
+  body { width: 1080px; height: 1920px; }
+  .pant { position: absolute; inset: 0; overflow: hidden; }
+  .tinta { background: var(--tinta); color: var(--hueso); }
+  .lima { background: var(--lima); color: var(--tinta); }
+  .voltio { background: var(--voltio); color: var(--tinta); }
+  .hueso { background: var(--hueso); color: var(--tinta); }
+  .num { position: absolute; left: var(--margen); top: 560px; font-size: var(--m-l); }
+  .frase { position: absolute; left: 60px; right: 60px; top: 640px; font-size: var(--t-l); }
+  .frase b { display: block; }
+  .tinta .frase b { color: var(--lima); }
+  .bajada { position: absolute; left: var(--margen); right: var(--margen); top: 1330px; font-size: var(--m-l); line-height: 1.45; }
+  .hook { position: absolute; left: 60px; top: 600px; font-size: var(--t-xl); }
+  .hook mark { background: var(--lima); color: var(--tinta); padding: 0 .06em; }
+  .foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+  .velo { position: absolute; inset: 0; background: linear-gradient(rgba(10,10,11,.95) 0%, rgba(10,10,11,.75) 40%, rgba(10,10,11,.15) 70%, rgba(10,10,11,.6) 100%); }
+  .cierre { position: absolute; left: 60px; top: 330px; font-size: var(--t-l); color: var(--hueso); }
+  .cierre b { color: var(--lima); display: block; }
+  .cta { position: absolute; left: var(--margen); top: 740px; font-size: var(--m-l); color: var(--hueso); line-height: 1.5; }
+  .cta b { color: var(--lima); }
+  .logo { position: absolute; right: var(--margen); top: 250px; font-size: var(--logo); z-index: 9; }
+</style>
+</head>
+<body>
+<div id="pantallas"></div>
+<span class="logo-tc logo" id="logo">Tech<b>&amp;</b>Co<i></i></span>
+<span class="logo-tc logo plano" id="logoOscuro" style="color: var(--tinta);">Tech<b>&amp;</b>Co<i></i></span>
+<script>
+// [color, número, frase (dos renglones), bajada]
+const RAZONES = [
+  ["lima", "01", ["Es original.", "No una réplica."], "Un iPhone de verdad, reacondicionado y traído de EE. UU."],
+  ["tinta", "02", ["Más iPhone", "por tu plata."], "Pagás menos que por uno nuevo y te llevás el modelo que querés."],
+  ["voltio", "03", ["Te dura", "años."], "Sigue recibiendo las actualizaciones de iOS."],
+  ["hueso", "04", ["Sin", "sorpresas."], "Lo revisamos antes de que llegue a tus manos."],
+  ["tinta", "05", ["Y le das", "otra vida."], "Un equipo que vuelve a usarse en vez de terminar en la basura."],
+];
+const T = 16000, HOOK = 2400, PASO = 2200;
+const TC = HOOK + PASO * RAZONES.length;   // 13.4 s: cierre
+const $ = (s) => document.getElementById(s);
+const cont = $("pantallas");
+const pant = (clase, html) => { const d = document.createElement("div"); d.className = "pant " + clase; d.innerHTML = html; cont.appendChild(d); return d; };
+
+const hook = pant("tinta", `<div class="titular hook"><span>¿Por qué</span><br><span>un iPhone</span><br><span><mark>Swap?</mark></span></div>`);
+const pantallas = RAZONES.map(([c, n, [a, b], baj]) => pant(c,
+  `<div class="mono num">${n} / 05</div><div class="titular frase">${a}<b>${b}</b></div><div class="mono bajada">${baj}</div>`));
+const fin = pant("tinta", `<img class="foto" id="foto" src="../fotos-proveedor/hd/iphone-17-pro_tres-colores_mano.jpg" alt=""><div class="velo"></div>
+  <div class="titular cierre">Lo mejor,<b>a tu alcance.</b></div>
+  <div class="mono cta">Decime qué celular buscás<br>y <b>te lo conseguimos →</b></div>`);
+
+// el logo va en tinta sobre fondos claros
+const claros = [];
+RAZONES.forEach(([c], i) => {
+  if (c === "tinta") return;
+  const a = HOOK + i * PASO, b = a + PASO, ult = claros[claros.length - 1];
+  if (ult && ult[1] === a) ult[1] = b; else claros.push([a, b]);   // pantallas claras seguidas: un solo tramo
+});
+
+const ANIMS = [];
+function linea(el, puntos) {
+  const fr = puntos.map(([t, p, e]) => ({ ...p, offset: Math.min(1, t / T), easing: e || "linear" }));
+  if (fr[0].offset > 0) fr.unshift({ ...puntos[0][1], offset: 0 });
+  if (fr[fr.length - 1].offset < 1) fr.push({ ...puntos[puntos.length - 1][1], offset: 1 });
+  ANIMS.push(el.animate(fr, { duration: T, fill: "both" }));
+}
+const salir = "cubic-bezier(.2,.8,.2,1)", cortar = "cubic-bezier(.7,0,.2,1)";
+const entra = (el, t, desde = "translateY(70px)") =>
+  linea(el, [[t, { opacity: 0, transform: desde }, salir], [t + 420, { opacity: 1, transform: "none" }]]);
+// cada pantalla entra barriendo desde abajo (cortina) y tapa a la anterior
+const barre = (el, t) => linea(el, [[t - 1, { clipPath: "inset(100% 0 0 0)" }], [t, { clipPath: "inset(100% 0 0 0)" }, cortar], [t + 380, { clipPath: "inset(0% 0 0 0)" }]]);
+
+[...hook.querySelectorAll(".hook span")].forEach((s, i) => entra(s, 100 + i * 220));
+pantallas.forEach((p, i) => {
+  const t = HOOK + i * PASO;
+  barre(p, t);
+  entra(p.querySelector(".num"), t + 250, "translateY(30px)");
+  entra(p.querySelector(".frase"), t + 320);
+  entra(p.querySelector(".bajada"), t + 650, "translateY(30px)");
+});
+barre(fin, TC);
+linea($("foto"), [[TC, { transform: "scale(1.12)" }], [T, { transform: "scale(1)" }]]);
+entra(fin.querySelector(".cierre"), TC + 400);
+entra(fin.querySelector(".cta"), TC + 900, "translateY(30px)");
+// color del logo
+// sobre fondos claros, el logotipo en un solo color (tinta), como pide la marca
+const on = [[0, { opacity: 1 }]], off = [[0, { opacity: 0 }]];
+claros.forEach(([a, b]) => {
+  on.push([a + 190, { opacity: 1 }], [a + 191, { opacity: 0 }], [b + 190, { opacity: 0 }], [b + 191, { opacity: 1 }]);
+  off.push([a + 190, { opacity: 0 }], [a + 191, { opacity: 1 }], [b + 190, { opacity: 1 }], [b + 191, { opacity: 0 }]);
+});
+linea($("logo"), on);
+linea($("logoOscuro"), off);
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await document.fonts.ready; await $("foto").decode(); },
+  ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
+};
+</script>
+</body>
+</html>

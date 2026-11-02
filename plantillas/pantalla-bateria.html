@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Pantalla «Estado de la batería»</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+<!--
+  Pantalla de Ajustes › Batería (modo oscuro) que se pone en el clip de la pantalla verde (armar_bateria.py).
+  1304×2319 = la pantalla del clip en el video vertical. El borde izquierdo queda fuera de cuadro: el contenido
+  arranca a 300 px. El porcentaje va BORRONEADO a propósito: no es un equipo real, así que no se muestra un número.
+  Exportar: node exportar_video.js plantillas/pantalla-bateria.html "" salida.png --cuadro 0  (o captura directa)
+-->
+<style>
+  html, body { margin: 0; width: 1304px; height: 2319px; background: #000; color: #fff; font-family: "Inter", system-ui, sans-serif; overflow: hidden; }
+  .izq { position: absolute; left: 300px; right: 70px; }
+  .barra { top: 46px; display: flex; justify-content: space-between; font-weight: 600; font-size: 44px; }
+  .pila { width: 74px; height: 34px; border: 3px solid #fff; border-radius: 10px; position: relative; opacity: .9; }
+  .pila::before { content: ""; position: absolute; inset: 4px 14px 4px 4px; background: #fff; border-radius: 4px; }
+  .pila::after { content: ""; position: absolute; right: -9px; top: 10px; width: 5px; height: 12px; background: #fff; border-radius: 0 3px 3px 0; }
+  .volver { top: 170px; color: #0A84FF; font-size: 50px; font-weight: 500; }
+  h1 { position: absolute; top: 250px; left: 300px; right: 70px; margin: 0; font-size: 82px; font-weight: 700; letter-spacing: -.01em; line-height: 1.05; }
+  .tarjeta { background: #1C1C1E; border-radius: 30px; padding: 0 44px; }
+  .item { display: flex; justify-content: space-between; align-items: center; min-height: 140px; font-size: 50px; }
+  .item + .item { border-top: 2px solid #38383A; }
+  .valor { display: flex; gap: 10px; align-items: center; filter: blur(9px); }
+  .valor i { display: block; width: 46px; height: 62px; background: #8E8E93; border-radius: 10px; }
+  .valor b { color: #8E8E93; font-weight: 500; font-size: 50px; }
+  .nota { color: #8E8E93; font-size: 38px; line-height: 1.35; padding: 22px 44px 0; }
+  .toggle { width: 112px; height: 68px; border-radius: 34px; background: #30D158; position: relative; }
+  .toggle::after { content: ""; position: absolute; right: 5px; top: 5px; width: 58px; height: 58px; border-radius: 50%; background: #fff; }
+</style>
+</head>
+<body>
+  <div class="izq barra"><span>9:41</span><span class="pila"></span></div>
+  <div class="izq volver">‹ Batería</div>
+  <h1>Estado de la batería</h1>
+  <div class="izq" style="top: 440px;">
+    <div class="tarjeta"><div class="item"><span>Capacidad máxima</span><span class="valor"><i></i><i></i><b>%</b></span></div></div>
+    <div class="nota">Medida de la capacidad de la batería en relación con cuando era nueva.</div>
+  </div>
+  <div class="izq" style="top: 880px;">
+    <div class="tarjeta"><div class="item"><span>Rendimiento máximo</span></div></div>
+    <div class="nota">La batería admite actualmente el rendimiento máximo normal.</div>
+  </div>
+  <div class="izq" style="top: 1530px;">
+    <div class="tarjeta">
+      <div class="item"><span>Ciclos de carga</span><span class="valor"><i></i><i></i><i></i></span></div>
+      <div class="item"><span>Carga optimizada</span><span class="toggle"></span></div>
+    </div>
+  </div>
+  <script>window.PLANTILLA = { duracion: 1000, async listo() { await document.fonts.ready; }, ir() {} };</script>
+</body>
+</html>

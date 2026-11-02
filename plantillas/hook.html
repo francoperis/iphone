@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Hook — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<!--
+  Reel estilo creador (1080×1920, 9 s, en loop): el hook está en pantalla desde el cuadro 0, pocas palabras por corte,
+  cortes al ritmo de la música, fotos reales (fotos-proveedor/hd) con «punch-in» en cada corte.
+  ?r=no-compres (guiones en CORTES, abajo)
+  Música: musica.py --duracion 9 --entrada 1.4 --barridos 1.4,2.8,4.2,5.6,7 --cierre 7
+-->
+<style>
+  html, body { margin: 0; overflow: hidden; background: var(--tinta); }
+  body { width: 1080px; height: 1920px; }
+  .corte { position: absolute; inset: 0; overflow: hidden; background: var(--tinta); }
+  .corte img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .corte .velo { position: absolute; inset: 0; background: rgba(10,10,11,.55); }
+  .txt { position: absolute; left: 50px; right: 50px; top: 50%; translate: 0 -50%; text-align: center; color: var(--hueso);
+         font-size: var(--t-xl); text-shadow: 0 10px 50px rgba(0,0,0,.55); }
+  .txt b { color: var(--lima); }
+  .txt.chico { font-size: var(--t-l); }
+  .sub { position: absolute; left: 0; right: 0; top: 1330px; text-align: center; color: var(--hueso); font-size: var(--m-l); }
+  .sub b { color: var(--lima); }
+  .flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+  .logo { position: absolute; left: 50%; translate: -50% 0; top: 250px; font-size: var(--logo); color: var(--hueso); z-index: 5; }
+</style>
+</head>
+<body>
+<div id="cortes"></div>
+<span class="logo-tc logo">Tech<b>&amp;</b>Co<i></i></span>
+<div class="flash" id="flash"></div>
+<script>
+// cada corte: [foto (fotos-proveedor/hd, "" = fondo tinta), texto, oscuridad del velo, clase extra, subtexto]
+const GUIONES = {
+  "no-compres": [
+    ["iphone-17-pro_naranja_camara", "No compres<br>un iPhone<br><b>nuevo.</b>", .6, "chico"],
+    ["iphone-17-pro_tres-colores_mano", "Comprá<br>un <b>Swap.</b>", .45],
+    ["iphone-17-pro_naranja_mano", "Mismo<br><b>iPhone.</b>", .45],
+    ["iphone-17-pro_tres-colores_cajas", "Original.<br><b>Revisado.</b>", .5],
+    ["iphone-17-pro_tres-colores_mano", "Y mucho<br><b>menos plata.</b>", .55, "chico"],
+    ["", "¿Cuál<br><b>buscás?</b>", 0, "", "Comentá 👇 y <b>te lo conseguimos</b>"],
+  ],
+};
+const P = new URLSearchParams(location.search);
+const G = GUIONES[P.get("r") || "no-compres"];
+const T = 9000, PASO = 1400;
+const $ = (s) => document.getElementById(s);
+const ANIMS = [];
+const anim = (el, fr, ini, dur) => {
+  const k = fr.map((f) => ({ ...f, offset: Math.min(1, Math.max(0, (ini + f.t * dur) / T)) }));
+  k.forEach((f) => delete f.t);
+  if (k[0].offset > 0) k.unshift({ ...k[0], offset: 0 });
+  if (k[k.length - 1].offset < 1) k.push({ ...k[k.length - 1], offset: 1 });
+  ANIMS.push(el.animate(k, { duration: T, fill: "both" }));
+};
+
+const fotos = [];
+G.forEach(([foto, txt, velo, clase, sub], i) => {
+  const ini = i * PASO, fin = i === G.length - 1 ? T : ini + PASO;
+  const d = document.createElement("div");
+  d.className = "corte";
+  d.innerHTML = (foto ? `<img src="../fotos-proveedor/hd/${foto}.jpg" alt=""><div class="velo" style="background: rgba(10,10,11,${velo})"></div>` : "")
+    + `<div class="titular txt ${clase || ""}">${txt}</div>` + (sub ? `<div class="mono sub">${sub}</div>` : "");
+  $("cortes").appendChild(d);
+  // visible solo en su tramo (corte seco)
+  anim(d, [{ t: 0, visibility: "hidden" }, { t: 0, visibility: "visible" }, { t: 1, visibility: "visible" }, { t: 1, visibility: "hidden" }], ini, fin - ini);
+  const img = d.querySelector("img");
+  if (img) { fotos.push(img); anim(img, [{ t: 0, transform: "scale(1.18)", easing: "cubic-bezier(.2,.8,.2,1)" }, { t: .35, transform: "scale(1.06)" }, { t: 1, transform: "scale(1.02)" }], ini, fin - ini); }
+  // el texto pega: arranca grande y asienta (el primero ya está legible en el cuadro 0)
+  const tx = d.querySelector(".txt");
+  anim(tx, [{ t: 0, transform: "scale(1.12)", easing: "cubic-bezier(.2,.8,.2,1)" }, { t: .14, transform: "scale(1)" }, { t: 1, transform: "scale(1)" }], ini, Math.min(1400, fin - ini));
+  const sb = d.querySelector(".sub");
+  if (sb) anim(sb, [{ t: 0, opacity: 0 }, { t: .25, opacity: 0 }, { t: .4, opacity: 1 }, { t: 1, opacity: 1 }], ini, fin - ini);
+  // destello corto en cada corte (menos el primero)
+  if (i) anim($("flash"), [{ t: 0, opacity: 0 }, { t: .5, opacity: .35 }, { t: 1, opacity: 0 }], ini - 40, 140);
+});
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await document.fonts.ready; await Promise.all(fotos.map((f) => f.decode())); },
+  ir(ms) { ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; }); },
+};
+</script>
+</body>
+</html>

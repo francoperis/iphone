@@ -13,7 +13,7 @@ en la mano y el link de la bio lleve al catálogo o a WhatsApp con stock para mo
 
 - [x] Foto de perfil (`00-marca/avatar-lima.png`) y bio.
 - [ ] Cuenta profesional tipo **Empresa** + botón de **WhatsApp** en Opciones de contacto.
-- [ ] Link de la bio: WhatsApp (`https://wa.me/549…`) hasta que esté el catálogo.
+- [ ] Link de la bio: el catálogo (`techco.vercel.app` o la dirección que dé Vercel); mientras tanto, WhatsApp (`https://wa.me/5493795336448`).
 - [ ] Guardar en el celu las 5 portadas de `00-marca/destacadas/` (las destacadas se crean a medida que haya historias, ver abajo).
 
 ---

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>¿Por qué un Swap? — Tech&amp;Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800..900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="identidad.css">
+<link rel="stylesheet" href="logo.css">
+<link rel="stylesheet" href="piezas.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<!--
+  Reel / anuncio "¿Por qué un Swap?" (1080×1920, 15 s).
+  1) Hook sobre un clip real (persona usando un iPhone): «¿Por qué un iPhone Swap?» o «¿Qué es un iPhone Swap?».
+  2) Cortina tinta: «Revisados, uno por uno.» + desfile de iPhone Swap en 3D (13 → 15 Pro → 16 Pro → 17 Pro)
+     y lo que se revisa (Face ID, iCloud, IMEI, batería).
+  3) Cierre: «Decime qué celular buscás y te lo conseguimos.» + WhatsApp.
+  El texto importante queda entre y = 250 y y = 1300 (zona segura de los anuncios en Reels).
+    node exportar_video.js plantillas/swap.html "hook=porque" salida.mp4 --fondo videos/clips/coverr-close-up-of-a-man-taking-a-selfie-on-iphone-15.mp4 --encuadre 0.15
+    ?hook=porque|que
+-->
+<style>
+  html, body { overflow: hidden; background: transparent; }
+  body { width: 1080px; height: 1920px; color: var(--hueso); font-family: var(--f-texto); }
+  .lienzo { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+  canvas.tres { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  .cabeza { left: var(--margen); right: var(--margen); top: 250px; display: flex; justify-content: space-between; align-items: center; font-size: var(--m-m); z-index: 3; }
+  .cabeza .logo-tc { font-size: var(--logo); }
+  /* 1: hook sobre el video */
+  .sombra { position: absolute; left: 0; right: 0; top: 0; height: 1100px; background: linear-gradient(rgba(10,10,11,.78), rgba(10,10,11,0)); }
+  .hook { left: 60px; top: 380px; font-size: var(--t-l); text-shadow: 0 8px 40px rgba(0,0,0,.45); }
+  .hook .r { display: block; }
+  .hook mark { background: var(--lima); color: var(--tinta); padding: 0 .06em; text-shadow: none; }
+  .def { left: var(--margen); top: 960px; font-size: var(--m-l); text-shadow: 0 2px 16px rgba(0,0,0,.7); }
+  .def b { color: var(--lima); }
+  /* 2: revisados */
+  .cortina { position: absolute; inset: 0; background: var(--tinta); }
+  .titulo2 { left: 60px; top: 380px; font-size: var(--t-m); }
+  .titulo2 b { color: var(--lima); }
+  .bajada2 { left: var(--margen); top: 640px; font-size: var(--m-m); opacity: .8; }
+  .disco { position: absolute; border-radius: 50%; background: var(--voltio); translate: -50% -50%; }
+  .checks { position: absolute; left: 600px; right: var(--margen); top: 790px; display: flex; flex-direction: column; }
+  .checks div { display: flex; align-items: baseline; gap: 18px; padding: 18px 0; border-bottom: 2px solid rgba(238,235,228,.18);
+                font-family: var(--f-texto); font-weight: 700; font-size: 25px; letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; }
+  .checks div:last-child { border-bottom: 0; }
+  .checks b { color: var(--lima); }
+  .nombre { position: absolute; translate: -50% 0; font-size: var(--m-m); white-space: nowrap; }
+  .nombre b { color: var(--lima); }
+  /* 3: cierre */
+  .cierre1 { left: 60px; top: 420px; font-size: var(--t-m); }
+  .cierre2 { left: 60px; top: 800px; font-size: var(--t-m); color: var(--lima); }
+  .cta { left: var(--margen); top: 1120px; font-size: var(--m-l); }
+  .cta b { color: var(--lima); }
+  .otro { position: absolute; translate: -50% -50%; max-width: 330px; object-fit: contain; filter: drop-shadow(0 30px 40px rgba(0,0,0,.6)); }
+</style>
+</head>
+<body>
+<div class="lienzo" id="lienzo">
+  <div class="sombra" id="sombra"></div>
+  <div class="abs titular hook" id="hook"></div>
+  <div class="abs mono def" id="def">Reacondicionado, <b>traído de EE.&nbsp;UU.</b></div>
+
+  <div class="cortina" id="cortina"></div>
+  <div class="abs titular titulo2" id="titulo2">Revisados,<br><b>uno por uno.</b></div>
+  <div class="abs mono bajada2" id="bajada2">iPhone Swap · traídos de EE.&nbsp;UU.</div>
+  <div class="disco" id="disco"></div>
+  <div id="teles"></div>
+  <div class="abs mono nombre" id="nombre"></div>
+  <div class="checks" id="checks">
+    <div><b>✓</b>Face ID</div>
+    <div><b>✓</b>iCloud desvinculado</div>
+    <div><b>✓</b>IMEI limpio</div>
+    <div><b>✓</b>Batería a la vista</div>
+  </div>
+
+  <div class="abs titular cierre1" id="cierre1">Decime qué<br>celular buscás</div>
+  <div class="abs titular cierre2" id="cierre2">y te lo<br>conseguimos.</div>
+  <div class="abs mono cta" id="cta">Escribinos por <b>WhatsApp →</b></div>
+  <!-- cierre: cualquier celular (Samsung, Xiaomi), no solo iPhone -->
+  <img class="otro" id="otro1" src="../catalogo/img/galaxy-a56.webp" alt="" style="left: 250px; top: 1560px; height: 440px; rotate: -10deg;">
+  <img class="otro" id="otro2" src="../catalogo/img/redmi-note-15-pro.webp" alt="" style="left: 560px; top: 1530px; height: 470px;">
+  <img class="otro" id="otro3" src="../catalogo/img/galaxy-s25-ultra.webp" alt="" style="left: 860px; top: 1560px; height: 440px; rotate: 10deg;">
+
+  <div class="abs cabeza mono" id="cabeza"><span></span><span class="logo-tc">Tech<b>&amp;</b>Co<i></i></span></div>
+</div>
+
+<script src="datos.js"></script>
+<script type="module">
+import { crearTelefono } from "./telefono3d.js";
+
+const P = new URLSearchParams(location.search);
+const $ = (s) => document.getElementById(s);
+const H = 1920, K = 10;
+const hookQue = P.get("hook") === "que";
+$("hook").innerHTML = (hookQue ? ["¿Qué es", "un iPhone"] : ["¿Por qué", "un iPhone"]).map((r) => `<span class="r">${r}</span>`).join("")
+  + `<span class="r"><mark>Swap?</mark></span>`;
+if (!hookQue) $("def").remove();
+
+// el desfile: equipos Swap con modelo 3D, del más viejo al más nuevo
+const IDS = ["iphone-13", "iphone-15-pro", "iphone-16-pro", "iphone-17-pro"];
+
+// ---------------------------------------------------------------- tiempos (ms)
+const T = 15000;
+const TV = 3200;                          // termina el video: sube la cortina
+const PASO = 1750;                        // cuánto está cada equipo en pantalla
+const T0 = TV + 500;                      // entra el primero
+const TC = T0 + PASO * IDS.length + 300;  // cierre
+const TEL = { x: 330, y: 1000, h: 640 };
+
+const ANIMS = [];
+function linea(el, puntos) {
+  const fr = puntos.map(([t, props, easing]) => ({ ...props, offset: t / T, easing: easing || "linear" }));
+  if (fr[0].offset > 0) fr.unshift({ ...puntos[0][1], offset: 0 });
+  if (fr[fr.length - 1].offset < 1) fr.push({ ...puntos[puntos.length - 1][1], offset: 1 });
+  ANIMS.push(el.animate(fr, { duration: T, fill: "both" }));
+}
+const salir = "cubic-bezier(.2,.8,.2,1)", rebote = "cubic-bezier(.34,1.56,.64,1)", cortar = "cubic-bezier(.7,0,.2,1)";
+const entra = (el, t, desde = "translateY(50px)") =>
+  linea(el, [[t, { opacity: 0, transform: desde }, salir], [t + 450, { opacity: 1, transform: "none" }]]);
+const entraSale = (el, t, t2, desde = "translateY(50px)") =>
+  linea(el, [[t, { opacity: 0, transform: desde }, salir], [t + 450, { opacity: 1, transform: "none" }],
+             [t2, { opacity: 1, transform: "none" }, cortar], [t2 + 350, { opacity: 0, transform: "translateY(-40px)" }]]);
+
+entra($("cabeza"), 0, "translateY(-30px)");
+// 1: hook, renglón por renglón
+[...$("hook").children].forEach((r, i) => linea(r, [[150 + i * 260, { opacity: 0, transform: "translateY(70px)" }, salir],
+  [650 + i * 260, { opacity: 1, transform: "none" }], [TV - 300, { opacity: 1, transform: "none" }, cortar], [TV + 100, { opacity: 0, transform: "translateY(-60px)" }]]));
+if (hookQue) entraSale($("def"), 1300, TV - 300, "translateY(30px)");
+linea($("cortina"), [[TV - 500, { clipPath: "inset(100% 0 0 0)" }, cortar], [TV + 100, { clipPath: "inset(0% 0 0 0)" }]]);
+// 2: revisados
+entraSale($("titulo2"), TV + 150, TC);
+entraSale($("bajada2"), TV + 400, TC, "translateY(30px)");
+const dd = TEL.h * 0.78;
+Object.assign($("disco").style, { left: TEL.x + "px", top: TEL.y + "px", width: dd + "px", height: dd + "px" });
+linea($("disco"), [[TV + 300, { transform: "scale(0)" }, rebote], [TV + 900, { transform: "scale(1)" }],
+                   [TC, { transform: "scale(1)" }, cortar], [TC + 400, { transform: "scale(0)" }]]);
+[...$("checks").children].forEach((c, i) => entraSale(c, T0 + 500 + i * 600, TC, "translateX(40px)"));
+Object.assign($("nombre").style, { left: TEL.x + "px", top: TEL.y + TEL.h / 2 + 50 + "px" });
+// 3: cierre
+entra($("cierre1"), TC + 350);
+entra($("cierre2"), TC + 750);
+entra($("cta"), TC + 1300, "translateY(30px)");
+["otro1", "otro2", "otro3"].forEach((id, i) => entra($(id), TC + 900 + i * 180, "translateY(160px)"));
+
+// ---------------------------------------------------------------- equipos en 3D
+const tramo = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+const sal = (v) => 1 - Math.pow(1 - v, 3);
+const entrar = (v) => Math.pow(v, 3);
+const mezcla = (a, b, f) => a + (b - a) * f;
+const teles = [];
+function dibujar(t) {
+  const i = Math.min(IDS.length - 1, Math.max(0, Math.floor((t - T0) / PASO)));
+  $("nombre").innerHTML = t < T0 || t > TC ? "" : `${MODELOS[IDS[i]].nombre} · <b>Swap</b>`;
+  teles.forEach((tel, k) => {
+    if (!tel) return;
+    const a = T0 + k * PASO, b = a + PASO;           // en pantalla de a hasta b (el último, hasta el cierre)
+    const fin = k === IDS.length - 1 ? TC : b - 250;
+    const e = sal(tramo(t, a - 150, a + 650)), s = entrar(tramo(t, fin, fin + 500));
+    const visible = t > a - 150 && t < fin + 500;
+    tel.canvas.style.visibility = visible ? "visible" : "hidden";
+    if (!visible) return;
+    const flota = Math.sin(t / 650 + k);
+    const x = mezcla(mezcla(1500, TEL.x, e), -500, s);
+    const y = TEL.y + 6 * flota;
+    const m = MODELOS[IDS[k]];
+    tel.pose({ correr: (x - 540) / K, subir: (H / 2 - y) / K, escala: TEL.h / (m.tresd.medidas[1] * K),
+               giroY: mezcla(400, 18, e) - 380 * s + 4 * flota, giroX: 8 + 2 * flota, giroZ: mezcla(14, -6, e) });
+    tel.render();
+  });
+}
+
+const inicio = performance.now();
+let enVivo = true;
+(function bucle() {
+  if (!enVivo) return;
+  dibujar((performance.now() - inicio) % T);
+  requestAnimationFrame(bucle);
+})();
+
+const distancia = H / (K * 2 * Math.tan(10 * Math.PI / 180));
+const listos = Promise.all(IDS.map((id, k) => {
+  const c = document.createElement("canvas");
+  c.className = "tres";
+  $("teles").appendChild(c);
+  return crearTelefono(c, MODELOS[id], MODELOS[id].color, { fotos: "assets/telefonos", id, distancia, relleno: "#8B6CFF" })
+    .then((tel) => { tel.canvas = c; teles[k] = tel; });
+})).catch((e) => console.error("No se pudo armar el 3D:", e));
+
+window.PLANTILLA = {
+  duracion: T,
+  async listo() { await document.fonts.ready; await listos; await Promise.all([...document.querySelectorAll(".otro")].map((i) => i.decode())); },
+  ir(ms) {
+    enVivo = false;
+    ANIMS.forEach((a) => { a.pause(); a.currentTime = ms; });
+    dibujar(ms);
+  },
+};
+</script>
+</body>
+</html>
