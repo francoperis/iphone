@@ -148,6 +148,8 @@ condensada (62 %) en MAYÚSCULAS, interlineado 0,92; textos en JetBrains Mono 70
 - (2026-10-31) Carrusel comparativo para el feed: `plantillas/carrusel.html?c=13-vs-13pro&n=1..7&formato=post` (fotos oficiales de
   `catalogo/img`, specs de las fichas de Apple Support 111872 y 111871) → `publicar/06-tips/carrusel_13-vs-13pro/1..7.png`;
   historias que lo acompañan: `?h=encuesta-13|asesoramos-13&formato=historia` → `historia_*.png` (encuesta + «Saber más»).
+- (2026-11-02) Post de equipo único: `carrusel.html?c=s25-ultra&n=1&formato=post` → `publicar/equipos/samsung/galaxy-s25-ultra_post.png`
+  (datos de samsung.com/ar: cámara de 200 MP, marco de titanio, Galaxy AI; 256 GB · 12 GB RAM del catálogo).
 - Plan de contenido: `contenido/plan-2-semanas.md`.
 - Apertura: `plantillas/apertura.html?pieza=post1..6|story1..6` + `plantillas/canje.html?de=&a=&formato=historia|post`
   (canje 3D, 9 s). Guía en `contenido/apertura.md`. Componentes compartidos: `plantillas/piezas.css` y `piezas.js`

@@ -124,6 +124,18 @@ const HISTORIAS = {
         Contanos para qué lo usás<br>y te decimos cuál va con vos.</div>
       ${saber("Respondé esta historia")}` },
 };
+// post único de un equipo (?c=s25-ultra&formato=post). Datos: samsung.com/ar/smartphones/galaxy-s25-ultra (revisado 2026-11-02)
+// y la configuración del catálogo (256 GB · 12 GB de RAM).
+CARRUSELES["s25-ultra"] = [
+  { fondo: "tinta", solo: "Samsung · Nuevo, caja sellada", fuente: "Precio: consultar", pie: "Catálogo online · Link en la bio →",
+    html: `<div class="titular" style="position:absolute; left: var(--margen); top: 170px; font-size: var(--t-s)">Galaxy S25</div>
+      <div class="titular titulo" style="top: 250px; font-size: var(--t-xl)">Ultra<b>.</b></div>
+      <div style="position:absolute; left: 760px; top: 860px; width: 540px; height: 540px; translate: -50% -50%; border-radius: 50%; background: var(--voltio)"></div>
+      ${tel("galaxy-s25-ultra", 760, 850, 740)}
+      <div class="lista mono" style="top: 660px; right: auto; width: 470px; gap: 34px">
+        <span>Cámara de 200 MP</span><span>Marco de titanio</span><span>Galaxy AI</span><span>256 GB · 12 GB RAM</span>
+      </div>` },
+];
 const P = new URLSearchParams(location.search);
 const H = P.get("h");
 const L = H ? [HISTORIAS[H]] : CARRUSELES[P.get("c") || "13-vs-13pro"];
@@ -132,7 +144,7 @@ const lam = document.getElementById("lam");
 lam.className = "lam " + l.fondo;
 if (H) document.body.classList.add("historia");
 const plano = l.fondo === "lima" || l.fondo === "hueso" ? " plano" : "";
-lam.innerHTML = `<div class="cabeza mono"><span class="num">${H ? "iPhone 13 · 13 Pro" : `${String(n).padStart(2, "0")} / ${String(L.length).padStart(2, "0")}`}</span>
+lam.innerHTML = `<div class="cabeza mono"><span class="num">${l.solo ? l.solo : H ? "iPhone 13 · 13 Pro" : `${String(n).padStart(2, "0")} / ${String(L.length).padStart(2, "0")}`}</span>
   <span class="logo-tc${plano}">Tech<b>&amp;</b>Co<i></i></span></div>${l.html}
   <div class="pie mono"><span class="fuente">${l.fuente || ""}</span><span>${l.pie || (n < L.length ? "Deslizá →" : "")}</span></div>`;
 if (H) lam.querySelector(".pie").remove();
