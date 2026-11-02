@@ -48,6 +48,8 @@
   .lista span::before { content: "— "; color: var(--acento); }
   .lista.sin-raya span::before { content: none; }
   .lista small { display: block; font-size: var(--m-s); color: var(--suave); padding-left: 2.2em; }
+  body.historia, body.historia .lam { height: 1920px; }
+  .historia .cabeza { top: var(--historia-arriba); }
   .cam { position: absolute; width: 440px; height: 440px; overflow: hidden; border-radius: 0; }
   .cam img { position: absolute; }
 </style>
@@ -106,15 +108,34 @@ const CARRUSELES = {
           Los dos, Swap y revisados uno por uno.<br>Escribinos y te lo conseguimos.</div>`, pie: "Catálogo online · Link en la bio →" },
   ],
 };
+// historias que acompañan al carrusel (1080×1920, zona segura 250–1700): ?h=<nombre>&formato=historia
+const saber = (k) => `<div class="saber" style="bottom: 190px">
+  <span class="baja"><svg viewBox="0 0 76 170" width="76" height="170"><path d="M38 0v150M8 120l30 34 30-34" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="square"/></svg></span>
+  <div class="txt"><span class="v" style="color: var(--lima)">Saber más</span><span class="k">${k}</span></div></div>`;
+const HISTORIAS = {
+  // deja libre 1380–1650 para el sticker de encuesta de Instagram
+  "encuesta-13": { fondo: "tinta", html: `<div class="titular titulo" style="top: 360px">¿13 o<br><b>13 Pro?</b></div>
+      ${tel(A.foto, 300, 990, 560)}${tel(B.foto, 790, 990, 560)}
+      ${rot(A.nombre, 300, 1290)}${rot(B.nombre, 790, 1290)}
+      <div class="mono" style="position:absolute; left:0; right:0; top: 1380px; text-align:center; font-size: var(--m-l); color: var(--acero)">Votá ↓</div>` },
+  "asesoramos-13": { fondo: "voltio", html: `<div class="titular titulo m" style="top: 360px">¿No sabés<br>cuál te<br><b style="color: var(--hueso)">conviene?</b></div>
+      ${tel(A.foto, 330, 1100, 520)}${tel(B.foto, 780, 1100, 520)}
+      <div class="mono" style="position:absolute; left: var(--margen); right: var(--margen); top: 1400px; font-size: var(--m-l); line-height: 1.45">
+        Contanos para qué lo usás<br>y te decimos cuál va con vos.</div>
+      ${saber("Respondé esta historia")}` },
+};
 const P = new URLSearchParams(location.search);
-const L = CARRUSELES[P.get("c") || "13-vs-13pro"];
+const H = P.get("h");
+const L = H ? [HISTORIAS[H]] : CARRUSELES[P.get("c") || "13-vs-13pro"];
 const n = Number(P.get("n") || 1), l = L[n - 1];
 const lam = document.getElementById("lam");
 lam.className = "lam " + l.fondo;
+if (H) document.body.classList.add("historia");
 const plano = l.fondo === "lima" || l.fondo === "hueso" ? " plano" : "";
-lam.innerHTML = `<div class="cabeza mono"><span class="num">${String(n).padStart(2, "0")} / ${String(L.length).padStart(2, "0")}</span>
+lam.innerHTML = `<div class="cabeza mono"><span class="num">${H ? "iPhone 13 · 13 Pro" : `${String(n).padStart(2, "0")} / ${String(L.length).padStart(2, "0")}`}</span>
   <span class="logo-tc${plano}">Tech<b>&amp;</b>Co<i></i></span></div>${l.html}
   <div class="pie mono"><span class="fuente">${l.fuente || ""}</span><span>${l.pie || (n < L.length ? "Deslizá →" : "")}</span></div>`;
+if (H) lam.querySelector(".pie").remove();
 window.PLANTILLA = {
   duracion: 1000,
   async listo() { await document.fonts.ready; await Promise.all([...document.images].map((i) => i.decode())); },
