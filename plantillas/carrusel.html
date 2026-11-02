@@ -136,6 +136,15 @@ CARRUSELES["s25-ultra"] = [
         <span>Cámara de 200 MP</span><span>Marco de titanio</span><span>Galaxy AI</span><span>256 GB · 12 GB RAM</span>
       </div>` },
 ];
+// foto real que trae el usuario (salida/fotos/, no va al repo) + texto de marca abajo. La foto ya tiene el logo: sinLogo.
+CARRUSELES["s25-foto"] = [
+  { fondo: "tinta", sinLogo: true, solo: " ", fuente: "Precio: consultar", pie: "Link en la bio →",
+    html: `<img src="../salida/fotos/s25-ultra_limpia.jpg" style="position:absolute; inset:0; width:100%; height:100%" alt="">
+      <div style="position:absolute; left:0; right:0; bottom:0; height: 520px; background: linear-gradient(rgba(10,10,11,0), rgba(10,10,11,.88) 70%)"></div>
+      <div class="mono" style="position:absolute; left: var(--margen); top: 1030px; font-size: var(--m-m); color: var(--lima)">Nuevo · Caja sellada</div>
+      <div class="titular" style="position:absolute; left: var(--margen); top: 1075px; font-size: var(--t-m)">Galaxy S25 Ultra<b style="color: var(--lima)">.</b></div>
+      <div class="mono" style="position:absolute; left: var(--margen); top: 1205px; font-size: var(--m-l)">200 MP · Titanio · Galaxy AI</div>` },
+];
 const P = new URLSearchParams(location.search);
 const H = P.get("h");
 const L = H ? [HISTORIAS[H]] : CARRUSELES[P.get("c") || "13-vs-13pro"];
@@ -145,7 +154,7 @@ lam.className = "lam " + l.fondo;
 if (H) document.body.classList.add("historia");
 const plano = l.fondo === "lima" || l.fondo === "hueso" ? " plano" : "";
 lam.innerHTML = `<div class="cabeza mono"><span class="num">${l.solo ? l.solo : H ? "iPhone 13 · 13 Pro" : `${String(n).padStart(2, "0")} / ${String(L.length).padStart(2, "0")}`}</span>
-  <span class="logo-tc${plano}">Tech<b>&amp;</b>Co<i></i></span></div>${l.html}
+  ${l.sinLogo ? "" : `<span class="logo-tc${plano}">Tech<b>&amp;</b>Co<i></i></span>`}</div>${l.html}
   <div class="pie mono"><span class="fuente">${l.fuente || ""}</span><span>${l.pie || (n < L.length ? "Deslizá →" : "")}</span></div>`;
 if (H) lam.querySelector(".pie").remove();
 window.PLANTILLA = {
